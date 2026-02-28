@@ -1,0 +1,200 @@
+{
+  "main": {
+    "id": "b9acc4e6f6e45442",
+    "type": "split",
+    "children": [
+      {
+        "id": "ee8966cfc3ba57f0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "30b10d39fa9f6db9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Dokładność/Dokładność - zadania.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Dokładność - zadania"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ed62f34eaa8cdbf5",
+    "type": "split",
+    "children": [
+      {
+        "id": "fcbedbd3fbe58622",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2692ffa7e524579c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Przeglądarka plików"
+            }
+          },
+          {
+            "id": "1d4d9b8b83d4e0bc",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Wyszukiwarka"
+            }
+          },
+          {
+            "id": "06710c9b52736d8b",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Ulubione"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "672a3d974b0d1385",
+    "type": "split",
+    "children": [
+      {
+        "id": "bc477bfba07b76b8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "7a3e2bac03a0fe3b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Dokładność/Dokładność - zadania.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Linki zwrotne do Dokładność - zadania"
+            }
+          },
+          {
+            "id": "df4754184a78e8d5",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Dokładność/Dokładność - zadania.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Łącza wychodzące od Dokładność - zadania"
+            }
+          },
+          {
+            "id": "27299734ee5aa794",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tagi"
+            }
+          },
+          {
+            "id": "17f4b935f0f90757",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Wszystkie atrybuty"
+            }
+          },
+          {
+            "id": "caef2f7b933aba83",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Dokładność/Dokładność - zadania.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Konspekt Dokładność - zadania"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Otwórz okno szybkiego wyboru": false,
+      "graph:Otwórz podgląd grafu": false,
+      "canvas:Stwórz nową tablicę": false,
+      "daily-notes:Otwórz dzisiejszy dziennik": false,
+      "templates:Wstaw szablon": false,
+      "command-palette:Otwórz listę poleceń": false,
+      "bases:Stwórz nową bazę danych": false
+    }
+  },
+  "active": "30b10d39fa9f6db9",
+  "lastOpenFiles": [
+    "Dokładność/Dokładność - zadania.pdf",
+    "Dokładność/Dokładność - zadania.md",
+    "Dokładność/mn_inf_01.pdf",
+    "Dokładność/zad9.py~",
+    "Dokładność/mn_w1.pdf",
+    "Dokładność/zad7.py~",
+    "Dokładność/zad6.py~",
+    "Dokładność/zad10.py",
+    "Dokładność/zad9.py",
+    "Dokładność/zad8.py",
+    "Dokładność/zad7.py"
+  ]
+}
