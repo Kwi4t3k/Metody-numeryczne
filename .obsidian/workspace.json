@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "ee8966cfc3ba57f0",
+        "id": "64b37c09c69ea914",
         "type": "tabs",
         "children": [
           {
-            "id": "30b10d39fa9f6db9",
+            "id": "b00cd655a223c828",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Dokładność/Dokładność - zadania.md",
+                "file": "Laboratorium 2/Zadania lab2.md",
                 "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Dokładność - zadania"
+              "title": "Zadania lab2"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 209.5069465637207
   },
   "right": {
     "id": "672a3d974b0d1385",
@@ -183,8 +183,10 @@
       "bases:Stwórz nową bazę danych": false
     }
   },
-  "active": "30b10d39fa9f6db9",
+  "active": "b00cd655a223c828",
   "lastOpenFiles": [
+    "Laboratorium 2/Zadania lab2.pdf",
+    "Laboratorium 2/Zadania lab2.md",
     "Dokładność/Dokładność - zadania.pdf",
     "Dokładność/Dokładność - zadania.md",
     "Dokładność/mn_inf_01.pdf",
