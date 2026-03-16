@@ -1103,5 +1103,570 @@ Tak.
 **Zadanie 5*.** Zaprojektuj i utwórz klasę dla macierzy umożliwiającą tworzenie, wypisywanie i wykonywanie działań: mnożenie przez stałą, dodawanie, mnożenie.
 
 ```python
+# definicja klasy Macierz
+class Macierz:
+    # funkcja uruchamiana przy tworzeniu nowego obiektu klasy
+    def __init__(self, dane):
+        # zapisanie danych macierzy wewnątrz obiektu
+        self.dane = dane
 
+    # funkcja do wypisywania macierzy
+    def wypisz(self):
+        # przejście po wszystkich wierszach macierzy
+        for wiersz in self.dane:
+            # wypisanie jednego wiersza
+            print(wiersz)
+
+    # funkcja mnożąca macierz przez liczbę
+    def mnozenie_przez_stala(self, stala):
+        # pusta lista na wynik
+        wynik = []
+
+        # przejście po wszystkich wierszach macierzy
+        for wiersz in self.dane:
+            # nowy wiersz wynikowy
+            nowy_wiersz = []
+
+            # przejście po wszystkich elementach w danym wierszu
+            for element in wiersz:
+                # dodanie do nowego wiersza elementu pomnożonego przez stałą
+                nowy_wiersz.append(element * stala)
+
+            # dodanie gotowego wiersza do macierzy wynikowej
+            wynik.append(nowy_wiersz)
+
+        # zwrócenie nowej macierzy jako obiektu klasy Macierz
+        return Macierz(wynik)
+
+    # funkcja dodająca dwie macierze
+    def dodawanie(self, inna):
+        # pusta lista na wynik
+        wynik = []
+
+        # przejście po numerach wierszy
+        for i in range(len(self.dane)):
+            # nowy wiersz wynikowy
+            wiersz = []
+
+            # przejście po numerach kolumn
+            for j in range(len(self.dane[0])):
+                # dodanie do siebie elementów z obu macierzy o tych samych indeksach
+                wiersz.append(self.dane[i][j] + inna.dane[i][j])
+
+            # dodanie gotowego wiersza do macierzy wynikowej
+            wynik.append(wiersz)
+
+        # zwrócenie nowej macierzy jako obiektu klasy Macierz
+        return Macierz(wynik)
+
+    # funkcja mnożąca dwie macierze
+    def mnozenie(self, inna):
+        # pusta lista na wynik
+        wynik = []
+
+        # przejście po wierszach pierwszej macierzy
+        for i in range(len(self.dane)):
+            # nowy wiersz wynikowy
+            wiersz = []
+
+            # przejście po kolumnach drugiej macierzy
+            for j in range(len(inna.dane[0])):
+                # zmienna przechowująca sumę iloczynów
+                suma = 0
+
+                # przejście po elementach wiersza i kolumny
+                for k in range(len(self.dane[0])):
+                    # dodawanie kolejnych iloczynów do sumy
+                    suma += self.dane[i][k] * inna.dane[k][j]
+
+                # dodanie obliczonego elementu do wiersza wynikowego
+                wiersz.append(suma)
+
+            # dodanie gotowego wiersza do macierzy wynikowej
+            wynik.append(wiersz)
+
+        # zwrócenie nowej macierzy jako obiektu klasy Macierz
+        return Macierz(wynik)
+
+
+# utworzenie pierwszej macierzy A
+A = Macierz([[1, 2], [3, 4]])
+
+# utworzenie drugiej macierzy B
+B = Macierz([[5, 6], [7, 8]])
+
+# wypisanie napisu informacyjnego
+print("Macierz A:")
+
+# wypisanie macierzy A
+A.wypisz()
+
+# wypisanie napisu informacyjnego
+print("Macierz B:")
+
+# wypisanie macierzy B
+B.wypisz()
+
+# wypisanie napisu informacyjnego
+print("A + B:")
+
+# dodanie macierzy A i B, a potem wypisanie wyniku
+A.dodawanie(B).wypisz()
+
+# wypisanie napisu informacyjnego
+print("A * 2:")
+
+# pomnożenie macierzy A przez 2, a potem wypisanie wyniku
+A.mnozenie_przez_stala(2).wypisz()
+
+# wypisanie napisu informacyjnego
+print("A * B:")
+
+# pomnożenie macierzy A i B, a potem wypisanie wyniku
+A.mnozenie(B).wypisz()
 ```
+
+## 1. Czym jest macierz?
+
+Macierz to prostokątna tablica liczb ułożonych w wierszach i kolumnach.
+
+Przykład:
+
+$$
+A =
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+$$
+
+Ta macierz ma:
+- 2 wiersze,
+- 2 kolumny.
+
+Elementy macierzy oznaczamy zwykle jako:
+
+$$
+a_{ij}
+$$
+
+gdzie:
+- \(i\) oznacza numer wiersza,
+- \(j\) oznacza numer kolumny.
+
+Na przykład w macierzy:
+
+$$
+A =
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+$$
+
+mamy:
+- \(a_{11} = 1\)
+- \(a_{12} = 2\)
+- \(a_{21} = 3\)
+- \(a_{22} = 4\)
+
+---
+
+## 2. Mnożenie macierzy przez stałą
+
+Jeśli mamy macierz:
+
+$$
+A =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix}
+$$
+
+i liczbę \(c\), to mnożenie macierzy przez stałą polega na pomnożeniu **każdego elementu macierzy** przez tę liczbę.
+
+Wzór:
+
+$$
+cA =
+\begin{bmatrix}
+c a_{11} & c a_{12} \\
+c a_{21} & c a_{22}
+\end{bmatrix}
+$$
+
+### Przykład
+
+Dla:
+
+$$
+A =
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+$$
+
+mnożenie przez \(2\) daje:
+
+$$
+2A =
+\begin{bmatrix}
+2 \cdot 1 & 2 \cdot 2 \\
+2 \cdot 3 & 2 \cdot 4
+\end{bmatrix}
+=
+\begin{bmatrix}
+2 & 4 \\
+6 & 8
+\end{bmatrix}
+$$
+
+### Jak to rozumieć?
+
+Każdy element macierzy zmienia się proporcjonalnie do tej stałej.
+
+---
+
+## 3. Dodawanie macierzy
+
+Dwie macierze można dodać tylko wtedy, gdy mają **te same wymiary**, czyli tyle samo wierszy i tyle samo kolumn.
+
+Jeśli:
+
+$$
+A =
+\begin{bmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{bmatrix}
+\quad \text{oraz} \quad
+B =
+\begin{bmatrix}
+b_{11} & b_{12} \\
+b_{21} & b_{22}
+\end{bmatrix}
+$$
+
+to:
+
+$$
+A + B =
+\begin{bmatrix}
+a_{11}+b_{11} & a_{12}+b_{12} \\
+a_{21}+b_{21} & a_{22}+b_{22}
+\end{bmatrix}
+$$
+
+Czyli dodajemy do siebie elementy leżące w tych samych miejscach.
+
+### Przykład
+
+Niech:
+
+$$
+A =
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+\quad \text{oraz} \quad
+B =
+\begin{bmatrix}
+5 & 6 \\
+7 & 8
+\end{bmatrix}
+$$
+
+Wtedy:
+
+$$
+A + B =
+\begin{bmatrix}
+1+5 & 2+6 \\
+3+7 & 4+8
+\end{bmatrix}
+=
+\begin{bmatrix}
+6 & 8 \\
+10 & 12
+\end{bmatrix}
+$$
+
+### Kiedy nie można dodawać?
+
+Nie można dodać macierzy o różnych wymiarach, na przykład:
+- \(2 \times 2\) i \(2 \times 3\),
+- \(3 \times 2\) i \(2 \times 2\).
+
+---
+
+## 4. Mnożenie macierzy
+
+Mnożenie macierzy jest trudniejsze niż dodawanie.
+
+Jeśli:
+
+$$
+A \in \mathbb{R}^{m \times n}
+\quad \text{oraz} \quad
+B \in \mathbb{R}^{n \times k}
+$$
+
+to iloczyn:
+
+$$
+AB
+$$
+
+istnieje i ma wymiary:
+
+$$
+m \times k
+$$
+
+### Warunek mnożenia
+
+Macierze można pomnożyć tylko wtedy, gdy:
+
+- liczba kolumn pierwszej macierzy
+- jest równa liczbie wierszy drugiej macierzy.
+
+---
+
+## 5. Jak liczy się elementy iloczynu?
+
+Jeśli:
+
+$$
+C = AB
+$$
+
+to każdy element macierzy wynikowej obliczamy ze wzoru:
+
+$$
+c_{ij} = \sum_{l=1}^{n} a_{il} b_{lj}
+$$
+
+To znaczy:
+
+- bierzemy \(i\)-ty wiersz macierzy \(A\),
+- bierzemy \(j\)-tą kolumnę macierzy \(B\),
+- mnożymy odpowiadające sobie elementy,
+- dodajemy wyniki.
+
+---
+
+## 6. Przykład mnożenia macierzy
+
+Niech:
+
+$$
+A =
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+\quad \text{oraz} \quad
+B =
+\begin{bmatrix}
+5 & 6 \\
+7 & 8
+\end{bmatrix}
+$$
+
+Szukamy:
+
+$$
+AB
+$$
+
+### Element \(c_{11}\)
+
+Pierwszy wiersz macierzy \(A\):
+
+$$
+(1,2)
+$$
+
+Pierwsza kolumna macierzy \(B\):
+
+$$
+\begin{bmatrix}
+5 \\
+7
+\end{bmatrix}
+$$
+
+Liczymy:
+
+$$
+c_{11} = 1 \cdot 5 + 2 \cdot 7 = 5 + 14 = 19
+$$
+
+### Element \(c_{12}\)
+
+Pierwszy wiersz macierzy \(A\):
+
+$$
+(1,2)
+$$
+
+Druga kolumna macierzy \(B\):
+
+$$
+\begin{bmatrix}
+6 \\
+8
+\end{bmatrix}
+$$
+
+Liczymy:
+
+$$
+c_{12} = 1 \cdot 6 + 2 \cdot 8 = 6 + 16 = 22
+$$
+
+### Element \(c_{21}\)
+
+Drugi wiersz macierzy \(A\):
+
+$$
+(3,4)
+$$
+
+Pierwsza kolumna macierzy \(B\):
+
+$$
+\begin{bmatrix}
+5 \\
+7
+\end{bmatrix}
+$$
+
+Liczymy:
+
+$$
+c_{21} = 3 \cdot 5 + 4 \cdot 7 = 15 + 28 = 43
+$$
+
+### Element \(c_{22}\)
+
+Drugi wiersz macierzy \(A\):
+
+$$
+(3,4)
+$$
+
+Druga kolumna macierzy \(B\):
+
+$$
+\begin{bmatrix}
+6 \\
+8
+\end{bmatrix}
+$$
+
+Liczymy:
+
+$$
+c_{22} = 3 \cdot 6 + 4 \cdot 8 = 18 + 32 = 50
+$$
+
+Zatem:
+
+$$
+AB =
+\begin{bmatrix}
+19 & 22 \\
+43 & 50
+\end{bmatrix}
+$$
+
+---
+
+## 7. Ważne własności działań na macierzach
+
+### Dodawanie macierzy
+Dodawanie macierzy jest:
+- **przemienne**:
+
+$$
+A + B = B + A
+$$
+
+- **łączne**:
+
+$$
+(A + B) + C = A + (B + C)
+$$
+
+---
+
+### Mnożenie przez stałą
+Jeśli \(c\) jest liczbą, to:
+
+$$
+c(A+B)=cA+cB
+$$
+
+oraz:
+
+$$
+(c+d)A = cA + dA
+$$
+
+---
+
+### Mnożenie macierzy
+Mnożenie macierzy:
+- **nie jest przemienne**:
+
+$$
+AB \ne BA
+$$
+
+- jest **łączne**:
+
+$$
+(AB)C = A(BC)
+$$
+
+- jest **rozdzielne względem dodawania**:
+
+$$
+A(B+C)=AB+AC
+$$
+
+oraz
+
+$$
+(A+B)C=AC+BC
+$$
+
+---
+
+## 8. Podsumowanie
+
+W tym zadaniu klasa macierzy ma odwzorowywać podstawowe działania matematyczne:
+
+### Mnożenie przez stałą
+Każdy element macierzy mnożymy przez daną liczbę.
+
+### Dodawanie
+Dodajemy do siebie elementy stojące na tych samych pozycjach.
+Można to zrobić tylko dla macierzy o tych samych wymiarach.
+
+### Mnożenie
+Aby pomnożyć dwie macierze:
+- liczba kolumn pierwszej musi być równa liczbie wierszy drugiej,
+- każdy element wyniku oblicza się jako sumę iloczynów elementów odpowiedniego wiersza i kolumny.
+
+---
+
+## 9. Najkrócej
+
+- **mnożenie przez stałą** – każdy element razy liczba,
+- **dodawanie** – element do elementu,
+- **mnożenie macierzy** – wiersz razy kolumna.
