@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Laboratorium_2/Zadania_lab2.md",
-                "mode": "preview",
+                "file": "Laboratorium_3/zadania.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Zadania_lab2"
+              "title": "zadania"
             }
           }
         ]
@@ -185,8 +185,11 @@
   },
   "active": "b00cd655a223c828",
   "lastOpenFiles": [
-    "Laboratorium_2/Zadania lab2.pdf",
+    "Laboratorium_3/zadania_lab3.pdf",
+    "Laboratorium_3/mn_inf_03.pdf",
+    "Laboratorium_3/mn_w2.pdf",
     "Laboratorium_2/Zadania_lab2.md",
+    "Laboratorium_2/Zadania lab2.pdf",
     "Dokładność/Dokładność - zadania.pdf",
     "Dokładność/Dokładność - zadania.md",
     "Dokładność/mn_inf_01.pdf",
@@ -194,9 +197,6 @@
     "Dokładność/mn_w1.pdf",
     "Dokładność/zad7.py~",
     "Dokładność/zad6.py~",
-    "Dokładność/zad10.py",
-    "Dokładność/zad9.py",
-    "Dokładność/zad8.py",
-    "Dokładność/zad7.py"
+    "Dokładność/zad10.py"
   ]
 }
