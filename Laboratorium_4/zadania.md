@@ -1,85 +1,100 @@
-#zad1
-# import math
+**Zadanie 1.** Napisz funkcję zwracającą wyznacznik macierzy kwadratowej dowolnego rozmiaru.
 
-# def minor(macierz, usun_wiersz, usun_kolumne):
-#     wynik = []
+```python
+import math
 
-#     for i in range(len(macierz)):
-#         if i == usun_wiersz:
-#             continue
+def minor(macierz, usun_wiersz, usun_kolumne):
+    wynik = []
 
-#         nowy_wiersz = []
-#         for j in range(len(macierz[i])):
-#             if j == usun_kolumne:
-#                 continue
-#             nowy_wiersz.append(macierz[i][j])
+    for i in range(len(macierz)):
+        if i == usun_wiersz:
+            continue
 
-#         wynik.append(nowy_wiersz)
+        nowy_wiersz = []
+        for j in range(len(macierz[i])):
+            if j == usun_kolumne:
+                continue
+            nowy_wiersz.append(macierz[i][j])
 
-#     return wynik
+        wynik.append(nowy_wiersz)
 
-# def wyznacznik_macierzy(macierz):
-#     n = len(macierz)
+    return wynik
+
+def wyznacznik_macierzy(macierz):
+    n = len(macierz)
     
-#     for wiersz in macierz:
-#         if len(wiersz) != n:
-#             raise ValueError("Nie da się policzyc wyznacznika macierzy, która nie jest kwadratowa")
+    for wiersz in macierz:
+        if len(wiersz) != n:
+            raise ValueError("Nie da się policzyc wyznacznika macierzy, która nie jest kwadratowa")
         
-#     if n == 1:
-#         return macierz[0][0]
+    if n == 1:
+        return macierz[0][0]
     
-#     if n == 2:
-#         return macierz[0][0] * macierz[1][1] - macierz[0][1] * macierz[1][0]
+    if n == 2:
+        return macierz[0][0] * macierz[1][1] - macierz[0][1] * macierz[1][0]
     
-#     det = 0
-#     for j in range(n):
-#         podmacierz = minor(macierz, 0, j)
-#         det += math.pow((-1), 0+j) * macierz[0][j] * wyznacznik_macierzy(podmacierz)
+    det = 0
+    for j in range(n):
+        podmacierz = minor(macierz, 0, j)
+        det += math.pow((-1), 0+j) * macierz[0][j] * wyznacznik_macierzy(podmacierz)
 
-#     return det
+    return det
 
-# macierz = [
-#     [2, 4, 6],
-#     [0, 2, -1],
-#     [-3, 3, 3]
-# ]
+macierz = [
+    [2, 4, 6],
+    [0, 2, -1],
+    [-3, 3, 3]
+]
 
-# print("Wyznacznik macierzy: ", wyznacznik_macierzy(macierz))
+print("Wyznacznik macierzy: ", wyznacznik_macierzy(macierz))
+```
+
+---
+
+**Zadanie 2.** Napisz funkcję zwracającą transpozycję macierzy dowolnego rozmiaru.
+
+```python
+def transpozycja(macierz):
+    liczba_wierszy = len(macierz)
+    liczba_kolumn = len(macierz[0])
+
+    wynik = []
+
+    for j in range(liczba_kolumn):
+        nowy_wiersz = []
+        for i in range(liczba_wierszy):
+            nowy_wiersz.append(macierz[i][j])
+        wynik.append(nowy_wiersz)
+
+    return wynik
 
 
-#zad2
-# def transpozycja(macierz):
-#     liczba_wierszy = len(macierz)
-#     liczba_kolumn = len(macierz[0])
+macierz = [
+    [2, 4, 6],
+    [0, 2, -1],
+    [-3, 3, 3]
+]
 
-#     wynik = []
+print("Przed transpozycją macierzy:")
+for wiersz in macierz:
+    print(wiersz)
 
-#     for j in range(liczba_kolumn):
-#         nowy_wiersz = []
-#         for i in range(liczba_wierszy):
-#             nowy_wiersz.append(macierz[i][j])
-#         wynik.append(nowy_wiersz)
+wynik = transpozycja(macierz)
 
-#     return wynik
+print("Po transpozycji macierzy:")
+for wiersz in wynik:
+    print(wiersz)
+```
 
+---
 
-# macierz = [
-#     [2, 4, 6],
-#     [0, 2, -1],
-#     [-3, 3, 3]
-# ]
+**Zadanie 3.** Napisz funkcję znajdującą macierz odwrotną do macierzy kwadratowej dowolnego rozmiaru za pomocą:
 
-# print("Przed transpozycją macierzy:")
-# for wiersz in macierz:
-#     print(wiersz)
+a) rozwinięcia Laplace’a,
 
-# wynik = transpozycja(macierz)
+b) metody Gaussa-Jordana.
 
-# print("Po transpozycji macierzy:")
-# for wiersz in wynik:
-#     print(wiersz)
-
-#zad3
+```python
 import math
 
 def minor(macierz, usun_wiersz, usun_kolumne):
@@ -244,67 +259,51 @@ for wiersz in wynik_Laplace:
 print("Macierz odwrotna Gauss Jordan:")
 for wiersz in wynik_Gauss_Jordan:
     print(wiersz)
+```
 
-#zad4
+---
 
-# Laboratorium 3 zadanie 4
+**Zadanie 4.** Napisz funkcję, która wykona mnożenie dwóch macierzy.
 
-#zad5
+```python
+def mnozenie_macierzy(macierz1, macierz2):
+    ilosc_wierszy_macierz1 = len(macierz1)
+    ilosc_wierszy_macierz2 = len(macierz2)
+    ilosc_kolumn_macierz1 = len(macierz1[0])
+    ilosc_kolumn_macierz2 = len(macierz2[0])
 
+    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+        raise ValueError("Nie da się pomnożyć tych macierzy")
+    
+    wynik = []
+    for i in range(ilosc_wierszy_macierz1):
+        wiersz = []
+        for j in range(ilosc_kolumn_macierz2):
+            suma = 0
+            for k in range(ilosc_kolumn_macierz1):
+                suma += macierz1[i][k] * macierz2[k][j]
+            wiersz.append(suma)
+        wynik.append(wiersz)
 
+    return wynik
 
+macierz1 = [
+    [1, 2],
+    [3, 4]
+]
 
+macierz2 = [
+    [5, 6],
+    [7, 8]
+]
 
+wynik = mnozenie_macierzy(macierz1, macierz2)
 
+print("Wynik mnożenia:")
+for wiersz in wynik:
+    print(wiersz)
+```
 
+---
 
-
-
-
-# # =========================
-# # Zadanie 5
-# # A * A^-1 oraz A^-1 * A
-# # =========================
-# A = [
-#     [2, 1, 1],
-#     [1, 3, 2],
-#     [1, 0, 0]
-# ]
-
-# print("Macierz A:")
-# wypisz_macierz(A)
-
-# print("\nZadanie 1 - wyznacznik macierzy A:")
-# print(wyznacznik(A))
-
-# print("\nZadanie 2 - transpozycja macierzy A:")
-# wypisz_macierz(transpozycja(A))
-
-# print("\nZadanie 3a - macierz odwrotna metodą Laplace'a:")
-# A_odwrotna_laplace = odwrotna_laplace(A)
-# wypisz_macierz(A_odwrotna_laplace)
-
-# print("\nZadanie 3b - macierz odwrotna metodą Gaussa-Jordana:")
-# A_odwrotna_gauss = odwrotna_gauss_jordan(A)
-# wypisz_macierz(A_odwrotna_gauss)
-
-# print("\nZadanie 4 - przykład mnożenia dwóch macierzy:")
-# B = [
-#     [1, 2, 0],
-#     [0, 1, 1],
-#     [4, 0, 1]
-# ]
-# print("Macierz B:")
-# wypisz_macierz(B)
-
-# print("\nA * B:")
-# wypisz_macierz(mnozenie_macierzy(A, B))
-
-# print("\nZadanie 5 - A * A^-1:")
-# wypisz_macierz(mnozenie_macierzy(A, A_odwrotna_laplace))
-
-# print("\nZadanie 5 - A^-1 * A:")
-# wypisz_macierz(mnozenie_macierzy(A_odwrotna_laplace, A))
-
-# print("\nPorównanie:")
-# print("Oba wyniki powinny dać macierz jednostkową albo bardzo do niej zbliżoną.")
+**Zadanie 5.** Korzystając z rozwiązań poprzednich zadań wykonaj następujące mnożenia macierzowe: A · A⁻¹ oraz A⁻¹ · A i porównaj ich wyniki.
