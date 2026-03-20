@@ -307,3 +307,106 @@ for wiersz in wynik:
 ---
 
 **Zadanie 5.** Korzystając z rozwiązań poprzednich zadań wykonaj następujące mnożenia macierzowe: A · A⁻¹ oraz A⁻¹ · A i porównaj ich wyniki.
+
+```python
+def macierz_odwrotna_Gaussa_Jordana(macierz): # punkt b
+    n = len(macierz)
+
+    for wiersz in macierz:
+        if len(wiersz) != n:
+            raise ValueError("Macierz musi być kwadratowa")
+
+    # macierz rozszerzona [A | I]
+    rozszerzona_macierz = []
+
+    for i in range(n):
+        wiersz = []
+
+        # lewa strona: macierz A
+        for j in range(n):
+            wiersz.append(macierz[i][j])
+            # wiersz.append(float(macierz[i][j]))
+        
+        # prawa strona: macierz jednostkowa I
+        for j in range(n):
+            if i == j:
+                wiersz.append(1)
+            else:
+                wiersz.append(0)
+
+        rozszerzona_macierz.append(wiersz)
+
+    # algorytm Gaussa-Jordana
+    for i in range(n):
+        # jeśli na przekątnej jest 0, zamień wiersze
+        if rozszerzona_macierz[i][i] == 0:
+            znaleziono = False
+            for k in range(i+1, n):
+                if rozszerzona_macierz[k][i] != 0:
+                    rozszerzona_macierz[i], rozszerzona_macierz[k] = rozszerzona_macierz[k], rozszerzona_macierz[i]
+                    znaleziono = True
+                    break
+            if not znaleziono:
+                raise ValueError("Macierz nie ma odwrotności")
+            
+        # dzielenie całego wiersza przez element główny
+        element_glowny = rozszerzona_macierz[i][i]
+        for j in range(2 * n):
+            rozszerzona_macierz[i][j] = rozszerzona_macierz[i][j] / element_glowny
+
+        # zerowanie pozostałych elementów w tej kolumnie
+        for k in range(n):
+            if k != i:
+                wspolczynnik = rozszerzona_macierz[k][i]
+                for j in range(2 * n):
+                    rozszerzona_macierz[k][j] = rozszerzona_macierz[k][j] - wspolczynnik * rozszerzona_macierz[i][j]
+
+    odwrotna = []
+    for i in range(n):
+        wiersz = []
+        for j in range(n, 2 * n):
+            wiersz.append(rozszerzona_macierz[i][j])
+        odwrotna.append(wiersz)
+
+    return odwrotna
+
+def mnozenie_macierzy(macierz1, macierz2):
+    ilosc_wierszy_macierz1 = len(macierz1)
+    ilosc_wierszy_macierz2 = len(macierz2)
+    ilosc_kolumn_macierz1 = len(macierz1[0])
+    ilosc_kolumn_macierz2 = len(macierz2[0])
+
+    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+        raise ValueError("Nie da się pomnożyć tych macierzy")
+    
+    wynik = []
+    for i in range(ilosc_wierszy_macierz1):
+        wiersz = []
+        for j in range(ilosc_kolumn_macierz2):
+            suma = 0
+            for k in range(ilosc_kolumn_macierz1):
+                suma += macierz1[i][k] * macierz2[k][j]
+            wiersz.append(suma)
+        wynik.append(wiersz)
+
+    return wynik
+
+macierz = [
+    [2, 4, 6],
+    [0, 2, -1],
+    [-3, 3, 3]
+]
+
+macierz_odwrotna = macierz_odwrotna_Gaussa_Jordana(macierz)
+
+wynik1 = mnozenie_macierzy(macierz, macierz_odwrotna)
+wynik2 = mnozenie_macierzy(macierz_odwrotna, macierz)
+
+print("Wynik mnożenia A * A^-1:")
+for wiersz in wynik1:
+    print(wiersz)
+
+print("Wynik mnożenia A^-1 * A:")
+for wiersz in wynik2:
+    print(wiersz)
+```
