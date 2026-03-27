@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Laboratorium_3/zadania.md",
+                "file": "Laboratorium_4/zadania.md",
                 "mode": "source",
                 "source": false
               },
@@ -185,6 +185,9 @@
   },
   "active": "b00cd655a223c828",
   "lastOpenFiles": [
+    "Laboratorium_4/zad3b_tlumaczenie.md",
+    "Laboratorium_4/zadania.md",
+    "Laboratorium_3/zadania.md",
     "Laboratorium_3/zadania_lab3.pdf",
     "Laboratorium_3/mn_inf_03.pdf",
     "Laboratorium_3/mn_w2.pdf",
@@ -196,7 +199,6 @@
     "Dokładność/zad9.py~",
     "Dokładność/mn_w1.pdf",
     "Dokładność/zad7.py~",
-    "Dokładność/zad6.py~",
-    "Dokładność/zad10.py"
+    "Dokładność/zad6.py~"
   ]
 }
