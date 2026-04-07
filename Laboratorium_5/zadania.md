@@ -1,99 +1,18 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Tak. Poniżej masz każde zadanie rozpisane **osobno**, z **oddzielnym wyjaśnieniem**, co robi metoda i jak rozumieć implementację.
-
----
-
 # Zadanie 1
 
 Korzystając z funkcji napisanych na poprzednich zajęciach rozwiąż układy równań liniowych.
 
 ## Zadanie 1a
 
-Rozwiązać układ:
-
-[
-\begin{cases}
-x + 2y + z = -9 \
-3x - 7y + 2z = 61 \
-2x + 4y + 5z = -9
-\end{cases}
-]
-
-## Jak to zapisać w postaci macierzowej?
-
-Układ zapisujemy jako:
-
-[
-Ax = b
-]
-
-gdzie:
-
-[
-A =
-\begin{bmatrix}
-1 & 2 & 1 \
-3 & -7 & 2 \
-2 & 4 & 5
-\end{bmatrix},
-\qquad
-x =
-\begin{bmatrix}
-x \ y \ z
-\end{bmatrix},
-\qquad
-b =
-\begin{bmatrix}
--9 \ 61 \ -9
-\end{bmatrix}
-]
+![alt text](zdjecia/1a.png)
 
 ## Jak to rozwiązać metodą z poprzednich zajęć?
 
 Skoro masz już funkcję liczącą macierz odwrotną, to korzystasz ze wzoru:
 
-[
+$
 x = A^{-1}b
-]
+$
 
 Czyli:
 
@@ -111,14 +30,14 @@ Tworzysz macierz `A` i wektor `b`.
 
 Zamieniasz `b` na macierz kolumnową:
 
-[
+$
 b =
 \begin{bmatrix}
--9 \
-61 \
+-9 \\
+61 \\
 -9
 \end{bmatrix}
-]
+$
 
 bo funkcja mnożenia działa na macierzach.
 
@@ -126,9 +45,9 @@ bo funkcja mnożenia działa na macierzach.
 
 Liczysz:
 
-[
+$
 A^{-1} \cdot b
-]
+$
 
 ### Krok 4
 
@@ -137,6 +56,88 @@ Otrzymujesz wynik w postaci macierzy kolumnowej, więc zamieniasz go na zwykły 
 ## Kod
 
 ```python
+import time
+
+def zmierz_czas(funkcja, A, b): 
+    start = time.perf_counter()
+    wynik = funkcja(A, b)
+    koniec = time.perf_counter()
+    return wynik, koniec - start
+
+def macierz_odwrotna_Gaussa_Jordana(macierz):
+    n = len(macierz)
+
+    for wiersz in macierz:
+        if len(wiersz) != n:
+            raise ValueError("Macierz musi być kwadratowa")
+
+    rozszerzona_macierz = []
+
+    for i in range(n):
+        wiersz = []
+
+        for j in range(n):
+            wiersz.append(macierz[i][j])
+        
+        for j in range(n):
+            if i == j:
+                wiersz.append(1)
+            else:
+                wiersz.append(0)
+
+        rozszerzona_macierz.append(wiersz)
+
+    for i in range(n):
+        if rozszerzona_macierz[i][i] == 0:
+            znaleziono = False
+            for k in range(i+1, n):
+                if rozszerzona_macierz[k][i] != 0:
+                    rozszerzona_macierz[i], rozszerzona_macierz[k] = rozszerzona_macierz[k], rozszerzona_macierz[i]
+                    znaleziono = True
+                    break
+            if not znaleziono:
+                raise ValueError("Macierz nie ma odwrotności")
+            
+        element_glowny = rozszerzona_macierz[i][i]
+        for j in range(2 * n):
+            rozszerzona_macierz[i][j] = rozszerzona_macierz[i][j] / element_glowny
+
+        for k in range(n):
+            if k != i:
+                wspolczynnik = rozszerzona_macierz[k][i]
+                for j in range(2 * n):
+                    rozszerzona_macierz[k][j] = rozszerzona_macierz[k][j] - wspolczynnik * rozszerzona_macierz[i][j]
+
+    odwrotna = []
+    for i in range(n):
+        wiersz = []
+        for j in range(n, 2 * n):
+            wiersz.append(rozszerzona_macierz[i][j])
+        odwrotna.append(wiersz)
+
+    return odwrotna
+
+def mnozenie_macierzy(macierz1, macierz2):
+    ilosc_wierszy_macierz1 = len(macierz1)
+    ilosc_wierszy_macierz2 = len(macierz2)
+    ilosc_kolumn_macierz1 = len(macierz1[0])
+    ilosc_kolumn_macierz2 = len(macierz2[0])
+
+    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+        raise ValueError("Nie da się pomnożyć tych macierzy")
+    
+    wynik = []
+    for i in range(ilosc_wierszy_macierz1):
+        wiersz = []
+        for j in range(ilosc_kolumn_macierz2):
+            suma = 0
+            for k in range(ilosc_kolumn_macierz1):
+                suma += macierz1[i][k] * macierz2[k][j]
+            wiersz.append(suma)
+        wynik.append(wiersz)
+
+    return wynik
+
 def rozwiarz_uklad_rownan(macierz_A, wektor_b):
     b_macierz = [[b] for b in wektor_b]
 
@@ -146,7 +147,6 @@ def rozwiarz_uklad_rownan(macierz_A, wektor_b):
 
     return wynik
 
-
 A = [
     [1, 2, 1],
     [3, -7, 2],
@@ -155,35 +155,42 @@ A = [
 
 b = [-9, 61, -9]
 
-wynik = rozwiarz_uklad_rownan(A, b)
+wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, A, b)
 
 print("Rozwiązanie układu równań a):")
 print("x =", wynik[0][0])
 print("y =", wynik[1][0])
 print("z =", wynik[2][0])
+print("Czas: ", czas)
 ```
 
 ## Wynik
 
-[
-x = 3,\qquad y = -8,\qquad z = 4
-]
+$
+x = 2.0,\qquad y = -7.0,\qquad z = 3.0
+$
+
+$
+czas = 1.4600111171603203e-05 = 1.4600111171603203 * 10^{-5} = 0.0000146 s = 14.6 mikrosekundy
+$
 
 ---
 
 ## Zadanie 1b
 
+![alt text](zdjecia/1b.png)
+
 Rozwiązać układ:
 
-[
+$
 Ax = b
-]
+$
 
 gdzie:
 
-* (A \in \mathbb{R}^{n \times n}),
-* (b \in \mathbb{R}^{n \times 1}),
-* (n \in {8, 10}),
+* $(A \in \mathbb{R}^{n \times n})$,
+* $(b \in \mathbb{R}^{n \times 1})$,
+* $(n \in \{8, 10\})$,
 
 a macierz ma postać trójdiagonalną:
 
@@ -193,34 +200,34 @@ a macierz ma postać trójdiagonalną:
 
 Wektor:
 
-[
+$
 b =
 \begin{bmatrix}
-11 \
-0 \
-0 \
-\vdots \
+11 \\
+0 \\
+0 \\
+\vdots \\
 0
 \end{bmatrix}
-]
+$
 
 ## Jak rozumieć tę macierz?
 
 Dla (n=8) macierz wygląda tak:
 
-[
+$
 A =
 \begin{bmatrix}
-11 & -5 & 0 & 0 & 0 & 0 & 0 & 0 \
--5 & 11 & -5 & 0 & 0 & 0 & 0 & 0 \
-0 & -5 & 11 & -5 & 0 & 0 & 0 & 0 \
-0 & 0 & -5 & 11 & -5 & 0 & 0 & 0 \
-0 & 0 & 0 & -5 & 11 & -5 & 0 & 0 \
-0 & 0 & 0 & 0 & -5 & 11 & -5 & 0 \
-0 & 0 & 0 & 0 & 0 & -5 & 11 & -5 \
+11 & -5 & 0 & 0 & 0 & 0 & 0 & 0 \\
+-5 & 11 & -5 & 0 & 0 & 0 & 0 & 0 \\
+0 & -5 & 11 & -5 & 0 & 0 & 0 & 0 \\
+0 & 0 & -5 & 11 & -5 & 0 & 0 & 0 \\
+0 & 0 & 0 & -5 & 11 & -5 & 0 & 0 \\
+0 & 0 & 0 & 0 & -5 & 11 & -5 & 0 \\
+0 & 0 & 0 & 0 & 0 & -5 & 11 & -5 \\
 0 & 0 & 0 & 0 & 0 & 0 & -5 & 11
 \end{bmatrix}
-]
+$
 
 To znaczy:
 
@@ -234,17 +241,18 @@ Najpierw trzeba umieć wygenerować taką macierz automatycznie.
 ## Kod tworzący macierz i wektor
 
 ```python
-def zeros(n, m):
+def zeros(n,m):
     macierz = []
+
     for i in range(n):
         wiersz = []
         for j in range(m):
             wiersz.append(0)
         macierz.append(wiersz)
+
     return macierz
 
-
-def tworzenie_macierzy_b(n):
+def tworzenie_macierzy(n):
     A = zeros(n, n)
     b = [11] + [0] * (n - 1)
 
@@ -254,7 +262,7 @@ def tworzenie_macierzy_b(n):
                 A[i][j] = 11
             elif abs(i - j) == 1:
                 A[i][j] = -5
-
+    
     return A, b
 ```
 
@@ -280,32 +288,61 @@ Wektor `b` ma `11` na pierwszej pozycji i same zera dalej.
 
 Potem rozwiązujesz dokładnie tak samo jak w 1a:
 
-[
-x = A^{-1}b
-]
+$
+x = A^{-1}*b
+$
 
 ## Kod
 
 ```python
-n_8_A, n_8_b = tworzenie_macierzy_b(8)
-n_10_A, n_10_b = tworzenie_macierzy_b(10)
+n_8_A, n_8_b = tworzenie_macierzy(8)
+n_10_A, n_10_b = tworzenie_macierzy(10)
 
-wynik = rozwiarz_uklad_rownan(n_8_A, n_8_b)
+wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, n_8_A, n_8_b)
 print("Rozwiązanie układu równań b) n=8:")
 for i in range(len(wynik)):
     print(wynik[i])
+print("Czas: ", czas)
 
-wynik = rozwiarz_uklad_rownan(n_10_A, n_10_b)
+wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, n_10_A, n_10_b)
 print("Rozwiązanie układu równań b) n=10:")
 for i in range(len(wynik)):
     print(wynik[i])
+print("Czas: ", czas)
 ```
+
+## Wynik
+
+$
+Rozwiązanie \space układu \space równań \space b) \space n=8: \\
+[1.4111459559532078] \\
+[0.9045211030970575] \\
+[0.5788004708603187] \\
+[0.36883993279564314] \\
+[0.23264738129009646] \\
+[0.1429843060425689] \\
+[0.0819180920035551] \\
+[0.037235496365252314] \\
+Czas:  6.560003384947777e-05 \\
+Rozwiązanie \space układu \space równań \space b) \space n=10: \\
+[1.4117167939551722] \\
+[0.905776946701379] \\
+[0.5809924887878618] \\
+[0.3724065286319164] \\
+[0.23830187420235457] \\
+[0.15185759461326348] \\
+[0.09578483394682505] \\
+[0.05886904006975162] \\
+[0.03372705420662853] \\
+[0.015330479184831151] \\
+Czas:  0.00011690007522702217 \\
+$
 
 ---
 
 ## Zadanie 1c
 
-Rozwiązać układ równań, którego współczynniki tworzą macierz gęstą (10 \times 10).
+Rozwiązać układ równań, którego współczynniki tworzą macierz gęstą $(10 \times 10)$.
 
 ## Co to znaczy macierz gęsta?
 
@@ -324,21 +361,21 @@ Wtedy łatwo sprawdzić, czy program działa dobrze.
 2. wybierasz znany wektor (x),
 3. liczysz:
 
-[
+$
 b = Ax
-]
+$
 
-4. potem rozwiązujesz układ (Ax=b),
+4. potem rozwiązujesz układ (Ax = b),
 5. i sprawdzasz, czy odzyskałaś swoje (x).
 
 ## Kod
 
 ```python
-def tworzenie_macierzy_gestej_10():
-    A = zeros(10, 10)
+def tworzenie_macierzy_gestej(n, m):
+    A = zeros(n, m)
 
-    for i in range(10):
-        for j in range(10):
+    for i in range(n):
+        for j in range(m):
             if i == j:
                 A[i][j] = 20.0
             else:
@@ -354,6 +391,15 @@ def tworzenie_macierzy_gestej_10():
         b.append(b_macierz[i][0])
 
     return A, b, x_prawdziwe
+
+macierz, wektor, x = tworzenie_macierzy_gestej(10, 10)
+
+wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, macierz, wektor)
+
+print("Rozwiązanie układu równań c):")
+for i in range(len(wynik)):
+    print(wynik[i])
+print("Czas: ", czas)
 ```
 
 ## Jak rozumieć ten schemat?
@@ -362,6 +408,24 @@ Nie zgadujesz `b`.
 Tworzysz takie `b`, żeby mieć pewność, że rozwiązanie jest znane.
 
 To bardzo wygodne przy testowaniu metod numerycznych.
+
+## Wynik
+
+$
+[1.0] \\
+[1.9999999999999716] \\
+[3.0] \\
+[4.0] \\
+[5.000000000000057] \\
+[5.999999999999972]\\
+[7.0]\\
+[8.000000000000028]\\
+[8.999999999999972]\\
+[10.0]\\
+Czas:  9.989994578063488e-05
+$
+
+> Otrzymane rozwiązanie jest bardzo bliskie wektorowi x = [1,2,3,4,5,6,7,8,9,10], co potwierdza poprawność działania programu. Niewielkie różnice wynikają z błędów zaokrągleń.
 
 ---
 
