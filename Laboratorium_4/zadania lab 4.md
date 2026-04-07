@@ -1,4 +1,66 @@
-**Zadanie 1.** Napisz funkcję zwracającą wyznacznik macierzy kwadratowej dowolnego rozmiaru.
+# Zadanie 1
+
+Napisz funkcję zwracającą wyznacznik macierzy kwadratowej dowolnego rozmiaru.
+
+## Jak rozumieć to zadanie?
+
+Wyznacznik można policzyć tylko dla **macierzy kwadratowej**, czyli takiej, która ma tyle samo wierszy co kolumn.
+
+Dla małych macierzy są proste wzory:
+
+### Dla macierzy $1 \times 1$
+
+$$
+\det(A) = a_{11}
+$$
+
+### Dla macierzy $2 \times 2$
+
+$$
+\det(A) =
+\begin{vmatrix}
+a & b \\
+c & d
+\end{vmatrix}
+= ad - bc
+$$
+
+### Dla większych macierzy
+
+Stosujemy **rozwinięcie Laplace’a** względem pierwszego wiersza:
+
+$$
+\det(A)=\sum_{j=1}^{n}(-1)^{1+j}a_{1j}M_{1j}
+$$
+
+gdzie $M_{1j}$ to minor, czyli wyznacznik macierzy powstałej po skreśleniu pierwszego wiersza i $j$-tej kolumny.
+
+## Jak rozumieć schemat implementacji?
+
+### Krok 1
+
+Sprawdzasz, czy macierz jest kwadratowa.
+
+### Krok 2
+
+Jeśli macierz ma rozmiar $1 \times 1$, zwracasz jedyny element.
+
+### Krok 3
+
+Jeśli macierz ma rozmiar $2 \times 2$, liczysz wyznacznik ze wzoru:
+
+$$
+ad - bc
+$$
+
+### Krok 4
+
+Dla większych macierzy:
+- tworzysz minory,
+- liczysz ich wyznaczniki rekurencyjnie,
+- sumujesz wszystko ze znakami $+$ i $-$.
+
+## Kod
 
 ```python
 import math
@@ -49,9 +111,86 @@ macierz = [
 print("Wyznacznik macierzy: ", wyznacznik_macierzy(macierz))
 ```
 
+## Wynik
+
+Dla macierzy
+
+$$
+A=
+\begin{bmatrix}
+2 & 4 & 6 \\
+0 & 2 & -1 \\
+-3 & 3 & 3
+\end{bmatrix}
+$$
+
+otrzymujemy:
+
+$$
+\det(A)=66
+$$
+
 ---
 
-**Zadanie 2.** Napisz funkcję zwracającą transpozycję macierzy dowolnego rozmiaru.
+# Zadanie 2
+
+Napisz funkcję zwracającą transpozycję macierzy dowolnego rozmiaru.
+
+## Co to jest transpozycja?
+
+Transpozycja macierzy polega na zamianie:
+
+* wierszy na kolumny,
+* kolumn na wiersze.
+
+Jeśli:
+
+$$
+A=
+\begin{bmatrix}
+1 & 2 & 3 \\
+4 & 5 & 6
+\end{bmatrix}
+$$
+
+to:
+
+$$
+A^T=
+\begin{bmatrix}
+1 & 4 \\
+2 & 5 \\
+3 & 6
+\end{bmatrix}
+$$
+
+## Jak rozumieć schemat implementacji?
+
+### Krok 1
+
+Sprawdzasz liczbę wierszy i kolumn.
+
+### Krok 2
+
+Tworzysz nową macierz wynikową.
+
+### Krok 3
+
+Dla każdej kolumny starej macierzy tworzysz nowy wiersz.
+
+Czyli element:
+
+$$
+a_{ij}
+$$
+
+staje się elementem:
+
+$$
+a_{ji}
+$$
+
+## Kod
 
 ```python
 def transpozycja(macierz):
@@ -86,13 +225,83 @@ for wiersz in wynik:
     print(wiersz)
 ```
 
+## Wynik
+
+Dla macierzy:
+
+$$
+\begin{bmatrix}
+2 & 4 & 6 \\
+0 & 2 & -1 \\
+-3 & 3 & 3
+\end{bmatrix}
+$$
+
+transpozycja ma postać:
+
+$$
+\begin{bmatrix}
+2 & 0 & -3 \\
+4 & 2 & 3 \\
+6 & -1 & 3
+\end{bmatrix}
+$$
+
 ---
 
-**Zadanie 3.** Napisz funkcję znajdującą macierz odwrotną do macierzy kwadratowej dowolnego rozmiaru za pomocą:
+# Zadanie 3
 
-a) rozwinięcia Laplace’a,
+Napisz funkcję znajdującą macierz odwrotną do macierzy kwadratowej dowolnego rozmiaru za pomocą:
 
-b) metody Gaussa-Jordana.
+* a) rozwinięcia Laplace’a
+* b) metody Gaussa-Jordana
+
+## Zadanie 3a — macierz odwrotna metodą Laplace’a
+
+## Idea metody
+
+Jeśli macierz $A$ ma wyznacznik różny od zera, to macierz odwrotna istnieje i można ją policzyć ze wzoru:
+
+$$
+A^{-1} = \frac{1}{\det(A)} \cdot Adj
+$$
+
+gdzie:
+
+* $det(A)$ to wyznacznik,
+* $Adj$ to macierz dołączona, czyli transpozycja macierzy dopełnień algebraicznych.
+
+## Jak rozumieć schemat implementacji?
+
+### Krok 1
+
+Liczysz wyznacznik macierzy.
+
+### Krok 2
+
+Jeśli wyznacznik jest równy 0, macierz nie ma odwrotności.
+
+### Krok 3
+
+Dla każdego elementu liczysz minor i dopełnienie algebraiczne:
+
+$$
+C_{ij} = (-1)^{i+j} \det(M_{ij})
+$$
+
+### Krok 4
+
+Tworzysz macierz dopełnień algebraicznych.
+
+### Krok 5
+
+Robisz jej transpozycję, czyli macierz dołączoną.
+
+### Krok 6
+
+Dzielisz każdy element przez wyznacznik.
+
+## Kod
 
 ```python
 import math
@@ -182,6 +391,85 @@ def macierz_odwrotna_Laplace(macierz): # punkt a
 
     return wynik
 
+macierz = [
+    [2, 4, 6],
+    [0, 2, -1],
+    [-3, 3, 3]
+]
+
+wynik_Laplace = macierz_odwrotna_Laplace(macierz)
+
+print("Macierz odwrotna Laplace:")
+for wiersz in wynik_Laplace:
+    print(wiersz)
+```
+
+## Wynik
+
+Dla macierzy:
+
+$$
+A=
+\begin{bmatrix}
+2 & 4 & 6 \\
+0 & 2 & -1 \\
+-3 & 3 & 3
+\end{bmatrix}
+$$
+
+otrzymujemy macierz odwrotną:
+
+$$
+A^{-1}=
+\begin{bmatrix}
+0.13636363636363635 & 0.09090909090909091 & -0.24242424242424243 \\
+0.045454545454545456 & 0.36363636363636365 & 0.030303030303030304 \\
+0.09090909090909091 & -0.2727272727272727 & 0.06060606060606061
+\end{bmatrix}
+$$
+
+## Zadanie 3b — macierz odwrotna metodą Gaussa-Jordana
+
+## Idea metody
+
+Tworzy się macierz rozszerzoną:
+
+$$
+[A \mid I]
+$$
+
+a następnie wykonuje się operacje na wierszach tak, aby lewa część stała się macierzą jednostkową:
+
+$$
+[I \mid A^{-1}]
+$$
+
+## Jak rozumieć schemat implementacji?
+
+### Krok 1
+
+Tworzysz macierz rozszerzoną:
+
+* po lewej masz macierz $A$,
+* po prawej macierz jednostkową $I$.
+
+### Krok 2
+
+Dla każdej kolumny ustawiasz jedynkę na przekątnej.
+
+### Krok 3
+
+Wyzerowujesz pozostałe elementy w tej kolumnie.
+
+### Krok 4
+
+Po zakończeniu prawa część jest macierzą odwrotną.
+
+## Kod
+
+```python
+import math
+
 def macierz_odwrotna_Gaussa_Jordana(macierz): # punkt b
     n = len(macierz)
 
@@ -249,21 +537,72 @@ macierz = [
     [-3, 3, 3]
 ]
 
-wynik_Laplace = macierz_odwrotna_Laplace(macierz)
 wynik_Gauss_Jordan = macierz_odwrotna_Gaussa_Jordana(macierz)
-
-print("Macierz odwrotna Laplace:")
-for wiersz in wynik_Laplace:
-    print(wiersz)
 
 print("Macierz odwrotna Gauss Jordan:")
 for wiersz in wynik_Gauss_Jordan:
     print(wiersz)
 ```
 
+## Wynik
+Otrzymujemy macierz odwrotną:
+
+$$
+A^{-1}=
+\begin{bmatrix}
+0.13636363636363635 & 0.09090909090909083 & -0.24242424242424243 \\
+0.045454545454545456 & 0.36363636363636365 & 0.030303030303030304 \\
+0.09090909090909091 & -0.2727272727272727 & 0.06060606060606061
+\end{bmatrix}
+$$
+
+## Porównanie wyników obu metod
+
+Obie metody dają tę samą macierz odwrotną.
+Mogą pojawić się bardzo małe różnice w zapisie dziesiętnym, ale wynik matematycznie jest ten sam.
+
 ---
 
-**Zadanie 4.** Napisz funkcję, która wykona mnożenie dwóch macierzy.
+# Zadanie 4
+
+Napisz funkcję, która wykona mnożenie dwóch macierzy.
+
+## Kiedy można mnożyć macierze?
+
+Macierze można mnożyć tylko wtedy, gdy:
+
+* liczba kolumn pierwszej macierzy
+* jest równa liczbie wierszy drugiej macierzy.
+
+Jeśli:
+
+$$
+A \in \mathbb{R}^{m \times n}, \qquad B \in \mathbb{R}^{n \times k}
+$$
+
+to wynik ma rozmiar:
+
+$$
+AB \in \mathbb{R}^{m \times k}
+$$
+
+## Jak rozumieć schemat implementacji?
+
+### Krok 1
+
+Sprawdzasz zgodność wymiarów.
+
+### Krok 2
+
+Dla każdego elementu wyniku liczysz sumę iloczynów elementów odpowiedniego wiersza i kolumny.
+
+Czyli:
+
+$$
+c_{ij} = \sum_{k=1}^{n} a_{ik}b_{kj}
+$$
+
+## Kod
 
 ```python
 def mnozenie_macierzy(macierz1, macierz2):
@@ -306,7 +645,84 @@ for wiersz in wynik:
 
 ---
 
-**Zadanie 5.** Korzystając z rozwiązań poprzednich zadań wykonaj następujące mnożenia macierzowe: A · A⁻¹ oraz A⁻¹ · A i porównaj ich wyniki.
+## Wynik
+
+Dla:
+
+$$
+A=
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix},
+\qquad
+B=
+\begin{bmatrix}
+5 & 6 \\
+7 & 8
+\end{bmatrix}
+$$
+
+otrzymujemy:
+
+$$
+AB=
+\begin{bmatrix}
+19 & 22 \\
+43 & 50
+\end{bmatrix}
+$$
+
+---
+
+# Zadanie 5
+
+Korzystając z rozwiązań poprzednich zadań wykonaj następujące mnożenia macierzowe: $A \cdot A^{-1}$ oraz $A^{-1} \cdot A$ i porównaj ich wyniki.
+
+## Idea zadania
+
+Jeśli macierz (A) jest odwracalna, to powinno zachodzić:
+
+$$
+A \cdot A^{-1} = I
+$$
+
+oraz
+
+$$
+A^{-1} \cdot A = I
+$$
+
+gdzie $I$ to macierz jednostkowa.
+
+Czyli zadanie polega na sprawdzeniu, czy wyznaczona wcześniej macierz odwrotna rzeczywiście jest poprawna.
+
+## Jak rozumieć schemat implementacji?
+
+### Krok 1
+
+Liczysz macierz odwrotną.
+
+### Krok 2
+
+Mnożysz:
+
+* $A \cdot A^{-1}$
+* $A^{-1} \cdot A$
+
+### Krok 3
+
+Porównujesz wyniki z macierzą jednostkową.
+
+Jeśli pojawiają się małe liczby typu:
+
+$$
+2.220446049250313 \cdot 10^{-16}
+$$
+
+to traktuje się je jako 0, ponieważ są to błędy zaokrągleń.
+
+## Kod
 
 ```python
 def macierz_odwrotna_Gaussa_Jordana(macierz): # punkt b
@@ -410,3 +826,36 @@ print("Wynik mnożenia A^-1 * A:")
 for wiersz in wynik2:
     print(wiersz)
 ```
+
+## Wynik
+
+Oba iloczyny powinny być bardzo bliskie macierzy jednostkowej:
+
+$$
+I=
+\begin{bmatrix}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{bmatrix}
+$$
+
+W praktyce może się pojawić na przykład:
+
+$$
+2.220446049250313e-16
+$$
+
+zamiast dokładnego zera. To jest normalne i wynika z ograniczonej dokładności obliczeń zmiennoprzecinkowych.
+
+# Wniosek
+
+Wszystkie zadania zostały wykonane poprawnie.
+
+* W zadaniu 1 obliczono wyznacznik macierzy metodą rozwinięcia Laplace’a.
+* W zadaniu 2 obliczono transpozycję macierzy.
+* W zadaniu 3 wyznaczono macierz odwrotną dwiema metodami: Laplace’a oraz Gaussa-Jordana.
+* W zadaniu 4 wykonano mnożenie dwóch macierzy.
+* W zadaniu 5 sprawdzono poprawność macierzy odwrotnej przez obliczenie iloczynów $A \cdot A^{-1}$ oraz $A^{-1} \cdot A$.
+
+Otrzymane wyniki są zgodne z teorią, a ewentualne bardzo małe różnice wynikają z błędów zaokrągleń numerycznych.
