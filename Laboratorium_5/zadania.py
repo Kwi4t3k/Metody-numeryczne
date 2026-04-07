@@ -1,185 +1,193 @@
 # zad1
 
-import time
+# import time
 
-def zmierz_czas(funkcja, A, b): 
-    start = time.perf_counter()
-    wynik = funkcja(A, b)
-    koniec = time.perf_counter()
-    return wynik, koniec - start
+# def zmierz_czas(funkcja, A, b): 
+#     start = time.perf_counter()
+#     wynik = funkcja(A, b)
+#     koniec = time.perf_counter()
+#     return wynik, koniec - start
 
-def macierz_odwrotna_Gaussa_Jordana(macierz):
-    n = len(macierz)
+# def macierz_odwrotna_Gaussa_Jordana(macierz):
+#     n = len(macierz)
 
-    for wiersz in macierz:
-        if len(wiersz) != n:
-            raise ValueError("Macierz musi być kwadratowa")
+#     for wiersz in macierz:
+#         if len(wiersz) != n:
+#             raise ValueError("Macierz musi być kwadratowa")
 
-    rozszerzona_macierz = []
+#     rozszerzona_macierz = []
 
-    for i in range(n):
-        wiersz = []
+#     for i in range(n):
+#         wiersz = []
 
-        for j in range(n):
-            wiersz.append(macierz[i][j])
+#         for j in range(n):
+#             wiersz.append(macierz[i][j])
         
-        for j in range(n):
-            if i == j:
-                wiersz.append(1)
-            else:
-                wiersz.append(0)
+#         for j in range(n):
+#             if i == j:
+#                 wiersz.append(1)
+#             else:
+#                 wiersz.append(0)
 
-        rozszerzona_macierz.append(wiersz)
+#         rozszerzona_macierz.append(wiersz)
 
-    for i in range(n):
-        if rozszerzona_macierz[i][i] == 0:
-            znaleziono = False
-            for k in range(i+1, n):
-                if rozszerzona_macierz[k][i] != 0:
-                    rozszerzona_macierz[i], rozszerzona_macierz[k] = rozszerzona_macierz[k], rozszerzona_macierz[i]
-                    znaleziono = True
-                    break
-            if not znaleziono:
-                raise ValueError("Macierz nie ma odwrotności")
+#     for i in range(n):
+#         if rozszerzona_macierz[i][i] == 0:
+#             znaleziono = False
+#             for k in range(i+1, n):
+#                 if rozszerzona_macierz[k][i] != 0:
+#                     rozszerzona_macierz[i], rozszerzona_macierz[k] = rozszerzona_macierz[k], rozszerzona_macierz[i]
+#                     znaleziono = True
+#                     break
+#             if not znaleziono:
+#                 raise ValueError("Macierz nie ma odwrotności")
             
-        element_glowny = rozszerzona_macierz[i][i]
-        for j in range(2 * n):
-            rozszerzona_macierz[i][j] = rozszerzona_macierz[i][j] / element_glowny
+#         element_glowny = rozszerzona_macierz[i][i]
+#         for j in range(2 * n):
+#             rozszerzona_macierz[i][j] = rozszerzona_macierz[i][j] / element_glowny
 
-        for k in range(n):
-            if k != i:
-                wspolczynnik = rozszerzona_macierz[k][i]
-                for j in range(2 * n):
-                    rozszerzona_macierz[k][j] = rozszerzona_macierz[k][j] - wspolczynnik * rozszerzona_macierz[i][j]
+#         for k in range(n):
+#             if k != i:
+#                 wspolczynnik = rozszerzona_macierz[k][i]
+#                 for j in range(2 * n):
+#                     rozszerzona_macierz[k][j] = rozszerzona_macierz[k][j] - wspolczynnik * rozszerzona_macierz[i][j]
 
-    odwrotna = []
-    for i in range(n):
-        wiersz = []
-        for j in range(n, 2 * n):
-            wiersz.append(rozszerzona_macierz[i][j])
-        odwrotna.append(wiersz)
+#     odwrotna = []
+#     for i in range(n):
+#         wiersz = []
+#         for j in range(n, 2 * n):
+#             wiersz.append(rozszerzona_macierz[i][j])
+#         odwrotna.append(wiersz)
 
-    return odwrotna
+#     return odwrotna
 
-def mnozenie_macierzy(macierz1, macierz2):
-    ilosc_wierszy_macierz1 = len(macierz1)
-    ilosc_wierszy_macierz2 = len(macierz2)
-    ilosc_kolumn_macierz1 = len(macierz1[0])
-    ilosc_kolumn_macierz2 = len(macierz2[0])
+# def mnozenie_macierzy(macierz1, macierz2):
+#     ilosc_wierszy_macierz1 = len(macierz1)
+#     ilosc_wierszy_macierz2 = len(macierz2)
+#     ilosc_kolumn_macierz1 = len(macierz1[0])
+#     ilosc_kolumn_macierz2 = len(macierz2[0])
 
-    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
-        raise ValueError("Nie da się pomnożyć tych macierzy")
+#     if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+#         raise ValueError("Nie da się pomnożyć tych macierzy")
     
-    wynik = []
-    for i in range(ilosc_wierszy_macierz1):
-        wiersz = []
-        for j in range(ilosc_kolumn_macierz2):
-            suma = 0
-            for k in range(ilosc_kolumn_macierz1):
-                suma += macierz1[i][k] * macierz2[k][j]
-            wiersz.append(suma)
-        wynik.append(wiersz)
+#     wynik = []
+#     for i in range(ilosc_wierszy_macierz1):
+#         wiersz = []
+#         for j in range(ilosc_kolumn_macierz2):
+#             suma = 0
+#             for k in range(ilosc_kolumn_macierz1):
+#                 suma += macierz1[i][k] * macierz2[k][j]
+#             wiersz.append(suma)
+#         wynik.append(wiersz)
 
-    return wynik
+#     return wynik
 
-def rozwiarz_uklad_rownan(macierz_A, wektor_b):
-    b_macierz = [[b] for b in wektor_b]
+# def rozwiarz_uklad_rownan(macierz_A, wektor_b):
+#     b_macierz = [[b] for b in wektor_b]
 
-    A_odwrotna = macierz_odwrotna_Gaussa_Jordana(macierz_A)
+#     A_odwrotna = macierz_odwrotna_Gaussa_Jordana(macierz_A)
 
-    wynik = mnozenie_macierzy(A_odwrotna, b_macierz)
+#     wynik = mnozenie_macierzy(A_odwrotna, b_macierz)
 
-    return wynik
+#     return wynik
 
-#punkt a)
-A = [
-    [1, 2, 1],
-    [3, -7, 2],
-    [2, 4, 5]
-]
+# #punkt a)
+# A = [
+#     [1, 2, 1],
+#     [3, -7, 2],
+#     [2, 4, 5]
+# ]
 
-b = [-9, 61, -9]
+# b = [-9, 61, -9]
 
-wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, A, b)
+# wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, A, b)
 
-print("Rozwiązanie układu równań a):")
-print("x =", wynik[0][0])
-print("y =", wynik[1][0])
-print("z =", wynik[2][0])
-print("Czas: ", czas)
+# print("Rozwiązanie układu równań a):")
+# print("x =", wynik[0][0])
+# print("y =", wynik[1][0])
+# print("z =", wynik[2][0])
+# print("Czas: ", czas)
 
-#punkt b)
-def zeros(n,m):
-    macierz = []
+# #punkt b)
+# def zeros(n,m):
+#     macierz = []
 
-    for i in range(n):
-        wiersz = []
-        for j in range(m):
-            wiersz.append(0)
-        macierz.append(wiersz)
+#     for i in range(n):
+#         wiersz = []
+#         for j in range(m):
+#             wiersz.append(0)
+#         macierz.append(wiersz)
 
-    return macierz
+#     return macierz
 
-def tworzenie_macierzy(n):
-    A = zeros(n, n)
-    b = [11] + [0] * (n - 1)
+# def tworzenie_macierzy(n):
+#     A = zeros(n, n)
+#     b = [11] + [0] * (n - 1)
 
-    for i in range(n):
-        for j in range(n):
-            if i == j:
-                A[i][j] = 11
-            elif abs(i - j) == 1:
-                A[i][j] = -5
+#     for i in range(n):
+#         for j in range(n):
+#             if i == j:
+#                 A[i][j] = 11
+#             elif abs(i - j) == 1:
+#                 A[i][j] = -5
     
-    return A, b
+#     return A, b
 
-n_8_A, n_8_b = tworzenie_macierzy(8)
-n_10_A, n_10_b = tworzenie_macierzy(10)
+# n_8_A, n_8_b = tworzenie_macierzy(8)
+# n_10_A, n_10_b = tworzenie_macierzy(10)
 
-wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, n_8_A, n_8_b)
-print("Rozwiązanie układu równań b) n=8:")
-for i in range(len(wynik)):
-    print(wynik[i])
-print("Czas: ", czas)
+# wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, n_8_A, n_8_b)
+# print("Rozwiązanie układu równań b) n=8:")
+# for i in range(len(wynik)):
+#     print(wynik[i])
+# print("Czas: ", czas)
 
-wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, n_10_A, n_10_b)
-print("Rozwiązanie układu równań b) n=10:")
-for i in range(len(wynik)):
-    print(wynik[i])
-print("Czas: ", czas)
+# wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, n_10_A, n_10_b)
+# print("Rozwiązanie układu równań b) n=10:")
+# for i in range(len(wynik)):
+#     print(wynik[i])
+# print("Czas: ", czas)
 
-#punkt c)
-def tworzenie_macierzy_gestej(n, m):
-    A = zeros(n, m)
+# #punkt c)
+# def tworzenie_macierzy_gestej(n, m):
+#     A = zeros(n, m)
 
-    for i in range(n):
-        for j in range(m):
-            if i == j:
-                A[i][j] = 20.0
-            else:
-                A[i][j] = float(i + j + 1)
+#     for i in range(n):
+#         for j in range(m):
+#             if i == j:
+#                 A[i][j] = 20.0
+#             else:
+#                 A[i][j] = float(i + j + 1)
 
-    x_prawdziwe = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+#     x_prawdziwe = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
 
-    x_macierz = [[x] for x in x_prawdziwe]
-    b_macierz = mnozenie_macierzy(A, x_macierz)
+#     x_macierz = [[x] for x in x_prawdziwe]
+#     b_macierz = mnozenie_macierzy(A, x_macierz)
 
-    b = []
-    for i in range(len(b_macierz)):
-        b.append(b_macierz[i][0])
+#     b = []
+#     for i in range(len(b_macierz)):
+#         b.append(b_macierz[i][0])
 
-    return A, b, x_prawdziwe
+#     return A, b, x_prawdziwe
 
-macierz, wektor, x = tworzenie_macierzy_gestej(10, 10)
+# macierz, wektor, x = tworzenie_macierzy_gestej(10, 10)
 
-wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, macierz, wektor)
+# wynik, czas = zmierz_czas(rozwiarz_uklad_rownan, macierz, wektor)
 
-print("Rozwiązanie układu równań c):")
-for i in range(len(wynik)):
-    print(wynik[i])
-print("Czas: ", czas)
+# print("Rozwiązanie układu równań c):")
+# for i in range(len(wynik)):
+#     print(wynik[i])
+# print("Czas: ", czas)
 
 # zad2
+
+# import time
+
+# def zmierz_czas(funkcja, A, b):
+#     start = time.perf_counter()
+#     wynik = funkcja(A, b)
+#     koniec = time.perf_counter()
+#     return wynik, koniec - start
 
 # def zeros(n, m):
 #     macierz = []
@@ -261,6 +269,8 @@ print("Czas: ", czas)
 #     x = podstawianie_w_tyl(U, y)
 #     return x
 
+# #punkt a
+
 # A = [
 #     [1.0, 2.0, 1.0],
 #     [3.0, -7.0, 2.0],
@@ -269,11 +279,116 @@ print("Czas: ", czas)
 
 # b = [-9.0, 61.0, -9.0]
 
-# wynik = rozwiaz_uklad_Doolittle(A, b)
+# wynik, czas = zmierz_czas(rozwiaz_uklad_Doolittle, A, b)
 
-# print("Rozwiązanie metodą Doolittle’a:")
+# print("Rozwiązanie metodą Doolittle’a dla a):")
 # for i in range(len(wynik)):
 #     print("x" + str(i + 1) + " =", wynik[i])
+# print("Czas: ", czas)
+
+# #punkt b
+
+# def wypisz_wektor(wektor):
+#     for i in range(len(wektor)):
+#         print("x" + str(i + 1) + " =", wektor[i])
+
+# def tworzenie_macierzy_b(n):
+#     A = zeros(n, n)
+#     b = [11.0] + [0.0] * (n - 1)
+
+#     for i in range(n):
+#         for j in range(n):
+#             if i == j:
+#                 A[i][j] = 11.0
+#             elif abs(i - j) == 1:
+#                 A[i][j] = -5.0
+#             else:
+#                 A[i][j] = 0.0
+
+#     return A, b
+
+# #punkt b, n = 8
+
+# A8, b8 = tworzenie_macierzy_b(8)
+
+# wynik8, czas8 = zmierz_czas(rozwiaz_uklad_Doolittle, A8, b8)
+
+# print("\nRozwiązanie metodą Doolittle’a dla b), n=8:")
+# wypisz_wektor(wynik8)
+# print("Czas:", czas8, "s")
+
+# #punkt b, n = 10
+
+# A10, b10 = tworzenie_macierzy_b(10)
+
+# wynik10, czas10 = zmierz_czas(rozwiaz_uklad_Doolittle, A10, b10)
+
+# print("\nRozwiązanie metodą Doolittle’a dla b), n=10:")
+# wypisz_wektor(wynik10)
+# print("Czas:", czas10, "s")
+
+# #punkt c
+
+# def wektor_na_macierz_kolumnowa(wektor):
+#     wynik = []
+#     for x in wektor:
+#         wynik.append([float(x)])
+#     return wynik
+
+
+# def macierz_kolumnowa_na_wektor(macierz):
+#     wynik = []
+#     for i in range(len(macierz)):
+#         wynik.append(macierz[i][0])
+#     return wynik
+
+# def mnozenie_macierzy(macierz1, macierz2):
+#     ilosc_wierszy_macierz1 = len(macierz1)
+#     ilosc_wierszy_macierz2 = len(macierz2)
+#     ilosc_kolumn_macierz1 = len(macierz1[0])
+#     ilosc_kolumn_macierz2 = len(macierz2[0])
+
+#     if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+#         raise ValueError("Nie da się pomnożyć tych macierzy")
+
+#     wynik = []
+#     for i in range(ilosc_wierszy_macierz1):
+#         wiersz = []
+#         for j in range(ilosc_kolumn_macierz2):
+#             suma = 0.0
+#             for k in range(ilosc_kolumn_macierz1):
+#                 suma += macierz1[i][k] * macierz2[k][j]
+#             wiersz.append(suma)
+#         wynik.append(wiersz)
+
+#     return wynik
+
+# def tworzenie_macierzy_gestej(n, m):
+#     A = zeros(n, m)
+
+#     for i in range(n):
+#         for j in range(m):
+#             if i == j:
+#                 A[i][j] = 20.0
+#             else:
+#                 A[i][j] = float(i + j + 1)
+
+#     x_prawdziwe = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+
+#     x_macierz = wektor_na_macierz_kolumnowa(x_prawdziwe)
+#     b_macierz = mnozenie_macierzy(A, x_macierz)
+#     b = macierz_kolumnowa_na_wektor(b_macierz)
+
+#     return A, b, x_prawdziwe
+
+# Ag, bg, x_prawdziwe = tworzenie_macierzy_gestej(10, 10)
+
+# wynikg, czasg = zmierz_czas(rozwiaz_uklad_Doolittle, Ag, bg)
+
+# print("\nRozwiązanie metodą Doolittle’a dla c):")
+# wypisz_wektor(wynikg)
+# print("Czas:", czasg, "s")
+# print("Oczekiwane rozwiązanie:", x_prawdziwe)
 
 #zad3
 
@@ -413,201 +528,201 @@ print("Czas: ", czas)
 
 #zad 4
 
-# import time
+import time
 
-# def zeros(n, m):
-#     macierz = []
-#     for i in range(n):
-#         wiersz = []
-#         for j in range(m):
-#             wiersz.append(0.0)
-#         macierz.append(wiersz)
-#     return macierz
-
-
-# def kopiuj_macierz(macierz):
-#     wynik = []
-#     for wiersz in macierz:
-#         nowy_wiersz = []
-#         for element in wiersz:
-#             nowy_wiersz.append(float(element))
-#         wynik.append(nowy_wiersz)
-#     return wynik
+def zeros(n, m):
+    macierz = []
+    for i in range(n):
+        wiersz = []
+        for j in range(m):
+            wiersz.append(0.0)
+        macierz.append(wiersz)
+    return macierz
 
 
-# def wypisz_wektor(wektor):
-#     for i in range(len(wektor)):
-#         print("x" + str(i + 1) + " =", wektor[i])
+def kopiuj_macierz(macierz):
+    wynik = []
+    for wiersz in macierz:
+        nowy_wiersz = []
+        for element in wiersz:
+            nowy_wiersz.append(float(element))
+        wynik.append(nowy_wiersz)
+    return wynik
 
 
-# def rozwiaz_uklad_Gaussa(A, b):
-#     n = len(A)
-
-#     # kopia macierzy i wektora
-#     M = kopiuj_macierz(A)
-#     bb = []
-#     for x in b:
-#         bb.append(float(x))
-
-#     # eliminacja w przód
-#     for i in range(n):
-#         # jeśli pivot jest zerem, trzeba zamienić wiersze
-#         if M[i][i] == 0:
-#             znaleziono = False
-#             for k in range(i + 1, n):
-#                 if M[k][i] != 0:
-#                     M[i], M[k] = M[k], M[i]
-#                     bb[i], bb[k] = bb[k], bb[i]
-#                     znaleziono = True
-#                     break
-#             if not znaleziono:
-#                 raise ValueError("Układ nie ma jednoznacznego rozwiązania")
-
-#         # zerowanie elementów poniżej przekątnej
-#         for k in range(i + 1, n):
-#             wspolczynnik = M[k][i] / M[i][i]
-
-#             for j in range(i, n):
-#                 M[k][j] = M[k][j] - wspolczynnik * M[i][j]
-
-#             bb[k] = bb[k] - wspolczynnik * bb[i]
-
-#     # podstawianie w tył
-#     x = [0.0] * n
-
-#     for i in range(n - 1, -1, -1):
-#         suma = 0.0
-#         for j in range(i + 1, n):
-#             suma += M[i][j] * x[j]
-
-#         x[i] = (bb[i] - suma) / M[i][i]
-
-#     return x
-
-# #a)
-
-# A1 = [
-#     [1.0, 2.0, 1.0],
-#     [3.0, -7.0, 2.0],
-#     [2.0, 4.0, 5.0]
-# ]
-
-# b1 = [-9.0, 61.0, -9.0]
-
-# #b)
-
-# def tworzenie_macierzy_b(n):
-#     A = zeros(n, n)
-#     b = [11.0] + [0.0] * (n - 1)
-
-#     for i in range(n):
-#         for j in range(n):
-#             if i == j:
-#                 A[i][j] = 11.0
-#             elif abs(i - j) == 1:
-#                 A[i][j] = -5.0
-#             else:
-#                 A[i][j] = 0.0
-
-#     return A, b
-
-# #c)
-
-# def mnozenie_macierzy(macierz1, macierz2):
-#     liczba_wierszy_1 = len(macierz1)
-#     liczba_wierszy_2 = len(macierz2)
-#     liczba_kolumn_1 = len(macierz1[0])
-#     liczba_kolumn_2 = len(macierz2[0])
-
-#     if liczba_kolumn_1 != liczba_wierszy_2:
-#         raise ValueError("Nie da się pomnożyć tych macierzy")
-
-#     wynik = []
-#     for i in range(liczba_wierszy_1):
-#         wiersz = []
-#         for j in range(liczba_kolumn_2):
-#             suma = 0.0
-#             for k in range(liczba_kolumn_1):
-#                 suma += macierz1[i][k] * macierz2[k][j]
-#             wiersz.append(suma)
-#         wynik.append(wiersz)
-
-#     return wynik
+def wypisz_wektor(wektor):
+    for i in range(len(wektor)):
+        print("x" + str(i + 1) + " =", wektor[i])
 
 
-# def wektor_na_macierz_kolumnowa(wektor):
-#     wynik = []
-#     for x in wektor:
-#         wynik.append([float(x)])
-#     return wynik
+def rozwiaz_uklad_Gaussa(A, b):
+    n = len(A)
+
+    # kopia macierzy i wektora
+    M = kopiuj_macierz(A)
+    bb = []
+    for x in b:
+        bb.append(float(x))
+
+    # eliminacja w przód
+    for i in range(n):
+        # jeśli pivot jest zerem, trzeba zamienić wiersze
+        if M[i][i] == 0:
+            znaleziono = False
+            for k in range(i + 1, n):
+                if M[k][i] != 0:
+                    M[i], M[k] = M[k], M[i]
+                    bb[i], bb[k] = bb[k], bb[i]
+                    znaleziono = True
+                    break
+            if not znaleziono:
+                raise ValueError("Układ nie ma jednoznacznego rozwiązania")
+
+        # zerowanie elementów poniżej przekątnej
+        for k in range(i + 1, n):
+            wspolczynnik = M[k][i] / M[i][i]
+
+            for j in range(i, n):
+                M[k][j] = M[k][j] - wspolczynnik * M[i][j]
+
+            bb[k] = bb[k] - wspolczynnik * bb[i]
+
+    # podstawianie w tył
+    x = [0.0] * n
+
+    for i in range(n - 1, -1, -1):
+        suma = 0.0
+        for j in range(i + 1, n):
+            suma += M[i][j] * x[j]
+
+        x[i] = (bb[i] - suma) / M[i][i]
+
+    return x
+
+#a)
+
+A1 = [
+    [1.0, 2.0, 1.0],
+    [3.0, -7.0, 2.0],
+    [2.0, 4.0, 5.0]
+]
+
+b1 = [-9.0, 61.0, -9.0]
+
+#b)
+
+def tworzenie_macierzy_b(n):
+    A = zeros(n, n)
+    b = [11.0] + [0.0] * (n - 1)
+
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                A[i][j] = 11.0
+            elif abs(i - j) == 1:
+                A[i][j] = -5.0
+            else:
+                A[i][j] = 0.0
+
+    return A, b
+
+#c)
+
+def mnozenie_macierzy(macierz1, macierz2):
+    liczba_wierszy_1 = len(macierz1)
+    liczba_wierszy_2 = len(macierz2)
+    liczba_kolumn_1 = len(macierz1[0])
+    liczba_kolumn_2 = len(macierz2[0])
+
+    if liczba_kolumn_1 != liczba_wierszy_2:
+        raise ValueError("Nie da się pomnożyć tych macierzy")
+
+    wynik = []
+    for i in range(liczba_wierszy_1):
+        wiersz = []
+        for j in range(liczba_kolumn_2):
+            suma = 0.0
+            for k in range(liczba_kolumn_1):
+                suma += macierz1[i][k] * macierz2[k][j]
+            wiersz.append(suma)
+        wynik.append(wiersz)
+
+    return wynik
 
 
-# def macierz_kolumnowa_na_wektor(macierz):
-#     wynik = []
-#     for i in range(len(macierz)):
-#         wynik.append(macierz[i][0])
-#     return wynik
+def wektor_na_macierz_kolumnowa(wektor):
+    wynik = []
+    for x in wektor:
+        wynik.append([float(x)])
+    return wynik
 
 
-# def tworzenie_macierzy_gestej_10():
-#     A = zeros(10, 10)
+def macierz_kolumnowa_na_wektor(macierz):
+    wynik = []
+    for i in range(len(macierz)):
+        wynik.append(macierz[i][0])
+    return wynik
 
-#     for i in range(10):
-#         for j in range(10):
-#             if i == j:
-#                 A[i][j] = 20.0
-#             else:
-#                 A[i][j] = float(i + j + 1)
 
-#     x_prawdziwe = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+def tworzenie_macierzy_gestej_10():
+    A = zeros(10, 10)
 
-#     x_kolumna = wektor_na_macierz_kolumnowa(x_prawdziwe)
-#     b_kolumna = mnozenie_macierzy(A, x_kolumna)
-#     b = macierz_kolumnowa_na_wektor(b_kolumna)
+    for i in range(10):
+        for j in range(10):
+            if i == j:
+                A[i][j] = 20.0
+            else:
+                A[i][j] = float(i + j + 1)
 
-#     return A, b, x_prawdziwe
+    x_prawdziwe = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
 
-# #czasy
+    x_kolumna = wektor_na_macierz_kolumnowa(x_prawdziwe)
+    b_kolumna = mnozenie_macierzy(A, x_kolumna)
+    b = macierz_kolumnowa_na_wektor(b_kolumna)
 
-# def zmierz_czas(funkcja, A, b):
-#     start = time.perf_counter()
-#     wynik = funkcja(A, b)
-#     koniec = time.perf_counter()
-#     return wynik, koniec - start
+    return A, b, x_prawdziwe
 
-# print("========== ZADANIE 4 – eliminacja Gaussa ==========")
+#czasy
 
-# # przykład a)
-# A1 = [
-#     [1.0, 2.0, 1.0],
-#     [3.0, -7.0, 2.0],
-#     [2.0, 4.0, 5.0]
-# ]
-# b1 = [-9.0, 61.0, -9.0]
+def zmierz_czas(funkcja, A, b):
+    start = time.perf_counter()
+    wynik = funkcja(A, b)
+    koniec = time.perf_counter()
+    return wynik, koniec - start
 
-# wynik_Gauss_1, czas_Gauss_1 = zmierz_czas(rozwiaz_uklad_Gaussa, A1, b1)
-# print("Gauss, przykład a):")
-# wypisz_wektor(wynik_Gauss_1)
-# print("Czas:", czas_Gauss_1)
+print("========== ZADANIE 4 – eliminacja Gaussa ==========")
 
-# # przykład b), n = 8
-# A8, b8 = tworzenie_macierzy_b(8)
-# wynik_Gauss_8, czas_Gauss_8 = zmierz_czas(rozwiaz_uklad_Gaussa, A8, b8)
-# print("\nGauss, przykład b), n=8:")
-# wypisz_wektor(wynik_Gauss_8)
-# print("Czas:", czas_Gauss_8)
+# przykład a)
+A1 = [
+    [1.0, 2.0, 1.0],
+    [3.0, -7.0, 2.0],
+    [2.0, 4.0, 5.0]
+]
+b1 = [-9.0, 61.0, -9.0]
 
-# # przykład b), n = 10
-# A10, b10 = tworzenie_macierzy_b(10)
-# wynik_Gauss_10, czas_Gauss_10 = zmierz_czas(rozwiaz_uklad_Gaussa, A10, b10)
-# print("\nGauss, przykład b), n=10:")
-# wypisz_wektor(wynik_Gauss_10)
-# print("Czas:", czas_Gauss_10)
+wynik_Gauss_1, czas_Gauss_1 = zmierz_czas(rozwiaz_uklad_Gaussa, A1, b1)
+print("Gauss, przykład a):")
+wypisz_wektor(wynik_Gauss_1)
+print("Czas:", czas_Gauss_1)
 
-# # przykład c)
-# A_gesta, b_gesta, x_prawdziwe = tworzenie_macierzy_gestej_10()
-# wynik_Gauss_gesta, czas_Gauss_gesta = zmierz_czas(rozwiaz_uklad_Gaussa, A_gesta, b_gesta)
-# print("\nGauss, przykład c):")
-# wypisz_wektor(wynik_Gauss_gesta)
-# print("Czas:", czas_Gauss_gesta)
-# print("Oczekiwane rozwiązanie:", x_prawdziwe)
+# przykład b), n = 8
+A8, b8 = tworzenie_macierzy_b(8)
+wynik_Gauss_8, czas_Gauss_8 = zmierz_czas(rozwiaz_uklad_Gaussa, A8, b8)
+print("\nGauss, przykład b), n=8:")
+wypisz_wektor(wynik_Gauss_8)
+print("Czas:", czas_Gauss_8)
+
+# przykład b), n = 10
+A10, b10 = tworzenie_macierzy_b(10)
+wynik_Gauss_10, czas_Gauss_10 = zmierz_czas(rozwiaz_uklad_Gaussa, A10, b10)
+print("\nGauss, przykład b), n=10:")
+wypisz_wektor(wynik_Gauss_10)
+print("Czas:", czas_Gauss_10)
+
+# przykład c)
+A_gesta, b_gesta, x_prawdziwe = tworzenie_macierzy_gestej_10()
+wynik_Gauss_gesta, czas_Gauss_gesta = zmierz_czas(rozwiaz_uklad_Gaussa, A_gesta, b_gesta)
+print("\nGauss, przykład c):")
+wypisz_wektor(wynik_Gauss_gesta)
+print("Czas:", czas_Gauss_gesta)
+print("Oczekiwane rozwiązanie:", x_prawdziwe)
