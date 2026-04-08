@@ -14,8 +14,8 @@ $x = A^{-1}b$
 
 Czyli:
 
-1. liczysz macierz odwrotną (A^{-1}),
-2. mnożysz ją przez wektor (b),
+1. liczysz macierz odwrotną $A^{-1}$,
+2. mnożysz ją przez wektor $b$,
 3. dostajesz rozwiązanie.
 
 ## Jak rozumieć schemat implementacji?
