@@ -6,3 +6,5 @@
 
 ## Układy równań liniowych
 - [Labolatorium 3](Laboratorium_3/zadania.md)
+- [Labolatorium 4](Laboratorium_4/zadania_lab_4.md)
+- [Labolatorium 5](Laboratorium_5/zadania_lab_5.md)
