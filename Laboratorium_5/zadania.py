@@ -200,57 +200,40 @@ def zeros(n, m):
         macierz.append(wiersz)
     return macierz
 
-def kopiuj_macierz(macierz):
-    wynik = []
-    for wiersz in macierz:
-        nowy_wiersz = []
-        for element in wiersz:
-            nowy_wiersz.append(float(element))
-        wynik.append(nowy_wiersz)
-    return wynik
-
 def rozklad_LU_Doolittle(A):
     n = len(A)
-    U = kopiuj_macierz(A)
+
+    for wiersz in A:
+        if len(wiersz) != n:
+            raise ValueError("Macierz musi być kwadratowa")
+
     L = zeros(n, n)
-    P = list(range(n))
-    eps = 1e-12
+    U = zeros(n, n)
 
+    # na przekątnej L są jedynki
     for i in range(n):
-        # wybór pivota
-        max_wiersz = i
-        max_wartosc = abs(U[i][i])
-
-        for k in range(i + 1, n):
-            if abs(U[k][i]) > max_wartosc:
-                max_wartosc = abs(U[k][i])
-                max_wiersz = k
-
-        if max_wartosc < eps:
-            raise ValueError("Nie można wykonać rozkładu LU - macierz osobliwa")
-
-        # zamiana wierszy w U
-        if max_wiersz != i:
-            U[i], U[max_wiersz] = U[max_wiersz], U[i]
-            P[i], P[max_wiersz] = P[max_wiersz], P[i]
-
-            # w L zamieniamy tylko elementy już policzone
-            for j in range(i):
-                L[i][j], L[max_wiersz][j] = L[max_wiersz][j], L[i][j]
-
         L[i][i] = 1.0
 
-        # zerowanie pod przekątną
+    for i in range(n):
+        # liczenie elementów U
+        for j in range(i, n):
+            suma = 0.0
+            for k in range(i):
+                suma += L[i][k] * U[k][j]
+            U[i][j] = A[i][j] - suma
+
+        # liczenie elementów L
         for j in range(i + 1, n):
-            L[j][i] = U[j][i] / U[i][i]
+            suma = 0.0
+            for k in range(i):
+                suma += L[j][k] * U[k][i]
 
-            for k in range(i, n):
-                U[j][k] = U[j][k] - L[j][i] * U[i][k]
+            if U[i][i] == 0:
+                raise ValueError("Nie można wykonać rozkładu LU metodą Doolittle’a")
 
-    return L, U, P
+            L[j][i] = (A[j][i] - suma) / U[i][i]
 
-def permutuj_wektor(b, P):
-    return [float(b[P[i]]) for i in range(len(P))]
+    return L, U
 
 def podstawianie_w_przod(L, b):
     n = len(L)
@@ -263,6 +246,7 @@ def podstawianie_w_przod(L, b):
         y[i] = b[i] - suma
 
     return y
+
 
 def podstawianie_w_tyl(U, y):
     n = len(U)
@@ -281,11 +265,99 @@ def podstawianie_w_tyl(U, y):
     return x
 
 def rozwiaz_uklad_Doolittle(A, b):
-    L, U, P = rozklad_LU_Doolittle(A)
-    pb = permutuj_wektor(b, P)
-    y = podstawianie_w_przod(L, pb)
+    L, U = rozklad_LU_Doolittle(A)
+    y = podstawianie_w_przod(L, b)
     x = podstawianie_w_tyl(U, y)
     return x
+
+# ===================================== WERSJA DODATKOWA DOKŁADNIEJSZA \/ =============================================
+
+# def kopiuj_macierz(macierz):
+#     wynik = []
+#     for wiersz in macierz:
+#         nowy_wiersz = []
+#         for element in wiersz:
+#             nowy_wiersz.append(float(element))
+#         wynik.append(nowy_wiersz)
+#     return wynik
+
+# def rozklad_LU_Doolittle(A):
+#     n = len(A)
+#     U = kopiuj_macierz(A)
+#     L = zeros(n, n)
+#     P = list(range(n))
+#     eps = 1e-12
+
+#     for i in range(n):
+#         # wybór pivota
+#         max_wiersz = i
+#         max_wartosc = abs(U[i][i])
+
+#         for k in range(i + 1, n):
+#             if abs(U[k][i]) > max_wartosc:
+#                 max_wartosc = abs(U[k][i])
+#                 max_wiersz = k
+
+#         if max_wartosc < eps:
+#             raise ValueError("Nie można wykonać rozkładu LU - macierz osobliwa")
+
+#         # zamiana wierszy w U
+#         if max_wiersz != i:
+#             U[i], U[max_wiersz] = U[max_wiersz], U[i]
+#             P[i], P[max_wiersz] = P[max_wiersz], P[i]
+
+#             # w L zamieniamy tylko elementy już policzone
+#             for j in range(i):
+#                 L[i][j], L[max_wiersz][j] = L[max_wiersz][j], L[i][j]
+
+#         L[i][i] = 1.0
+
+#         # zerowanie pod przekątną
+#         for j in range(i + 1, n):
+#             L[j][i] = U[j][i] / U[i][i]
+
+#             for k in range(i, n):
+#                 U[j][k] = U[j][k] - L[j][i] * U[i][k]
+
+#     return L, U, P
+
+# def permutuj_wektor(b, P):
+#     return [float(b[P[i]]) for i in range(len(P))]
+
+# def podstawianie_w_przod(L, b):
+#     n = len(L)
+#     y = [0.0] * n
+
+#     for i in range(n):
+#         suma = 0.0
+#         for j in range(i):
+#             suma += L[i][j] * y[j]
+#         y[i] = b[i] - suma
+
+#     return y
+
+# def podstawianie_w_tyl(U, y):
+#     n = len(U)
+#     x = [0.0] * n
+
+#     for i in range(n - 1, -1, -1):
+#         suma = 0.0
+#         for j in range(i + 1, n):
+#             suma += U[i][j] * x[j]
+
+#         if U[i][i] == 0:
+#             raise ValueError("Dzielenie przez zero w podstawianiu w tył")
+
+#         x[i] = (y[i] - suma) / U[i][i]
+
+#     return x
+
+# def rozwiaz_uklad_Doolittle(A, b):
+#     L, U, P = rozklad_LU_Doolittle(A)
+#     pb = permutuj_wektor(b, P)
+#     y = podstawianie_w_przod(L, pb)
+#     x = podstawianie_w_tyl(U, y)
+#     return x
 
 print("----------------------------ZADANIE 2----------------------------")
 
