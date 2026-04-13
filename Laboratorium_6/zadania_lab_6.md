@@ -62,7 +62,7 @@ Po każdej iteracji sprawdzasz warunek zatrzymania.
 
 Jeśli warunek jest spełniony, kończysz obliczenia.
 
----
+![alt text](obrazy/1.png)
 
 ## Warunki zatrzymania
 
@@ -70,15 +70,16 @@ Jeśli warunek jest spełniony, kończysz obliczenia.
 
 Program kończy działanie po zadanej liczbie kroków.
 
-### b) Norma różnicy kolejnych przybliżeń
+### b) Iloraz normy różnicy kolejnych przybliżeń i normy bieżącego przybliżenia
 
 Sprawdzasz, czy:
 
 $$
-\|x^{(k+1)} - x^{(k)}\| < \varepsilon
+\frac{\|x^{(k)} - x^{(k-1)}\|}{\|x^{(k)}\|} \le \varepsilon
 $$
 
-Jeżeli różnica między kolejnymi przybliżeniami jest bardzo mała, uznajesz, że rozwiązanie już się ustabilizowało.
+W programie używana jest norma maksimum.  
+Jeżeli warunek jest spełniony, uznajesz, że kolejne przybliżenia zmieniają się już bardzo nieznacznie.
 
 ### c) Błąd uzyskanego przybliżenia
 
@@ -88,159 +89,148 @@ $$
 \|x^{(k)} - x^*\| < \varepsilon
 $$
 
----
-
 ## Kod
 
 ```python
-def norma_max(wektor):
-    maksimum = abs(wektor[0])
-    for i in range(1, len(wektor)):
-        if abs(wektor[i]) > maksimum:
-            maksimum = abs(wektor[i])
-    return maksimum
+def norma_max(wektor):  # funkcja oblicza normę maksimum wektora
+    maksimum = abs(wektor[0])  # jako początkowe maksimum przyjmujemy moduł pierwszego elementu
+    for i in range(1, len(wektor)):  # przechodzimy po kolejnych elementach wektora
+        if abs(wektor[i]) > maksimum:  # sprawdzamy, czy moduł bieżącego elementu jest większy od dotychczasowego maksimum
+            maksimum = abs(wektor[i])  # jeśli tak, aktualizujemy maksimum
+    return maksimum  # zwracamy największy moduł elementu wektora
 
 
-def odejmij_wektory(wektor1, wektor2):
-    wynik = []
-    for i in range(len(wektor1)):
-        wynik.append(wektor1[i] - wektor2[i])
-    return wynik
+def odejmij_wektory(wektor1, wektor2):  # funkcja odejmuje od siebie dwa wektory o tej samej długości
+    wynik = []  # tworzymy pustą listę na wynik odejmowania
+    for i in range(len(wektor1)):  # przechodzimy po wszystkich indeksach wektora
+        wynik.append(wektor1[i] - wektor2[i])  # dodajemy do wyniku różnicę odpowiednich elementów
+    return wynik  # zwracamy wektor różnicy
 
-def wypisz_wektor(wektor, nazwa="x"):
-    for i in range(len(wektor)):
-        print(f"{nazwa}{i+1} = {wektor[i]}")
 
-def jacobi(A, b, x0, max_iter=100, epsilon=1e-8, warunek_stopu="iteracje", rozwiazanie_dokladne=None):
-    n = len(A)
-    x_stare = x0[:]
+def wypisz_wektor(wektor, nazwa="x"):  # funkcja wypisuje kolejne współrzędne wektora
+    for i in range(len(wektor)):  # przechodzimy po wszystkich elementach wektora
+        print(f"{nazwa}{i+1} = {wektor[i]}")  # wypisujemy element w formacie x1, x2, x3 itd.
 
-    for krok in range(1, max_iter + 1):
-        x_nowe = [0.0] * n
 
-        for i in range(n):
-            suma = 0.0
-            for j in range(n):
-                if j != i:
-                    suma += A[i][j] * x_stare[j]
+def jacobi(A, b, x0, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje", rozwiazanie_dokladne=None):  # funkcja realizuje metodę Jacobiego
+    n = len(A)  # zapisujemy liczbę równań i niewiadomych
+    x_stare = x0[:]  # kopiujemy przybliżenie początkowe do wektora poprzedniej iteracji
 
-            x_nowe[i] = (b[i] - suma) / A[i][i]
+    for i in range(n):  # sprawdzamy wszystkie elementy na przekątnej macierzy
+        if A[i][i] == 0:  # jeśli na przekątnej pojawi się zero
+            raise ValueError("Na przekątnej macierzy nie może być zera")  # przerywamy działanie programu z komunikatem o błędzie
 
-        if warunek_stopu == "iteracje":
-            if krok == max_iter:
-                return x_nowe, krok
+    for krok in range(1, max_iter + 1):  # wykonujemy kolejne iteracje od 1 do maksymalnej liczby iteracji
+        x_nowe = [0.0] * n  # tworzymy nowy wektor przybliżenia wypełniony zerami
 
-        elif warunek_stopu == "roznica":
-            roznica = odejmij_wektory(x_nowe, x_stare)
-            if norma_max(roznica) < epsilon:
-                return x_nowe, krok
+        for i in range(n):  # przechodzimy po wszystkich równaniach
+            suma = 0.0  # zerujemy sumę składników spoza przekątnej dla i-tego równania
+            for j in range(n):  # przechodzimy po wszystkich kolumnach macierzy
+                if j != i:  # pomijamy element z przekątnej
+                    suma += A[i][j] * x_stare[j]  # dodajemy iloczyn współczynnika macierzy i starego przybliżenia
 
-        elif warunek_stopu == "blad":
-            if rozwiazanie_dokladne is None:
-                raise ValueError("Dla warunku 'blad' trzeba podać dokładne rozwiązanie")
-            blad = odejmij_wektory(x_nowe, rozwiazanie_dokladne)
-            if norma_max(blad) < epsilon:
-                return x_nowe, krok
+            x_nowe[i] = (b[i] - suma) / A[i][i]  # liczymy nową wartość i-tej niewiadomej ze wzoru Jacobiego
 
-        x_stare = x_nowe[:]
+        if warunek_stopu == "iteracje":  # sprawdzamy, czy wybrano warunek stopu oparty na liczbie iteracji
+            if krok == max_iter:  # jeśli osiągnięto zadaną liczbę iteracji
+                return x_nowe, krok  # zwracamy aktualne przybliżenie i liczbę wykonanych iteracji
 
-    return x_stare, max_iter
+        elif warunek_stopu == "roznica":  # sprawdzamy, czy wybrano warunek stopu ze slajdu
+            roznica = odejmij_wektory(x_nowe, x_stare)  # obliczamy różnicę kolejnych przybliżeń
+            norma_roznicy = norma_max(roznica)  # liczymy normę maksimum tej różnicy
+            norma_biezaca = norma_max(x_nowe)  # liczymy normę maksimum bieżącego przybliżenia
 
-print("--------------------ZADANIE 1--------------------")
+            if norma_biezaca == 0:  # sprawdzamy przypadek szczególny, gdy norma bieżącego wektora jest równa zero
+                if norma_roznicy <= epsilon:  # jeśli sama norma różnicy spełnia warunek
+                    return x_nowe, krok  # zwracamy wynik i numer iteracji
+            else:  # w zwykłym przypadku, gdy norma bieżącego przybliżenia nie jest zerowa
+                if (norma_roznicy / norma_biezaca) <= epsilon:  # sprawdzamy warunek stopu w postaci ilorazu norm
+                    return x_nowe, krok  # zwracamy wynik i numer iteracji
 
-# Przykładowy układ:
-# 10x1 - x2 + 2x3 = 6
-# -x1 + 11x2 - x3 + 3x4 = 25
-# 2x1 - x2 + 10x3 - x4 = -11
-# 3x2 - x3 + 8x4 = 15
+        elif warunek_stopu == "blad":  # sprawdzamy, czy wybrano warunek stopu oparty na błędzie względem rozwiązania dokładnego
+            if rozwiazanie_dokladne is None:  # jeśli nie podano rozwiązania dokładnego
+                raise ValueError("Dla warunku 'blad' trzeba podać dokładne rozwiązanie")  # zgłaszamy błąd
+            blad = odejmij_wektory(x_nowe, rozwiazanie_dokladne)  # obliczamy różnicę między przybliżeniem a rozwiązaniem dokładnym
+            if norma_max(blad) < epsilon:  # sprawdzamy, czy norma maksimum błędu jest mniejsza od epsilon
+                return x_nowe, krok  # zwracamy wynik i numer iteracji
 
-A = [
-    [10.0, -1.0,  2.0,  0.0],
-    [-1.0, 11.0, -1.0,  3.0],
-    [2.0, -1.0, 10.0, -1.0],
-    [0.0,  3.0, -1.0,  8.0]
+        x_stare = x_nowe[:]  # po zakończeniu iteracji przepisujemy nowe przybliżenie jako stare
+
+    return x_stare, max_iter  # jeśli nie spełniono warunku stopu wcześniej, zwracamy ostatnie przybliżenie i maksymalną liczbę iteracji
+
+
+print("--------------------ZADANIE 1--------------------")  # wypisujemy nagłówek zadania
+
+A = [  # definiujemy macierz współczynników układu ze slajdów
+    [4.0, -2.0, 0.0, 0.0],  # pierwszy wiersz macierzy A
+    [-2.0, 5.0, -1.0, 0.0],  # drugi wiersz macierzy A
+    [0.0, -1.0, 4.0, 2.0],  # trzeci wiersz macierzy A
+    [0.0, 0.0, 2.0, 3.0]  # czwarty wiersz macierzy A
 ]
 
-b = [6.0, 25.0, -11.0, 15.0]
+b = [0.0, 2.0, 3.0, -2.0]  # definiujemy wektor prawej strony układu
+x0 = [0.0, 0.0, 0.0, 0.0]  # definiujemy przybliżenie początkowe
+x_dokladne = [0.5, 1.0, 2.0, -2.0]  # zapisujemy rozwiązanie dokładne dla tego przykładu
 
-# Przybliżenie początkowe
-x0 = [0.0, 0.0, 0.0, 0.0]
+print("\nDane:")  # wypisujemy napis informujący o danych wejściowych
+print("Macierz A:")  # wypisujemy nagłówek dla macierzy A
+for wiersz in A:  # przechodzimy po wszystkich wierszach macierzy
+    print(wiersz)  # wypisujemy każdy wiersz macierzy
 
-# Dokładne rozwiązanie tego układu:
-# x = [1, 2, -1, 1]
-x_dokladne = [1.0, 2.0, -1.0, 1.0]
+print("\nWektor b:")  # wypisujemy nagłówek dla wektora b
+print(b)  # wypisujemy wektor prawej strony
 
-print("\nDane:")
-print("Macierz A:")
-for wiersz in A:
-    print(wiersz)
+print("\nPrzybliżenie początkowe x^(0):")  # wypisujemy nagłówek dla przybliżenia początkowego
+print(x0)  # wypisujemy wektor początkowy
 
-print("\nWektor b:")
-print(b)
+print("\nDokładne rozwiązanie:")  # wypisujemy nagłówek dla rozwiązania dokładnego
+print(x_dokladne)  # wypisujemy rozwiązanie dokładne
 
-print("\nPrzybliżenie początkowe x^(0):")
-print(x0)
-
-print("\nDokładne rozwiązanie:")
-print(x_dokladne)
-
-# --------------------------------------------------
-# a) Warunek stopu: liczba iteracji
-# --------------------------------------------------
-print("\n-------------------- a) LICZBA ITERACJI --------------------")
-wynik_a, iteracje_a = jacobi(
-    A, b, x0,
-    max_iter=10,
-    warunek_stopu="iteracje"
+print("\n-------------------- a) LICZBA ITERACJI --------------------")  # wypisujemy nagłówek dla punktu a
+wynik_a, iteracje_a = jacobi(  # wywołujemy metodę Jacobiego dla warunku stopu opartego na liczbie iteracji
+    A, b, x0,  # przekazujemy macierz A, wektor b i przybliżenie początkowe
+    max_iter=10,  # ustawiamy liczbę iteracji na 10
+    warunek_stopu="iteracje"  # wybieramy warunek stopu oparty na liczbie iteracji
 )
 
-print("\nWynik końcowy po zadanej liczbie iteracji:")
-wypisz_wektor(wynik_a)
-print("Liczba iteracji:", iteracje_a)
+print("\nWynik końcowy po zadanej liczbie iteracji:")  # wypisujemy opis wyniku z punktu a
+wypisz_wektor(wynik_a)  # wypisujemy końcowy wektor przybliżenia
+print("Liczba iteracji:", iteracje_a)  # wypisujemy liczbę wykonanych iteracji
 
-roznica_a = odejmij_wektory(wynik_a, x_dokladne)
-print("Norma błędu względem rozwiązania dokładnego:", norma_max(roznica_a))
+blad_a = odejmij_wektory(wynik_a, x_dokladne)  # obliczamy błąd względem rozwiązania dokładnego dla punktu a
+print("Norma błędu względem rozwiązania dokładnego:", norma_max(blad_a))  # wypisujemy normę maksimum błędu
 
-# --------------------------------------------------
-# b) Warunek stopu: norma różnicy kolejnych przybliżeń
-# --------------------------------------------------
-print("\n-------------------- b) NORMA RÓŻNICY KOLEJNYCH PRZYBLIŻEŃ --------------------")
-wynik_b, iteracje_b = jacobi(
-    A, b, x0,
-    max_iter=100,
-    epsilon=1e-6,
-    warunek_stopu="roznica"
+print("\n-------------------- b) WARUNEK ZE SLAJDU --------------------")  # wypisujemy nagłówek dla punktu b
+wynik_b, iteracje_b = jacobi(  # wywołujemy metodę Jacobiego dla warunku stopu ze slajdu
+    A, b, x0,  # przekazujemy macierz A, wektor b i przybliżenie początkowe
+    max_iter=100,  # ustawiamy maksymalną liczbę iteracji na 100
+    epsilon=1e-3,  # ustawiamy dokładność zgodną ze slajdem
+    warunek_stopu="roznica"  # wybieramy warunek stopu oparty na ilorazie norm
 )
 
-print("\nWynik końcowy:")
-wypisz_wektor(wynik_b)
-print("Liczba iteracji:", iteracje_b)
+print("\nWynik końcowy:")  # wypisujemy opis wyniku z punktu b
+wypisz_wektor(wynik_b)  # wypisujemy końcowy wektor przybliżenia
+print("Liczba iteracji:", iteracje_b)  # wypisujemy liczbę wykonanych iteracji
 
-roznica_b = odejmij_wektory(wynik_b, x_dokladne)
-print("Norma błędu względem rozwiązania dokładnego:", norma_max(roznica_b))
+blad_b = odejmij_wektory(wynik_b, x_dokladne)  # obliczamy błąd względem rozwiązania dokładnego dla punktu b
+print("Norma błędu względem rozwiązania dokładnego:", norma_max(blad_b))  # wypisujemy normę maksimum błędu
 
-# --------------------------------------------------
-# c) Warunek stopu: błąd uzyskanego przybliżenia
-# --------------------------------------------------
-print("\n-------------------- c) BŁĄD UZYSKANEGO PRZYBLIŻENIA --------------------")
-wynik_c, iteracje_c = jacobi(
-    A, b, x0,
-    max_iter=100,
-    epsilon=1e-6,
-    warunek_stopu="blad",
-    rozwiazanie_dokladne=x_dokladne
+print("\n-------------------- c) BŁĄD UZYSKANEGO PRZYBLIŻENIA --------------------")  # wypisujemy nagłówek dla punktu c
+wynik_c, iteracje_c = jacobi(  # wywołujemy metodę Jacobiego dla warunku stopu opartego na błędzie
+    A, b, x0,  # przekazujemy macierz A, wektor b i przybliżenie początkowe
+    max_iter=100,  # ustawiamy maksymalną liczbę iteracji na 100
+    epsilon=1e-3,  # ustawiamy dokładność na 10 do potęgi minus 3
+    warunek_stopu="blad",  # wybieramy warunek stopu oparty na błędzie względem rozwiązania dokładnego
+    rozwiazanie_dokladne=x_dokladne  # przekazujemy rozwiązanie dokładne potrzebne do obliczenia błędu
 )
 
-print("\nWynik końcowy:")
-wypisz_wektor(wynik_c)
-print("Liczba iteracji:", iteracje_c)
+print("\nWynik końcowy:")  # wypisujemy opis wyniku z punktu c
+wypisz_wektor(wynik_c)  # wypisujemy końcowy wektor przybliżenia
+print("Liczba iteracji:", iteracje_c)  # wypisujemy liczbę wykonanych iteracji
 
-roznica_c = odejmij_wektory(wynik_c, x_dokladne)
-print("Norma błędu względem rozwiązania dokładnego:", norma_max(roznica_c))
-
-print("\n-------------------- WNIOSEK --------------------")
-print("Jeżeli wyniki są coraz bliższe [1, 2, -1, 1], to program działa poprawnie.")
-````
+blad_c = odejmij_wektory(wynik_c, x_dokladne)  # obliczamy błąd względem rozwiązania dokładnego dla punktu c
+print("Norma błędu względem rozwiązania dokładnego:", norma_max(blad_c))  # wypisujemy normę maksimum błędu
+```
 
 ---
 
