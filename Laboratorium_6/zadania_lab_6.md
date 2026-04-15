@@ -551,7 +551,7 @@ na:
 
 # Zadanie 3
 
-**Sprawdź uwarunkowanie układu pod kątem metod z zadania 1 oraz 2.**
+**Sprawdź zbieżność układu pod kątem metod z zadania 1 oraz 2.**
 
 Układ do testowania:
 
@@ -563,8 +563,6 @@ $$
 2x_3 + 3x_4 = -2.
 \end{cases}
 $$
-
----
 
 ## Zapis macierzowy układu
 
@@ -604,231 +602,365 @@ x^* =
 \end{bmatrix}
 $$
 
+## Co sprawdzamy w tym zadaniu?
+
+W zadaniu 1 używaliśmy **metody Jacobiego**, a w zadaniu 2 **metody Gaussa-Seidla**.
+Teraz nie liczymy kolejnych iteracji, tylko sprawdzamy, **czy te metody powinny być zbieżne** dla danego układu.
+
+Na slajdach pojawia się ogólna postać metody iteracyjnej:
+
+$$
+x^{(k)} = W x^{(k-1)} + Z
+$$
+
+Najważniejsze pytanie brzmi:
+
+> czy kolejne iteracje prowadzą do rozwiązania?
+
+Według slajdów zależy to od macierzy iteracji (W).
+W praktyce używamy warunku:
+
+$$
+||W|| < 1
+$$
+
+W tej notatce korzystamy z **normy wierszowej**:
+
+$$
+\|W\|_{\infty} = \max_i \sum_{j=1}^{n} |w_{ij}|
+$$
+
+Jeżeli:
+
+$$
+||W||_\infty < 1
+$$
+
+to metoda powinna być zbieżna.
+
+## 1. Metoda Jacobiego
+
+Dla metody Jacobiego macierz iteracji wyznaczamy dokładnie z wzoru ze slajdu:
+
+$$
+W_{ij} =
+\begin{cases}
+0 & \text{gdy } i=j, \\
+-\dfrac{a_{ij}}{a_{ii}} & \text{gdy } i \ne j
+\end{cases}
+$$
+
+Dla naszego układu otrzymujemy:
+
+$$
+W_J =
+\begin{bmatrix}
+0 & \frac12 & 0 & 0 \\
+\frac25 & 0 & \frac15 & 0 \\
+0 & \frac14 & 0 & -\frac12 \\
+0 & 0 & -\frac23 & 0
+\end{bmatrix}
+$$
+
+Teraz liczymy normę wierszową:
+
+* wiersz 1:
+  $$
+  0 + \frac12 + 0 + 0 = \frac12
+  $$
+
+* wiersz 2:
+  $$
+  \frac25 + 0 + \frac15 + 0 = \frac35
+  $$
+
+* wiersz 3:
+  $$
+  0 + \frac14 + 0 + \frac12 = \frac34
+  $$
+
+* wiersz 4:
+  $$
+  0 + 0 + \frac23 + 0 = \frac23
+  $$
+
+Zatem:
+
+$$
+|W_J|_\infty =
+\max\left(
+\frac12,\frac35,\frac34,\frac23
+\right)
+=
+\frac34
+= 0.75
+$$
+
+Ponieważ:
+
+$$
+||W_J||_\infty < 1
+$$
+
+to **metoda Jacobiego jest zbieżna**.
+
+## 2. Metoda Gaussa-Seidla
+
+Dla metody Gaussa-Seidla na slajdach mamy wzór:
+
+$$
+(L + D)x^{(k)} = -Ux^{(k-1)} + b
+$$
+
+gdzie:
+
+* $L$ — macierz trójkątna dolna,
+* $D$ — macierz diagonalna,
+* $U$ — macierz trójkątna górna.
+
+Po przekształceniu dostajemy:
+
+$$
+x^{(k)} = -(L + D)^{-1}U,x^{(k-1)} + (L + D)^{-1}b
+$$
+
+Stąd macierz iteracji dla Gaussa-Seidla ma postać:
+
+$$
+W_{GS} = -(L + D)^{-1}U
+$$
+
+To jest ważna różnica względem Jacobiego:
+
+* dla Jacobiego mamy prosty wzór element po elemencie,
+* dla Gaussa-Seidla trzeba skorzystać z rozkładu macierzy $A$ na części $L$, $D$, $U$.
+
+Dla naszego układu otrzymujemy:
+
+$$
+W_{GS} =
+\begin{bmatrix}
+0 & \frac12 & 0 & 0 \\
+0 & \frac15 & \frac15 & 0 \\
+0 & \frac1{20} & \frac1{20} & -\frac12 \\
+0 & -\frac1{30} & -\frac1{30} & \frac13
+\end{bmatrix}
+$$
+
+Liczymy normę wierszową:
+
+* wiersz 1:
+  $$
+  0 + \frac12 + 0 + 0 = \frac12
+  $$
+
+* wiersz 2:
+  $$
+  0 + \frac15 + \frac15 + 0 = \frac25
+  $$
+
+* wiersz 3:
+  $$
+  0 + \frac1{20} + \frac1{20} + \frac12 = \frac35
+  $$
+
+* wiersz 4:
+  $$
+  0 + \frac1{30} + \frac1{30} + \frac13 = \frac25
+  $$
+
+Zatem:
+
+$$
+|W_{GS}|_\infty =
+\max\left(
+\frac12,\frac25,\frac35,\frac25
+\right)
+=
+\frac35
+= 0.6
+$$
+
+Ponieważ:
+
+$$
+|W_{GS}|_\infty < 1
+$$
+
+to **metoda Gaussa-Seidla jest zbieżna**.
+
 ---
 
-## Jak sprawdzić, czy metody powinny być zbieżne?
+## Porównanie obu metod
 
-Najprostsze kryterium to **ściśle diagonalna dominacja**.
-
-Macierz jest ściśle diagonalnie dominująca, jeśli w każdym wierszu:
+Otrzymaliśmy:
 
 $$
-|a_{ii}| > \sum_{j \ne i} |a_{ij}|
+|W_J|_\infty = 0.75
 $$
 
-Sprawdźmy:
-
-### Wiersz 1
+oraz
 
 $$
-|4| > |-2| \quad \Rightarrow \quad 4 > 2
+|W_{GS}|_\infty = 0.6
 $$
 
-### Wiersz 2
+Obie metody są zbieżne, ale ponieważ:
 
 $$
-|5| > |-2| + |-1| \quad \Rightarrow \quad 5 > 3
+0.6 < 0.75
 $$
 
-### Wiersz 3
+to metoda Gaussa-Seidla powinna zbiegać szybciej niż metoda Jacobiego.
+Zgadza się to z wcześniejszymi obserwacjami z zadań 1 i 2.
 
-$$
-|4| > |-1| + |2| \quad \Rightarrow \quad 4 > 3
-$$
-
-### Wiersz 4
-
-$$
-|3| > |2| \quad \Rightarrow \quad 3 > 2
-$$
-
-W każdym przypadku warunek jest spełniony.
-
----
-
-## Wniosek o uwarunkowaniu
-
-Macierz jest **ściśle diagonalnie dominująca**, więc:
-
-* metoda Jacobiego jest zbieżna,
-* metoda Gaussa-Seidla również jest zbieżna.
-
----
-
-# Funkcja sprawdzająca dominację diagonalną
+## Kod
 
 ```python
-def sprawdz_dominacje_diagonalna(A):
-    for i in range(len(A)):
-        suma = 0.0
-        for j in range(len(A[i])):
-            if i != j:
-                suma += abs(A[i][j])
+print("--------------------ZADANIE 3--------------------")  # wypisujemy nagłówek zadania 3
 
-        if abs(A[i][i]) <= suma:
-            return False
+def zeros(n, m):  # definiujemy funkcję tworzącą macierz n x m wypełnioną zerami
+    macierz = []  # tworzymy pustą listę na całą macierz
+    for i in range(n):  # wykonujemy pętlę po wszystkich wierszach
+        wiersz = []  # tworzymy pustą listę na jeden wiersz
+        for j in range(m):  # wykonujemy pętlę po wszystkich kolumnach
+            wiersz.append(0.0)  # dodajemy do wiersza element 0.0
+        macierz.append(wiersz)  # dodajemy gotowy wiersz do macierzy
+    return macierz  # zwracamy utworzoną macierz zerową
 
-    return True
-```
+def wypisz_macierz(macierz):  # definiujemy funkcję do wypisywania macierzy
+    for wiersz in macierz:  # przechodzimy po wszystkich wierszach macierzy
+        print(wiersz)  # wypisujemy bieżący wiersz
 
----
+def norma_wierszowa_macierzy(macierz):  # definiujemy funkcję liczącą normę wierszową macierzy
+    maksimum = 0.0  # ustawiamy początkowe maksimum na 0
+    for i in range(len(macierz)):  # przechodzimy po wszystkich wierszach macierzy
+        suma = 0.0  # zerujemy sumę modułów elementów w bieżącym wierszu
+        for j in range(len(macierz[i])):  # przechodzimy po wszystkich elementach bieżącego wiersza
+            suma += abs(macierz[i][j])  # dodajemy moduł bieżącego elementu do sumy
+        if suma > maksimum:  # sprawdzamy, czy suma z tego wiersza jest większa od dotychczasowego maksimum
+            maksimum = suma  # aktualizujemy maksimum
+    return maksimum  # zwracamy największą sumę modułów z wierszy
 
-# Program testujący cały układ
+def macierz_iteracji_jacobiego(A):  # definiujemy funkcję wyznaczającą macierz iteracji metody Jacobiego
+    n = len(A)  # zapisujemy rozmiar macierzy A
+    W = zeros(n, n)  # tworzymy pustą macierz iteracji W o rozmiarze n x n
 
-```python
-def norma_max(wektor):
-    maksimum = abs(wektor[0])
-    for i in range(1, len(wektor)):
-        if abs(wektor[i]) > maksimum:
-            maksimum = abs(wektor[i])
-    return maksimum
+    for i in range(n):  # przechodzimy po wszystkich wierszach macierzy
+        for j in range(n):  # przechodzimy po wszystkich kolumnach macierzy
+            if i == j:  # sprawdzamy, czy jesteśmy na przekątnej
+                W[i][j] = 0.0  # na przekątnej wpisujemy 0 zgodnie ze wzorem dla Jacobiego
+            else:  # w przeciwnym wypadku jesteśmy poza przekątną
+                W[i][j] = -A[i][j] / A[i][i]  # wpisujemy wartość -a_ij / a_ii zgodnie ze wzorem ze slajdu
 
+    return W  # zwracamy macierz iteracji Jacobiego
 
-def odejmij_wektory(wektor1, wektor2):
-    wynik = []
-    for i in range(len(wektor1)):
-        wynik.append(wektor1[i] - wektor2[i])
-    return wynik
+def rozwiaz_uklad_dolnotrojkatny(LD, b):  # definiujemy funkcję rozwiązującą układ dolnotrójkątny LDx=b
+    n = len(LD)  # zapisujemy rozmiar macierzy
+    x = [0.0] * n  # tworzymy wektor rozwiązania wypełniony zerami
 
+    for i in range(n):  # przechodzimy po kolejnych równaniach od góry do dołu
+        suma = 0.0  # zerujemy sumę znanych składników
+        for j in range(i):  # przechodzimy po wcześniej obliczonych elementach rozwiązania
+            suma += LD[i][j] * x[j]  # dodajemy składniki z już wyznaczonych wartości
+        x[i] = (b[i] - suma) / LD[i][i]  # obliczamy bieżący element rozwiązania przez podstawianie w przód
 
-def jacobi(A, b, x0, max_iter=100, epsilon=1e-8, warunek_stopu="iteracje", rozwiazanie_dokladne=None):
-    n = len(A)
-    x_stare = x0[:]
+    return x  # zwracamy wyznaczony wektor rozwiązania
 
-    for krok in range(1, max_iter + 1):
-        x_nowe = [0.0] * n
+def macierz_iteracji_gaussa_seidla(A):  # definiujemy funkcję wyznaczającą macierz iteracji metody Gaussa-Seidla
+    n = len(A)  # zapisujemy rozmiar macierzy A
 
-        for i in range(n):
-            suma = 0.0
-            for j in range(n):
-                if j != i:
-                    suma += A[i][j] * x_stare[j]
+    LD = zeros(n, n)  # tworzymy pustą macierz dla części L + D
+    U = zeros(n, n)  # tworzymy pustą macierz dla części U
 
-            x_nowe[i] = (b[i] - suma) / A[i][i]
+    for i in range(n):  # przechodzimy po wszystkich wierszach macierzy A
+        for j in range(n):  # przechodzimy po wszystkich kolumnach macierzy A
+            if j <= i:  # sprawdzamy, czy element należy do dolnej części wraz z przekątną
+                LD[i][j] = A[i][j]  # przepisujemy element do macierzy LD
+            else:  # w przeciwnym wypadku element należy do części górnej
+                U[i][j] = A[i][j]  # przepisujemy element do macierzy U
 
-        if warunek_stopu == "iteracje":
-            if krok == max_iter:
-                return x_nowe, krok
+    W = zeros(n, n)  # tworzymy pustą macierz iteracji Gaussa-Seidla
 
-        elif warunek_stopu == "roznica":
-            roznica = odejmij_wektory(x_nowe, x_stare)
-            if norma_max(roznica) < epsilon:
-                return x_nowe, krok
+    for kolumna in range(n):  # przechodzimy po kolejnych kolumnach macierzy W
+        prawa_strona = []  # tworzymy pustą listę na prawą stronę układu pomocniczego
+        for i in range(n):  # przechodzimy po wszystkich wierszach
+            prawa_strona.append(-U[i][kolumna])  # budujemy prawą stronę jako przeciwną kolumnę macierzy U
 
-        elif warunek_stopu == "blad":
-            if rozwiazanie_dokladne is None:
-                raise ValueError("Dla warunku 'blad' trzeba podać dokładne rozwiązanie")
-            blad = odejmij_wektory(x_nowe, rozwiazanie_dokladne)
-            if norma_max(blad) < epsilon:
-                return x_nowe, krok
+        rozwiazanie = rozwiaz_uklad_dolnotrojkatny(LD, prawa_strona)  # rozwiązujemy układ (L+D)x = -u_k dla bieżącej kolumny
 
-        x_stare = x_nowe[:]
+        for i in range(n):  # przechodzimy po wszystkich wierszach rozwiązania
+            W[i][kolumna] = rozwiazanie[i]  # wpisujemy obliczoną kolumnę do macierzy iteracji W
 
-    return x_stare, max_iter
+    return W  # zwracamy macierz iteracji Gaussa-Seidla
 
-
-def gauss_seidel(A, b, x0, max_iter=100, epsilon=1e-8, warunek_stopu="iteracje", rozwiazanie_dokladne=None):
-    n = len(A)
-    x = x0[:]
-
-    for krok in range(1, max_iter + 1):
-        x_stare = x[:]
-
-        for i in range(n):
-            suma1 = 0.0
-            for j in range(i):
-                suma1 += A[i][j] * x[j]
-
-            suma2 = 0.0
-            for j in range(i + 1, n):
-                suma2 += A[i][j] * x_stare[j]
-
-            x[i] = (b[i] - suma1 - suma2) / A[i][i]
-
-        if warunek_stopu == "iteracje":
-            if krok == max_iter:
-                return x, krok
-
-        elif warunek_stopu == "roznica":
-            roznica = odejmij_wektory(x, x_stare)
-            if norma_max(roznica) < epsilon:
-                return x, krok
-
-        elif warunek_stopu == "blad":
-            if rozwiazanie_dokladne is None:
-                raise ValueError("Dla warunku 'blad' trzeba podać dokładne rozwiązanie")
-            blad = odejmij_wektory(x, rozwiazanie_dokladne)
-            if norma_max(blad) < epsilon:
-                return x, krok
-
-    return x, max_iter
-
-
-def sprawdz_dominacje_diagonalna(A):
-    for i in range(len(A)):
-        suma = 0.0
-        for j in range(len(A[i])):
-            if i != j:
-                suma += abs(A[i][j])
-
-        if abs(A[i][i]) <= suma:
-            return False
-
-    return True
-
-
-A = [
-    [4.0, -2.0, 0.0, 0.0],
-    [-2.0, 5.0, -1.0, 0.0],
-    [0.0, -1.0, 4.0, 2.0],
-    [0.0, 0.0, 2.0, 3.0]
+A = [  # definiujemy macierz współczynników układu
+    [4.0, -2.0, 0.0, 0.0],  # pierwszy wiersz macierzy A
+    [-2.0, 5.0, -1.0, 0.0],  # drugi wiersz macierzy A
+    [0.0, -1.0, 4.0, 2.0],  # trzeci wiersz macierzy A
+    [0.0, 0.0, 2.0, 3.0]  # czwarty wiersz macierzy A
 ]
 
-b = [0.0, 2.0, 3.0, -2.0]
+print("\nMacierz A:")  # wypisujemy nagłówek dla macierzy A
+wypisz_macierz(A)  # wypisujemy macierz A
 
-x0 = [0.0, 0.0, 0.0, 0.0]
-x_dokladne = [0.5, 1.0, 2.0, -2.0]
+print("\n-------------------- METODA JACOBIEGO --------------------")  # wypisujemy nagłówek sekcji dla metody Jacobiego
+WJ = macierz_iteracji_jacobiego(A)  # wyznaczamy macierz iteracji Jacobiego
+print("Macierz iteracyjna W_J:")  # wypisujemy nagłówek dla macierzy W_J
+wypisz_macierz(WJ)  # wypisujemy macierz iteracji Jacobiego
 
-print("Czy macierz jest ściśle diagonalnie dominująca?", sprawdz_dominacje_diagonalna(A))
+norma_WJ = norma_wierszowa_macierzy(WJ)  # obliczamy normę wierszową macierzy iteracji Jacobiego
+print("Norma wierszowa ||W_J|| =", norma_WJ)  # wypisujemy wartość normy macierzy W_J
 
-print("\nJACOBI - warunek: liczba iteracji")
-wynik, kroki = jacobi(A, b, x0, max_iter=10, warunek_stopu="iteracje")
-print("Wynik:", wynik)
-print("Liczba iteracji:", kroki)
+if norma_WJ < 1:  # sprawdzamy warunek zbieżności dla Jacobiego
+    print("Metoda Jacobiego jest zbieżna, ponieważ ||W_J|| < 1.")  # wypisujemy pozytywny wniosek
+else:  # w przeciwnym przypadku
+    print("Metoda Jacobiego może nie być zbieżna, ponieważ ||W_J|| >= 1.")  # wypisujemy negatywny wniosek
 
-print("\nJACOBI - warunek: norma różnicy")
-wynik, kroki = jacobi(A, b, x0, epsilon=1e-8, warunek_stopu="roznica")
-print("Wynik:", wynik)
-print("Liczba iteracji:", kroki)
+print("\n-------------------- METODA GAUSSA-SEIDLA --------------------")  # wypisujemy nagłówek sekcji dla metody Gaussa-Seidla
+WGS = macierz_iteracji_gaussa_seidla(A)  # wyznaczamy macierz iteracji Gaussa-Seidla
+print("Macierz iteracyjna W_GS:")  # wypisujemy nagłówek dla macierzy W_GS
+wypisz_macierz(WGS)  # wypisujemy macierz iteracji Gaussa-Seidla
 
-print("\nJACOBI - warunek: błąd przybliżenia")
-wynik, kroki = jacobi(A, b, x0, epsilon=1e-8, warunek_stopu="blad", rozwiazanie_dokladne=x_dokladne)
-print("Wynik:", wynik)
-print("Liczba iteracji:", kroki)
+norma_WGS = norma_wierszowa_macierzy(WGS)  # obliczamy normę wierszową macierzy iteracji Gaussa-Seidla
+print("Norma wierszowa ||W_GS|| =", norma_WGS)  # wypisujemy wartość normy macierzy W_GS
 
-print("\nGAUSS-SEIDEL - warunek: liczba iteracji")
-wynik, kroki = gauss_seidel(A, b, x0, max_iter=10, warunek_stopu="iteracje")
-print("Wynik:", wynik)
-print("Liczba iteracji:", kroki)
+if norma_WGS < 1:  # sprawdzamy warunek zbieżności dla Gaussa-Seidla
+    print("Metoda Gaussa-Seidla jest zbieżna, ponieważ ||W_GS|| < 1.")  # wypisujemy pozytywny wniosek
+else:  # w przeciwnym przypadku
+    print("Metoda Gaussa-Seidla może nie być zbieżna, ponieważ ||W_GS|| >= 1.")  # wypisujemy negatywny wniosek
 
-print("\nGAUSS-SEIDEL - warunek: norma różnicy")
-wynik, kroki = gauss_seidel(A, b, x0, epsilon=1e-8, warunek_stopu="roznica")
-print("Wynik:", wynik)
-print("Liczba iteracji:", kroki)
-
-print("\nGAUSS-SEIDEL - warunek: błąd przybliżenia")
-wynik, kroki = gauss_seidel(A, b, x0, epsilon=1e-8, warunek_stopu="blad", rozwiazanie_dokladne=x_dokladne)
-print("Wynik:", wynik)
-print("Liczba iteracji:", kroki)
+print("\n-------------------- WNIOSEK KOŃCOWY --------------------")  # wypisujemy nagłówek końcowego wniosku
+print("Zbieżność metod z zadania 1 i 2 badamy przez normę macierzy iteracji.")  # wypisujemy ogólną informację o sposobie badania zbieżności
+print("Dla Jacobiego sprawdzamy macierz W_J.")  # wypisujemy informację dotyczącą metody Jacobiego
+print("Dla Gaussa-Seidla sprawdzamy macierz W_GS.")  # wypisujemy informację dotyczącą metody Gaussa-Seidla
+print("Jeżeli ||W|| < 1, to metoda jest zbieżna.")  # wypisujemy końcowe kryterium zbieżności
 ```
 
 ---
 
-# Wnioski
+## Wnioski
 
-* Metoda Jacobiego wykorzystuje w każdej iteracji tylko poprzednie przybliżenie.
-* Metoda Gaussa-Seidla wykorzystuje już nowe wartości obliczone w tej samej iteracji, dlatego zwykle działa szybciej.
-* Dla badanego układu macierz jest ściśle diagonalnie dominująca, więc obie metody są zbieżne.
-* W praktyce metoda Gaussa-Seidla zwykle potrzebuje mniej iteracji niż metoda Jacobiego, aby osiągnąć podobną dokładność.
+W zadaniu 3 zbieżność badamy zgodnie ze slajdami przez macierz iteracji (W) i warunek:
 
-```
+$$
+|W| < 1
+$$
+
+Dla badanego układu:
+
+* dla metody Jacobiego:
+  $$
+  |W_J|_\infty = 0.75 < 1
+  $$
+
+* dla metody Gaussa-Seidla:
+  $$
+  |W_{GS}|_\infty = 0.6 < 1
+  $$
+
+Oznacza to, że:
+
+* metoda Jacobiego jest zbieżna,
+* metoda Gaussa-Seidla jest zbieżna,
+* metoda Gaussa-Seidla powinna zbiegać szybciej niż metoda Jacobiego.

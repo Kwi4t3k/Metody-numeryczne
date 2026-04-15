@@ -282,3 +282,119 @@
 
 print("--------------------ZADANIE 3--------------------")
 
+def zeros(n, m):
+    macierz = []
+    for i in range(n):
+        wiersz = []
+        for j in range(m):
+            wiersz.append(0.0)
+        macierz.append(wiersz)
+    return macierz
+
+def wypisz_macierz(macierz):
+    for wiersz in macierz:
+        print(wiersz)
+
+def norma_wierszowa_macierzy(macierz):
+    maksimum = 0.0
+    for i in range(len(macierz)):
+        suma = 0.0
+        for j in range(len(macierz[i])):
+            suma += abs(macierz[i][j])
+        if suma > maksimum:
+            maksimum = suma
+    return maksimum
+
+def macierz_iteracji_jacobiego(A):
+    n = len(A)
+    W = zeros(n, n)
+
+    for i in range(n):
+        for j in range(n):
+            if i == j:
+                W[i][j] = 0.0
+            else:
+                W[i][j] = -A[i][j] / A[i][i]
+
+    return W
+
+def rozwiaz_uklad_dolnotrojkatny(LD, b):
+    n = len(LD)
+    x = [0.0] * n
+
+    for i in range(n):
+        suma = 0.0
+        for j in range(i):
+            suma += LD[i][j] * x[j]
+        x[i] = (b[i] - suma) / LD[i][i]
+
+    return x
+
+def macierz_iteracji_gaussa_seidla(A):
+    n = len(A)
+
+    LD = zeros(n, n)
+    U = zeros(n, n)
+
+    for i in range(n):
+        for j in range(n):
+            if j <= i:
+                LD[i][j] = A[i][j]
+            else:
+                U[i][j] = A[i][j]
+
+    W = zeros(n, n)
+
+    for kolumna in range(n):
+        prawa_strona = []
+        for i in range(n):
+            prawa_strona.append(-U[i][kolumna])
+
+        rozwiazanie = rozwiaz_uklad_dolnotrojkatny(LD, prawa_strona)
+
+        for i in range(n):
+            W[i][kolumna] = rozwiazanie[i]
+
+    return W
+
+A = [
+    [4.0, -2.0, 0.0, 0.0],
+    [-2.0, 5.0, -1.0, 0.0],
+    [0.0, -1.0, 4.0, 2.0],
+    [0.0, 0.0, 2.0, 3.0]
+]
+
+print("\nMacierz A:")
+wypisz_macierz(A)
+
+print("\n-------------------- METODA JACOBIEGO --------------------")
+WJ = macierz_iteracji_jacobiego(A)
+print("Macierz iteracyjna W_J:")
+wypisz_macierz(WJ)
+
+norma_WJ = norma_wierszowa_macierzy(WJ)
+print("Norma wierszowa ||W_J|| =", norma_WJ)
+
+if norma_WJ < 1:
+    print("Metoda Jacobiego jest zbieżna, ponieważ ||W_J|| < 1.")
+else:
+    print("Metoda Jacobiego może nie być zbieżna, ponieważ ||W_J|| >= 1.")
+
+print("\n-------------------- METODA GAUSSA-SEIDLA --------------------")
+WGS = macierz_iteracji_gaussa_seidla(A)
+print("Macierz iteracyjna W_GS:")
+wypisz_macierz(WGS)
+
+norma_WGS = norma_wierszowa_macierzy(WGS)
+print("Norma wierszowa ||W_GS|| =", norma_WGS)
+
+if norma_WGS < 1:
+    print("Metoda Gaussa-Seidla jest zbieżna, ponieważ ||W_GS|| < 1.")
+else:
+    print("Metoda Gaussa-Seidla może nie być zbieżna, ponieważ ||W_GS|| >= 1.")
+
+print("\n-------------------- WNIOSEK KOŃCOWY --------------------")
+print("Zbieżność metod z zadania 1 i 2 badamy przez normę macierzy iteracji.")
+print("Dla Jacobiego sprawdzamy macierz W_J.")
+print("Dla Gaussa-Seidla sprawdzamy macierz W_GS.")
+print("Jeżeli ||W|| < 1, to metoda jest zbieżna.")
