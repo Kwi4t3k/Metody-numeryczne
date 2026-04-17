@@ -9,3 +9,6 @@
 - [Laboratorium 4](Laboratorium_4/zadania_lab_4.md)
 - [Laboratorium 5](Laboratorium_5/zadania_lab_5.md)
 - [Laboratorium 6](Laboratorium_6/zadania_lab_6.md)
+
+## Równania nieliniowe
+- [Laboratorium 7](Laboratorium_7/zadania_lab_7.md)
