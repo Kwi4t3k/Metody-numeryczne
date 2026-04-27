@@ -51,7 +51,7 @@ def sin_maclaurin(x, n):
     wyraz = x
     znak = -1.0
 
-    for k in range(2, n+1):
+    for k in range(2, n + 1):
         wyraz = wyraz * x * x / ((2 * k - 2) * (2 * k - 1))
         suma += znak * wyraz
         znak = -znak
@@ -95,7 +95,7 @@ def wspolczynniki_newtona(x, y):
     if len(y) != n:
         raise ValueError("Listy x i y muszą mieć taką samą długość.")
 
-    a = y[:]
+    a = y.copy()
 
     for j in range(1, n):
         for i in range(n - 1, j - 1, -1):
@@ -127,7 +127,7 @@ def wspolczynniki_newtona(x, y):
     if len(y) != n:
         raise ValueError("Listy x i y muszą mieć taką samą długość.")
 
-    a = y[:]
+    a = y.copy()
 
     for j in range(1, n):
         for i in range(n - 1, j - 1, -1):
@@ -144,12 +144,12 @@ def wartosc_wielomianu_newtona(x_wezly, a, X):
     if len(x_wezly) != n:
         raise ValueError("Liczba węzłów x i liczba współczynników musi być taka sama.")
 
-    result = a[n - 1]
+    wynik = a[n - 1]
 
     for i in range(n - 2, -1, -1):
-        result = result * (X - x_wezly[i]) + a[i]
+        wynik = wynik * (X - x_wezly[i]) + a[i]
 
-    return result
+    return wynik
 
 print("-------------------- ZADANIE 4 --------------------")
 
@@ -166,3 +166,69 @@ print("Wartości y:", y)
 print("Współczynniki Newtona:", a)
 print("Punkt X:", X)
 print("Wartość wielomianu w punkcie X:", wartosc)
+
+# zad 5
+
+import matplotlib.pyplot as plt
+
+def wspolczynniki_newtona(x, y):
+    n = len(x)
+
+    if len(y) != n:
+        raise ValueError("Listy x i y muszą mieć taką samą długość.")
+
+    a = y.copy()
+
+    for j in range(1, n):
+        for i in range(n - 1, j - 1, -1):
+            if x[i] == x[i - j]:
+                raise ValueError("Wartości x muszą być różne.")
+            a[i] = (a[i] - a[i - 1]) / (x[i] - x[i - j])
+
+    return a
+
+
+def wartosc_wielomianu_newtona(x_wezly, a, X):
+    n = len(a)
+
+    if len(x_wezly) != n:
+        raise ValueError("Liczba węzłów x i liczba współczynników musi być taka sama.")
+
+    wynik = a[n - 1]
+
+    for i in range(n - 2, -1, -1):
+        wynik = wynik * (X - x_wezly[i]) + a[i]
+
+    return wynik
+
+
+print("-------------------- ZADANIE 5 --------------------")
+
+x = [0.0, 1.0, 2.0, 3.0]
+y = [1.0, 2.0, 0.0, 5.0]
+
+a = wspolczynniki_newtona(x, y)
+
+x_min = min(x)
+x_max = max(x)
+
+x_wykres = []
+y_wykres = []
+
+liczba_punktow = 200
+
+for i in range(liczba_punktow + 1):
+    X = x_min + (x_max - x_min) * i / liczba_punktow
+    Y = wartosc_wielomianu_newtona(x, a, X)
+    x_wykres.append(X)
+    y_wykres.append(Y)
+
+plt.plot(x_wykres, y_wykres, label="Wielomian interpolacyjny Newtona")
+plt.scatter(x, y, label="Punkty wejściowe")
+
+plt.title("Interpolacja Newtona")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
