@@ -736,9 +736,377 @@ $$
 Oznacza to, że otrzymany wielomian bardzo dobrze przybliża dane punkty.
 
 ---
+# Zadanie 3
 
-Zadanie 3. Napisz funkcję, która dla zadanego zbioru punktów oraz stopnia wielomianu optymalnego, wyznaczy współczynniki wielomianu oraz błąd aproksymacji metodą najmniejszych kwadratów.
+**Napisz funkcję, która dla zadanego zbioru punktów oraz stopnia wielomianu optymalnego wyznaczy współczynniki wielomianu oraz błąd aproksymacji metodą najmniejszych kwadratów.**
+
+## O co chodzi w tym zadaniu?
+
+Zadanie 3 jest uogólnieniem zadań 1 i 2.
+
+W zadaniu 1 szukaliśmy prostej:
+
+$$
+F(x)=ax+b
+$$
+
+czyli wielomianu stopnia 1.
+
+W zadaniu 2 szukaliśmy wielomianu drugiego stopnia:
+
+$$
+F(x)=ax^2+bx+c
+$$
+
+W zadaniu 3 mamy napisać funkcję, która zrobi to samo, ale dla **dowolnego stopnia wielomianu** podanego przez użytkownika.
+
+Czyli jeśli podamy:
+
+- `stopien = 1`, funkcja wyznaczy prostą,
+- `stopien = 2`, funkcja wyznaczy wielomian kwadratowy,
+- `stopien = 3`, funkcja wyznaczy wielomian trzeciego stopnia,
+- itd.
+
+## Wzór ogólny ze slajdów
+
+Na slajdach funkcja aproksymująca ma postać:
+
+$$
+F(x)=a_0\phi_0(x)+a_1\phi_1(x)+\dots+a_m\phi_m(x),
+$$
+
+gdzie dla uproszczenia przyjmujemy:
+
+$$
+\phi_k(x)=x^k.
+$$
+
+Wtedy funkcję aproksymującą można zapisać jako wielomian:
+
+$$
+F(x)=a_0+a_1x+a_2x^2+\dots+a_mx^m.
+$$
+
+Współczynniki:
+
+$$
+a_0,a_1,a_2,\dots,a_m
+$$
+
+są szukanymi współczynnikami wielomianu aproksymacyjnego.
+
+## Funkcja błędu
+
+Zgodnie ze slajdami minimalizujemy funkcję błędu:
+
+$$
+h(a_0,a_1,\dots,a_m)=\sum_{i=1}^{n}\left(\sum_{j=0}^{m}a_jx_i^j-y_i\right)^2.
+$$
+
+Oznacza to, że dla każdego punktu sprawdzamy różnicę między:
+
+- wartością wielomianu w punkcie \(x_i\),
+- wartością rzeczywistą \(y_i\),
+
+a potem sumujemy kwadraty tych różnic.
+
+## Układ równań normalnych
+
+Ze slajdów wynika, że aby znaleźć najlepsze współczynniki, trzeba rozwiązać układ równań:
+
+$$
+\sum_{j=0}^{m}a_j\sum_{i=1}^{n}x_i^{j+k}
+=
+\sum_{i=1}^{n}x_i^k y_i,
+$$
+
+dla:
+
+$$
+k=0,1,\dots,m.
+$$
+
+To oznacza, że dla wielomianu stopnia \(m\) powstaje układ:
+
+$$
+m+1
+$$
+
+równań z:
+
+$$
+m+1
+$$
+
+niewiadomymi.
+
+## Jak program buduje układ równań?
+
+Program tworzy macierz układu:
+
+$$
+A
+$$
+
+oraz wektor wyrazów wolnych:
+
+$$
+B.
+$$
+
+Elementy macierzy są liczone ze wzoru:
+
+$$
+A_{k,j}=\sum_{i=1}^{n}x_i^{k+j}
+$$
+
+a elementy wektora prawej strony:
+
+$$
+B_k=\sum_{i=1}^{n}x_i^k y_i.
+$$
+
+Dzięki temu program sam tworzy układ równań dla dowolnego stopnia wielomianu.
+
+## Dane użyte w przykładzie
+
+W programie użyto punktów z zadania 2:
+
+$$
+(0,2),\ (0.5,2.48),\ (1,2.84),\ (1.5,3),\ (2,2.91)
+$$
+
+oraz stopnia:
+
+$$
+m=2.
+$$
+
+Czyli szukamy wielomianu:
+
+$$
+F(x)=a_0+a_1x+a_2x^2.
+$$
+
+Dla tego przykładu wynik powinien zgadzać się z zadaniem 2, tylko współczynniki są zapisane w innej kolejności.
+
+W zadaniu 2 pisaliśmy:
+
+$$
+F(x)=ax^2+bx+c.
+$$
+
+W zadaniu 3 piszemy:
+
+$$
+F(x)=a_0+a_1x+a_2x^2.
+$$
+
+Zatem:
+
+$$
+a_0=c,\qquad a_1=b,\qquad a_2=a.
+$$
+
+## Wynik dla danych z programu
+
+Dla danych:
+
+$$
+(0,2),\ (0.5,2.48),\ (1,2.84),\ (1.5,3),\ (2,2.91)
+$$
+
+oraz stopnia:
+
+$$
+m=2
+$$
+
+otrzymujemy:
+
+$$
+a_0\approx 1.9865714285714287
+$$
+
+$$
+a_1\approx 1.2337142857142858
+$$
+
+$$
+a_2\approx -0.38285714285714284
+$$
+
+czyli:
+
+$$
+F(x)=1.9865714285714287+1.2337142857142858x-0.38285714285714284x^2.
+$$
+
+Po uporządkowaniu według malejących potęg:
+
+$$
+F(x)=-0.38285714285714284x^2+1.2337142857142858x+1.9865714285714287.
+$$
+
+Suma kwadratów błędów wynosi:
+
+$$
+h\approx 0.00170285714285714.
+$$
+
+## Kod
+
+```python
+print("-------------------- ZADANIE 3 --------------------")  # wypisujemy nagłówek zadania
+
+def rozwiaz_uklad_gaussa(macierz, wyrazy_wolne):  # definiujemy funkcję rozwiązującą układ równań metodą Gaussa
+    n = len(wyrazy_wolne)  # zapisujemy liczbę równań i niewiadomych
+
+    for i in range(n):  # przechodzimy po kolejnych kolumnach eliminacji
+        if macierz[i][i] == 0:  # sprawdzamy, czy element główny na przekątnej nie jest zerem
+            raise ValueError("Na przekątnej pojawiło się zero - nie można wykonać eliminacji Gaussa.")  # jeśli jest zero, zgłaszamy błąd
+
+        for j in range(i + 1, n):  # przechodzimy po wierszach znajdujących się pod aktualnym wierszem
+            wspolczynnik = macierz[j][i] / macierz[i][i]  # obliczamy współczynnik potrzebny do wyzerowania elementu pod przekątną
+
+            for k in range(i, n):  # przechodzimy po elementach aktualnego wiersza od kolumny i do końca
+                macierz[j][k] = macierz[j][k] - wspolczynnik * macierz[i][k]  # wykonujemy eliminację, czyli zerujemy element pod przekątną
+
+            wyrazy_wolne[j] = wyrazy_wolne[j] - wspolczynnik * wyrazy_wolne[i]  # wykonujemy tę samą operację na wektorze wyrazów wolnych
+
+    rozwiazanie = [0.0] * n  # tworzymy listę na rozwiązanie układu
+
+    for i in range(n - 1, -1, -1):  # wykonujemy podstawianie wsteczne od ostatniego równania do pierwszego
+        suma = 0.0  # tworzymy zmienną pomocniczą na sumę znanych składników
+        for j in range(i + 1, n):  # przechodzimy po niewiadomych, które zostały już obliczone
+            suma += macierz[i][j] * rozwiazanie[j]  # dodajemy iloczyny współczynników i znanych rozwiązań
+
+        rozwiazanie[i] = (wyrazy_wolne[i] - suma) / macierz[i][i]  # obliczamy bieżącą niewiadomą
+
+    return rozwiazanie  # zwracamy rozwiązanie układu
+
+
+def aproksymacja_najmniejszych_kwadratow(punkty, stopien):  # definiujemy funkcję aproksymacji dla dowolnego stopnia wielomianu
+    liczba_wspolczynnikow = stopien + 1  # obliczamy liczbę współczynników, bo dla stopnia m mamy m+1 współczynników
+
+    macierz_ukladu = []  # tworzymy pustą macierz układu równań
+    wyrazy_wolne = []  # tworzymy pusty wektor wyrazów wolnych
+
+    for i in range(liczba_wspolczynnikow):  # tworzymy kolejne równania układu
+        wiersz = []  # tworzymy pusty wiersz macierzy
+
+        for j in range(liczba_wspolczynnikow):  # tworzymy kolejne elementy w danym wierszu macierzy
+            suma = 0.0  # zerujemy sumę dla elementu macierzy
+
+            for x, y in punkty:  # przechodzimy po wszystkich punktach
+                suma += x ** (i + j)  # dodajemy składnik x_i^(i+j), zgodnie ze wzorem na macierz układu
+
+            wiersz.append(suma)  # dodajemy obliczoną sumę do wiersza macierzy
+
+        macierz_ukladu.append(wiersz)  # dodajemy gotowy wiersz do macierzy układu
+
+        suma = 0.0  # zerujemy sumę dla wyrazu wolnego
+
+        for x, y in punkty:  # przechodzimy po wszystkich punktach
+            suma += (x ** i) * y  # dodajemy składnik x_i^i * y_i, zgodnie ze wzorem na prawą stronę układu
+
+        wyrazy_wolne.append(suma)  # dodajemy obliczoną sumę do wektora wyrazów wolnych
+
+    macierz_kopia = []  # tworzymy pustą listę na kopię macierzy
+    for wiersz in macierz_ukladu:  # przechodzimy po wszystkich wierszach macierzy
+        macierz_kopia.append(wiersz.copy())  # kopiujemy wiersz, aby metoda Gaussa nie zmieniła oryginalnej macierzy
+
+    wyrazy_wolne_kopia = wyrazy_wolne.copy()  # kopiujemy wektor wyrazów wolnych, aby zachować oryginał
+
+    wspolczynniki = rozwiaz_uklad_gaussa(macierz_kopia, wyrazy_wolne_kopia)  # rozwiązujemy układ równań i otrzymujemy współczynniki wielomianu
+
+    h = 0.0  # tworzymy zmienną h na sumę kwadratów błędów
+
+    for x, y in punkty:  # przechodzimy po wszystkich punktach
+        y_aprox = 0.0  # tworzymy zmienną na wartość wielomianu w punkcie x
+
+        for i in range(len(wspolczynniki)):  # przechodzimy po wszystkich współczynnikach wielomianu
+            y_aprox += wspolczynniki[i] * (x ** i)  # dodajemy składnik a_i * x^i do wartości wielomianu
+
+        h += (y_aprox - y) ** 2  # dodajemy kwadrat różnicy między wartością aproksymowaną a rzeczywistą
+
+    return wspolczynniki, h  # zwracamy współczynniki wielomianu i sumę kwadratów błędów
+
+
+punkty = [(0.0, 2.0), (0.5, 2.48), (1.0, 2.84), (1.5, 3.0), (2.0, 2.91)]  # zapisujemy dane punkty
+stopien = 2  # ustawiamy stopień wielomianu aproksymacyjnego
+
+wspolczynniki, h = aproksymacja_najmniejszych_kwadratow(punkty, stopien)  # wywołujemy funkcję aproksymacji
+
+print("Współczynniki wielomianu aproksymacyjnego:")  # wypisujemy nagłówek dla współczynników
+for i in range(len(wspolczynniki)):  # przechodzimy po wszystkich współczynnikach
+    print(f"a{i} = {wspolczynniki[i]}")  # wypisujemy współczynnik a_i
+
+print("\nWielomian aproksymacyjny:")  # wypisujemy nagłówek dla wielomianu
+print("y =", end=" ")  # rozpoczynamy wypisywanie wzoru wielomianu
+
+for i in range(len(wspolczynniki)):  # przechodzimy po wszystkich współczynnikach
+    if i == 0:  # sprawdzamy, czy wypisujemy pierwszy składnik
+        print(f"{wspolczynniki[i]}", end="")  # wypisujemy wyraz wolny bez znaku plus na początku
+    else:  # jeśli to nie jest pierwszy składnik
+        print(f" + {wspolczynniki[i]} * x^{i}", end="")  # wypisujemy kolejny składnik wielomianu
+
+print("\n\nSuma kwadratów błędów:")  # wypisujemy nagłówek dla błędu
+print(h)  # wypisujemy sumę kwadratów błędów
+```
+
+## Wnioski
+
+W zadaniu 3 napisano funkcję, która uogólnia aproksymację średniokwadratową na dowolny stopień wielomianu.
+
+Zamiast osobno tworzyć wzory dla prostej lub dla wielomianu drugiego stopnia, program automatycznie buduje układ równań normalnych na podstawie wzoru ze slajdów:
+
+$$
+\sum_{j=0}^{m}a_j\sum_{i=1}^{n}x_i^{j+k}
+=
+\sum_{i=1}^{n}x_i^k y_i.
+$$
+
+Następnie układ ten jest rozwiązywany metodą Gaussa.
+
+Dla danych z zadania 2 oraz stopnia:
+
+$$
+m=2
+$$
+
+otrzymano współczynniki:
+
+$$
+a_0\approx 1.9865714285714287
+$$
+
+$$
+a_1\approx 1.2337142857142858
+$$
+
+$$
+a_2\approx -0.38285714285714284
+$$
+
+czyli wielomian:
+
+$$
+F(x)=1.9865714285714287+1.2337142857142858x-0.38285714285714284x^2.
+$$
+
+Suma kwadratów błędów wynosi:
+
+$$
+h\approx 0.00170285714285714.
+$$
+
+Wynik jest zgodny z zadaniem 2, ponieważ dla stopnia 2 funkcja ogólna tworzy ten sam wielomian aproksymacyjny.
 
 ---
 
 Zadanie 4*. Rozwiązania dwóch pierwszych zadań przedstaw na wykresie, zaznaczając również zaobserwowane wartości funkcji.
+
+![alt text](wykres1.png)
+
+![alt text](wykres2.png)
