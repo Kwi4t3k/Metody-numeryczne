@@ -12,3 +12,7 @@
 
 ## Równania nieliniowe
 - [Laboratorium 7](Laboratorium_7/zadania_lab_7.md)
+
+## Interpolacja i aproksymacja
+- [Laboratorium 8](Laboratorium_8/zadania_lab_8.md)
+- [Laboratorium 9](Laboratorium_9/zadania_lab_9.md)
