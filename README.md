@@ -16,3 +16,7 @@
 ## Interpolacja i aproksymacja
 - [Laboratorium 8](Laboratorium_8/zadania_lab_8.md)
 - [Laboratorium 9](Laboratorium_9/zadania_lab_9.md)
+
+## Różniczkowanie i całkowanie numeryczne
+- [Laboratorium 10](Laboratorium_10/zadania_lab_10.md)
+- [Laboratorium 11](Laboratorium_11/zadania_lab_11.md)
