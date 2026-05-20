@@ -50,15 +50,15 @@ $$
 \int_a^b f(x)\,dx \approx \sum A_i f(x_i)
 $$
 
-Oznacza to, że całkę przybliżamy za pomocą sumy wartości funkcji $f(x_i)$, pomnożonych przez odpowiednie współczynniki $A_i$.
+Oznacza to, że dokładną wartość całki zastępujemy sumą wartości funkcji w wybranych punktach $x_i$, pomnożonych przez odpowiednie współczynniki $A_i$.
 
-W zadaniu używamy trzech metod:
+W zadaniu wykorzystujemy trzy metody:
 
-- metody prostokątów,
-- metody trapezów,
-- metody Simpsona.
+- metodę prostokątów,
+- metodę trapezów,
+- metodę Simpsona.
 
-Każda z tych metod polega na podzieleniu przedziału całkowania $[a,b]$ na mniejsze części.
+Każda z metod polega na podzieleniu przedziału całkowania $[a,b]$ na mniejsze części.
 
 Liczbę podprzedziałów oznaczamy jako:
 
@@ -66,13 +66,19 @@ $$
 N
 $$
 
-Krok całkowania wynosi:
+W kodzie ta sama liczba jest zapisana jako zmienna:
+
+```python
+n
+```
+
+Krok całkowania, czyli długość jednego podprzedziału, wynosi:
 
 $$
 h=\frac{b-a}{N}
 $$
 
-Punkty podziału przedziału obliczamy zgodnie ze wzorem z tablicy:
+Punkty podziału przedziału obliczamy ze wzoru:
 
 $$
 x_i=a+\frac{b-a}{N}i
@@ -84,168 +90,172 @@ $$
 x_i=a+ih
 $$
 
-Im większa liczba $N$, tym mniejszy krok $h$, a wynik zwykle jest dokładniejszy.
+Im większa liczba podprzedziałów $N$, tym mniejszy krok $h$, a wynik zwykle jest dokładniejszy.
 
 ---
 
 # Zadanie 1 — metoda prostokątów
 
-## Wzór dla jednego przedziału
+## Idea metody prostokątów
 
-Na tablicy dla metody prostokątów zapisano wzór:
+Metoda prostokątów polega na przybliżeniu pola pod wykresem funkcji za pomocą prostokątów.
 
-$$
-I \approx (b-a)f(a)
-$$
+Na pojedynczym podprzedziale $[x_i,x_{i+1}]$ funkcję $f(x)$ zastępujemy wartością stałą $y_i$. Oznacza to, że zamiast dokładnego pola pod wykresem liczymy pole prostokąta.
 
-Jest to najprostsza wersja metody prostokątów, w której pole pod wykresem przybliżamy jednym prostokątem o szerokości $b-a$ i wysokości $f(a)$.
-
-Na tablicy dopisano też uwagę, że lepsze przybliżenie daje wartość funkcji w środku przedziału:
+Dla jednego podprzedziału mamy:
 
 $$
-f\left(\frac{a+b}{2}\right)
+\sigma_i=\int_{x_i}^{x_{i+1}} f(x)\,dx
 $$
+
+Przybliżamy tę wartość przez:
+
+$$
+\sigma_i \approx \int_{x_i}^{x_{i+1}} y_i\,dx
+$$
+
+Ponieważ $y_i$ jest stałe, otrzymujemy:
+
+$$
+\sigma_i \approx y_i(x_{i+1}-x_i)
+$$
+
+Dla równoodległych punktów:
+
+$$
+x_{i+1}-x_i=h
+$$
+
+więc:
+
+$$
+\sigma_i \approx y_i h
+$$
+
+Po zsumowaniu wszystkich prostokątów otrzymujemy:
+
+$$
+\int_a^b f(x)\,dx \approx h\sum_{i=0}^{N-1}y_i
+$$
+
+## Metoda prostokątów środkowych
+
+Na slajdach zaznaczono, że dla węzłów równoodległych często przyjmuje się:
+
+$$
+y_i=f\left(x_i+\frac{h}{2}\right)
+$$
+
+czyli wartość funkcji w środku podprzedziału.
 
 Dlatego w programie zastosowano **metodę prostokątów środkowych**.
 
-## Wzór dla $N$ części
-
-Dla wielu podprzedziałów podstawowa metoda prostokątów ma postać:
+Dla tej metody:
 
 $$
-I \approx \frac{b-a}{N}\sum_{i=0}^{N-1} f(x_i)
-$$
-
-gdzie:
-
-$$
-x_i=a+\frac{b-a}{N}i
-$$
-
-W programie użyto wersji środkowej, dlatego zamiast punktu $x_i$ bierzemy środek każdego podprzedziału:
-
-$$
-x_i+\frac{h}{2}
+x_{\text{środek}}=x_i+\frac{h}{2}
 $$
 
 czyli:
 
 $$
-x_i+\frac{b-a}{2N}
-$$
-
-Wzór użyty w programie ma więc postać:
-
-$$
-I \approx h\sum_{i=0}^{N-1} f\left(x_i+\frac{h}{2}\right)
-$$
-
-albo po podstawieniu $h=\frac{b-a}{N}$:
-
-$$
-I \approx \frac{b-a}{N}
-\sum_{i=0}^{N-1}
-f\left(a+\left(i+\frac12\right)\frac{b-a}{N}\right)
-$$
-
-Ta wersja jest zgodna z uwagą z tablicy, że środek przedziału daje lepsze przybliżenie.
-
----
-
-# Zadanie 2 — metoda trapezów
-
-## Wzór dla jednego przedziału
-
-Na tablicy dla metody trapezów zapisano wzór:
-
-$$
-I \approx \frac{b-a}{2}\left(f(a)+f(b)\right)
-$$
-
-Oznacza to, że pole pod wykresem przybliżamy trapezem.
-
-W metodzie trapezów bierzemy wartości funkcji na obu końcach przedziału, czyli $f(a)$ i $f(b)$.
-
-## Wzór dla $N$ części
-
-Dla wielu podprzedziałów wzór ma postać:
-
-$$
-I \approx \frac{b-a}{2N}
-\left(
-f(a)+2\sum_{i=1}^{N-1}f(x_i)+f(b)
-\right)
-$$
-
-gdzie:
-
-$$
-x_i=a+\frac{b-a}{N}i
-$$
-
-Ponieważ:
-
-$$
-h=\frac{b-a}{N}
-$$
-
-możemy zapisać ten wzór również tak:
-
-$$
-I \approx h\left(
-\frac{f(a)+f(b)}{2}
-+
-\sum_{i=1}^{N-1}f(x_i)
-\right)
-$$
-
-Właśnie ta równoważna postać została zastosowana w programie.
-
-Wartości $f(a)$ i $f(b)$ są liczone z wagą $\frac12$, a punkty wewnętrzne z wagą $1$.
-
----
-
-# Zadanie 3 — metoda Simpsona
-
-## Wzór dla jednego przedziału
-
-Na tablicy dla metody Simpsona zapisano wzór:
-
-$$
-I \approx \frac{b-a}{6}
-\left(
-f(a)+4f\left(\frac{a+b}{2}\right)+f(b)
-\right)
-$$
-
-Metoda Simpsona przybliża pole pod wykresem za pomocą paraboli.
-
-Wykorzystuje:
-
-- wartość funkcji na początku przedziału,
-- wartość funkcji w środku przedziału,
-- wartość funkcji na końcu przedziału.
-
-Środkowy punkt ma wagę $4$, dlatego metoda Simpsona często daje dokładniejsze wyniki niż metoda prostokątów i trapezów.
-
-## Wzór dla wielu podprzedziałów
-
-Dla wielu podprzedziałów metoda Simpsona wymaga, aby liczba podprzedziałów była parzysta.
-
-W programie liczba podprzedziałów oznaczona jest jako $N$, a krok wynosi:
-
-$$
-h=\frac{b-a}{N}
+x_{\text{środek}}=a+\left(i+\frac12\right)h
 $$
 
 Wzór użyty w programie ma postać:
 
 $$
-I \approx \frac{h}{3}
-\left[
-f(a)+f(b)
-+4\sum_{\substack{i=1 \\ i\ \text{nieparzyste}}}^{N-1} f(x_i)
-+2\sum_{\substack{i=2 \\ i\ \text{parzyste}}}^{N-2} f(x_i)
+\int_a^b f(x)\,dx \approx h\sum_{i=0}^{N-1} f\left(a+\left(i+\frac12\right)h\right)
+$$
+
+Po podstawieniu:
+
+$$
+h=\frac{b-a}{N}
+$$
+
+można zapisać:
+
+$$
+\int_a^b f(x)\,dx \approx
+\frac{b-a}{N}
+\sum_{i=0}^{N-1}
+f\left(a+\left(i+\frac12\right)\frac{b-a}{N}\right)
+$$
+
+Ta wersja jest zgodna z metodą prostokątów ze slajdów, ponieważ przyjmuje wysokość prostokąta jako wartość funkcji w środku podprzedziału.
+
+---
+
+# Zadanie 2 — metoda trapezów
+
+## Idea metody trapezów
+
+Metoda trapezów polega na tym, że na każdym podprzedziale funkcję zastępujemy prostą przechodzącą przez dwa punkty:
+
+$$
+(x_i,f(x_i))
+$$
+
+oraz:
+
+$$
+(x_{i+1},f(x_{i+1}))
+$$
+
+Wtedy pole pod wykresem na danym podprzedziale przybliżamy polem trapezu.
+
+Dla jednego podprzedziału pole trapezu wynosi:
+
+$$
+\sigma_i=\frac12 h(y_i+y_{i+1})
+$$
+
+gdzie:
+
+$$
+y_i=f(x_i)
+$$
+
+oraz:
+
+$$
+y_{i+1}=f(x_{i+1})
+$$
+
+Po zsumowaniu pól trapezów dla całego przedziału $[a,b]$ otrzymujemy wzór:
+
+$$
+\int_a^b f(x)\,dx
+\approx
+\frac12 h\sum_{i=0}^{N-1}(y_{i+1}+y_i)
+$$
+
+Po uporządkowaniu składników dostajemy:
+
+$$
+\int_a^b f(x)\,dx
+\approx
+h\left[
+\frac12(y_0+y_N)+\sum_{i=1}^{N-1}y_i
+\right]
+$$
+
+Ponieważ:
+
+$$
+y_i=f(x_i)
+$$
+
+możemy zapisać:
+
+$$
+\int_a^b f(x)\,dx
+\approx
+h\left[
+\frac{f(a)+f(b)}{2}
++
+\sum_{i=1}^{N-1}f(x_i)
 \right]
 $$
 
@@ -255,6 +265,101 @@ $$
 x_i=a+ih
 $$
 
+oraz:
+
+$$
+h=\frac{b-a}{N}
+$$
+
+Jest to dokładnie wzór zastosowany w programie.
+
+## Dokładność metody trapezów
+
+Metoda trapezów jest dokładna, jeżeli funkcja $f$ jest wielomianem stopnia co najwyżej pierwszego, czyli funkcją liniową.
+
+Dla innych funkcji pojawia się błąd przybliżenia, ponieważ wykres funkcji nie zawsze jest idealnie prostą linią na każdym podprzedziale.
+
+---
+
+# Zadanie 3 — metoda Simpsona
+
+## Idea metody Simpsona
+
+Metoda Simpsona jest dokładniejszą metodą całkowania numerycznego niż metoda prostokątów i metoda trapezów.
+
+W metodzie tej pole pod wykresem przybliżamy za pomocą fragmentów paraboli.
+
+Dla jednego przedziału wzór Simpsona ma postać:
+
+$$
+I \approx \frac{b-a}{6}
+\left(
+f(a)+4f\left(\frac{a+b}{2}\right)+f(b)
+\right)
+$$
+
+Widzimy, że metoda wykorzystuje trzy wartości funkcji:
+
+- wartość na początku przedziału,
+- wartość w środku przedziału,
+- wartość na końcu przedziału.
+
+Środkowy punkt ma wagę $4$, dlatego ma większy wpływ na wynik.
+
+---
+
+## Złożona metoda Simpsona
+
+Dla wielu podprzedziałów stosujemy złożoną metodę Simpsona.
+
+Liczba podprzedziałów $N$ musi być parzysta.
+
+Krok wynosi:
+
+$$
+h=\frac{b-a}{N}
+$$
+
+Punkty podziału:
+
+$$
+x_i=a+ih
+$$
+
+dla:
+
+$$
+i=0,1,\dots,N
+$$
+
+Wzór ze slajdu ma postać:
+
+$$
+S_N=
+\frac{h}{3}
+\left[
+f(x_0)
++
+4\left(f(x_1)+f(x_3)+\dots+f(x_{N-1})\right)
++
+2\left(f(x_2)+f(x_4)+\dots+f(x_{N-2})\right)
++
+f(x_N)
+\right]
+$$
+
+Można go też zapisać w formie sum:
+
+$$
+S_N=
+\frac{h}{3}
+\left[
+f(a)+f(b)
++4\sum_{\substack{i=1 \\ i\ \text{nieparzyste}}}^{N-1} f(x_i)
++2\sum_{\substack{i=2 \\ i\ \text{parzyste}}}^{N-2} f(x_i)
+\right]
+$$
+
 W programie działa to tak:
 
 - pierwszy punkt $f(a)$ ma wagę $1$,
@@ -262,7 +367,28 @@ W programie działa to tak:
 - punkty o indeksach nieparzystych mają wagę $4$,
 - punkty o indeksach parzystych mają wagę $2$.
 
-Jest to standardowa złożona metoda Simpsona, zgodna z ideą zapisaną na tablicy.
+Metoda Simpsona jest dokładna dla wielomianów stopnia co najwyżej trzeciego.
+
+---
+
+## Błąd metody Simpsona
+
+Na slajdach podano, że błąd przybliżenia w metodzie Simpsona zależy od czwartej pochodnej funkcji.
+
+Ma postać:
+
+$$
+\varepsilon=
+\left|f^{(4)}(\xi)\right|
+\frac{(b-a)h^4}{180}
+$$
+
+gdzie:
+
+- $f^{(4)}(\xi)$ oznacza czwartą pochodną funkcji w pewnym punkcie $\xi\in(a,b)$,
+- $h=\frac{b-a}{N}$.
+
+Oznacza to, że dla mniejszego kroku $h$ metoda Simpsona bardzo szybko zwiększa dokładność.
 
 ---
 
@@ -278,7 +404,7 @@ $$
 \int_0^1 x^2\,dx
 $$
 
-Funkcja:
+Funkcja podcałkowa:
 
 $$
 f(x)=x^2
@@ -299,7 +425,8 @@ $$
 czyli:
 
 $$
-\int_0^1 x^2\,dx=\frac{1^3}{3}-\frac{0^3}{3}
+\int_0^1 x^2\,dx=
+\frac{1^3}{3}-\frac{0^3}{3}
 $$
 
 $$
@@ -314,7 +441,7 @@ $$
 \int_0^{\frac{\pi}{2}}\cos x\,dx
 $$
 
-Funkcja:
+Funkcja podcałkowa:
 
 $$
 f(x)=\cos x
@@ -351,7 +478,7 @@ $$
 \int_e^{e^2}\frac{1}{x}\,dx
 $$
 
-Funkcja:
+Funkcja podcałkowa:
 
 $$
 f(x)=\frac{1}{x}
@@ -384,14 +511,15 @@ $$
 
 # Zadanie 5 — sprawdzenie dokładności
 
-Aby sprawdzić dokładność metod, porównujemy wynik numeryczny z wartością dokładną.
+Aby sprawdzić dokładność otrzymanych rozwiązań, porównujemy wynik numeryczny z wartością dokładną.
 
 ## Błąd bezwzględny
 
 Błąd bezwzględny liczymy ze wzoru:
 
 $$
-\Delta = |I_{\text{dokładne}}-I_{\text{przybliżone}}|
+\Delta=
+\left|I_{\text{dokładne}}-I_{\text{przybliżone}}\right|
 $$
 
 gdzie:
@@ -404,12 +532,15 @@ gdzie:
 Błąd względny liczymy ze wzoru:
 
 $$
-\delta = \frac{|I_{\text{dokładne}}-I_{\text{przybliżone}}|}{|I_{\text{dokładne}}|}
+\delta=
+\frac{
+\left|I_{\text{dokładne}}-I_{\text{przybliżone}}\right|
+}{
+\left|I_{\text{dokładne}}\right|
+}
 $$
 
 Błąd względny pokazuje, jak duży jest błąd w stosunku do wartości dokładnej.
-
----
 
 # Kod programu
 
@@ -510,7 +641,7 @@ def testuj_calke(nazwa, f, a, b, wartosc_dokladna, n):  # definiujemy funkcję t
     print("Błąd względny =", blad_wzgledny(wartosc_dokladna, wynik_simpson))  # wypisujemy błąd względny metody Simpsona
 
 
-n = 100  # ustalamy liczbę podprzedziałów; jest parzysta, więc metoda Simpsona może działać
+n = 100  # ustalamy liczbę podprzedziałów; w teorii oznaczamy ją jako N; jest parzysta, więc metoda Simpsona może działać
 
 testuj_calke(  # uruchamiamy test dla całki a)
     "a) całka od 0 do 1 z x^2 dx",  # nazwa całki
@@ -538,3 +669,48 @@ testuj_calke(  # uruchamiamy test dla całki c)
     1,  # dokładna wartość całki
     n  # liczba podprzedziałów
 )
+```
+
+# Wnioski
+
+W programie zaimplementowano trzy metody całkowania numerycznego:
+
+- metodę prostokątów środkowych,
+- metodę trapezów,
+- metodę Simpsona.
+
+Metoda prostokątów środkowych przybliża pole pod wykresem za pomocą prostokątów o wysokości równej wartości funkcji w środku każdego podprzedziału.
+
+Metoda trapezów przybliża funkcję na każdym podprzedziale odcinkiem prostej i oblicza pole trapezów.
+
+Metoda Simpsona przybliża funkcję fragmentami paraboli i wykorzystuje wagi:
+
+$$
+1,\ 4,\ 2,\ 4,\ 2,\dots,\ 4,\ 1
+$$
+
+Wszystkie metody zostały przetestowane dla całek:
+
+$$
+\int_0^1 x^2\,dx
+$$
+
+$$
+\int_0^{\frac{\pi}{2}}\cos x\,dx
+$$
+
+$$
+\int_e^{e^2}\frac{1}{x}\,dx
+$$
+
+Dla każdej całki znana jest wartość dokładna, dlatego można było obliczyć błąd bezwzględny i względny.
+
+Najprostszą metodą jest metoda prostokątów. Metoda trapezów jest zwykle dokładniejsza, ponieważ uwzględnia wartości funkcji na obu końcach podprzedziału. Metoda Simpsona zwykle daje najlepszą dokładność, ponieważ przybliża funkcję parabolą.
+
+Zwiększenie liczby podprzedziałów $N$ powoduje zmniejszenie kroku:
+
+$$
+h=\frac{b-a}{N}
+$$
+
+a więc zwykle poprawia dokładność obliczeń.
