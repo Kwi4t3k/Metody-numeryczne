@@ -20,3 +20,6 @@
 ## Różniczkowanie i całkowanie numeryczne
 - [Laboratorium 10](Laboratorium_10/zadania_lab_10.md)
 - [Laboratorium 11](Laboratorium_11/zadania_lab_11.md)
+
+## Miejsca zerowe wielomianów
+- [Laboratorium 12](Laboratorium_12/zadania_lab_12.md)
