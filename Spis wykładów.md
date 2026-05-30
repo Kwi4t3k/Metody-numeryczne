@@ -69,4 +69,22 @@
 - Metoda Gaussa–Jordana – schemat postępowania
 
 ##  03  - Układy równań liniowych (lab4)
+- Układ równań liniowych, zapis macierzowy
+- Macierz rozszerzona
+- Rząd macierzy, istnienie rozwiązania
+- Rozwiązania w układach równań liniowych (Twierdzenie 1 Kroneckera-Capellego)
+- Typy układów równań liniowych (Układ jednorodny / kwadratowy)
+- Metody rozwiązywania układów równań liniowych (Bezpośrednie (dokładne), Iteracyjne (przybliżone))
+- Typy zagadnień w rozwiązaniach numerycznych (Macierze pełne (ale nieduże), Macierze rzadkie (ale najczęściej bardzo duże))
+- Metody bezpośrednie i iteracyjne
+- Użycie macierzy odwrotnej
+- Wzory Cramera
+- Rozwiązanie układu równań z macierzą trójkątną
+- Eliminacja Gaussa
+- Wybór elementu podstawowego
+- Rozkład LU
+- Eliminacja Gaussa a rozkład LU
+- Metoda Doolittle’a
+- Metoda Crouta
+- Rozkład Cholesky’ego (Banachiewicza)
 - 

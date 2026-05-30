@@ -2185,27 +2185,27 @@ Według wykładu można badać:
 
 # 39. Szybka ściąga pojęć
 
-|Pojęcie|Znaczenie|
-|---|---|
-|Błąd bezwzględny|Różnica między wartością dokładną a przybliżeniem|
-|Błąd względny|Błąd odniesiony do skali wartości dokładnej|
-|Cyfry znaczące|Miara dokładności związana z błędem względnym|
-|Błąd zaokrąglenia|Błąd wynikający ze skończonej reprezentacji liczby w komputerze|
-|`εmach`|Najmniejsza liczba dodatnia, dla której `1 + ε > 1`|
-|Mantysa|Część liczby zmiennopozycyjnej decydująca o dokładności|
-|Wykładnik|Część liczby zmiennopozycyjnej decydująca o zakresie|
-|Overflow|Wynik poza zakresem, np. przejście do `∞`|
-|Underflow|Wynik zbyt mały, przejście do `0` lub liczby zdenormalizowanej|
-|`NaN`|Wynik nieokreślony, np. `0.0/0.0`|
-|`Inf`|Nieskończoność, np. `1.0/0.0`|
-|Stabilność algorytmu|Algorytm nie wzmacnia znacząco błędów zaokrągleń|
-|Uwarunkowanie problemu|Wrażliwość wyniku na zaburzenia danych wejściowych|
-|Katastrofalna utrata cyfr znaczących|Utrata dokładności przy odejmowaniu liczb bliskich|
-|Algorytm Kahana|Metoda kompensowanego sumowania ograniczająca utratę małych składników|
+| Pojęcie                              | Znaczenie                                                              |
+| ------------------------------------ | ---------------------------------------------------------------------- |
+| Błąd bezwzględny                     | Różnica między wartością dokładną a przybliżeniem                      |
+| Błąd względny                        | Błąd odniesiony do skali wartości dokładnej                            |
+| Cyfry znaczące                       | Miara dokładności związana z błędem względnym                          |
+| Błąd zaokrąglenia                    | Błąd wynikający ze skończonej reprezentacji liczby w komputerze        |
+| `εmach`                              | Najmniejsza liczba dodatnia, dla której `1 + ε > 1`                    |
+| Mantysa                              | Część liczby zmiennopozycyjnej decydująca o dokładności                |
+| Wykładnik                            | Część liczby zmiennopozycyjnej decydująca o zakresie                   |
+| Overflow                             | Wynik poza zakresem, np. przejście do `∞`                              |
+| Underflow                            | Wynik zbyt mały, przejście do `0` lub liczby zdenormalizowanej         |
+| `NaN`                                | Wynik nieokreślony, np. `0.0/0.0`                                      |
+| `Inf`                                | Nieskończoność, np. `1.0/0.0`                                          |
+| Stabilność algorytmu                 | Algorytm nie wzmacnia znacząco błędów zaokrągleń                       |
+| Uwarunkowanie problemu               | Wrażliwość wyniku na zaburzenia danych wejściowych                     |
+| Katastrofalna utrata cyfr znaczących | Utrata dokładności przy odejmowaniu liczb bliskich                     |
+| Algorytm Kahana                      | Metoda kompensowanego sumowania ograniczająca utratę małych składników |
 
 ---
 
-# Metody numeryczne — wykład 2: Macierze
+# Wykład 2: Macierze (lab 3)
 
 ## 1. Definicja macierzy
 
@@ -5963,7 +5963,7 @@ print(A)
 
 ---
 
-# Metody numeryczne — wykład 3: Układy równań liniowych — metody bezpośrednie
+# Wykład 3: Układy równań liniowych — metody bezpośrednie (lab 4)
 
 ## 1. Układ równań liniowych
 
@@ -6165,9 +6165,9 @@ Jeżeli:
 $$  
 A =  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & \dots & a_{1,n} \  
-a_{2,1} & a_{2,2} & \dots & a_{2,n} \  
-\vdots & \vdots & \ddots & \vdots \  
+a_{1,1} & a_{1,2} & \dots & a_{1,n} \\  
+a_{2,1} & a_{2,2} & \dots & a_{2,n} \\  
+\vdots & \vdots & \ddots & \vdots \\  
 a_{m,1} & a_{m,2} & \dots & a_{m,n}  
 \end{bmatrix}  
 $$
@@ -6177,9 +6177,9 @@ oraz:
 $$  
 b =  
 \begin{bmatrix}  
-b_1 \  
-b_2 \  
-\vdots \  
+b_1 \\  
+b_2 \\  
+\vdots \\  
 b_m  
 \end{bmatrix}  
 $$
@@ -6189,9 +6189,9 @@ to:
 $$  
 A_b =  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & \dots & a_{1,n} & b_1 \  
-a_{2,1} & a_{2,2} & \dots & a_{2,n} & b_2 \  
-\vdots & \vdots & \ddots & \vdots & \vdots \  
+a_{1,1} & a_{1,2} & \dots & a_{1,n} & b_1 \\  
+a_{2,1} & a_{2,2} & \dots & a_{2,n} & b_2 \\  
+\vdots & \vdots & \ddots & \vdots & \vdots \\  
 a_{m,1} & a_{m,2} & \dots & a_{m,n} & b_m  
 \end{bmatrix}  
 $$
@@ -6203,7 +6203,7 @@ Dla:
 $$  
 A =  
 \begin{bmatrix}  
-2 & 1 \  
+2 & 1 \\  
 1 & 3  
 \end{bmatrix}  
 $$
@@ -6213,7 +6213,7 @@ oraz:
 $$  
 b =  
 \begin{bmatrix}  
-5 \  
+5 \\  
 7  
 \end{bmatrix}  
 $$
@@ -6223,7 +6223,7 @@ macierz rozszerzona to:
 $$  
 A_b =  
 \begin{bmatrix}  
-2 & 1 & 5 \  
+2 & 1 & 5 \\  
 1 & 3 & 7  
 \end{bmatrix}  
 $$
@@ -6284,7 +6284,7 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 \  
+1 & 2 \\  
 2 & 4  
 \end{bmatrix}  
 $$
@@ -6390,9 +6390,9 @@ Czyli:
 $$  
 b =  
 \begin{bmatrix}  
-0 \  
-0 \  
-\vdots \  
+0 \\  
+0 \\  
+\vdots \\  
 0  
 \end{bmatrix}  
 $$
@@ -6567,8 +6567,8 @@ W wykładzie podano, że nieduże macierze pełne mogą mieć stopień mniejszy 
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 & 3 \  
-4 & 5 & 6 \  
+1 & 2 & 3 \\  
+4 & 5 & 6 \\  
 7 & 8 & 9  
 \end{bmatrix}  
 $$
@@ -6605,9 +6605,9 @@ W wykładzie podano, że takie macierze często są bardzo duże, np. stopnia `1
 $$  
 A =  
 \begin{bmatrix}  
-4 & 1 & 0 & 0 \  
-1 & 4 & 1 & 0 \  
-0 & 1 & 4 & 1 \  
+4 & 1 & 0 & 0 \\  
+1 & 4 & 1 & 0 \\  
+0 & 1 & 4 & 1 \\  
 0 & 0 & 1 & 4  
 \end{bmatrix}  
 $$
@@ -6638,7 +6638,7 @@ print("Elementy niezerowe:", liczba_niezerowych)
 
 ---
 
-# 9. Rozwiązywanie układu za pomocą macierzy odwrotnej
+## 9. Rozwiązywanie układu za pomocą macierzy odwrotnej
 
 Dla macierzy odwrotnej zachodzi:
 
@@ -6677,7 +6677,7 @@ Dla:
 $$  
 A^{-1} =  
 \begin{bmatrix}  
-3 & -1 \  
+3 & -1 \\  
 -5 & 2  
 \end{bmatrix}  
 $$
@@ -6687,7 +6687,7 @@ oraz:
 $$  
 b =  
 \begin{bmatrix}  
-5 \  
+5 \\  
 7  
 \end{bmatrix}  
 $$
@@ -6729,7 +6729,7 @@ Wynik:
 
 ---
 
-# 10. Wzory Cramera
+## 10. Wzory Cramera
 
 Wzory Cramera są metodą bezpośrednią rozwiązywania układów równań liniowych.
 
@@ -6770,7 +6770,7 @@ Macierz główna:
 $$  
 A =  
 \begin{bmatrix}  
-2 & 1 \  
+2 & 1 \\  
 1 & 3  
 \end{bmatrix}  
 $$
@@ -6780,7 +6780,7 @@ Wektor wyrazów wolnych:
 $$  
 b =  
 \begin{bmatrix}  
-5 \  
+5 \\  
 7  
 \end{bmatrix}  
 $$
@@ -6790,7 +6790,7 @@ Macierz `A_1`:
 $$  
 A_1 =  
 \begin{bmatrix}  
-5 & 1 \  
+5 & 1 \\  
 7 & 3  
 \end{bmatrix}  
 $$
@@ -6800,7 +6800,7 @@ Macierz `A_2`:
 $$  
 A_2 =  
 \begin{bmatrix}  
-2 & 5 \  
+2 & 5 \\  
 1 & 7  
 \end{bmatrix}  
 $$
@@ -6874,47 +6874,47 @@ $$
 \det(A) =  
 \det  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & a_{1,3} \  
-a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{1,1} & a_{1,2} & a_{1,3} \\  
+a_{2,1} & a_{2,2} & a_{2,3} \\  
 a_{3,1} & a_{3,2} & a_{3,3}  
 \end{bmatrix}  
 $$
 
 Następnie:
 
-# $$  
+$$  
 x_1 =  
 \frac{1}{\det(A)}  
 \det  
 \begin{bmatrix}  
-b_1 & a_{1,2} & a_{1,3} \  
-b_2 & a_{2,2} & a_{2,3} \  
+b_1 & a_{1,2} & a_{1,3} \\  
+b_2 & a_{2,2} & a_{2,3} \\  
 b_3 & a_{3,2} & a_{3,3}  
 \end{bmatrix}
 
 \frac{\det(A_1)}{\det(A)}  
 $$
 
-# $$  
+$$  
 x_2 =  
 \frac{1}{\det(A)}  
 \det  
 \begin{bmatrix}  
-a_{1,1} & b_1 & a_{1,3} \  
-a_{2,1} & b_2 & a_{2,3} \  
+a_{1,1} & b_1 & a_{1,3} \\  
+a_{2,1} & b_2 & a_{2,3} \\  
 a_{3,1} & b_3 & a_{3,3}  
 \end{bmatrix}
 
 \frac{\det(A_2)}{\det(A)}  
 $$
 
-# $$  
+$$  
 x_3 =  
 \frac{1}{\det(A)}  
 \det  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & b_1 \  
-a_{2,1} & a_{2,2} & b_2 \  
+a_{1,1} & a_{1,2} & b_1 \\  
+a_{2,1} & a_{2,2} & b_2 \\  
 a_{3,1} & a_{3,2} & b_3  
 \end{bmatrix}
 
@@ -6979,7 +6979,7 @@ else:
 
 ---
 
-# 12. Układ z macierzą trójkątną górną
+## 12. Układ z macierzą trójkątną górną
 
 Jeżeli macierz układu równań liniowych jest macierzą trójkątną, to układ rozwiązuje się szczególnie łatwo.
 
@@ -7076,7 +7076,7 @@ print(x)
 
 ---
 
-# 13. Układ z macierzą trójkątną dolną
+## 13. Układ z macierzą trójkątną dolną
 
 Dla macierzy trójkątnej dolnej wykonuje się **podstawianie w przód**.
 
@@ -7145,7 +7145,7 @@ print(x)
 
 ---
 
-# 14. Eliminacja Gaussa
+## 14. Eliminacja Gaussa
 
 Eliminacja Gaussa polega na sprowadzeniu układu równań do postaci trójkątnej, a następnie rozwiązaniu go przez podstawianie wstecz.
 
@@ -7217,7 +7217,7 @@ print(b)
 
 Współczynniki macierzy i wyrazy wolne w każdym kroku eliminacji można obliczać ze wzorów:
 
-## $$  
+$$  
 a_{i,j}^{(k)} =  
 a_{i,j}^{(k-1)}
 
@@ -7231,7 +7231,7 @@ $$
 
 oraz:
 
-## $$  
+$$  
 b_i^{(k)} =  
 b_i^{(k-1)}
 
@@ -7251,7 +7251,7 @@ $$
 
 Po otrzymaniu układu trójkątnego rozwiązujemy go przez podstawianie wstecz:
 
-## $$  
+$$  
 x_i =  
 \frac{  
 b_i^{(i-1)}
@@ -7312,7 +7312,7 @@ print(x)
 
 ---
 
-# 16. Wybór elementu podstawowego
+## 16. Wybór elementu podstawowego
 
 Eliminacja Gaussa w podstawowej formie nie jest niezawodna.
 
@@ -7336,8 +7336,8 @@ Macierz rozszerzona:
 
 $$  
 \begin{bmatrix}  
-0 & 2 & 2 & | & 1 \  
-3 & 3 & 0 & | & 3 \  
+0 & 2 & 2 & | & 1 \\  
+3 & 3 & 0 & | & 3 \\  
 1 & 0 & 1 & | & 2  
 \end{bmatrix}  
 $$
@@ -7381,7 +7381,7 @@ Wynik:
 
 ---
 
-# 17. Częściowy wybór elementu głównego
+## 17. Częściowy wybór elementu głównego
 
 Częściowy wybór elementu głównego polega na tym, że w `i`-tym kroku eliminacji Gaussa patrzymy na elementy w `i`-tej kolumnie i wybieramy wiersz z największą wartością bezwzględną.
 
@@ -7391,8 +7391,8 @@ W wykładzie po zamianie wierszy otrzymano macierz:
 
 $$  
 \begin{bmatrix}  
-3 & 3 & 0 & | & 3 \  
-0 & 2 & 2 & | & 1 \  
+3 & 3 & 0 & | & 3 \\  
+0 & 2 & 2 & | & 1 \\  
 0 & -1 & 1 & | & 1  
 \end{bmatrix}  
 $$
@@ -7401,8 +7401,8 @@ Po kolejnym kroku:
 
 $$  
 \begin{bmatrix}  
-3 & 3 & 0 & | & 3 \  
-0 & 2 & 2 & | & 1 \  
+3 & 3 & 0 & | & 3 \\  
+0 & 2 & 2 & | & 1 \\  
 0 & 0 & 2 & | & \frac{3}{2}  
 \end{bmatrix}  
 $$
@@ -7476,7 +7476,7 @@ Wynik:
 
 ---
 
-# 18. Pełny wybór elementu głównego
+## 18. Pełny wybór elementu głównego
 
 Pełny wybór elementu głównego polega na wyszukaniu największego co do modułu współczynnika nie tylko w kolumnie pod napotkanym zerem, ale w całej podmacierzy „w dół i w prawo”.
 
@@ -7511,7 +7511,7 @@ print("Kolumna:", kolumna_pivota)
 
 ---
 
-# 19. Rozkład LU
+## 19. Rozkład LU
 
 Jeżeli macierz `A` można przedstawić jako iloczyn macierzy trójkątnej dolnej `L` i trójkątnej górnej `U`, to:
 
@@ -7665,22 +7665,22 @@ gdzie `P` jest macierzą permutacji.
 
 Przykład z wykładu:
 
-# $$  
+$$  
 PA =  
 \begin{bmatrix}  
-0 & 0 & 1 \  
-1 & 0 & 0 \  
+0 & 0 & 1 \\  
+1 & 0 & 0 \\  
 0 & 1 & 0  
 \end{bmatrix}  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & a_{1,3} \  
-a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{1,1} & a_{1,2} & a_{1,3} \\  
+a_{2,1} & a_{2,2} & a_{2,3} \\  
 a_{3,1} & a_{3,2} & a_{3,3}  
 \end{bmatrix}
 
 \begin{bmatrix}  
-a_{3,1} & a_{3,2} & a_{3,3} \  
-a_{1,1} & a_{1,2} & a_{1,3} \  
+a_{3,1} & a_{3,2} & a_{3,3} \\  
+a_{1,1} & a_{1,2} & a_{1,3} \\  
 a_{2,1} & a_{2,2} & a_{2,3}  
 \end{bmatrix}  
 $$
@@ -7744,7 +7744,7 @@ Wynik:
 
 ---
 
-# 22. Metoda Doolittle’a
+## 22. Metoda Doolittle’a
 
 W metodzie Doolittle’a szukamy rozkładu:
 
@@ -7756,28 +7756,28 @@ przy czym macierz `L` ma na diagonali same jedynki.
 
 Dla macierzy `3 × 3`:
 
-# $$  
+$$  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & a_{1,3} \  
-a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{1,1} & a_{1,2} & a_{1,3} \\  
+a_{2,1} & a_{2,2} & a_{2,3} \\  
 a_{3,1} & a_{3,2} & a_{3,3}  
 \end{bmatrix}
 
 \begin{bmatrix}  
-1 & 0 & 0 \  
-l_{2,1} & 1 & 0 \  
+1 & 0 & 0 \\  
+l_{2,1} & 1 & 0 \\  
 l_{3,1} & l_{3,2} & 1  
 \end{bmatrix}  
 \begin{bmatrix}  
-u_{1,1} & u_{1,2} & u_{1,3} \  
-0 & u_{2,2} & u_{2,3} \  
+u_{1,1} & u_{1,2} & u_{1,3} \\  
+0 & u_{2,2} & u_{2,3} \\  
 0 & 0 & u_{3,3}  
 \end{bmatrix}  
 $$
 
 Wzory ogólne z wykładu:
 
-## $$  
+$$  
 u_{i,j} =  
 a_{i,j}
 
@@ -7792,7 +7792,7 @@ $$
 
 oraz:
 
-## $$  
+$$  
 l_{j,i} =  
 \frac{  
 a_{j,i}
@@ -7864,27 +7864,27 @@ print("U =", U)
 
 ---
 
-# 23. Metoda Crouta
+## 23. Metoda Crouta
 
 W metodzie Crouta przyjmuje się, że macierz `U` ma na głównej przekątnej same jedynki.
 
 Czyli dla macierzy `3 × 3`:
 
-# $$  
+$$  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & a_{1,3} \  
-a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{1,1} & a_{1,2} & a_{1,3} \\  
+a_{2,1} & a_{2,2} & a_{2,3} \\  
 a_{3,1} & a_{3,2} & a_{3,3}  
 \end{bmatrix}
 
 \begin{bmatrix}  
-l_{1,1} & 0 & 0 \  
-l_{2,1} & l_{2,2} & 0 \  
+l_{1,1} & 0 & 0 \\  
+l_{2,1} & l_{2,2} & 0 \\  
 l_{3,1} & l_{3,2} & l_{3,3}  
 \end{bmatrix}  
 \begin{bmatrix}  
-1 & u_{1,2} & u_{1,3} \  
-0 & 1 & u_{2,3} \  
+1 & u_{1,2} & u_{1,3} \\  
+0 & 1 & u_{2,3} \\  
 0 & 0 & 1  
 \end{bmatrix}  
 $$
@@ -7941,7 +7941,7 @@ print("U =", U)
 
 ---
 
-# 24. Rozkład Cholesky’ego
+## 24. Rozkład Cholesky’ego
 
 Rozkład Cholesky’ego, nazywany też rozkładem Banachiewicza, stosuje się dla macierzy symetrycznych i dodatnio określonych.
 
@@ -7969,7 +7969,7 @@ gdzie `L` jest macierzą trójkątną dolną.
 
 Wzory z wykładu:
 
-## $$  
+$$  
 l_{i,i} =  
 \sqrt{  
 a_{i,i}
@@ -7980,7 +7980,7 @@ $$
 
 oraz:
 
-## $$  
+$$  
 l_{j,i} =  
 \frac{1}{l_{i,i}}  
 \left(  
@@ -8041,7 +8041,7 @@ print(L)
 
 ---
 
-# 25. Najważniejsze rzeczy do zapamiętania na kolosa
+## 25. Najważniejsze rzeczy do zapamiętania na kolosa
 
 ## 25.1. Zapis układu
 
@@ -8223,28 +8223,2033 @@ $$
 
 ---
 
-# 26. Krótkie podsumowanie
+# Wykład 4: Układy równań liniowych II — metody iteracyjne (lab 5, 6)
 
-Wykład 3 dotyczył układów równań liniowych i bezpośrednich metod ich rozwiązywania.
+## 1. Wprowadzenie do metod iteracyjnych
+
+**Metody iteracyjne** są alternatywą dla metod bezpośrednich w rozwiązywaniu układów równań liniowych.
+
+W metodach iteracyjnych nie wyznacza się rozwiązania od razu w skończonej liczbie przekształceń, tylko zaczyna się od pewnego przybliżenia początkowego i stopniowo je poprawia.
+
+Układ równań ma postać:
+
+$$  
+Ax = b  
+$$
+
+gdzie:
+
+- `A` — macierz współczynników,
+    
+- `x` — wektor niewiadomych,
+    
+- `b` — wektor wyrazów wolnych.
+    
+
+Metody iteracyjne generują ciąg przybliżeń:
+
+$$  
+x^{(0)}, x^{(1)}, x^{(2)}, \dots  
+$$
+
+który powinien zbiegać do szukanego rozwiązania `x`.
+
+### Kiedy metody iteracyjne są szczególnie przydatne?
+
+Metody iteracyjne stosuje się szczególnie wtedy, gdy:
+
+- układ równań jest zbyt duży dla metod bezpośrednich,
+    
+- macierz układu jest rzadka i dobrze uwarunkowana,
+    
+- potrzebne jest szybkie przybliżone rozwiązanie,
+    
+- zasoby pamięciowe są ograniczone.
+    
+
+### Przykład w Pythonie
+
+```python
+# Przykład układu Ax = b
+
+A = [
+    [4, -2],
+    [-2, 5]
+]
+
+b = [0, 2]
+
+# Przybliżenie początkowe x^(0)
+x = [0, 0]
+
+print("Macierz A:")
+print(A)
+
+print("Wektor b:")
+print(b)
+
+print("Przybliżenie początkowe x:")
+print(x)
+```
+
+---
+
+## 2. Przykłady metod iteracyjnych
+
+W wykładzie podano następujące przykłady metod iteracyjnych:
+
+- metoda Jacobiego,
+    
+- metoda Gaussa-Seidla,
+    
+- metoda sukcesywnych nadrelaksacji `SOR`,
+    
+- metoda gradientów sprzężonych dla macierzy symetrycznych i dodatnio określonych.
+    
+
+### Przykład w Pythonie
+
+```python
+metody = [
+    "metoda Jacobiego",
+    "metoda Gaussa-Seidla",
+    "metoda sukcesywnych nadrelaksacji SOR",
+    "metoda gradientów sprzężonych"
+]
+
+for metoda in metody:
+    print(metoda)
+```
+
+---
+
+## 3. Ogólny schemat metod iteracyjnych
+
+Ogólny schemat metody iteracyjnej wygląda tak:
+
+1. Wybieramy początkowe przybliżenie rozwiązania:
+    
+
+$$  
+x^{(0)}  
+$$
+
+2. Powtarzamy kolejne iteracje, aż zostanie spełnione kryterium zbieżności.
+    
+3. W każdej iteracji poprawiamy aktualne przybliżenie.
+    
+4. Sprawdzamy warunek stopu, np. różnicę między kolejnymi przybliżeniami.
+    
+5. Kończymy, gdy rozwiązanie jest wystarczająco dokładne.
+    
+
+### Przykład w Pythonie
+
+```python
+x_poprzednie = [0.0, 0.0]
+x_nowe = [0.1, 0.2]
+
+epsilon = 0.001
+
+# Liczymy największą różnicę między kolejnymi przybliżeniami
+blad = abs(x_nowe[0] - x_poprzednie[0])
+
+for i in range(1, len(x_nowe)):
+    roznica = abs(x_nowe[i] - x_poprzednie[i])
+
+    if roznica > blad:
+        blad = roznica
+
+if blad < epsilon:
+    print("Warunek stopu spełniony")
+else:
+    print("Trzeba wykonać kolejną iterację")
+
+print("Błąd =", blad)
+```
+
+---
+
+## 4. Postać iteracyjna układu równań
+
+W większości metod iteracyjnych układ:
+
+$$  
+Ax = b  
+$$
+
+przekształca się do postaci:
+
+$$  
+x = Wx + Z  
+$$
+
+gdzie:
+
+- `W` — macierz iteracji,
+    
+- `Z` — wektor,
+    
+- `x` — szukany wektor niewiadomych.
+    
+
+Mając dane przybliżenie początkowe:
+
+$$  
+x^{(0)}  
+$$
+
+kolejne przybliżenia liczymy ze wzoru:
+
+$$  
+x^{(k)} = Wx^{(k-1)} + Z  
+$$
+
+dla:
+
+$$  
+k = 1,2,3,\dots  
+$$
+
+### Przykład w Pythonie
+
+```python
+W = [
+    [0.0, 0.5],
+    [0.2, 0.0]
+]
+
+Z = [0.0, 0.4]
+
+x_poprzednie = [0.0, 0.0]
+x_nowe = []
+
+for i in range(len(W)):
+    suma = 0
+
+    for j in range(len(W[0])):
+        suma = suma + W[i][j] * x_poprzednie[j]
+
+    x_nowe.append(suma + Z[i])
+
+print("x^(1) =", x_nowe)
+```
+
+---
+
+# 5. Metoda Jacobiego
+
+## 5.1. Idea metody Jacobiego
+
+Metoda Jacobiego polega na tym, że każdą niewiadomą w nowej iteracji obliczamy tylko na podstawie wartości ze starej iteracji.
+
+To znaczy, że przy liczeniu:
+
+$$  
+x_i^{(k)}  
+$$
+
+korzystamy z wartości:
+
+$$  
+x_j^{(k-1)}  
+$$
+
+czyli ze starego wektora przybliżeń.
+
+Wszystkie nowe wartości są obliczane niezależnie, a aktualizacja następuje dopiero po zakończeniu całej iteracji.
+
+### Ważna intuicja
+
+Metoda Jacobiego działa według zasady:
+
+```text
+najpierw policz wszystkie nowe wartości, potem zaktualizuj wektor
+```
+
+Dzięki temu metoda jest łatwa do zrównoleglenia.
+
+### Przykład w Pythonie
+
+```python
+# Przykład pokazujący ideę:
+# nowe wartości liczymy do osobnej listy,
+# nie nadpisujemy od razu starego x.
+
+x_stare = [0.0, 0.0]
+x_nowe = [0.0, 0.0]
+
+x_nowe[0] = 0.5 * x_stare[1]
+x_nowe[1] = 0.4 + 0.2 * x_stare[0]
+
+# Dopiero po policzeniu wszystkich wartości aktualizujemy x
+x_stare = x_nowe
+
+print(x_stare)
+```
+
+---
+
+## 5.2. Rozkład macierzy na `D + R`
+
+Dany jest układ:
+
+$$  
+Ax = b  
+$$
+
+W metodzie Jacobiego macierz główną `A` rozbijamy na sumę dwóch macierzy:
+
+$$  
+A = D + R  
+$$
+
+gdzie:
+
+- `D` — macierz diagonalna,
+    
+- `R` — reszta elementów macierzy `A`.
+    
+
+Macierz `D` zawiera tylko elementy z głównej przekątnej:
+
+$$  
+D =  
+\begin{bmatrix}  
+a_{1,1} & 0 & \dots & 0 \  
+0 & a_{2,2} & \dots & 0 \  
+\vdots & \vdots & \ddots & \vdots \  
+0 & 0 & \dots & a_{n,n}  
+\end{bmatrix}  
+$$
+
+Macierz `R` zawiera pozostałe elementy macierzy `A`:
+
+$$  
+R =  
+\begin{bmatrix}  
+0 & a_{1,2} & \dots & a_{1,n} \  
+a_{2,1} & 0 & \dots & a_{2,n} \  
+\vdots & \vdots & \ddots & \vdots \  
+a_{n,1} & a_{n,2} & \dots & 0  
+\end{bmatrix}  
+$$
+
+### Przykład
+
+Dla macierzy:
+
+$$  
+A =  
+\begin{bmatrix}  
+4 & -2 \  
+-2 & 5  
+\end{bmatrix}  
+$$
+
+mamy:
+
+$$  
+D =  
+\begin{bmatrix}  
+4 & 0 \  
+0 & 5  
+\end{bmatrix}  
+$$
+
+oraz:
+
+$$  
+R =  
+\begin{bmatrix}  
+0 & -2 \  
+-2 & 0  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4, -2],
+    [-2, 5]
+]
+
+n = len(A)
+
+D = []
+R = []
+
+for i in range(n):
+    wiersz_D = []
+    wiersz_R = []
+
+    for j in range(n):
+        if i == j:
+            wiersz_D.append(A[i][j])
+            wiersz_R.append(0)
+        else:
+            wiersz_D.append(0)
+            wiersz_R.append(A[i][j])
+
+    D.append(wiersz_D)
+    R.append(wiersz_R)
+
+print("D =", D)
+print("R =", R)
+```
+
+---
+
+## 5.3. Przekształcenie układu do postaci iteracyjnej
+
+Zaczynamy od:
+
+$$  
+Ax = b  
+$$
+
+Ponieważ:
+
+$$  
+A = D + R  
+$$
+
+to:
+
+$$  
+(D+R)x = b  
+$$
+
+czyli:
+
+$$  
+Dx + Rx = b  
+$$
+
+Przenosimy składnik `Rx` na prawą stronę:
+
+$$  
+Dx = -Rx + b  
+$$
+
+Mnożymy obustronnie przez:
+
+$$  
+D^{-1}  
+$$
+
+i dostajemy:
+
+$$  
+D^{-1}Dx = -D^{-1}Rx + D^{-1}b  
+$$
+
+czyli:
+
+$$  
+x = -D^{-1}Rx + D^{-1}b  
+$$
+
+Wprowadzamy oznaczenia:
+
+$$  
+W = -D^{-1}R  
+$$
+
+oraz:
+
+$$  
+Z = D^{-1}b  
+$$
+
+Ostatecznie:
+
+$$  
+x = Wx + Z  
+$$
+
+a iteracyjnie:
+
+$$  
+x^{(k)} = Wx^{(k-1)} + Z  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+b = [0.0, 2.0]
+
+n = len(A)
+
+W = []
+Z = []
+
+for i in range(n):
+    wiersz_W = []
+
+    for j in range(n):
+        if i == j:
+            wiersz_W.append(0.0)
+        else:
+            wiersz_W.append(-A[i][j] / A[i][i])
+
+    W.append(wiersz_W)
+    Z.append(b[i] / A[i][i])
+
+print("W =", W)
+print("Z =", Z)
+```
+
+Wynik:
+
+```text
+W = [[0.0, 0.5], [0.4, 0.0]]
+Z = [0.0, 0.4]
+```
+
+---
+
+## 5.4. Odwrotność macierzy diagonalnej
+
+Macierz odwrotna do macierzy diagonalnej `D` też jest macierzą diagonalną.
+
+Jeżeli:
+
+$$  
+D =  
+\begin{bmatrix}  
+a_{1,1} & 0 & \dots & 0 \  
+0 & a_{2,2} & \dots & 0 \  
+\vdots & \vdots & \ddots & \vdots \  
+0 & 0 & \dots & a_{n,n}  
+\end{bmatrix}  
+$$
+
+to:
+
+$$  
+D^{-1} =  
+\begin{bmatrix}  
+\frac{1}{a_{1,1}} & 0 & \dots & 0 \  
+0 & \frac{1}{a_{2,2}} & \dots & 0 \  
+\vdots & \vdots & \ddots & \vdots \  
+0 & 0 & \dots & \frac{1}{a_{n,n}}  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+D = [
+    [4.0, 0.0],
+    [0.0, 5.0]
+]
+
+n = len(D)
+D_inv = []
+
+for i in range(n):
+    wiersz = []
+
+    for j in range(n):
+        if i == j:
+            wiersz.append(1 / D[i][j])
+        else:
+            wiersz.append(0.0)
+
+    D_inv.append(wiersz)
+
+print(D_inv)
+```
+
+---
+
+## 5.5. Macierz `W`
+
+Dla metody Jacobiego:
+
+$$  
+W = -D^{-1}R  
+$$
+
+Elementy macierzy `W` są następujące:
+
+$$  
+w_{i,j} = -\frac{a_{i,j}}{a_{i,i}}  
+$$
+
+dla:
+
+$$  
+i,j = 1,2,\dots,n  
+$$
+
+oraz:
+
+$$  
+j \neq i  
+$$
+
+Na diagonali macierzy `W` są zera:
+
+$$  
+w_{i,i} = 0  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+n = len(A)
+W = []
+
+for i in range(n):
+    wiersz = []
+
+    for j in range(n):
+        if i == j:
+            wiersz.append(0.0)
+        else:
+            wiersz.append(-A[i][j] / A[i][i])
+
+    W.append(wiersz)
+
+print(W)
+```
+
+---
+
+## 5.6. Wektor `Z`
+
+Dla metody Jacobiego:
+
+$$  
+Z = D^{-1}b  
+$$
+
+Elementy wektora `Z` są następujące:
+
+$$  
+Z_i = \frac{b_i}{a_{i,i}}  
+$$
+
+dla:
+
+$$  
+i = 1,2,\dots,n  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+b = [0.0, 2.0]
+
+Z = []
+
+for i in range(len(A)):
+    Z.append(b[i] / A[i][i])
+
+print(Z)
+```
+
+---
+
+## 5.7. Wzór dla poszczególnych niewiadomych w metodzie Jacobiego
+
+W praktyce często używa się wzoru:
+
+# $$  
+x_i^{(k)}
+
+## \frac{1}{a_{i,i}}  
+\left(  
+b_i
+
+\sum_{\substack{j=1 \ j \neq i}}^{n}  
+a_{i,j}x_j^{(k-1)}  
+\right)  
+$$
+
+dla:
+
+$$  
+i = 1,2,\dots,n  
+$$
+
+Najważniejsze jest to, że każda nowa wartość:
+
+$$  
+x_i^{(k)}  
+$$
+
+jest liczona tylko na podstawie starego przybliżenia:
+
+$$  
+x^{(k-1)}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+b = [0.0, 2.0]
+
+x_stare = [0.0, 0.0]
+x_nowe = []
+
+n = len(A)
+
+for i in range(n):
+    suma = 0
+
+    for j in range(n):
+        if j != i:
+            suma = suma + A[i][j] * x_stare[j]
+
+    wartosc = (b[i] - suma) / A[i][i]
+    x_nowe.append(wartosc)
+
+print(x_nowe)
+```
+
+---
+
+## 5.8. Algorytm metody Jacobiego
+
+Dane:
+
+- macierz `A`,
+    
+- wektor `b`,
+    
+- przybliżenie początkowe `x^(0)`,
+    
+- dokładność `epsilon`.
+    
+
+Kroki:
+
+1. Wybierz przybliżenie początkowe:
+    
+
+$$  
+x^{(0)}  
+$$
+
+2. Dla każdej iteracji oblicz nowy wektor:
+    
+
+$$  
+x^{(k)}  
+$$
+
+używając tylko wartości z poprzedniej iteracji:
+
+$$  
+x^{(k-1)}  
+$$
+
+3. Porównaj:
+    
+
+$$  
+x^{(k)}  
+$$
+
+oraz:
+
+$$  
+x^{(k-1)}  
+$$
+
+4. Jeżeli różnica jest mała, zakończ.
+    
+5. W przeciwnym razie wykonaj kolejną iterację.
+    
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+b = [0.0, 2.0]
+
+n = len(A)
+
+x_stare = [0.0, 0.0]
+epsilon = 0.001
+maks_iteracji = 100
+
+for iteracja in range(maks_iteracji):
+    x_nowe = []
+
+    for i in range(n):
+        suma = 0
+
+        for j in range(n):
+            if j != i:
+                suma = suma + A[i][j] * x_stare[j]
+
+        wartosc = (b[i] - suma) / A[i][i]
+        x_nowe.append(wartosc)
+
+    blad = abs(x_nowe[0] - x_stare[0])
+
+    for i in range(1, n):
+        roznica = abs(x_nowe[i] - x_stare[i])
+
+        if roznica > blad:
+            blad = roznica
+
+    x_stare = x_nowe
+
+    if blad < epsilon:
+        break
+
+print("Liczba iteracji:", iteracja + 1)
+print("Przybliżone rozwiązanie:", x_stare)
+```
+
+---
+
+# 6. Przykład metody Jacobiego z wykładu
+
+W wykładzie rozważany jest układ:
+
+$$  
+4x_1 - 2x_2 = 0  
+$$
+
+$$  
+-2x_1 + 5x_2 - x_3 = 2  
+$$
+
+$$  
+-x_2 + 4x_3 + 2x_4 = 3  
+$$
+
+$$  
+2x_3 + 3x_4 = -2  
+$$
+
+Rozwiązanie dokładne wynosi:
+
+$$  
+x =  
+\begin{bmatrix}  
+0.5 \  
+1 \  
+2 \  
+-2  
+\end{bmatrix}  
+$$
+
+Przekształcamy układ do postaci:
+
+$$  
+x = Wx + Z  
+$$
+
+Z każdego równania wyznaczamy odpowiednią niewiadomą:
+
+$$  
+x_1 = \frac{1}{2}x_2  
+$$
+
+$$  
+x_2 = \frac{2}{5} + \frac{1}{5}x_1 + \frac{1}{5}x_3  
+$$
+
+$$  
+x_3 = \frac{3}{4} + \frac{1}{4}x_2 - \frac{2}{4}x_4  
+$$
+
+$$  
+x_4 = -\frac{2}{3} - \frac{2}{3}x_3  
+$$
+
+Macierz iteracji i wektor `Z`:
+
+$$  
+W =  
+\begin{bmatrix}  
+0 & \frac{2}{4} & 0 & 0 \  
+\frac{2}{5} & 0 & \frac{1}{5} & 0 \  
+0 & \frac{1}{4} & 0 & -\frac{2}{4} \  
+0 & 0 & -\frac{2}{3} & 0  
+\end{bmatrix}  
+$$
+
+$$  
+Z =  
+\begin{bmatrix}  
+0 \  
+\frac{2}{5} \  
+\frac{3}{4} \  
+-\frac{2}{3}  
+\end{bmatrix}  
+$$
+
+Dla przybliżenia początkowego:
+
+$$  
+x^{(0)} =  
+\begin{bmatrix}  
+0 \  
+0 \  
+0 \  
+0  
+\end{bmatrix}  
+$$
+
+wykonujemy kolejne iteracje:
+
+$$  
+x_1^{(k)} = \frac{1}{2}x_2^{(k-1)}  
+$$
+
+$$  
+x_2^{(k)} = \frac{2}{5} + \frac{1}{5}x_1^{(k-1)} + \frac{1}{5}x_3^{(k-1)}  
+$$
+
+$$  
+x_3^{(k)} = \frac{3}{4} + \frac{1}{4}x_2^{(k-1)} - \frac{2}{4}x_4^{(k-1)}  
+$$
+
+$$  
+x_4^{(k)} = -\frac{2}{3} - \frac{2}{3}x_3^{(k-1)}  
+$$
+
+### Wyniki iteracji z wykładu
+
+Dla dokładności:
+
+$$  
+\epsilon = 10^{-3}  
+$$
+
+w wykładzie iteracje kończą się na wartości:
+
+$$  
+x^{(16)} \approx  
+\begin{bmatrix}  
+0.4994 \  
+0.9992 \  
+1.9986 \  
+-1.9986  
+\end{bmatrix}  
+$$
+
+Błąd w tabeli dla iteracji `16` wynosi:
+
+$$  
+0.0008  
+$$
+
+### Przykład w Pythonie
+
+```python
+x_stare = [0.0, 0.0, 0.0, 0.0]
+
+epsilon = 0.001
+maks_iteracji = 100
+
+for iteracja in range(maks_iteracji):
+    x_nowe = [0.0, 0.0, 0.0, 0.0]
+
+    x_nowe[0] = 0.5 * x_stare[1]
+    x_nowe[1] = 2 / 5 + (1 / 5) * x_stare[0] + (1 / 5) * x_stare[2]
+    x_nowe[2] = 3 / 4 + (1 / 4) * x_stare[1] - (2 / 4) * x_stare[3]
+    x_nowe[3] = -2 / 3 - (2 / 3) * x_stare[2]
+
+    blad = abs(x_nowe[0] - x_stare[0])
+
+    for i in range(1, len(x_nowe)):
+        roznica = abs(x_nowe[i] - x_stare[i])
+
+        if roznica > blad:
+            blad = roznica
+
+    x_stare = x_nowe
+
+    if blad < epsilon:
+        break
+
+print("Iteracja:", iteracja + 1)
+print("x =", x_stare)
+print("blad =", blad)
+```
+
+---
+
+# 7. Warunek stopu
+
+Obliczenia można zakończyć, gdy spełniony jest warunek stopu.
+
+W wykładzie podano warunek:
+
+$$  
+\frac{|x^{(k)} - x^{(k-1)}|}{|x^{(k)}|} \leq \epsilon  
+$$
+
+Oznacza to, że porównujemy różnicę kolejnych przybliżeń z wielkością aktualnego przybliżenia.
+
+W przykładzie z wykładu:
+
+$$  
+\frac{1.9986 - 1.9979}{1.9986}  
+\approx 0.00035 \leq 10^{-3}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x_poprzednie = [0.4986, 0.9982, 1.9979, -1.9979]
+x_aktualne = [0.4994, 0.9992, 1.9986, -1.9986]
+
+# Norma maksimum licznika
+licznik = abs(x_aktualne[0] - x_poprzednie[0])
+
+for i in range(1, len(x_aktualne)):
+    roznica = abs(x_aktualne[i] - x_poprzednie[i])
+
+    if roznica > licznik:
+        licznik = roznica
+
+# Norma maksimum mianownika
+mianownik = abs(x_aktualne[0])
+
+for i in range(1, len(x_aktualne)):
+    wartosc = abs(x_aktualne[i])
+
+    if wartosc > mianownik:
+        mianownik = wartosc
+
+iloraz = licznik / mianownik
+
+print("Iloraz =", iloraz)
+
+if iloraz <= 0.001:
+    print("Można zakończyć obliczenia")
+else:
+    print("Trzeba iterować dalej")
+```
+
+---
+
+# 8. Metoda Jacobiego — podsumowanie
+
+Prosty algorytm Jacobiego wymaga, aby:
+
+$$  
+a_{i,i} \neq 0  
+$$
+
+dla każdego:
+
+$$  
+i = 1,2,\dots,n  
+$$
+
+Jeżeli ten warunek nie jest spełniony, a układ jest nieosobliwy, to układ można przekształcić tak, aby ten warunek był spełniony.
+
+Przyspieszenie zbieżności otrzymuje się przez wybór elementów największych co do wartości bezwzględnej na przekątnej.
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [0.0, 2.0],
+    [4.0, 5.0]
+]
+
+czy_diagonala_niezerowa = True
+
+for i in range(len(A)):
+    if A[i][i] == 0:
+        czy_diagonala_niezerowa = False
+
+if czy_diagonala_niezerowa:
+    print("Można bezpośrednio zastosować prostą metodę Jacobiego")
+else:
+    print("Trzeba przekształcić układ, bo na diagonali jest zero")
+```
+
+---
+
+# 9. Metoda Gaussa-Seidla
+
+## 9.1. Idea metody Gaussa-Seidla
+
+Metoda Gaussa-Seidla jest metodą iteracyjną rozwiązywania układów równań liniowych.
+
+Podobnie jak metoda Jacobiego służy do rozwiązania układu:
+
+$$  
+Ax = b  
+$$
+
+Różnica polega na sposobie aktualizacji wartości niewiadomych.
+
+W metodzie Gaussa-Seidla korzystamy z najnowszych dostępnych wartości.
+
+To znaczy:
+
+- dla wcześniejszych niewiadomych w danej iteracji używamy już nowych wartości,
+    
+- dla późniejszych niewiadomych używamy jeszcze starych wartości.
+    
+
+### Intuicja
+
+Metoda Gaussa-Seidla działa według zasady:
+
+```text
+licz i od razu poprawiaj
+```
+
+### Przykład w Pythonie
+
+```python
+# W metodzie Gaussa-Seidla nadpisujemy wartości od razu.
+
+x = [0.0, 0.0]
+
+# Najpierw liczymy x1 i od razu zapisujemy nową wartość
+x[0] = 0.5 * x[1]
+
+# Potem liczymy x2, korzystając już z nowego x1
+x[1] = 0.4 + 0.2 * x[0]
+
+print(x)
+```
+
+---
+
+## 9.2. Wzór metody Gaussa-Seidla
+
+Ogólny wzór metody Gaussa-Seidla:
+
+# $$  
+x_i^{(k)}
+
+## \frac{1}{a_{i,i}}  
+\left(  
+b_i
+
+## \sum_{j=1}^{i-1} a_{i,j}x_j^{(k)}
+
+\sum_{j=i+1}^{n} a_{i,j}x_j^{(k-1)}  
+\right)  
+$$
+
+dla:
+
+$$  
+i = 1,2,\dots,n  
+$$
+
+Pierwsza suma używa już nowych wartości:
+
+$$  
+x_j^{(k)}  
+$$
+
+Druga suma używa starych wartości:
+
+$$  
+x_j^{(k-1)}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+b = [0.0, 2.0]
+
+x = [0.0, 0.0]
+n = len(A)
+
+for i in range(n):
+    suma = 0
+
+    for j in range(n):
+        if j != i:
+            suma = suma + A[i][j] * x[j]
+
+    x[i] = (b[i] - suma) / A[i][i]
+
+print(x)
+```
+
+---
+
+## 9.3. Algorytm metody Gaussa-Seidla
+
+Kroki:
+
+1. Wybierz przybliżenie początkowe:
+    
+
+$$  
+x^{(0)}  
+$$
+
+2. Dla każdej iteracji przechodź po niewiadomych:
+    
+
+$$  
+i = 1,2,\dots,n  
+$$
+
+3. Oblicz:
+    
+
+$$  
+x_i^{(k)}  
+$$
+
+korzystając z nowych i starych wartości.
+
+4. Sprawdź warunek stopu.
+    
+5. Jeśli warunek stopu jest spełniony, zakończ.
+    
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+b = [0.0, 2.0]
+
+n = len(A)
+x = [0.0, 0.0]
+
+epsilon = 0.001
+maks_iteracji = 100
+
+for iteracja in range(maks_iteracji):
+    x_stare = []
+
+    for i in range(n):
+        x_stare.append(x[i])
+
+    for i in range(n):
+        suma = 0
+
+        for j in range(n):
+            if j != i:
+                suma = suma + A[i][j] * x[j]
+
+        x[i] = (b[i] - suma) / A[i][i]
+
+    blad = abs(x[0] - x_stare[0])
+
+    for i in range(1, n):
+        roznica = abs(x[i] - x_stare[i])
+
+        if roznica > blad:
+            blad = roznica
+
+    if blad < epsilon:
+        break
+
+print("Liczba iteracji:", iteracja + 1)
+print("x =", x)
+```
+
+---
+
+## 9.4. Metoda Gaussa-Seidla w zapisie macierzowym
+
+Dla rozkładu:
+
+$$  
+A = D + L + U  
+$$
+
+gdzie:
+
+- `D` — macierz diagonalna,
+    
+- `L` — macierz trójkątna dolna,
+    
+- `U` — macierz trójkątna górna,
+    
+
+metoda Gaussa-Seidla ma postać:
+
+$$  
+(L + D)x^{(k)} = -Ux^{(k-1)} + b  
+$$
+
+Po przekształceniu:
+
+# $$  
+x^{(k)}
+
+-(L+D)^{-1}Ux^{(k-1)}  
++  
+(L+D)^{-1}b  
+$$
+
+dla:
+
+$$  
+k = 1,2,\dots  
+$$
+
+Wymagane jest:
+
+$$  
+a_{i,i} \neq 0  
+$$
+
+dla wszystkich:
+
+$$  
+i = 1,2,\dots,n  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+n = len(A)
+
+D = []
+L = []
+U = []
+
+for i in range(n):
+    wiersz_D = []
+    wiersz_L = []
+    wiersz_U = []
+
+    for j in range(n):
+        if i == j:
+            wiersz_D.append(A[i][j])
+            wiersz_L.append(0.0)
+            wiersz_U.append(0.0)
+        elif i > j:
+            wiersz_D.append(0.0)
+            wiersz_L.append(A[i][j])
+            wiersz_U.append(0.0)
+        else:
+            wiersz_D.append(0.0)
+            wiersz_L.append(0.0)
+            wiersz_U.append(A[i][j])
+
+    D.append(wiersz_D)
+    L.append(wiersz_L)
+    U.append(wiersz_U)
+
+print("D =", D)
+print("L =", L)
+print("U =", U)
+```
+
+---
+
+# 10. Przykład metody Gaussa-Seidla z wykładu
+
+W wykładzie metoda Gaussa-Seidla została zastosowana do tego samego układu:
+
+$$  
+4x_1 - 2x_2 = 0  
+$$
+
+$$  
+-2x_1 + 5x_2 - x_3 = 2  
+$$
+
+$$  
+-x_2 + 4x_3 + 2x_4 = 3  
+$$
+
+$$  
+2x_3 + 3x_4 = -2  
+$$
+
+Kolejne iteracje mają postać:
+
+$$  
+x_1^{(k)} = \frac{1}{2}x_2^{(k-1)}  
+$$
+
+$$  
+x_2^{(k)} =  
+\frac{  
+2 + 2x_1^{(k)} + x_3^{(k-1)}  
+}  
+{5}  
+$$
+
+$$  
+x_3^{(k)} =  
+\frac{  
+3 + x_2^{(k)} - 2x_4^{(k-1)}  
+}  
+{4}  
+$$
+
+$$  
+x_4^{(k)} =  
+\frac{  
+-2 - 2x_3^{(k)}  
+}  
+{3}  
+$$
+
+Dla:
+
+$$  
+\epsilon = 10^{-3}  
+$$
+
+zakończenie obliczeń nastąpiło po `9` iteracjach.
+
+W wykładzie ostatnie przybliżenie z tabeli to:
+
+$$  
+x \approx  
+\begin{bmatrix}  
+0.4995 \  
+0.9996 \  
+1.9995 \  
+-1.9997  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [0.0, 0.0, 0.0, 0.0]
+
+epsilon = 0.001
+maks_iteracji = 100
+
+for iteracja in range(maks_iteracji):
+    x_stare = []
+
+    for i in range(len(x)):
+        x_stare.append(x[i])
+
+    x[0] = 0.5 * x[1]
+    x[1] = (2 + 2 * x[0] + x[2]) / 5
+    x[2] = (3 + x[1] - 2 * x[3]) / 4
+    x[3] = (-2 - 2 * x[2]) / 3
+
+    blad = abs(x[0] - x_stare[0])
+
+    for i in range(1, len(x)):
+        roznica = abs(x[i] - x_stare[i])
+
+        if roznica > blad:
+            blad = roznica
+
+    if blad < epsilon:
+        break
+
+print("Iteracja:", iteracja + 1)
+print("x =", x)
+print("blad =", blad)
+```
+
+---
+
+# 11. Jacobi a Gauss-Seidel
+
+W wykładzie porównano metody Jacobiego i Gaussa-Seidla.
+
+|Cecha|Jacobi|Gauss-Seidel|
+|---|---|---|
+|Dane w iteracji|tylko stare wartości|nowe + stare wartości|
+|Aktualizacja|jednoczesna|sekwencyjna|
+|Szybkość zbieżności|wolniejsza|zwykle szybsza|
+|Równoległość|bardzo dobra|ograniczona|
+|Złożoność implementacji|prosta|trochę trudniejsza|
+
+### Intuicja
+
+Metoda Jacobiego:
+
+```text
+najpierw policz wszystko, potem zaktualizuj
+```
+
+Metoda Gaussa-Seidla:
+
+```text
+licz i od razu poprawiaj
+```
+
+### Wniosek
+
+Metoda Gaussa-Seidla zwykle zbiega szybciej, ale metoda Jacobiego łatwiej się zrównolegla.
+
+### Przykład w Pythonie
+
+```python
+metoda = "Gauss-Seidel"
+
+if metoda == "Jacobi":
+    print("Używamy tylko starych wartości i aktualizujemy jednocześnie")
+elif metoda == "Gauss-Seidel":
+    print("Używamy nowych i starych wartości oraz aktualizujemy sekwencyjnie")
+```
+
+---
+
+# 12. Warunek zbieżności
+
+Kluczowe pytanie metod iteracyjnych brzmi:
+
+```text
+czy iteracje prowadzą do rozwiązania?
+```
+
+Dla równania:
+
+$$  
+x^{(k)} = Wx^{(k-1)} + Z  
+$$
+
+zbieżność zależy od macierzy `W`.
+
+Warunek zbieżności:
+
+$$  
+\rho(W) < 1  
+$$
+
+gdzie:
+
+$$  
+\rho(W)  
+$$
+
+oznacza największą wartość własną.
+
+W praktyce używa się łatwiejszego warunku:
+
+$$  
+|W| < 1  
+$$
+
+Jeżeli:
+
+$$  
+|W| < 1  
+$$
+
+to błędy maleją i metoda powinna być zbieżna.
+
+Jeżeli:
+
+$$  
+|W| > 1  
+$$
+
+to błędy rosną i metoda może być rozbieżna.
+
+### Przykład w Pythonie
+
+```python
+W = [
+    [0.0, 0.5],
+    [0.4, 0.0]
+]
+
+# Liczymy normę wierszową
+norma = 0
+
+for i in range(len(W)):
+    suma_wiersza = 0
+
+    for j in range(len(W[0])):
+        suma_wiersza = suma_wiersza + abs(W[i][j])
+
+    if suma_wiersza > norma:
+        norma = suma_wiersza
+
+print("Norma W =", norma)
+
+if norma < 1:
+    print("Metoda powinna być zbieżna")
+else:
+    print("Metoda może nie być zbieżna")
+```
+
+---
+
+# 13. Normy macierzy `W`
+
+Do badania zbieżności można liczyć różne normy macierzy.
+
+## 13.1. Norma wierszowa
+
+$$  
+|W|_\infty =  
+\max_i  
+\sum_{j=1}^{n}|w_{i,j}|  
+$$
+
+Czyli liczymy sumę modułów w każdym wierszu i wybieramy największą.
+
+### Przykład w Pythonie
+
+```python
+W = [
+    [0.0, 0.5],
+    [0.4, 0.0]
+]
+
+norma_wierszowa = 0
+
+for i in range(len(W)):
+    suma_wiersza = 0
+
+    for j in range(len(W[0])):
+        suma_wiersza = suma_wiersza + abs(W[i][j])
+
+    if suma_wiersza > norma_wierszowa:
+        norma_wierszowa = suma_wiersza
+
+print(norma_wierszowa)
+```
+
+---
+
+## 13.2. Norma kolumnowa
+
+$$  
+|W|_1 =  
+\max_j  
+\sum_{i=1}^{n}|w_{i,j}|  
+$$
+
+Czyli liczymy sumę modułów w każdej kolumnie i wybieramy największą.
+
+### Przykład w Pythonie
+
+```python
+W = [
+    [0.0, 0.5],
+    [0.4, 0.0]
+]
+
+norma_kolumnowa = 0
+
+for j in range(len(W[0])):
+    suma_kolumny = 0
+
+    for i in range(len(W)):
+        suma_kolumny = suma_kolumny + abs(W[i][j])
+
+    if suma_kolumny > norma_kolumnowa:
+        norma_kolumnowa = suma_kolumny
+
+print(norma_kolumnowa)
+```
+
+---
+
+## 13.3. Norma Frobeniusa
+
+$$  
+|W|_F =  
+\sqrt{  
+\sum_{i=1}^{n}  
+\sum_{j=1}^{n}  
+w_{i,j}^2  
+}  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+W = [
+    [0.0, 0.5],
+    [0.4, 0.0]
+]
+
+suma = 0
+
+for i in range(len(W)):
+    for j in range(len(W[0])):
+        suma = suma + W[i][j] ** 2
+
+norma_frobeniusa = math.sqrt(suma)
+
+print(norma_frobeniusa)
+```
+
+---
+
+# 14. Sprawdzanie zbieżności — algorytm
+
+Aby sprawdzić zbieżność metody iteracyjnej dla układu:
+
+$$  
+Ax = b  
+$$
+
+można wykonać następujące kroki:
+
+1. Wyznacz macierz iteracji `W`:
+    
+
+# $$  
+w_{i,j}
+
+\begin{cases}  
+0, & i = j \  
+-\frac{a_{i,j}}{a_{i,i}}, & i \neq j  
+\end{cases}  
+$$
+
+2. Oblicz normę macierzy:
+    
+
+$$  
+|W|  
+$$
+
+3. Jeżeli:
+    
+
+$$  
+|W| < 1  
+$$
+
+to metoda iteracyjna powinna być zbieżna.
+
+4. W przeciwnym razie układ jest źle uwarunkowany dla tej metody albo należy zmienić metodę lub przekształcić układ.
+    
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+n = len(A)
+
+W = []
+
+for i in range(n):
+    wiersz = []
+
+    for j in range(n):
+        if i == j:
+            wiersz.append(0.0)
+        else:
+            wiersz.append(-A[i][j] / A[i][i])
+
+    W.append(wiersz)
+
+norma = 0
+
+for i in range(n):
+    suma_wiersza = 0
+
+    for j in range(n):
+        suma_wiersza = suma_wiersza + abs(W[i][j])
+
+    if suma_wiersza > norma:
+        norma = suma_wiersza
+
+print("W =", W)
+print("Norma =", norma)
+
+if norma < 1:
+    print("Warunek zbieżności jest spełniony")
+else:
+    print("Warunek zbieżności nie jest spełniony")
+```
+
+---
+
+# 15. Zbieżność a uwarunkowanie
+
+W wykładzie podkreślono różnicę między zbieżnością a uwarunkowaniem.
+
+|Pojęcie|Dotyczy|Pytanie|Zależne od|Warunek|
+|---|---|---|---|---|
+|Zbieżność|metody|czy działa?|macierzy `W`|$\|W\| < 1$|
+|Uwarunkowanie|układu `Ax = b`|czy jest stabilny?|macierzy `A`|liczba uwarunkowania|
+
+Można mieć:
+
+- zbieżność i złe uwarunkowanie,
+    
+- dobre uwarunkowanie i brak zbieżności.
+    
+
+### Przykład w Pythonie
+
+```python
+norma_W = 0.75
+liczba_uwarunkowania = 1000
+
+if norma_W < 1:
+    print("Metoda iteracyjna powinna być zbieżna")
+else:
+    print("Metoda może być rozbieżna")
+
+if liczba_uwarunkowania > 100:
+    print("Układ może być źle uwarunkowany")
+else:
+    print("Układ nie wygląda na źle uwarunkowany")
+```
+
+---
+
+# 16. Jak sprawdzić układ równań?
+
+Dany jest układ:
+
+$$  
+Ax = b  
+$$
+
+Wykład podaje dwa kroki sprawdzania.
+
+## Krok 1. Czy metoda zadziała?
+
+Sprawdzamy:
+
+$$  
+|W| < 1  
+$$
+
+Jeżeli tak, to metoda iteracyjna powinna być zbieżna.
+
+## Krok 2. Czy wynik będzie wiarygodny?
+
+Sprawdzamy uwarunkowanie układu przez liczbę uwarunkowania:
+
+$$  
+\kappa(A) = |A| \cdot |A^{-1}|  
+$$
+
+### Wniosek
+
+Zbieżność oznacza, że algorytm działa.
+
+Uwarunkowanie oznacza, czy wynik ma sens i czy błędy nie będą mocno wzmacniane.
+
+### Przykład w Pythonie
+
+```python
+norma_W = 0.75
+kappa_A = 20
+
+if norma_W < 1:
+    print("Krok 1: metoda powinna działać")
+else:
+    print("Krok 1: metoda może nie działać")
+
+if kappa_A < 100:
+    print("Krok 2: wynik powinien być w miarę wiarygodny")
+else:
+    print("Krok 2: wynik może być mało wiarygodny")
+```
+
+---
+
+# 17. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 17.1. Metody iteracyjne
+
+Metody iteracyjne zaczynają od przybliżenia początkowego:
+
+$$  
+x^{(0)}  
+$$
+
+i tworzą ciąg:
+
+$$  
+x^{(0)}, x^{(1)}, x^{(2)}, \dots  
+$$
+
+który powinien zbiegać do rozwiązania.
+
+---
+
+## 17.2. Postać iteracyjna
+
+Najważniejsza postać:
+
+$$  
+x = Wx + Z  
+$$
+
+oraz:
+
+$$  
+x^{(k)} = Wx^{(k-1)} + Z  
+$$
+
+---
+
+## 17.3. Metoda Jacobiego
+
+W metodzie Jacobiego każdą nową wartość liczymy tylko ze starych wartości:
+
+# $$  
+x_i^{(k)}
+
+## \frac{1}{a_{i,i}}  
+\left(  
+b_i
+
+\sum_{\substack{j=1 \ j \neq i}}^{n}  
+a_{i,j}x_j^{(k-1)}  
+\right)  
+$$
+
+---
+
+## 17.4. Metoda Gaussa-Seidla
+
+W metodzie Gaussa-Seidla korzystamy z nowych i starych wartości:
+
+# $$  
+x_i^{(k)}
+
+## \frac{1}{a_{i,i}}  
+\left(  
+b_i
+
+## \sum_{j=1}^{i-1} a_{i,j}x_j^{(k)}
+
+\sum_{j=i+1}^{n} a_{i,j}x_j^{(k-1)}  
+\right)  
+$$
+
+---
+
+## 17.5. Warunek stopu
+
+Przykładowy warunek stopu:
+
+$$  
+\frac{|x^{(k)} - x^{(k-1)}|}{|x^{(k)}|} \leq \epsilon  
+$$
+
+---
+
+## 17.6. Warunek zbieżności
+
+Metoda powinna być zbieżna, gdy:
+
+$$  
+|W| < 1  
+$$
+
+Dokładniejszy warunek teoretyczny:
+
+$$  
+\rho(W) < 1  
+$$
+
+---
+
+## 17.7. Różnica między Jacobim a Gauss-Seidlem
+
+Jacobi:
+
+```text
+najpierw policz wszystko, potem zaktualizuj
+```
+
+Gauss-Seidel:
+
+```text
+licz i od razu poprawiaj
+```
+
+---
+
+## 17.8. Zbieżność i uwarunkowanie
+
+Zbieżność dotyczy metody.
+
+Uwarunkowanie dotyczy układu:
+
+$$  
+Ax = b  
+$$
+
+---
+
+# 18. Krótkie podsumowanie
+
+Wykład 4 dotyczył iteracyjnych metod rozwiązywania układów równań liniowych.
 
 Najważniejsze wnioski:
 
-1. Układ równań liniowych można zapisać jako `Ax = b`.
+1. Metody iteracyjne są dobre dla dużych i rzadkich układów.
     
-2. Macierz rozszerzona powstaje przez dołączenie wektora `b` do macierzy `A`.
+2. Zaczynamy od przybliżenia początkowego.
     
-3. Twierdzenie Kroneckera-Capellego mówi, ile rozwiązań ma układ.
+3. Układ przekształca się do postaci `x = Wx + Z`.
     
-4. Metody bezpośrednie dają wynik po skończonej liczbie działań, ale mogą być wrażliwe na błędy zaokrągleń.
+4. Kolejne iteracje liczy się ze wzoru `x^(k) = Wx^(k-1) + Z`.
     
-5. Wzory Cramera można stosować, gdy `det(A) ≠ 0`.
+5. Metoda Jacobiego używa tylko starych wartości.
     
-6. Układy z macierzami trójkątnymi rozwiązuje się przez podstawianie w przód albo wstecz.
+6. Metoda Gaussa-Seidla używa najnowszych dostępnych wartości.
     
-7. Eliminacja Gaussa sprowadza układ do postaci trójkątnej.
+7. Gauss-Seidel zwykle zbiega szybciej.
     
-8. Wybór elementu podstawowego poprawia niezawodność i dokładność obliczeń.
+8. Jacobi łatwiej się zrównolegla.
     
-9. Rozkład LU sprowadza rozwiązanie układu do dwóch układów trójkątnych.
+9. Warunek stopu sprawdza, czy kolejne przybliżenia niewiele się różnią.
     
-10. Rozkład Cholesky’ego jest używany dla macierzy symetrycznych i dodatnio określonych.
+10. Warunek `||W|| < 1` pomaga ocenić zbieżność.
+    
+11. Zbieżność mówi, czy algorytm działa.
+    
+12. Uwarunkowanie mówi, czy wynik jest wiarygodny.
