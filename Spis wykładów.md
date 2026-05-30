@@ -68,3 +68,5 @@
 - Eliminacja Gaussa z pivotingiem częściowym
 - Metoda Gaussa–Jordana – schemat postępowania
 
+##  03  - Układy równań liniowych (lab4)
+- 

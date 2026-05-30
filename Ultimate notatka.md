@@ -5963,3 +5963,2288 @@ print(A)
 
 ---
 
+# Metody numeryczne — wykład 3: Układy równań liniowych — metody bezpośrednie
+
+## 1. Układ równań liniowych
+
+Układ `m` równań liniowych z `n` niewiadomymi ma postać:
+
+$$  
+a_{1,1}x_1 + a_{1,2}x_2 + a_{1,3}x_3 + \dots + a_{1,n}x_n = b_1  
+$$
+
+$$  
+a_{2,1}x_1 + a_{2,2}x_2 + a_{2,3}x_3 + \dots + a_{2,n}x_n = b_2  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+a_{m,1}x_1 + a_{m,2}x_2 + a_{m,3}x_3 + \dots + a_{m,n}x_n = b_m  
+$$
+
+Można go też zapisać krócej:
+
+$$  
+\sum_{j=1}^{n} a_{i,j}x_j = b_i  
+$$
+
+dla:
+
+$$  
+i = 1,2,\dots,m  
+$$
+
+### Przykład
+
+Układ:
+
+$$  
+2x_1 + x_2 = 5  
+$$
+
+$$  
+x_1 + 3x_2 = 7  
+$$
+
+ma `2` równania i `2` niewiadome.
+
+### Przykład w Pythonie
+
+```python
+# Przykładowy układ:
+# 2x1 + 1x2 = 5
+# 1x1 + 3x2 = 7
+
+A = [
+    [2, 1],
+    [1, 3]
+]
+
+b = [5, 7]
+
+print("Macierz współczynników A:")
+print(A)
+
+print("Wektor wyrazów wolnych b:")
+print(b)
+```
+
+---
+
+## 2. Zapis macierzowy układu równań
+
+Układ równań liniowych można zapisać w postaci macierzowej:
+
+$$  
+Ax = b  
+$$
+
+gdzie:
+
+- `A` — macierz główna układu, złożona ze współczynników,
+    
+- `x` — wektor niewiadomych,
+    
+- `b` — wektor wyrazów wolnych.
+    
+
+Macierz współczynników:
+
+$$  
+A =  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & \dots & a_{1,n} \\  
+a_{2,1} & a_{2,2} & \dots & a_{2,n} \\  
+\vdots & \vdots & \ddots & \vdots \\  
+a_{m,1} & a_{m,2} & \dots & a_{m,n}  
+\end{bmatrix}  
+$$
+
+Wektor niewiadomych:
+
+$$  
+x =  
+\begin{bmatrix}  
+x_1 \\  
+x_2 \\  
+\vdots \\  
+x_n  
+\end{bmatrix}  
+$$
+
+Wektor wyrazów wolnych:
+
+$$  
+b =  
+\begin{bmatrix}  
+b_1 \\  
+b_2 \\  
+\vdots \\  
+b_m  
+\end{bmatrix}  
+$$
+
+Cały układ:
+
+$$  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & \dots & a_{1,n} \\  
+a_{2,1} & a_{2,2} & \dots & a_{2,n} \\  
+\vdots & \vdots & \ddots & \vdots \\  
+a_{m,1} & a_{m,2} & \dots & a_{m,n}  
+\end{bmatrix}  
+\begin{bmatrix}  
+x_1 \\  
+x_2 \\  
+\vdots \\  
+x_n  
+\end{bmatrix}
+
+\begin{bmatrix}  
+b_1 \\  
+b_2 \\  
+\vdots \\  
+b_m  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2, 1],
+    [1, 3]
+]
+
+x = [1, 2]
+
+b = []
+
+for i in range(len(A)):
+    suma = 0
+
+    for j in range(len(A[0])):
+        suma = suma + A[i][j] * x[j]
+
+    b.append(suma)
+
+print("Dla x =", x)
+print("Ax =", b)
+```
+
+Wynik:
+
+```text
+Dla x = [1, 2]
+Ax = [4, 7]
+```
+
+---
+
+## 3. Macierz rozszerzona
+
+Macierz rozszerzona powstaje przez dołączenie do macierzy głównej `A` wektora wyrazów wolnych `b` jako ostatniej kolumny.
+
+Oznaczamy ją jako:
+
+$$  
+A_b  
+$$
+
+Macierz rozszerzona ma rozmiar:
+
+$$  
+m \times (n+1)  
+$$
+
+Jeżeli:
+
+$$  
+A =  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & \dots & a_{1,n} \  
+a_{2,1} & a_{2,2} & \dots & a_{2,n} \  
+\vdots & \vdots & \ddots & \vdots \  
+a_{m,1} & a_{m,2} & \dots & a_{m,n}  
+\end{bmatrix}  
+$$
+
+oraz:
+
+$$  
+b =  
+\begin{bmatrix}  
+b_1 \  
+b_2 \  
+\vdots \  
+b_m  
+\end{bmatrix}  
+$$
+
+to:
+
+$$  
+A_b =  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & \dots & a_{1,n} & b_1 \  
+a_{2,1} & a_{2,2} & \dots & a_{2,n} & b_2 \  
+\vdots & \vdots & \ddots & \vdots & \vdots \  
+a_{m,1} & a_{m,2} & \dots & a_{m,n} & b_m  
+\end{bmatrix}  
+$$
+
+### Przykład
+
+Dla:
+
+$$  
+A =  
+\begin{bmatrix}  
+2 & 1 \  
+1 & 3  
+\end{bmatrix}  
+$$
+
+oraz:
+
+$$  
+b =  
+\begin{bmatrix}  
+5 \  
+7  
+\end{bmatrix}  
+$$
+
+macierz rozszerzona to:
+
+$$  
+A_b =  
+\begin{bmatrix}  
+2 & 1 & 5 \  
+1 & 3 & 7  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2, 1],
+    [1, 3]
+]
+
+b = [5, 7]
+
+Ab = []
+
+for i in range(len(A)):
+    wiersz = []
+
+    for j in range(len(A[0])):
+        wiersz.append(A[i][j])
+
+    wiersz.append(b[i])
+
+    Ab.append(wiersz)
+
+print(Ab)
+```
+
+Wynik:
+
+```text
+[[2, 1, 5], [1, 3, 7]]
+```
+
+---
+
+## 4. Rząd macierzy
+
+Macierz można traktować jako zbiór wektorów kolumnowych albo wierszowych.
+
+Największa liczba niezależnych liniowo wektorów kolumnowych w macierzy `A` jest równa największej liczbie niezależnych liniowo wektorów wierszowych w `A`.
+
+Ta liczba nazywa się **rzędem macierzy**.
+
+Oznaczenie:
+
+$$  
+rank(A) = r  
+$$
+
+### Przykład
+
+Jeżeli jeden wiersz macierzy jest wielokrotnością innego wiersza, to wiersze są liniowo zależne.
+
+Dla macierzy:
+
+$$  
+A =  
+\begin{bmatrix}  
+1 & 2 \  
+2 & 4  
+\end{bmatrix}  
+$$
+
+drugi wiersz jest dwa razy większy od pierwszego, więc rząd nie wynosi `2`.
+
+### Przykład w Pythonie
+
+Prosty przykład sprawdzający zależność dwóch wierszy w macierzy `2 × 2`:
+
+```python
+A = [
+    [1, 2],
+    [2, 4]
+]
+
+if A[0][0] != 0:
+    wspolczynnik = A[1][0] / A[0][0]
+
+    zalezne = True
+
+    for j in range(len(A[0])):
+        if A[1][j] != wspolczynnik * A[0][j]:
+            zalezne = False
+
+    if zalezne:
+        print("Wiersze są liniowo zależne")
+    else:
+        print("Wiersze nie są liniowo zależne")
+else:
+    print("Nie sprawdzam tym sposobem, bo pierwszy element jest równy 0")
+```
+
+---
+
+## 5. Twierdzenie Kroneckera-Capellego
+
+Twierdzenie Kroneckera-Capellego pozwala określić liczbę rozwiązań układu równań liniowych na podstawie rzędów macierzy.
+
+### 5.1. Układ oznaczony
+
+Jeżeli:
+
+$$  
+rank(A) = rank(A_b) = n  
+$$
+
+to układ ma dokładnie jedno rozwiązanie.
+
+Taki układ nazywa się **oznaczony**.
+
+### 5.2. Układ nieoznaczony
+
+Jeżeli:
+
+$$  
+rank(A) = rank(A_b) < n  
+$$
+
+to układ ma nieskończenie wiele rozwiązań.
+
+Taki układ nazywa się **nieoznaczony**.
+
+### 5.3. Układ sprzeczny
+
+Jeżeli:
+
+$$  
+rank(A) < rank(A_b)  
+$$
+
+to układ nie ma rozwiązań.
+
+Taki układ nazywa się **sprzeczny**.
+
+### Przykład w Pythonie
+
+```python
+rank_A = 2
+rank_Ab = 2
+n = 2
+
+if rank_A == rank_Ab and rank_A == n:
+    print("Układ oznaczony — dokładnie jedno rozwiązanie")
+elif rank_A == rank_Ab and rank_A < n:
+    print("Układ nieoznaczony — nieskończenie wiele rozwiązań")
+elif rank_A < rank_Ab:
+    print("Układ sprzeczny — brak rozwiązań")
+```
+
+---
+
+## 6. Typy układów równań liniowych
+
+### 6.1. Układ jednorodny
+
+Jeżeli wszystkie wyrazy wolne są równe `0`, to układ nazywa się **jednorodnym**.
+
+Taki układ ma zawsze rozwiązanie.
+
+Czyli:
+
+$$  
+b =  
+\begin{bmatrix}  
+0 \  
+0 \  
+\vdots \  
+0  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+b = [0, 0, 0]
+
+czy_jednorodny = True
+
+for i in range(len(b)):
+    if b[i] != 0:
+        czy_jednorodny = False
+
+if czy_jednorodny:
+    print("Układ jest jednorodny")
+else:
+    print("Układ nie jest jednorodny")
+```
+
+---
+
+### 6.2. Układ kwadratowy
+
+Jeżeli liczba wierszy jest równa liczbie kolumn w macierzy głównej, czyli:
+
+$$  
+m = n  
+$$
+
+to układ nazywa się **kwadratowym**.
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2, 1],
+    [1, 3]
+]
+
+m = len(A)
+n = len(A[0])
+
+if m == n:
+    print("Układ jest kwadratowy")
+else:
+    print("Układ nie jest kwadratowy")
+```
+
+---
+
+## 7. Metody rozwiązywania układów równań liniowych
+
+W wykładzie podano dwa główne typy metod:
+
+1. metody bezpośrednie,
+    
+2. metody iteracyjne.
+    
+
+---
+
+## 7.1. Metody bezpośrednie
+
+Metody bezpośrednie dają dokładne rozwiązanie po skończonej liczbie przekształceń układu wejściowego, pomijając błędy zaokrągleń.
+
+Cechy metod bezpośrednich:
+
+- są efektywne dla układów o macierzach pełnych,
+    
+- mocno obciążają pamięć,
+    
+- ze względu na błędy zaokrągleń mogą być niestabilne.
+    
+
+Do metod bezpośrednich należą między innymi:
+
+- użycie macierzy odwrotnej,
+    
+- wzory Cramera,
+    
+- układ równań z macierzą trójkątną,
+    
+- metoda eliminacji Gaussa,
+    
+- rozkłady trójkątne macierzy,
+    
+- metoda Gaussa-Jordana,
+    
+- metoda Doolittle’a,
+    
+- metoda Crouta,
+    
+- metoda Cholesky’ego.
+    
+
+### Przykład w Pythonie
+
+```python
+metody_bezposrednie = [
+    "macierz odwrotna",
+    "wzory Cramera",
+    "macierz trójkątna",
+    "eliminacja Gaussa",
+    "rozkład LU",
+    "Gauss-Jordan",
+    "Doolittle",
+    "Crout",
+    "Cholesky"
+]
+
+for metoda in metody_bezposrednie:
+    print(metoda)
+```
+
+---
+
+## 7.2. Metody iteracyjne
+
+Metody iteracyjne tworzą ciąg wektorów zbieżny do szukanego rozwiązania.
+
+Cechy metod iteracyjnych:
+
+- liczba kroków nie jest z góry znana,
+    
+- dobrze sprawdzają się dla macierzy rzadkich o dużych rozmiarach,
+    
+- obciążenie pamięci nie jest zbyt duże,
+    
+- mogą wystąpić problemy ze zbieżnością rozwiązania.
+    
+
+Do metod iteracyjnych należą między innymi:
+
+- metoda Jacobiego,
+    
+- metoda Gaussa-Seidela,
+    
+- metoda Czebyszewa.
+    
+
+### Przykład w Pythonie
+
+```python
+metody_iteracyjne = [
+    "Jacobi",
+    "Gauss-Seidel",
+    "Czebyszew"
+]
+
+for metoda in metody_iteracyjne:
+    print(metoda)
+```
+
+---
+
+## 8. Macierze pełne i rzadkie
+
+W praktyce macierze współczynników dzielą się na dwie grupy.
+
+---
+
+## 8.1. Macierze pełne
+
+Macierze pełne mają dużo elementów niezerowych.
+
+W wykładzie podano, że nieduże macierze pełne mogą mieć stopień mniejszy np. od `30`.
+
+### Przykład
+
+$$  
+A =  
+\begin{bmatrix}  
+1 & 2 & 3 \  
+4 & 5 & 6 \  
+7 & 8 & 9  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+liczba_niezerowych = 0
+
+for i in range(len(A)):
+    for j in range(len(A[0])):
+        if A[i][j] != 0:
+            liczba_niezerowych = liczba_niezerowych + 1
+
+print("Liczba elementów niezerowych:", liczba_niezerowych)
+```
+
+---
+
+## 8.2. Macierze rzadkie
+
+Macierze rzadkie mają mało elementów niezerowych.
+
+W wykładzie podano, że takie macierze często są bardzo duże, np. stopnia `100` lub większego, a elementy niezerowe mogą leżeć blisko głównej diagonali.
+
+### Przykład
+
+$$  
+A =  
+\begin{bmatrix}  
+4 & 1 & 0 & 0 \  
+1 & 4 & 1 & 0 \  
+0 & 1 & 4 & 1 \  
+0 & 0 & 1 & 4  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [4, 1, 0, 0],
+    [1, 4, 1, 0],
+    [0, 1, 4, 1],
+    [0, 0, 1, 4]
+]
+
+liczba_zer = 0
+liczba_niezerowych = 0
+
+for i in range(len(A)):
+    for j in range(len(A[0])):
+        if A[i][j] == 0:
+            liczba_zer = liczba_zer + 1
+        else:
+            liczba_niezerowych = liczba_niezerowych + 1
+
+print("Zera:", liczba_zer)
+print("Elementy niezerowe:", liczba_niezerowych)
+```
+
+---
+
+# 9. Rozwiązywanie układu za pomocą macierzy odwrotnej
+
+Dla macierzy odwrotnej zachodzi:
+
+$$  
+AA^{-1} = A^{-1}A = I  
+$$
+
+Układ:
+
+$$  
+Ax = b  
+$$
+
+można rozwiązać, jeśli znamy macierz odwrotną:
+
+$$  
+A^{-1}Ax = A^{-1}b  
+$$
+
+czyli:
+
+$$  
+Ix = A^{-1}b  
+$$
+
+ostatecznie:
+
+$$  
+x = A^{-1}b  
+$$
+
+### Przykład
+
+Dla:
+
+$$  
+A^{-1} =  
+\begin{bmatrix}  
+3 & -1 \  
+-5 & 2  
+\end{bmatrix}  
+$$
+
+oraz:
+
+$$  
+b =  
+\begin{bmatrix}  
+5 \  
+7  
+\end{bmatrix}  
+$$
+
+liczymy:
+
+$$  
+x = A^{-1}b  
+$$
+
+### Przykład w Pythonie
+
+```python
+A_inv = [
+    [3, -1],
+    [-5, 2]
+]
+
+b = [5, 7]
+
+x = []
+
+for i in range(len(A_inv)):
+    suma = 0
+
+    for j in range(len(A_inv[0])):
+        suma = suma + A_inv[i][j] * b[j]
+
+    x.append(suma)
+
+print(x)
+```
+
+Wynik:
+
+```text
+[8, -11]
+```
+
+---
+
+# 10. Wzory Cramera
+
+Wzory Cramera są metodą bezpośrednią rozwiązywania układów równań liniowych.
+
+Jeżeli:
+
+$$  
+\det(A) \neq 0  
+$$
+
+to:
+
+$$  
+x_k = \frac{\det(A_k)}{\det(A)}  
+$$
+
+dla:
+
+$$  
+k = 1,2,\dots,n  
+$$
+
+gdzie `A_k` jest macierzą powstałą przez zastąpienie `k`-tej kolumny macierzy `A` wektorem wyrazów wolnych `b`.
+
+### Przykład dla układu 2 × 2
+
+Układ:
+
+$$  
+2x_1 + x_2 = 5  
+$$
+
+$$  
+x_1 + 3x_2 = 7  
+$$
+
+Macierz główna:
+
+$$  
+A =  
+\begin{bmatrix}  
+2 & 1 \  
+1 & 3  
+\end{bmatrix}  
+$$
+
+Wektor wyrazów wolnych:
+
+$$  
+b =  
+\begin{bmatrix}  
+5 \  
+7  
+\end{bmatrix}  
+$$
+
+Macierz `A_1`:
+
+$$  
+A_1 =  
+\begin{bmatrix}  
+5 & 1 \  
+7 & 3  
+\end{bmatrix}  
+$$
+
+Macierz `A_2`:
+
+$$  
+A_2 =  
+\begin{bmatrix}  
+2 & 5 \  
+1 & 7  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def det2(A):
+    return A[0][0] * A[1][1] - A[0][1] * A[1][0]
+
+
+A = [
+    [2, 1],
+    [1, 3]
+]
+
+b = [5, 7]
+
+A1 = [
+    [b[0], A[0][1]],
+    [b[1], A[1][1]]
+]
+
+A2 = [
+    [A[0][0], b[0]],
+    [A[1][0], b[1]]
+]
+
+det_A = det2(A)
+det_A1 = det2(A1)
+det_A2 = det2(A2)
+
+if det_A != 0:
+    x1 = det_A1 / det_A
+    x2 = det_A2 / det_A
+
+    print("x1 =", x1)
+    print("x2 =", x2)
+else:
+    print("Nie można użyć wzorów Cramera, bo det(A) = 0")
+```
+
+Wynik:
+
+```text
+x1 = 1.6
+x2 = 1.8
+```
+
+---
+
+## 11. Wzory Cramera — przykład 3 × 3
+
+Dla układu:
+
+$$  
+a_{1,1}x_1 + a_{1,2}x_2 + a_{1,3}x_3 = b_1  
+$$
+
+$$  
+a_{2,1}x_1 + a_{2,2}x_2 + a_{2,3}x_3 = b_2  
+$$
+
+$$  
+a_{3,1}x_1 + a_{3,2}x_2 + a_{3,3}x_3 = b_3  
+$$
+
+obliczamy:
+
+$$  
+\det(A) =  
+\det  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & a_{1,3} \  
+a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{3,1} & a_{3,2} & a_{3,3}  
+\end{bmatrix}  
+$$
+
+Następnie:
+
+# $$  
+x_1 =  
+\frac{1}{\det(A)}  
+\det  
+\begin{bmatrix}  
+b_1 & a_{1,2} & a_{1,3} \  
+b_2 & a_{2,2} & a_{2,3} \  
+b_3 & a_{3,2} & a_{3,3}  
+\end{bmatrix}
+
+\frac{\det(A_1)}{\det(A)}  
+$$
+
+# $$  
+x_2 =  
+\frac{1}{\det(A)}  
+\det  
+\begin{bmatrix}  
+a_{1,1} & b_1 & a_{1,3} \  
+a_{2,1} & b_2 & a_{2,3} \  
+a_{3,1} & b_3 & a_{3,3}  
+\end{bmatrix}
+
+\frac{\det(A_2)}{\det(A)}  
+$$
+
+# $$  
+x_3 =  
+\frac{1}{\det(A)}  
+\det  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & b_1 \  
+a_{2,1} & a_{2,2} & b_2 \  
+a_{3,1} & a_{3,2} & b_3  
+\end{bmatrix}
+
+\frac{\det(A_3)}{\det(A)}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def det3(A):
+    wynik = (
+        A[0][0] * A[1][1] * A[2][2]
+        + A[0][1] * A[1][2] * A[2][0]
+        + A[0][2] * A[1][0] * A[2][1]
+        - A[0][2] * A[1][1] * A[2][0]
+        - A[0][1] * A[1][0] * A[2][2]
+        - A[0][0] * A[1][2] * A[2][1]
+    )
+
+    return wynik
+
+
+A = [
+    [1, 1, 1],
+    [2, 1, 3],
+    [1, -1, 1]
+]
+
+b = [6, 13, 2]
+
+A1 = [
+    [b[0], A[0][1], A[0][2]],
+    [b[1], A[1][1], A[1][2]],
+    [b[2], A[2][1], A[2][2]]
+]
+
+A2 = [
+    [A[0][0], b[0], A[0][2]],
+    [A[1][0], b[1], A[1][2]],
+    [A[2][0], b[2], A[2][2]]
+]
+
+A3 = [
+    [A[0][0], A[0][1], b[0]],
+    [A[1][0], A[1][1], b[1]],
+    [A[2][0], A[2][1], b[2]]
+]
+
+det_A = det3(A)
+
+if det_A != 0:
+    x1 = det3(A1) / det_A
+    x2 = det3(A2) / det_A
+    x3 = det3(A3) / det_A
+
+    print("x1 =", x1)
+    print("x2 =", x2)
+    print("x3 =", x3)
+else:
+    print("Nie można użyć wzorów Cramera")
+```
+
+---
+
+# 12. Układ z macierzą trójkątną górną
+
+Jeżeli macierz układu równań liniowych jest macierzą trójkątną, to układ rozwiązuje się szczególnie łatwo.
+
+Dla macierzy trójkątnej górnej układ ma postać:
+
+$$  
+a_{1,1}x_1 + a_{1,2}x_2 + \dots + a_{1,n}x_n = b_1  
+$$
+
+$$  
+a_{2,2}x_2 + \dots + a_{2,n}x_n = b_2  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+a_{n,n}x_n = b_n  
+$$
+
+Aby istniało jednoznaczne rozwiązanie, wszystkie elementy na głównej przekątnej muszą być różne od zera.
+
+Rozwiązanie zaczynamy od ostatniej niewiadomej:
+
+$$  
+x_n = \frac{b_n}{a_{n,n}}  
+$$
+
+Następnie:
+
+$$  
+x_i =  
+\frac{  
+b_i - \sum_{k=i+1}^{n} a_{i,k}x_k  
+}  
+{a_{i,i}}  
+$$
+
+dla:
+
+$$  
+i = n-1, n-2, \dots, 1  
+$$
+
+Metoda ta nazywa się **podstawianiem w tył**.
+
+### Przykład
+
+Układ:
+
+$$  
+2x_1 + x_2 - x_3 = 1  
+$$
+
+$$  
+3x_2 + 2x_3 = 12  
+$$
+
+$$  
+4x_3 = 8  
+$$
+
+Z ostatniego równania:
+
+$$  
+x_3 = 2  
+$$
+
+### Przykład w Pythonie
+
+```python
+U = [
+    [2.0, 1.0, -1.0],
+    [0.0, 3.0, 2.0],
+    [0.0, 0.0, 4.0]
+]
+
+b = [1.0, 12.0, 8.0]
+
+n = len(U)
+x = [0.0, 0.0, 0.0]
+
+for i in range(n - 1, -1, -1):
+    suma = 0
+
+    for k in range(i + 1, n):
+        suma = suma + U[i][k] * x[k]
+
+    x[i] = (b[i] - suma) / U[i][i]
+
+print(x)
+```
+
+---
+
+# 13. Układ z macierzą trójkątną dolną
+
+Dla macierzy trójkątnej dolnej wykonuje się **podstawianie w przód**.
+
+Najpierw liczymy:
+
+$$  
+x_1 = \frac{b_1}{a_{1,1}}  
+$$
+
+Następnie:
+
+$$  
+x_i =  
+\frac{  
+b_i - \sum_{k=1}^{i-1} a_{i,k}x_k  
+}  
+{a_{i,i}}  
+$$
+
+dla:
+
+$$  
+i = 2,3,\dots,n  
+$$
+
+### Przykład
+
+Układ:
+
+$$  
+2x_1 = 4  
+$$
+
+$$  
+3x_1 + x_2 = 7  
+$$
+
+$$  
+x_1 - x_2 + 2x_3 = 3  
+$$
+
+### Przykład w Pythonie
+
+```python
+L = [
+    [2.0, 0.0, 0.0],
+    [3.0, 1.0, 0.0],
+    [1.0, -1.0, 2.0]
+]
+
+b = [4.0, 7.0, 3.0]
+
+n = len(L)
+x = [0.0, 0.0, 0.0]
+
+for i in range(n):
+    suma = 0
+
+    for k in range(0, i):
+        suma = suma + L[i][k] * x[k]
+
+    x[i] = (b[i] - suma) / L[i][i]
+
+print(x)
+```
+
+---
+
+# 14. Eliminacja Gaussa
+
+Eliminacja Gaussa polega na sprowadzeniu układu równań do postaci trójkątnej, a następnie rozwiązaniu go przez podstawianie wstecz.
+
+Dla układu `3 × 3`:
+
+$$  
+a_{1,1}x_1 + a_{1,2}x_2 + a_{1,3}x_3 = b_1  
+$$
+
+$$  
+a_{2,1}x_1 + a_{2,2}x_2 + a_{2,3}x_3 = b_2  
+$$
+
+$$  
+a_{3,1}x_1 + a_{3,2}x_2 + a_{3,3}x_3 = b_3  
+$$
+
+celem jest wyzerowanie elementów pod główną przekątną.
+
+### Idea kroku eliminacji
+
+W każdym kroku odejmujemy od jednego wiersza odpowiednią wielokrotność innego wiersza.
+
+Dla pierwszej kolumny:
+
+$$  
+R_i := R_i - mR_1  
+$$
+
+gdzie:
+
+$$  
+m = \frac{a_{i,1}}{a_{1,1}}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2.0, 1.0, -1.0],
+    [-3.0, -1.0, 2.0],
+    [-2.0, 1.0, 2.0]
+]
+
+b = [8.0, -11.0, -3.0]
+
+n = len(A)
+
+# Eliminacja Gaussa
+for k in range(n - 1):
+    for i in range(k + 1, n):
+        m = A[i][k] / A[k][k]
+
+        for j in range(k, n):
+            A[i][j] = A[i][j] - m * A[k][j]
+
+        b[i] = b[i] - m * b[k]
+
+print("Macierz po eliminacji:")
+print(A)
+
+print("Wektor b po eliminacji:")
+print(b)
+```
+
+---
+
+## 15. Wzory ogólne w eliminacji Gaussa
+
+Współczynniki macierzy i wyrazy wolne w każdym kroku eliminacji można obliczać ze wzorów:
+
+## $$  
+a_{i,j}^{(k)} =  
+a_{i,j}^{(k-1)}
+
+\frac{  
+a_{i,k}^{(k-1)}a_{k,j}^{(k-1)}  
+}  
+{  
+a_{k,k}^{(k-1)}  
+}  
+$$
+
+oraz:
+
+## $$  
+b_i^{(k)} =  
+b_i^{(k-1)}
+
+\frac{  
+a_{i,k}^{(k-1)}b_k^{(k-1)}  
+}  
+{  
+a_{k,k}^{(k-1)}  
+}  
+$$
+
+dla:
+
+$$  
+i,j = k+1,k+2,\dots,n  
+$$
+
+Po otrzymaniu układu trójkątnego rozwiązujemy go przez podstawianie wstecz:
+
+## $$  
+x_i =  
+\frac{  
+b_i^{(i-1)}
+
+\sum_{j=i+1}^{n} a_{i,j}^{(i-1)}x_j  
+}  
+{  
+a_{i,i}^{(i-1)}  
+}  
+$$
+
+dla:
+
+$$  
+i = n,n-1,\dots,1  
+$$
+
+### Przykład w Pythonie
+
+```python
+def eliminacja_gaussa(A, b):
+    n = len(A)
+
+    for k in range(n - 1):
+        for i in range(k + 1, n):
+            m = A[i][k] / A[k][k]
+
+            for j in range(k, n):
+                A[i][j] = A[i][j] - m * A[k][j]
+
+            b[i] = b[i] - m * b[k]
+
+    x = [0.0 for i in range(n)]
+
+    for i in range(n - 1, -1, -1):
+        suma = 0
+
+        for j in range(i + 1, n):
+            suma = suma + A[i][j] * x[j]
+
+        x[i] = (b[i] - suma) / A[i][i]
+
+    return x
+
+
+A = [
+    [2.0, 1.0, -1.0],
+    [-3.0, -1.0, 2.0],
+    [-2.0, 1.0, 2.0]
+]
+
+b = [8.0, -11.0, -3.0]
+
+x = eliminacja_gaussa(A, b)
+
+print(x)
+```
+
+---
+
+# 16. Wybór elementu podstawowego
+
+Eliminacja Gaussa w podstawowej formie nie jest niezawodna.
+
+Jeżeli element podstawowy, czyli pivot, jest równy zero, algorytm wymagałby dzielenia przez zero.
+
+Element podstawowy to element macierzy, za pomocą którego dokonujemy eliminacji zmiennej z dalszych równań.
+
+Jeżeli:
+
+$$  
+a_{k,k}^{(k)} = 0  
+$$
+
+należy zamienić wiersze, aby uzyskać niezerowy pivot.
+
+W praktyce często wybiera się wiersz, w którym element w danej kolumnie ma największą wartość bezwzględną.
+
+### Przykład
+
+Macierz rozszerzona:
+
+$$  
+\begin{bmatrix}  
+0 & 2 & 2 & | & 1 \  
+3 & 3 & 0 & | & 3 \  
+1 & 0 & 1 & | & 2  
+\end{bmatrix}  
+$$
+
+Tu pierwszy pivot byłby równy:
+
+$$  
+a_{1,1} = 0  
+$$
+
+więc trzeba zamienić wiersze.
+
+### Przykład w Pythonie
+
+```python
+Ab = [
+    [0.0, 2.0, 2.0, 1.0],
+    [3.0, 3.0, 0.0, 3.0],
+    [1.0, 0.0, 1.0, 2.0]
+]
+
+k = 0
+p = k
+najwiekszy = abs(Ab[k][k])
+
+for i in range(k + 1, len(Ab)):
+    if abs(Ab[i][k]) > najwiekszy:
+        najwiekszy = abs(Ab[i][k])
+        p = i
+
+Ab[k], Ab[p] = Ab[p], Ab[k]
+
+print(Ab)
+```
+
+Wynik:
+
+```text
+[[3.0, 3.0, 0.0, 3.0], [0.0, 2.0, 2.0, 1.0], [1.0, 0.0, 1.0, 2.0]]
+```
+
+---
+
+# 17. Częściowy wybór elementu głównego
+
+Częściowy wybór elementu głównego polega na tym, że w `i`-tym kroku eliminacji Gaussa patrzymy na elementy w `i`-tej kolumnie i wybieramy wiersz z największą wartością bezwzględną.
+
+Po zamianie wierszy można wykonać kolejny krok eliminacji.
+
+W wykładzie po zamianie wierszy otrzymano macierz:
+
+$$  
+\begin{bmatrix}  
+3 & 3 & 0 & | & 3 \  
+0 & 2 & 2 & | & 1 \  
+0 & -1 & 1 & | & 1  
+\end{bmatrix}  
+$$
+
+Po kolejnym kroku:
+
+$$  
+\begin{bmatrix}  
+3 & 3 & 0 & | & 3 \  
+0 & 2 & 2 & | & 1 \  
+0 & 0 & 2 & | & \frac{3}{2}  
+\end{bmatrix}  
+$$
+
+Końcowe rozwiązanie:
+
+$$  
+x_3 = \frac{3}{4}  
+$$
+
+$$  
+x_2 = -\frac{1}{4}  
+$$
+
+$$  
+x_1 = \frac{5}{4}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [0.0, 2.0, 2.0],
+    [3.0, 3.0, 0.0],
+    [1.0, 0.0, 1.0]
+]
+
+b = [1.0, 3.0, 2.0]
+
+n = len(A)
+
+for k in range(n - 1):
+    p = k
+    najwiekszy = abs(A[k][k])
+
+    for i in range(k + 1, n):
+        if abs(A[i][k]) > najwiekszy:
+            najwiekszy = abs(A[i][k])
+            p = i
+
+    if p != k:
+        A[k], A[p] = A[p], A[k]
+        b[k], b[p] = b[p], b[k]
+
+    for i in range(k + 1, n):
+        m = A[i][k] / A[k][k]
+
+        for j in range(k, n):
+            A[i][j] = A[i][j] - m * A[k][j]
+
+        b[i] = b[i] - m * b[k]
+
+x = [0.0, 0.0, 0.0]
+
+for i in range(n - 1, -1, -1):
+    suma = 0
+
+    for j in range(i + 1, n):
+        suma = suma + A[i][j] * x[j]
+
+    x[i] = (b[i] - suma) / A[i][i]
+
+print(x)
+```
+
+Wynik:
+
+```text
+[1.25, -0.25, 0.75]
+```
+
+---
+
+# 18. Pełny wybór elementu głównego
+
+Pełny wybór elementu głównego polega na wyszukaniu największego co do modułu współczynnika nie tylko w kolumnie pod napotkanym zerem, ale w całej podmacierzy „w dół i w prawo”.
+
+Może to poprawić dokładność, ale jest bardziej czasochłonne.
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [0.0, 2.0, 2.0],
+    [3.0, 3.0, 0.0],
+    [1.0, 0.0, 1.0]
+]
+
+k = 0
+
+najwiekszy = abs(A[k][k])
+wiersz_pivota = k
+kolumna_pivota = k
+
+for i in range(k, len(A)):
+    for j in range(k, len(A[0])):
+        if abs(A[i][j]) > najwiekszy:
+            najwiekszy = abs(A[i][j])
+            wiersz_pivota = i
+            kolumna_pivota = j
+
+print("Największy element:", najwiekszy)
+print("Wiersz:", wiersz_pivota)
+print("Kolumna:", kolumna_pivota)
+```
+
+---
+
+# 19. Rozkład LU
+
+Jeżeli macierz `A` można przedstawić jako iloczyn macierzy trójkątnej dolnej `L` i trójkątnej górnej `U`, to:
+
+$$  
+A = LU  
+$$
+
+Jeżeli macierz `A` jest nieosobliwa, to:
+
+$$  
+A^{-1} = (LU)^{-1} = U^{-1}L^{-1}  
+$$
+
+Rozwiązanie układu:
+
+$$  
+Ax = b  
+$$
+
+można sprowadzić do dwóch układów trójkątnych:
+
+$$  
+Ly = b  
+$$
+
+oraz:
+
+$$  
+Ux = y  
+$$
+
+Najpierw rozwiązujemy `Ly = b` przez podstawianie w przód, a potem `Ux = y` przez podstawianie wstecz.
+
+### Przykład w Pythonie
+
+```python
+L = [
+    [1.0, 0.0, 0.0],
+    [2.0, 1.0, 0.0],
+    [1.0, -1.0, 1.0]
+]
+
+U = [
+    [2.0, 1.0, -1.0],
+    [0.0, 3.0, 2.0],
+    [0.0, 0.0, 4.0]
+]
+
+b = [1.0, 12.0, 8.0]
+
+n = len(L)
+
+# Rozwiązujemy Ly = b
+y = [0.0, 0.0, 0.0]
+
+for i in range(n):
+    suma = 0
+
+    for k in range(0, i):
+        suma = suma + L[i][k] * y[k]
+
+    y[i] = (b[i] - suma) / L[i][i]
+
+# Rozwiązujemy Ux = y
+x = [0.0, 0.0, 0.0]
+
+for i in range(n - 1, -1, -1):
+    suma = 0
+
+    for k in range(i + 1, n):
+        suma = suma + U[i][k] * x[k]
+
+    x[i] = (y[i] - suma) / U[i][i]
+
+print("y =", y)
+print("x =", x)
+```
+
+---
+
+## 20. Eliminacja Gaussa a rozkład LU
+
+Jednym ze sposobów uzyskania rozkładu LU jest eliminacja Gaussa.
+
+W wyniku eliminacji Gaussa otrzymujemy macierz górnotrójkątną `U`.
+
+Macierz dolnotrójkątną `L` wyznacza się tak, że współczynniki użyte do eliminacji wpisuje się w odpowiednie miejsca macierzy `L`.
+
+Macierz `L` ma na diagonali wartości `1`.
+
+### Przykład
+
+Jeżeli w eliminacji używamy mnożnika:
+
+$$  
+m = \frac{a_{i,k}}{a_{k,k}}  
+$$
+
+to ten mnożnik trafia do macierzy `L`.
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2.0, 1.0],
+    [4.0, 3.0]
+]
+
+n = len(A)
+
+L = [
+    [1.0, 0.0],
+    [0.0, 1.0]
+]
+
+U = [
+    [A[0][0], A[0][1]],
+    [A[1][0], A[1][1]]
+]
+
+for k in range(n - 1):
+    for i in range(k + 1, n):
+        m = U[i][k] / U[k][k]
+
+        L[i][k] = m
+
+        for j in range(k, n):
+            U[i][j] = U[i][j] - m * U[k][j]
+
+print("L =", L)
+print("U =", U)
+```
+
+---
+
+## 21. Macierz permutacji
+
+Jeżeli eliminacja Gaussa wymaga zamiany wierszy, to zamiast rozkładu:
+
+$$  
+A = LU  
+$$
+
+otrzymujemy:
+
+$$  
+PA = LU  
+$$
+
+gdzie `P` jest macierzą permutacji.
+
+Przykład z wykładu:
+
+# $$  
+PA =  
+\begin{bmatrix}  
+0 & 0 & 1 \  
+1 & 0 & 0 \  
+0 & 1 & 0  
+\end{bmatrix}  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & a_{1,3} \  
+a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{3,1} & a_{3,2} & a_{3,3}  
+\end{bmatrix}
+
+\begin{bmatrix}  
+a_{3,1} & a_{3,2} & a_{3,3} \  
+a_{1,1} & a_{1,2} & a_{1,3} \  
+a_{2,1} & a_{2,2} & a_{2,3}  
+\end{bmatrix}  
+$$
+
+Macierz permutacji ma własność:
+
+$$  
+P^T P = I  
+$$
+
+stąd:
+
+$$  
+P^T = P^{-1}  
+$$
+
+oraz:
+
+$$  
+A = P^T LU  
+$$
+
+### Przykład w Pythonie
+
+```python
+P = [
+    [0, 0, 1],
+    [1, 0, 0],
+    [0, 1, 0]
+]
+
+A = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+PA = []
+
+for i in range(len(P)):
+    wiersz = []
+
+    for j in range(len(A[0])):
+        suma = 0
+
+        for k in range(len(A)):
+            suma = suma + P[i][k] * A[k][j]
+
+        wiersz.append(suma)
+
+    PA.append(wiersz)
+
+print(PA)
+```
+
+Wynik:
+
+```text
+[[7, 8, 9], [1, 2, 3], [4, 5, 6]]
+```
+
+---
+
+# 22. Metoda Doolittle’a
+
+W metodzie Doolittle’a szukamy rozkładu:
+
+$$  
+A = LU  
+$$
+
+przy czym macierz `L` ma na diagonali same jedynki.
+
+Dla macierzy `3 × 3`:
+
+# $$  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & a_{1,3} \  
+a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{3,1} & a_{3,2} & a_{3,3}  
+\end{bmatrix}
+
+\begin{bmatrix}  
+1 & 0 & 0 \  
+l_{2,1} & 1 & 0 \  
+l_{3,1} & l_{3,2} & 1  
+\end{bmatrix}  
+\begin{bmatrix}  
+u_{1,1} & u_{1,2} & u_{1,3} \  
+0 & u_{2,2} & u_{2,3} \  
+0 & 0 & u_{3,3}  
+\end{bmatrix}  
+$$
+
+Wzory ogólne z wykładu:
+
+## $$  
+u_{i,j} =  
+a_{i,j}
+
+\sum_{k=1}^{i-1} l_{i,k}u_{k,j}  
+$$
+
+dla:
+
+$$  
+j = i,i+1,\dots,n  
+$$
+
+oraz:
+
+## $$  
+l_{j,i} =  
+\frac{  
+a_{j,i}
+
+\sum_{k=1}^{i-1} l_{j,k}u_{k,i}  
+}  
+{u_{i,i}}  
+$$
+
+dla:
+
+$$  
+j = i+1,i+2,\dots,n  
+$$
+
+Metoda Doolittle’a staje się niezawodna dopiero w połączeniu z wyborem elementu podstawowego.
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2.0, 1.0, 1.0],
+    [4.0, -6.0, 0.0],
+    [-2.0, 7.0, 2.0]
+]
+
+n = len(A)
+
+L = []
+U = []
+
+for i in range(n):
+    wiersz_L = []
+    wiersz_U = []
+
+    for j in range(n):
+        if i == j:
+            wiersz_L.append(1.0)
+        else:
+            wiersz_L.append(0.0)
+
+        wiersz_U.append(0.0)
+
+    L.append(wiersz_L)
+    U.append(wiersz_U)
+
+for i in range(n):
+    # Liczymy wiersz U
+    for j in range(i, n):
+        suma = 0
+
+        for k in range(i):
+            suma = suma + L[i][k] * U[k][j]
+
+        U[i][j] = A[i][j] - suma
+
+    # Liczymy kolumnę L
+    for j in range(i + 1, n):
+        suma = 0
+
+        for k in range(i):
+            suma = suma + L[j][k] * U[k][i]
+
+        L[j][i] = (A[j][i] - suma) / U[i][i]
+
+print("L =", L)
+print("U =", U)
+```
+
+---
+
+# 23. Metoda Crouta
+
+W metodzie Crouta przyjmuje się, że macierz `U` ma na głównej przekątnej same jedynki.
+
+Czyli dla macierzy `3 × 3`:
+
+# $$  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & a_{1,3} \  
+a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{3,1} & a_{3,2} & a_{3,3}  
+\end{bmatrix}
+
+\begin{bmatrix}  
+l_{1,1} & 0 & 0 \  
+l_{2,1} & l_{2,2} & 0 \  
+l_{3,1} & l_{3,2} & l_{3,3}  
+\end{bmatrix}  
+\begin{bmatrix}  
+1 & u_{1,2} & u_{1,3} \  
+0 & 1 & u_{2,3} \  
+0 & 0 & 1  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2.0, 1.0, 1.0],
+    [4.0, -6.0, 0.0],
+    [-2.0, 7.0, 2.0]
+]
+
+n = len(A)
+
+L = []
+U = []
+
+for i in range(n):
+    wiersz_L = []
+    wiersz_U = []
+
+    for j in range(n):
+        wiersz_L.append(0.0)
+
+        if i == j:
+            wiersz_U.append(1.0)
+        else:
+            wiersz_U.append(0.0)
+
+    L.append(wiersz_L)
+    U.append(wiersz_U)
+
+for j in range(n):
+    for i in range(j, n):
+        suma = 0
+
+        for k in range(j):
+            suma = suma + L[i][k] * U[k][j]
+
+        L[i][j] = A[i][j] - suma
+
+    for i in range(j + 1, n):
+        suma = 0
+
+        for k in range(j):
+            suma = suma + L[j][k] * U[k][i]
+
+        U[j][i] = (A[j][i] - suma) / L[j][j]
+
+print("L =", L)
+print("U =", U)
+```
+
+---
+
+# 24. Rozkład Cholesky’ego
+
+Rozkład Cholesky’ego, nazywany też rozkładem Banachiewicza, stosuje się dla macierzy symetrycznych i dodatnio określonych.
+
+Macierz musi spełniać warunek symetrii:
+
+$$  
+a_{i,j} = a_{j,i}  
+$$
+
+oraz warunek dodatniej określoności:
+
+$$  
+x^T Ax > 0  
+$$
+
+dla każdego `x`.
+
+Wtedy można zapisać:
+
+$$  
+A = LL^T  
+$$
+
+gdzie `L` jest macierzą trójkątną dolną.
+
+Wzory z wykładu:
+
+## $$  
+l_{i,i} =  
+\sqrt{  
+a_{i,i}
+
+\sum_{k=1}^{i-1} l_{i,k}^2  
+}  
+$$
+
+oraz:
+
+## $$  
+l_{j,i} =  
+\frac{1}{l_{i,i}}  
+\left(  
+a_{j,i}
+
+\sum_{k=1}^{i-1} l_{j,k}l_{i,k}  
+\right)  
+$$
+
+dla:
+
+$$  
+j = i+1,i+2,\dots,n  
+$$
+
+Wykład podaje, że ilość operacji potrzebna do znalezienia rozkładu Cholesky’ego jest o połowę mniejsza w porównaniu z LU. Metoda jest też stabilna numerycznie i nie wymaga wyboru elementu podstawowego.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+A = [
+    [4.0, 2.0],
+    [2.0, 3.0]
+]
+
+n = len(A)
+
+L = []
+
+for i in range(n):
+    wiersz = []
+
+    for j in range(n):
+        wiersz.append(0.0)
+
+    L.append(wiersz)
+
+for i in range(n):
+    suma = 0
+
+    for k in range(i):
+        suma = suma + L[i][k] ** 2
+
+    L[i][i] = math.sqrt(A[i][i] - suma)
+
+    for j in range(i + 1, n):
+        suma = 0
+
+        for k in range(i):
+            suma = suma + L[j][k] * L[i][k]
+
+        L[j][i] = (A[j][i] - suma) / L[i][i]
+
+print(L)
+```
+
+---
+
+# 25. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 25.1. Zapis układu
+
+Układ równań liniowych zapisujemy jako:
+
+$$  
+Ax = b  
+$$
+
+### Python
+
+```python
+A = [
+    [2, 1],
+    [1, 3]
+]
+
+b = [5, 7]
+
+print(A)
+print(b)
+```
+
+---
+
+## 25.2. Macierz rozszerzona
+
+Macierz rozszerzona to macierz główna z dołączonym wektorem wyrazów wolnych:
+
+$$  
+A_b =  
+\begin{bmatrix}  
+a_{1,1} & a_{1,2} & b_1 \  
+a_{2,1} & a_{2,2} & b_2  
+\end{bmatrix}  
+$$
+
+### Python
+
+```python
+A = [
+    [2, 1],
+    [1, 3]
+]
+
+b = [5, 7]
+
+Ab = []
+
+for i in range(len(A)):
+    wiersz = []
+
+    for j in range(len(A[0])):
+        wiersz.append(A[i][j])
+
+    wiersz.append(b[i])
+    Ab.append(wiersz)
+
+print(Ab)
+```
+
+---
+
+## 25.3. Twierdzenie Kroneckera-Capellego
+
+Jeżeli:
+
+$$  
+rank(A) = rank(A_b) = n  
+$$
+
+układ ma dokładnie jedno rozwiązanie.
+
+Jeżeli:
+
+$$  
+rank(A) = rank(A_b) < n  
+$$
+
+układ ma nieskończenie wiele rozwiązań.
+
+Jeżeli:
+
+$$  
+rank(A) < rank(A_b)  
+$$
+
+układ nie ma rozwiązań.
+
+---
+
+## 25.4. Wzory Cramera
+
+Dla:
+
+$$  
+\det(A) \neq 0  
+$$
+
+można liczyć:
+
+$$  
+x_k = \frac{\det(A_k)}{\det(A)}  
+$$
+
+---
+
+## 25.5. Podstawianie wstecz
+
+Dla macierzy trójkątnej górnej:
+
+$$  
+x_i =  
+\frac{  
+b_i - \sum_{k=i+1}^{n} a_{i,k}x_k  
+}  
+{a_{i,i}}  
+$$
+
+---
+
+## 25.6. Podstawianie w przód
+
+Dla macierzy trójkątnej dolnej:
+
+$$  
+x_i =  
+\frac{  
+b_i - \sum_{k=1}^{i-1} a_{i,k}x_k  
+}  
+{a_{i,i}}  
+$$
+
+---
+
+## 25.7. Eliminacja Gaussa
+
+Eliminacja Gaussa sprowadza układ do postaci trójkątnej, a potem stosuje się podstawianie wstecz.
+
+---
+
+## 25.8. Pivot
+
+Pivot to element podstawowy, przez który dzielimy podczas eliminacji.
+
+Jeżeli pivot jest równy zero albo bardzo mały, należy zamienić wiersze.
+
+---
+
+## 25.9. Rozkład LU
+
+Jeżeli:
+
+$$  
+A = LU  
+$$
+
+to rozwiązujemy dwa układy:
+
+$$  
+Ly = b  
+$$
+
+oraz:
+
+$$  
+Ux = y  
+$$
+
+---
+
+## 25.10. Rozkład Cholesky’ego
+
+Jeżeli macierz jest symetryczna i dodatnio określona, można zastosować rozkład:
+
+$$  
+A = LL^T  
+$$
+
+---
+
+# 26. Krótkie podsumowanie
+
+Wykład 3 dotyczył układów równań liniowych i bezpośrednich metod ich rozwiązywania.
+
+Najważniejsze wnioski:
+
+1. Układ równań liniowych można zapisać jako `Ax = b`.
+    
+2. Macierz rozszerzona powstaje przez dołączenie wektora `b` do macierzy `A`.
+    
+3. Twierdzenie Kroneckera-Capellego mówi, ile rozwiązań ma układ.
+    
+4. Metody bezpośrednie dają wynik po skończonej liczbie działań, ale mogą być wrażliwe na błędy zaokrągleń.
+    
+5. Wzory Cramera można stosować, gdy `det(A) ≠ 0`.
+    
+6. Układy z macierzami trójkątnymi rozwiązuje się przez podstawianie w przód albo wstecz.
+    
+7. Eliminacja Gaussa sprowadza układ do postaci trójkątnej.
+    
+8. Wybór elementu podstawowego poprawia niezawodność i dokładność obliczeń.
+    
+9. Rozkład LU sprowadza rozwiązanie układu do dwóch układów trójkątnych.
+    
+10. Rozkład Cholesky’ego jest używany dla macierzy symetrycznych i dodatnio określonych.
