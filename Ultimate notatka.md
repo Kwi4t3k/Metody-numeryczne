@@ -1,4 +1,4 @@
-# Wykład 1: Dokładność
+# Wykład 1: Dokładność (do lab1 i lab2)
 
 ## 1. Czym są metody numeryczne?
 
@@ -2216,9 +2216,9 @@ Ogólny zapis macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & \dots & a_{1,n} \  
-a_{2,1} & a_{2,2} & \dots & a_{2,n} \  
-\vdots & \vdots & \ddots & \vdots \  
+a_{1,1} & a_{1,2} & \dots & a_{1,n} \\  
+a_{2,1} & a_{2,2} & \dots & a_{2,n} \\  
+\vdots & \vdots & \ddots & \vdots \\  
 a_{m,1} & a_{m,2} & \dots & a_{m,n}  
 \end{bmatrix}  
 $$
@@ -2238,7 +2238,7 @@ Macierz:
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 & 3 \  
+1 & 2 & 3 \\  
 4 & 5 & 6  
 \end{bmatrix}  
 $$
@@ -2304,7 +2304,7 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-7 & 8 \  
+7 & 8 \\  
 9 & 10  
 \end{bmatrix}  
 $$
@@ -2379,7 +2379,12 @@ import math
 
 x = [3, 4]
 
-norma_euklidesowa = math.sqrt(sum(xi ** 2 for xi in x))
+suma = 0
+
+for xi in x:
+    suma += xi ** 2
+
+norma_euklidesowa = math.sqrt(suma)
 
 print(norma_euklidesowa)
 ```
@@ -2419,7 +2424,12 @@ $$
 ```python
 x = [-3, 4]
 
-norma_manhattan = sum(abs(xi) for xi in x)
+suma = 0
+
+for xi in x:
+    suma += abs(xi)
+
+norma_manhattan = suma
 
 print(norma_manhattan)
 ```
@@ -2461,7 +2471,13 @@ $$
 ```python
 x = [-3, 4, 10, -2]
 
-norma_maksimum = max(abs(xi) for xi in x)
+maksimum = abs(x[0])
+
+for xi in x:
+    if abs(xi) > maksimum:
+        maksimum = abs(xi)
+
+norma_maksimum = maksimum
 
 print(norma_maksimum)
 ```
@@ -2474,7 +2490,7 @@ Wynik:
 
 ---
 
-# 4. Odległości w $\mathbb{R}^2$
+# 4. Odległości w $\mathbb{R}^2$ (metryki)
 
 Dla punktów:
 
@@ -2591,7 +2607,7 @@ W wykładzie podano metrykę rzeki, gdzie rzeka jest osią `Ox`.
 $$  
 d_R(p,q) =  
 \begin{cases}  
-|x_2-y_2|, & x_1 = y_1 \  
+|x_2-y_2|, & x_1 = y_1 \\  
 |x_1-y_1| + |x_2| + |y_2|, & x_1 \neq y_1  
 \end{cases}  
 $$
@@ -2657,7 +2673,7 @@ Definicja:
 $$  
 d_C(p,q) =  
 \begin{cases}  
-|p-q|_2, & p \text{ i } q \text{ leżą na jednej prostej przez } (0,0) \  
+|p-q|_2, & p \text{ i } q \text{ leżą na jednej prostej przez } (0,0) \\  
 |p|_2 + |q|_2, & \text{w przeciwnym razie}  
 \end{cases}  
 $$
@@ -2763,8 +2779,8 @@ Przykład:
 $$  
 A =  
 \begin{bmatrix}  
-1 \  
-2 \  
+1 \\  
+2 \\  
 3  
 \end{bmatrix}  
 $$
@@ -2777,6 +2793,28 @@ A =
 1 & 2 & 3  
 \end{bmatrix}^T  
 $$
+
+### Transpozycja
+```python
+A = [[1, 2, 3]]
+
+A_T = []
+
+for i in range(len(A[0])):
+    A_T.append([A[0][i]])
+
+print("Macierz wierszowa:")
+print(A)
+
+print("Transpozycja, czyli macierz kolumnowa:")
+print(A_T)
+```
+wynik:
+```
+[1  2  3]^T = [[1],
+               [2],
+               [3]]
+```
 
 ### Przykład w Pythonie
 
@@ -2811,7 +2849,7 @@ Przykład:
 $$  
 A =  
 \begin{bmatrix}  
-0 & 0 \  
+0 & 0 \\  
 0 & 0  
 \end{bmatrix}  
 $$
@@ -2822,7 +2860,15 @@ $$
 m = 2
 n = 3
 
-A = [[0 for j in range(n)] for i in range(m)]
+A = []
+
+for i in range(m): 
+	wiersz = [] 
+	
+	for j in range(n): 
+		wiersz.append(0) 
+	
+	A.append(wiersz)
 
 print(A)
 ```
@@ -2832,6 +2878,9 @@ Wynik:
 ```text
 [[0, 0, 0], [0, 0, 0]]
 ```
+2 wiersze i 3 kolumny
+
+m x n = 2 x 3
 
 ---
 
@@ -2852,8 +2901,8 @@ Przykład macierzy kwadratowej stopnia 3:
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 & 3 \  
-4 & 5 & 6 \  
+1 & 2 & 3 \\  
+4 & 5 & 6 \\  
 7 & 8 & 9  
 \end{bmatrix}  
 $$
@@ -2867,7 +2916,7 @@ A = [
     [7, 8, 9]
 ]
 
-czy_kwadratowa = len(A) == len(A[0])
+czy_kwadratowa = len(A) == len(A[0]) # sprawdza czy ma tyle samo wierszy co kolumn
 
 print(czy_kwadratowa)
 ```
@@ -2899,8 +2948,8 @@ Przykład:
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 & 3 \  
-2 & 5 & 6 \  
+1 & 2 & 3 \\  
+2 & 5 & 6 \\  
 3 & 6 & 9  
 \end{bmatrix}  
 $$
@@ -2942,8 +2991,8 @@ Przykład:
 $$  
 A =  
 \begin{bmatrix}  
-2 & 0 & 0 \  
-0 & 5 & 0 \  
+2 & 0 & 0 \\  
+0 & 5 & 0 \\  
 0 & 0 & 7  
 \end{bmatrix}  
 $$
@@ -2958,6 +3007,22 @@ A = [
 ]
 
 n = len(A)
+
+#---------------------------------------
+
+A = []  
+  
+for i in range(n):  
+	wiersz = []  
+  
+	for j in range(n):  
+		if i == j:  
+			wiersz.append(i + 2)  
+	else:  
+		wiersz.append(0)  
+  
+	A.append(wiersz)
+
 czy_diagonalna = True
 
 for i in range(n):
@@ -2985,8 +3050,8 @@ Przykład:
 $$  
 I =  
 \begin{bmatrix}  
-1 & 0 & 0 \  
-0 & 1 & 0 \  
+1 & 0 & 0 \\  
+0 & 1 & 0 \\  
 0 & 0 & 1  
 \end{bmatrix}  
 $$
@@ -2996,7 +3061,16 @@ $$
 ```python
 n = 3
 
-I = [[0 for j in range(n)] for i in range(n)]
+I = []  
+  
+for i in range(n):  
+	wiersz = []  
+  
+	for j in range(n):  
+		wiersz.append(0)  
+  
+	I.append(wiersz)
+	
 
 for i in range(n):
     I[i][i] = 1
@@ -3021,8 +3095,8 @@ Przykład:
 $$  
 U =  
 \begin{bmatrix}  
-1 & 2 & 3 \  
-0 & 4 & 5 \  
+1 & 2 & 3 \\  
+0 & 4 & 5 \\  
 0 & 0 & 6  
 \end{bmatrix}  
 $$
@@ -3037,6 +3111,23 @@ U = [
 ]
 
 n = len(U)
+
+# ------------------------------------------
+n = 3  
+  
+U = [] 
+  
+	for i in range(n):  
+		wiersz = []  
+	  
+	for j in range(n):  
+		if i <= j:  
+			wiersz.append(j + 1)  
+	else:  
+		wiersz.append(0)  
+	  
+	U.append(wiersz)
+
 czy_gorna_trojkatna = True
 
 for i in range(n):
@@ -3044,12 +3135,14 @@ for i in range(n):
         if i > j and U[i][j] != 0:
             czy_gorna_trojkatna = False
 
+print(U)
 print(czy_gorna_trojkatna)
 ```
 
 Wynik:
 
 ```text
+[[1, 2, 3], [0, 2, 3], [0, 0, 3]]
 True
 ```
 
@@ -3064,8 +3157,8 @@ Przykład:
 $$  
 L =  
 \begin{bmatrix}  
-1 & 0 & 0 \  
-2 & 3 & 0 \  
+1 & 0 & 0 \\  
+2 & 3 & 0 \\  
 4 & 5 & 6  
 \end{bmatrix}  
 $$
@@ -3080,6 +3173,23 @@ L = [
 ]
 
 n = len(L)
+
+#--------------------------------------------
+n = 3  
+  
+	L = []  
+	  
+	for i in range(n):  
+		wiersz = []  
+	  
+	for j in range(n):  
+		if i >= j:  
+			wiersz.append(i + j + 1)  
+	else:  
+		wiersz.append(0)  
+	  
+	L.append(wiersz)
+
 czy_dolna_trojkatna = True
 
 for i in range(n):
@@ -3127,7 +3237,7 @@ Dodawanie i odejmowanie wykonuje się element po elemencie.
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 \  
+1 & 2 \\  
 3 & 4  
 \end{bmatrix}  
 $$
@@ -3135,7 +3245,7 @@ $$
 $$  
 B =  
 \begin{bmatrix}  
-5 & 6 \  
+5 & 6 \\  
 7 & 8  
 \end{bmatrix}  
 $$
@@ -3143,12 +3253,78 @@ $$
 $$  
 A + B =  
 \begin{bmatrix}  
-6 & 8 \  
+6 & 8 \\  
 10 & 12  
 \end{bmatrix}  
 $$
 
 ### Przykład w Pythonie
+```python
+# wymiary macierzy A
+m_A = 2  # liczba wierszy
+n_A = 2  # liczba kolumn
+
+# wymiary macierzy B
+m_B = 2  # liczba wierszy
+n_B = 2  # liczba kolumn
+
+
+# tworzenie macierzy A od zera
+A = []
+
+liczba = 1
+
+for i in range(m_A):
+    wiersz = []
+
+    for j in range(n_A):
+        wiersz.append(liczba)
+        liczba += 1
+
+    A.append(wiersz)
+
+
+# tworzenie macierzy B od zera
+B = []
+
+liczba = 5
+
+for i in range(m_B):
+    wiersz = []
+
+    for j in range(n_B):
+        wiersz.append(liczba)
+        liczba += 1
+
+    B.append(wiersz)
+
+
+print("Macierz A:")
+print(A)
+
+print("Macierz B:")
+print(B)
+
+
+# sprawdzenie, czy można dodać macierze
+if len(A) == len(B) and len(A[0]) == len(B[0]):
+
+    C = []
+
+    for i in range(len(A)):
+        wiersz = []
+
+        for j in range(len(A[0])):
+            wiersz.append(A[i][j] + B[i][j])
+
+        C.append(wiersz)
+
+    print("Macierz C = A + B:")
+    print(C)
+
+else:
+    print("Nie można dodać macierzy, ponieważ mają różne wymiary.")
+```
 
 ```python
 A = [
@@ -3193,7 +3369,7 @@ $$
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 \  
+1 & 2 \\  
 3 & 4  
 \end{bmatrix}  
 $$
@@ -3209,7 +3385,7 @@ otrzymujemy:
 $$  
 3A =  
 \begin{bmatrix}  
-3 & 6 \  
+3 & 6 \\  
 9 & 12  
 \end{bmatrix}  
 $$
@@ -3258,7 +3434,7 @@ która powstaje przez zamianę wierszy na kolumny i kolumn na wiersze.
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 & 3 \  
+1 & 2 & 3 \\  
 4 & 5 & 6  
 \end{bmatrix}  
 $$
@@ -3266,8 +3442,8 @@ $$
 $$  
 A^T =  
 \begin{bmatrix}  
-1 & 4 \  
-2 & 5 \  
+1 & 4 \\  
+2 & 5 \\  
 3 & 6  
 \end{bmatrix}  
 $$
@@ -3304,10 +3480,14 @@ A = [
 
 AT = []
 
+# przechodzimy po kolumnach macierzy A
 for j in range(len(A[0])):
     wiersz = []
+
+    # przechodzimy po wierszach macierzy A
     for i in range(len(A)):
         wiersz.append(A[i][j])
+
     AT.append(wiersz)
 
 print(AT)
@@ -3348,7 +3528,7 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 \  
+1 & 2 \\  
 3 & 4  
 \end{bmatrix}  
 $$
@@ -3490,7 +3670,7 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-1 & -2 \  
+1 & -2 \\  
 3 & 4  
 \end{bmatrix}  
 $$
@@ -3541,6 +3721,58 @@ Wynik:
 6
 ```
 
+### Przykład losowe wartości w macierzy
+```python
+import random
+
+# wymiary macierzy
+m = 2  # liczba wierszy
+n = 2  # liczba kolumn
+
+# tworzenie macierzy A z losowych wartości
+A = []
+
+for i in range(m):
+    wiersz = []
+
+    for j in range(n):
+        liczba = random.randint(-10, 10) # osuje liczby całkowite od -10 do 10
+        wiersz.append(liczba)
+
+    A.append(wiersz)
+
+
+print("Macierz A:")
+print(A)
+
+
+# obliczanie normy kolumnowej
+norma_kolumnowa = 0
+
+for j in range(n):
+    suma_kolumny = 0
+
+    for i in range(m):
+        suma_kolumny += abs(A[i][j])
+
+    print("Suma kolumny", j, "=", suma_kolumny)
+
+    if suma_kolumny > norma_kolumnowa:
+        norma_kolumnowa = suma_kolumny
+
+
+print("Norma kolumnowa macierzy A:", norma_kolumnowa)
+```
+
+Przykładowy wynik:
+```
+Macierz A:
+[[4, -7], [2, 5]]
+Suma kolumny 0 = 6
+Suma kolumny 1 = 12
+Norma kolumnowa macierzy A: 12
+```
+
 ---
 
 # 10. Macierz ortogonalna
@@ -3572,7 +3804,7 @@ Macierz jednostkowa jest macierzą ortogonalną:
 $$  
 I =  
 \begin{bmatrix}  
-1 & 0 \  
+1 & 0 \\  
 0 & 1  
 \end{bmatrix}  
 $$
@@ -3677,7 +3909,7 @@ $$
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 \  
+1 & 2 \\  
 3 & 4  
 \end{bmatrix}  
 $$
@@ -3685,7 +3917,7 @@ $$
 $$  
 B =  
 \begin{bmatrix}  
-5 & 6 \  
+5 & 6 \\  
 7 & 8  
 \end{bmatrix}  
 $$
@@ -3701,7 +3933,7 @@ Cały wynik:
 $$  
 AB =  
 \begin{bmatrix}  
-19 & 22 \  
+19 & 22 \\  
 43 & 50  
 \end{bmatrix}  
 $$
@@ -3719,18 +3951,34 @@ B = [
     [7, 8]
 ]
 
-C = []
+# liczba kolumn macierzy A
+kolumny_A = len(A[0])
 
-for i in range(len(A)):
-    wiersz = []
-    for j in range(len(B[0])):
-        suma = 0
-        for l in range(len(B)):
-            suma += A[i][l] * B[l][j]
-        wiersz.append(suma)
-    C.append(wiersz)
+# liczba wierszy macierzy B
+wiersze_B = len(B)
 
-print(C)
+if kolumny_A == wiersze_B:
+    C = []
+
+    for i in range(len(A)):
+        wiersz = []
+
+        for j in range(len(B[0])):
+            suma = 0
+
+            for l in range(len(B)):
+                suma += A[i][l] * B[l][j]
+
+            wiersz.append(suma)
+
+        C.append(wiersz)
+
+    print("Macierz C = A * B:")
+    print(C)
+
+else:
+    print("Nie można pomnożyć macierzy.")
+    print("Liczba kolumn macierzy A musi być równa liczbie wierszy macierzy B.")
 ```
 
 Wynik:
@@ -3778,7 +4026,7 @@ Dane są macierze:
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 \  
+1 & 2 \\  
 0 & 1  
 \end{bmatrix}  
 $$
@@ -3786,7 +4034,7 @@ $$
 $$  
 B =  
 \begin{bmatrix}  
-1 & 0 \  
+1 & 0 \\  
 3 & 1  
 \end{bmatrix}  
 $$
@@ -3796,7 +4044,7 @@ Wtedy:
 $$  
 AB =  
 \begin{bmatrix}  
-7 & 2 \  
+7 & 2 \\  
 3 & 1  
 \end{bmatrix}  
 $$
@@ -3806,7 +4054,7 @@ oraz:
 $$  
 BA =  
 \begin{bmatrix}  
-1 & 2 \  
+1 & 2 \\  
 3 & 7  
 \end{bmatrix}  
 $$
@@ -3821,16 +4069,26 @@ $$
 
 ```python
 def mnoz_macierze(A, B):
+    if len(A[0]) != len(B):
+        return None
+
     C = []
+
     for i in range(len(A)):
         wiersz = []
+
         for j in range(len(B[0])):
             suma = 0
+
             for k in range(len(B)):
                 suma += A[i][k] * B[k][j]
+
             wiersz.append(suma)
+
         C.append(wiersz)
+
     return C
+
 
 A = [
     [1, 2],
@@ -3847,7 +4105,11 @@ BA = mnoz_macierze(B, A)
 
 print("AB =", AB)
 print("BA =", BA)
-print("Czy AB == BA?", AB == BA)
+
+if AB is not None and BA is not None:
+    print("Czy AB == BA?", AB == BA)
+else:
+    print("Nie można wykonać któregoś mnożenia.")
 ```
 
 Wynik:
@@ -4093,6 +4355,55 @@ det(A) = -2
 Macierz jest nieosobliwa
 ```
 
+### Wersja dla dowolnej macierzy kwadratowej n x n
+```python
+def czy_kwadratowa(A):
+    liczba_wierszy = len(A)
+
+    for i in range(liczba_wierszy):
+        if len(A[i]) != liczba_wierszy:
+            return False
+
+    return True
+
+
+def minor(A, wiersz_usuniety, kolumna_usunieta):
+    M = []
+
+    for i in range(len(A)):
+        if i != wiersz_usuniety:
+            nowy_wiersz = []
+
+            for j in range(len(A[i])):
+                if j != kolumna_usunieta:
+                    nowy_wiersz.append(A[i][j])
+
+            M.append(nowy_wiersz)
+
+    return M
+
+
+def det(A):
+    if not czy_kwadratowa(A):
+        return None
+
+    n = len(A)
+
+    if n == 1:
+        return A[0][0]
+
+    if n == 2:
+        return A[0][0] * A[1][1] - A[0][1] * A[1][0]
+
+    wyznacznik = 0
+
+    for j in range(n):
+        znak = (-1) ** j
+        wyznacznik += znak * A[0][j] * det(minor(A, 0, j))
+
+    return wyznacznik
+```
+
 ---
 
 # 15. Wyznacznik metodą Laplace'a
@@ -4126,7 +4437,7 @@ Dla:
 $$  
 A =  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} \  
+a_{1,1} & a_{1,2} \\  
 a_{2,1} & a_{2,2}  
 \end{bmatrix}  
 $$
@@ -4166,41 +4477,51 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-a_{1,1} & a_{1,2} & a_{1,3} \  
-a_{2,1} & a_{2,2} & a_{2,3} \  
+a_{1,1} & a_{1,2} & a_{1,3} \\  
+a_{2,1} & a_{2,2} & a_{2,3} \\  
 a_{3,1} & a_{3,2} & a_{3,3}  
 \end{bmatrix}  
 $$
 
 wyznacznik ma postać:
 
-## $$  
+$$  
 \det(A) =  
 a_{1,1}a_{2,2}a_{3,3}  
-+  
-a_{1,2}a_{2,3}a_{3,1}  
-+  
-a_{1,3}a_{2,1}a_{3,2}
-
-## a_{1,3}a_{2,2}a_{3,1}
-
-## a_{1,2}a_{2,1}a_{3,3}
-
-a_{1,1}a_{2,3}a_{3,2}  
++ a_{1,2}a_{2,3}a_{3,1}  
++ a_{1,3}a_{2,1}a_{3,2}  
+- a_{1,3}a_{2,2}a_{3,1}  
+- a_{1,1}a_{2,3}a_{3,2}  
+- a_{1,2}a_{2,1}a_{3,3}  
 $$
 
 ### Przykład w Pythonie
 
 ```python
 def det3(A):
-    return (
-        A[0][0] * A[1][1] * A[2][2]
-        + A[0][1] * A[1][2] * A[2][0]
-        + A[0][2] * A[1][0] * A[2][1]
-        - A[0][2] * A[1][1] * A[2][0]
-        - A[0][1] * A[1][0] * A[2][2]
-        - A[0][0] * A[1][2] * A[2][1]
+    a = A[0][0]
+    b = A[0][1]
+    c = A[0][2]
+
+    d = A[1][0]
+    e = A[1][1]
+    f = A[1][2]
+
+    g = A[2][0]
+    h = A[2][1]
+    i = A[2][2]
+
+    wyznacznik = (
+        a * e * i
+        + b * f * g
+        + c * d * h
+        - c * e * g
+        - b * d * i
+        - a * f * h
     )
+
+    return wyznacznik
+
 
 A = [
     [1, 2, 1],
@@ -4357,7 +4678,7 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-a & b \  
+a & b \\  
 c & d  
 \end{bmatrix}  
 $$
@@ -4374,7 +4695,7 @@ $$
 A^{-1} =  
 \frac{1}{ad-bc}  
 \begin{bmatrix}  
-d & -b \  
+d & -b \\  
 -c & a  
 \end{bmatrix}  
 $$
@@ -4386,7 +4707,7 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-2 & 1 \  
+2 & 1 \\  
 5 & 3  
 \end{bmatrix}  
 $$
@@ -4402,7 +4723,7 @@ więc:
 $$  
 A^{-1} =  
 \begin{bmatrix}  
-3 & -1 \  
+3 & -1 \\  
 -5 & 2  
 \end{bmatrix}  
 $$
@@ -4473,6 +4794,20 @@ gdzie:
     
 - `(A^D)^T` — macierz dołączona.
     
+
+```
+inverse_cofactor(A): 
+	n = size(A) 
+	d = det(A) 
+	if d == 0: error("singular") 
+	C = zeros(n,n) # macierz dopełnień 
+	for i = 1..n: 
+		for j = 1..n: 
+			M = minor(A, row=i, col=j) 
+			C[i][j] = (-1)^(i+j) * det(M) 
+Adj = transpose(C) # macierz dołączona 
+return (1/d) * Adj
+```
 
 ### Przykład w Pythonie
 
@@ -4804,8 +5139,8 @@ Macierz:
 $$  
 A =  
 \begin{bmatrix}  
-1 & 2 & 1 \  
-2 & 3 & 1 \  
+1 & 2 & 1 \\  
+2 & 3 & 1 \\  
 1 & 1 & 1  
 \end{bmatrix}  
 $$
@@ -4815,8 +5150,8 @@ po eliminacji trójkątnej:
 $$  
 U =  
 \begin{bmatrix}  
-1 & 2 & 1 \  
-0 & -1 & -1 \  
+1 & 2 & 1 \\  
+0 & -1 & -1 \\  
 0 & 0 & 1  
 \end{bmatrix}  
 $$
@@ -5003,7 +5338,185 @@ Wynik:
 
 ---
 
-# 21. Wyznaczanie macierzy odwrotnej metodą Gaussa-Jordana
+# 21. Metoda Gaussa-Jordana – schemat postępowania
+
+Metoda Gaussa-Jordana sprowadza macierz do postaci jednostkowej.
+
+Dla:
+
+$$  
+k = 1, \dots, n  
+$$
+
+wykonuje się następujące kroki:
+
+1. Wybór pivota, opcjonalnie z pivotingiem.
+    
+2. Normalizacja wiersza:
+    
+
+$$  
+R_k := \frac{1}{a_{k,k}}R_k  
+$$
+
+czyli cały wiersz z pivotem dzielimy przez wartość pivota, aby na diagonali otrzymać `1`.
+
+3. Dla wszystkich:
+    
+
+$$  
+i \neq k  
+$$
+
+wykonujemy:
+
+$$  
+R_i := R_i - a_{i,k}R_k  
+$$
+
+czyli zerujemy wszystkie pozostałe elementy w kolumnie pivota.
+
+Efekt końcowy:
+
+$$  
+A \to I  
+$$
+
+czyli macierz `A` zostaje sprowadzona do macierzy jednostkowej.
+
+### Przykład
+
+Weźmy macierz:
+
+$$  
+A =  
+\begin{bmatrix}  
+2 & 1 \\  
+5 & 3  
+\end{bmatrix}  
+$$
+
+Po zastosowaniu metody Gaussa-Jordana macierz zostanie sprowadzona do postaci:
+
+$$  
+I =  
+\begin{bmatrix}  
+1 & 0 \\  
+0 & 1  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+A = [
+    [2.0, 1.0],
+    [5.0, 3.0]
+]
+
+n = len(A)
+
+for k in range(n):
+    # 1. Wybór pivota
+    pivot = A[k][k]
+
+    if pivot == 0:
+        raise ValueError("Pivot jest równy zero")
+
+    # 2. Normalizacja wiersza:
+    # R_k := (1 / a_kk) * R_k
+    for j in range(n):
+        A[k][j] = A[k][j] / pivot
+
+    # 3. Zerowanie pozostałych elementów w kolumnie k
+    # R_i := R_i - a_ik * R_k
+    for i in range(n):
+        if i != k:
+            wspolczynnik = A[i][k]
+
+            for j in range(n):
+                A[i][j] = A[i][j] - wspolczynnik * A[k][j]
+
+print(A)
+```
+
+Wynik:
+
+```text
+[[1.0, 0.0], [0.0, 1.0]]
+```
+
+### Wersja z pivotingiem częściowym
+
+Pivoting częściowy polega na tym, że w kolumnie `k` szukamy wiersza z największą wartością bezwzględną elementu w tej kolumnie, a potem zamieniamy ten wiersz z wierszem `k`.
+
+```python
+A = [
+    [0.0001, 1.0],
+    [1.0, 1.0]
+]
+
+n = len(A)
+
+for k in range(n):
+    # Wybór pivota z pivotingiem częściowym
+    p = k
+    najwiekszy = abs(A[k][k])
+
+    for i in range(k + 1, n):
+        if abs(A[i][k]) > najwiekszy:
+            najwiekszy = abs(A[i][k])
+            p = i
+
+    # Zamiana wierszy, jeśli znaleziono lepszy pivot
+    if p != k:
+        A[k], A[p] = A[p], A[k]
+
+    pivot = A[k][k]
+
+    if pivot == 0:
+        raise ValueError("Pivot jest równy zero")
+
+    # Normalizacja wiersza z pivotem
+    for j in range(n):
+        A[k][j] = A[k][j] / pivot
+
+    # Zerowanie pozostałych elementów w kolumnie k
+    for i in range(n):
+        if i != k:
+            wspolczynnik = A[i][k]
+
+            for j in range(n):
+                A[i][j] = A[i][j] - wspolczynnik * A[k][j]
+
+print(A)
+```
+
+Wynik:
+
+```text
+[[1.0, 0.0], [0.0, 1.0]]
+```
+
+### Ważne
+
+Metoda Gaussa-Jordana eliminuje elementy zarówno poniżej, jak i powyżej pivota. Dzięki temu na końcu otrzymujemy bezpośrednio macierz jednostkową.
+
+Przy wyznaczaniu macierzy odwrotnej stosuje się macierz rozszerzoną:
+
+$$  
+[A \mid I]  
+$$
+
+i wykonuje przekształcenia:
+
+$$  
+[A \mid I] \to [I \mid A^{-1}]  
+$$
+
+---
+
+# 22. Wyznaczanie macierzy odwrotnej metodą Gaussa-Jordana
 
 Tworzymy macierz rozszerzoną:
 
@@ -5036,7 +5549,7 @@ Dla:
 $$  
 A =  
 \begin{bmatrix}  
-2 & 1 \  
+2 & 1 \\  
 5 & 3  
 \end{bmatrix}  
 $$
@@ -5045,7 +5558,7 @@ tworzymy macierz rozszerzoną:
 
 $$  
 \begin{bmatrix}  
-2 & 1 & 1 & 0 \  
+2 & 1 & 1 & 0 \\  
 5 & 3 & 0 & 1  
 \end{bmatrix}  
 $$
@@ -5054,7 +5567,7 @@ Po eliminacji:
 
 $$  
 \begin{bmatrix}  
-1 & 0 & 3 & -1 \  
+1 & 0 & 3 & -1 \\  
 0 & 1 & -5 & 2  
 \end{bmatrix}  
 $$
@@ -5064,7 +5577,7 @@ czyli:
 $$  
 A^{-1} =  
 \begin{bmatrix}  
-3 & -1 \  
+3 & -1 \\  
 -5 & 2  
 \end{bmatrix}  
 $$
@@ -5132,7 +5645,7 @@ Wynik:
 
 ---
 
-# 22. Uwagi praktyczne z wykładu
+# 23. Uwagi praktyczne z wykładu
 
 W wykładzie podano kilka ważnych uwag praktycznych:
 
@@ -5177,9 +5690,9 @@ Wartość pivota: 5.0
 
 ---
 
-# 23. Najważniejsze rzeczy do zapamiętania na kolosa
+# 24. Najważniejsze rzeczy do zapamiętania na kolosa
 
-## 23.1. Macierz
+## 24.1. Macierz
 
 Macierz to prostokątna tablica liczb o wymiarze:
 
@@ -5200,7 +5713,7 @@ print(len(A), "x", len(A[0]))
 
 ---
 
-## 23.2. Element macierzy
+## 24.2. Element macierzy
 
 Element:
 
@@ -5229,7 +5742,7 @@ Wynik:
 
 ---
 
-## 23.3. Dodawanie macierzy
+## 24.3. Dodawanie macierzy
 
 Macierze można dodać tylko wtedy, gdy mają takie same wymiary.
 
@@ -5250,7 +5763,7 @@ print(C)
 
 ---
 
-## 23.4. Transpozycja
+## 24.4. Transpozycja
 
 Transpozycja zamienia wiersze na kolumny.
 
@@ -5270,7 +5783,7 @@ print(AT)
 
 ---
 
-## 23.5. Mnożenie macierzy
+## 24.5. Mnożenie macierzy
 
 Iloczyn `AB` istnieje, gdy liczba kolumn `A` jest równa liczbie wierszy `B`.
 
@@ -5300,7 +5813,7 @@ print(C)
 
 ---
 
-## 23.6. Mnożenie macierzy nie jest przemienne
+## 24.6. Mnożenie macierzy nie jest przemienne
 
 Zwykle:
 
@@ -5329,7 +5842,7 @@ print(matmul(B, A))
 
 ---
 
-## 23.7. Wyznacznik macierzy 2 × 2
+## 24.7. Wyznacznik macierzy 2 × 2
 
 Dla:
 
@@ -5359,7 +5872,7 @@ print(det)
 
 ---
 
-## 23.8. Macierz odwrotna
+## 24.8. Macierz odwrotna
 
 Macierz odwrotna istnieje wtedy, gdy:
 
@@ -5388,7 +5901,7 @@ else:
 
 ---
 
-## 23.9. Gauss bez pivotingu
+## 24.9. Gauss bez pivotingu
 
 W eliminacji Gaussa używamy pivota:
 
@@ -5423,7 +5936,7 @@ print(A)
 
 ---
 
-## 23.10. Pivoting częściowy
+## 24.10. Pivoting częściowy
 
 Wybieramy największy element w danej kolumnie jako pivot:
 
@@ -5450,28 +5963,3 @@ print(A)
 
 ---
 
-# 24. Krótkie podsumowanie
-
-Wykład 2 dotyczył macierzy, ich rodzajów, działań na macierzach, norm, wyznacznika, macierzy odwrotnej oraz metod Gaussa i Gaussa-Jordana.
-
-Najważniejsze wnioski:
-
-1. Macierze są podstawowym narzędziem w metodach numerycznych.
-    
-2. Operacje na macierzach mają określone warunki, np. zgodność wymiarów.
-    
-3. Mnożenie macierzy nie jest przemienne.
-    
-4. Wyznacznik pozwala sprawdzić, czy macierz jest osobliwa.
-    
-5. Macierz odwrotna istnieje tylko wtedy, gdy wyznacznik jest różny od zera.
-    
-6. Rozwinięcie Laplace'a jest poprawne, ale kosztowne dla dużych macierzy.
-    
-7. Eliminacja Gaussa sprowadza macierz do postaci trójkątnej.
-    
-8. Gauss-Jordan sprowadza macierz do postaci jednostkowej.
-    
-9. Pivoting poprawia stabilność numeryczną.
-    
-10. W praktyce do obliczeń numerycznych ważna jest nie tylko poprawność matematyczna, ale też stabilność i koszt obliczeń.

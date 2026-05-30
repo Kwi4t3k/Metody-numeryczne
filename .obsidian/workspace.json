@@ -28,7 +28,7 @@
               "type": "markdown",
               "state": {
                 "file": "Ultimate notatka.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -36,15 +36,15 @@
             }
           },
           {
-            "id": "2f68b8f631f3355d",
+            "id": "42b3d9dab25b6db4",
             "type": "leaf",
             "state": {
               "type": "pdf",
               "state": {
-                "file": "Laboratorium_1/Dokładność - zadania.pdf"
+                "file": "Laboratorium_4/zadania lab 4.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "Dokładność - zadania"
+              "title": "zadania lab 4"
             }
           }
         ],
@@ -210,10 +210,13 @@
       "bases:Stwórz nową bazę danych": false
     }
   },
-  "active": "2f68b8f631f3355d",
+  "active": "42b3d9dab25b6db4",
   "lastOpenFiles": [
     "Ultimate notatka.md",
+    "Laboratorium_3/zadania_lab3.pdf",
     "Spis wykładów.md",
+    "Laboratorium_2/Zadania_lab2.pdf",
+    "Laboratorium_2/mn_inf_02.pdf",
     "Laboratorium_1/Dokładność - zadania.pdf",
     "Laboratorium_12/zadania_lab_12.md",
     "Laboratorium_12/zadania_lab_12.pdf",
@@ -227,12 +230,9 @@
     "Laboratorium_8/zadania_lab_8.md",
     "Laboratorium_8/zadania_lab_8.pdf",
     "Laboratorium_7/zadania_lab_7.md",
-    "Laboratorium_7/zadania_lab_7.pdf",
     "Laboratorium_6/zadania_lab_6.md",
-    "Laboratorium_6/zadania_lab_6.pdf",
     "Laboratorium_5/zadania_lab_5.md",
     "Laboratorium_2/Zadania_lab2.md",
-    "Laboratorium_2/Zadania_lab2.pdf",
     "Laboratorium_2/p.md",
     "Laboratorium_5/zadania lab 5.md",
     "Laboratorium_4/zadania lab 4.md",

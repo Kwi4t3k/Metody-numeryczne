@@ -40,4 +40,31 @@
 - Algorytm Gilla–Møllera
 - Algorytm Kahana
 - Jakie czynniki możemy badać przy sumowaniu?
-- 
+
+## 02 - macierze (lab 3)
+
+- Definicja macierzy
+- Macierz - oznaczenia
+- Normy wektorowe
+- Odległości w R 2 (metryki)
+- Macierze szczególne (wierszowa, kolumnowa, zerowa)
+- Macierz kwadratowa, symetryczna, ortogonalna
+- Macierz diagonalna, jednostkowa
+- Macierz górna / dolna trójkątna
+- Dodawanie i odejmowanie macierzy
+- Mnożenie macierzy przez liczbę rzeczywistą
+- Transpozycja macierzy
+- Normy macierzy (Frobeniusa, Manhattan, maksimum, operatorowa)
+- Mnożenie macierzy
+- Przekształcenia elementarne
+- Wyznacznik macierzy
+- Wyznaczanie wyznacznika macierzy - rozwinięcie Laplace’a
+- Macierz odwrotna
+- Macierz dopełnień
+- Zależności dla macierzy odwrotnej
+- Metoda Gaussa a metoda Gaussa–Jordana
+- Operacje elementarne a wyznacznik
+- Eliminacja Gaussa bez pivotingu – kroki
+- Eliminacja Gaussa z pivotingiem częściowym
+- Metoda Gaussa–Jordana – schemat postępowania
+
