@@ -1,83 +1,83 @@
 #zad1
-# import math
+import math
 
-# def minor(macierz, usun_wiersz, usun_kolumne):
-#     wynik = []
+def minor(macierz, usun_wiersz, usun_kolumne):
+    wynik = []
 
-#     for i in range(len(macierz)):
-#         if i == usun_wiersz:
-#             continue
+    for i in range(len(macierz)):
+        if i == usun_wiersz:
+            continue
 
-#         nowy_wiersz = []
-#         for j in range(len(macierz[i])):
-#             if j == usun_kolumne:
-#                 continue
-#             nowy_wiersz.append(macierz[i][j])
+        nowy_wiersz = []
+        for j in range(len(macierz[i])):
+            if j == usun_kolumne:
+                continue
+            nowy_wiersz.append(macierz[i][j])
 
-#         wynik.append(nowy_wiersz)
+        wynik.append(nowy_wiersz)
 
-#     return wynik
+    return wynik
 
-# def wyznacznik_macierzy(macierz):
-#     n = len(macierz)
+def wyznacznik_macierzy(macierz):
+    n = len(macierz)
     
-#     for wiersz in macierz:
-#         if len(wiersz) != n:
-#             raise ValueError("Nie da się policzyc wyznacznika macierzy, która nie jest kwadratowa")
+    for wiersz in macierz:
+        if len(wiersz) != n:
+            raise ValueError("Nie da się policzyc wyznacznika macierzy, która nie jest kwadratowa")
         
-#     if n == 1:
-#         return macierz[0][0]
+    if n == 1:
+        return macierz[0][0]
     
-#     if n == 2:
-#         return macierz[0][0] * macierz[1][1] - macierz[0][1] * macierz[1][0]
+    if n == 2:
+        return macierz[0][0] * macierz[1][1] - macierz[0][1] * macierz[1][0]
     
-#     det = 0
-#     for j in range(n):
-#         podmacierz = minor(macierz, 0, j)
-#         det += math.pow((-1), 0+j) * macierz[0][j] * wyznacznik_macierzy(podmacierz)
+    det = 0
+    for j in range(n):
+        podmacierz = minor(macierz, 0, j)
+        det += math.pow((-1), 0+j) * macierz[0][j] * wyznacznik_macierzy(podmacierz)
 
-#     return det
+    return det
 
-# macierz = [
-#     [2, 4, 6],
-#     [0, 2, -1],
-#     [-3, 3, 3]
-# ]
+macierz = [
+    [2, 4, 6],
+    [0, 2, -1],
+    [-3, 3, 3]
+]
 
-# print("Wyznacznik macierzy: ", wyznacznik_macierzy(macierz))
+print("Wyznacznik macierzy: ", wyznacznik_macierzy(macierz))
 
 
 #zad2
-# def transpozycja(macierz):
-#     liczba_wierszy = len(macierz)
-#     liczba_kolumn = len(macierz[0])
+def transpozycja(macierz):
+    liczba_wierszy = len(macierz)
+    liczba_kolumn = len(macierz[0])
 
-#     wynik = []
+    wynik = []
 
-#     for j in range(liczba_kolumn):
-#         nowy_wiersz = []
-#         for i in range(liczba_wierszy):
-#             nowy_wiersz.append(macierz[i][j])
-#         wynik.append(nowy_wiersz)
+    for j in range(liczba_kolumn):
+        nowy_wiersz = []
+        for i in range(liczba_wierszy):
+            nowy_wiersz.append(macierz[i][j])
+        wynik.append(nowy_wiersz)
 
-#     return wynik
+    return wynik
 
 
-# macierz = [
-#     [2, 4, 6],
-#     [0, 2, -1],
-#     [-3, 3, 3]
-# ]
+macierz = [
+    [2, 4, 6],
+    [0, 2, -1],
+    [-3, 3, 3]
+]
 
-# print("Przed transpozycją macierzy:")
-# for wiersz in macierz:
-#     print(wiersz)
+print("Przed transpozycją macierzy:")
+for wiersz in macierz:
+    print(wiersz)
 
-# wynik = transpozycja(macierz)
+wynik = transpozycja(macierz)
 
-# print("Po transpozycji macierzy:")
-# for wiersz in wynik:
-#     print(wiersz)
+print("Po transpozycji macierzy:")
+for wiersz in wynik:
+    print(wiersz)
 
 #zad3
 import math
@@ -249,105 +249,142 @@ for wiersz in wynik_Gauss_Jordan:
 
 # Laboratorium 3 zadanie 4
 
+def mnozenie_macierzy(macierz1, macierz2):
+    ilosc_wierszy_macierz1 = len(macierz1)
+    ilosc_wierszy_macierz2 = len(macierz2)
+    ilosc_kolumn_macierz1 = len(macierz1[0])
+    ilosc_kolumn_macierz2 = len(macierz2[0])
+
+    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+        raise ValueError("Nie da się pomnożyć tych macierzy")
+    
+    wynik = []
+    for i in range(ilosc_wierszy_macierz1):
+        wiersz = []
+        for j in range(ilosc_kolumn_macierz2):
+            suma = 0
+            for k in range(ilosc_kolumn_macierz1):
+                suma += macierz1[i][k] * macierz2[k][j]
+            wiersz.append(suma)
+        wynik.append(wiersz)
+
+    return wynik
+
+macierz1 = [
+    [1, 2],
+    [3, 4]
+]
+
+macierz2 = [
+    [5, 6],
+    [7, 8]
+]
+
+wynik = mnozenie_macierzy(macierz1, macierz2)
+
+print("Wynik mnożenia:")
+for wiersz in wynik:
+    print(wiersz)
+
 #zad5
 
-# def macierz_odwrotna_Gaussa_Jordana(macierz): # punkt b
-#     n = len(macierz)
+def macierz_odwrotna_Gaussa_Jordana(macierz): # punkt b
+    n = len(macierz)
 
-#     for wiersz in macierz:
-#         if len(wiersz) != n:
-#             raise ValueError("Macierz musi być kwadratowa")
+    for wiersz in macierz:
+        if len(wiersz) != n:
+            raise ValueError("Macierz musi być kwadratowa")
 
-#     # macierz rozszerzona [A | I]
-#     rozszerzona_macierz = []
+    # macierz rozszerzona [A | I]
+    rozszerzona_macierz = []
 
-#     for i in range(n):
-#         wiersz = []
+    for i in range(n):
+        wiersz = []
 
-#         # lewa strona: macierz A
-#         for j in range(n):
-#             wiersz.append(macierz[i][j])
-#             # wiersz.append(float(macierz[i][j]))
+        # lewa strona: macierz A
+        for j in range(n):
+            wiersz.append(macierz[i][j])
+            # wiersz.append(float(macierz[i][j]))
         
-#         # prawa strona: macierz jednostkowa I
-#         for j in range(n):
-#             if i == j:
-#                 wiersz.append(1)
-#             else:
-#                 wiersz.append(0)
+        # prawa strona: macierz jednostkowa I
+        for j in range(n):
+            if i == j:
+                wiersz.append(1)
+            else:
+                wiersz.append(0)
 
-#         rozszerzona_macierz.append(wiersz)
+        rozszerzona_macierz.append(wiersz)
 
-#     # algorytm Gaussa-Jordana
-#     for i in range(n):
-#         # jeśli na przekątnej jest 0, zamień wiersze
-#         if rozszerzona_macierz[i][i] == 0:
-#             znaleziono = False
-#             for k in range(i+1, n):
-#                 if rozszerzona_macierz[k][i] != 0:
-#                     rozszerzona_macierz[i], rozszerzona_macierz[k] = rozszerzona_macierz[k], rozszerzona_macierz[i]
-#                     znaleziono = True
-#                     break
-#             if not znaleziono:
-#                 raise ValueError("Macierz nie ma odwrotności")
+    # algorytm Gaussa-Jordana
+    for i in range(n):
+        # jeśli na przekątnej jest 0, zamień wiersze
+        if rozszerzona_macierz[i][i] == 0:
+            znaleziono = False
+            for k in range(i+1, n):
+                if rozszerzona_macierz[k][i] != 0:
+                    rozszerzona_macierz[i], rozszerzona_macierz[k] = rozszerzona_macierz[k], rozszerzona_macierz[i]
+                    znaleziono = True
+                    break
+            if not znaleziono:
+                raise ValueError("Macierz nie ma odwrotności")
             
-#         # dzielenie całego wiersza przez element główny
-#         element_glowny = rozszerzona_macierz[i][i]
-#         for j in range(2 * n):
-#             rozszerzona_macierz[i][j] = rozszerzona_macierz[i][j] / element_glowny
+        # dzielenie całego wiersza przez element główny
+        element_glowny = rozszerzona_macierz[i][i]
+        for j in range(2 * n):
+            rozszerzona_macierz[i][j] = rozszerzona_macierz[i][j] / element_glowny
 
-#         # zerowanie pozostałych elementów w tej kolumnie
-#         for k in range(n):
-#             if k != i:
-#                 wspolczynnik = rozszerzona_macierz[k][i]
-#                 for j in range(2 * n):
-#                     rozszerzona_macierz[k][j] = rozszerzona_macierz[k][j] - wspolczynnik * rozszerzona_macierz[i][j]
+        # zerowanie pozostałych elementów w tej kolumnie
+        for k in range(n):
+            if k != i:
+                wspolczynnik = rozszerzona_macierz[k][i]
+                for j in range(2 * n):
+                    rozszerzona_macierz[k][j] = rozszerzona_macierz[k][j] - wspolczynnik * rozszerzona_macierz[i][j]
 
-#     odwrotna = []
-#     for i in range(n):
-#         wiersz = []
-#         for j in range(n, 2 * n):
-#             wiersz.append(rozszerzona_macierz[i][j])
-#         odwrotna.append(wiersz)
+    odwrotna = []
+    for i in range(n):
+        wiersz = []
+        for j in range(n, 2 * n):
+            wiersz.append(rozszerzona_macierz[i][j])
+        odwrotna.append(wiersz)
 
-#     return odwrotna
+    return odwrotna
 
-# def mnozenie_macierzy(macierz1, macierz2):
-#     ilosc_wierszy_macierz1 = len(macierz1)
-#     ilosc_wierszy_macierz2 = len(macierz2)
-#     ilosc_kolumn_macierz1 = len(macierz1[0])
-#     ilosc_kolumn_macierz2 = len(macierz2[0])
+def mnozenie_macierzy(macierz1, macierz2):
+    ilosc_wierszy_macierz1 = len(macierz1)
+    ilosc_wierszy_macierz2 = len(macierz2)
+    ilosc_kolumn_macierz1 = len(macierz1[0])
+    ilosc_kolumn_macierz2 = len(macierz2[0])
 
-#     if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
-#         raise ValueError("Nie da się pomnożyć tych macierzy")
+    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+        raise ValueError("Nie da się pomnożyć tych macierzy")
     
-#     wynik = []
-#     for i in range(ilosc_wierszy_macierz1):
-#         wiersz = []
-#         for j in range(ilosc_kolumn_macierz2):
-#             suma = 0
-#             for k in range(ilosc_kolumn_macierz1):
-#                 suma += macierz1[i][k] * macierz2[k][j]
-#             wiersz.append(suma)
-#         wynik.append(wiersz)
+    wynik = []
+    for i in range(ilosc_wierszy_macierz1):
+        wiersz = []
+        for j in range(ilosc_kolumn_macierz2):
+            suma = 0
+            for k in range(ilosc_kolumn_macierz1):
+                suma += macierz1[i][k] * macierz2[k][j]
+            wiersz.append(suma)
+        wynik.append(wiersz)
 
-#     return wynik
+    return wynik
 
-# macierz = [
-#     [2, 4, 6],
-#     [0, 2, -1],
-#     [-3, 3, 3]
-# ]
+macierz = [
+    [2, 4, 6],
+    [0, 2, -1],
+    [-3, 3, 3]
+]
 
-# macierz_odwrotna = macierz_odwrotna_Gaussa_Jordana(macierz)
+macierz_odwrotna = macierz_odwrotna_Gaussa_Jordana(macierz)
 
-# wynik1 = mnozenie_macierzy(macierz, macierz_odwrotna)
-# wynik2 = mnozenie_macierzy(macierz_odwrotna, macierz)
+wynik1 = mnozenie_macierzy(macierz, macierz_odwrotna)
+wynik2 = mnozenie_macierzy(macierz_odwrotna, macierz)
 
-# print("Wynik mnożenia A * A^-1:")
-# for wiersz in wynik1:
-#     print(wiersz)
+print("Wynik mnożenia A * A^-1:")
+for wiersz in wynik1:
+    print(wiersz)
 
-# print("Wynik mnożenia A^-1 * A:")
-# for wiersz in wynik2:
-#     print(wiersz)
+print("Wynik mnożenia A^-1 * A:")
+for wiersz in wynik2:
+    print(wiersz)
