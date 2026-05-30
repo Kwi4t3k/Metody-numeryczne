@@ -1,0 +1,43 @@
+## 01 - Dokładność
+- Metody numeryczne - definicja
+- Cel metod numerycznych
+- problemy
+- Zastosowania metod numerycznych
+- Dokładność
+- Zbieżność iteracji
+- Dyskretyzacja
+- Model
+- Model matematyczny (problem)
+- Miary błędu: bezwzględny, względny, cyfry znaczące
+- Liczby maszynowe: float/double, IEEE 754, epsilon
+- Porównywanie liczb, Inf/NaN, utrata cyfr znaczących
+- Wpływ kolejności działań: gubienie składnika, sumowanie, Kahan
+- Uwarunkowanie i stabilność algorytmów (przykład a <sup>2</sup> − b <sup>2</sup> )
+- Źródła błędów w obliczeniach numerycznych (Błędy zaokrągleń)
+- Typy całkowite (liczba = znak * suma wybranych potęg liczby 2)
+- Reprezentacja liczby całkowitej i operacje
+- Typy zmiennopozycyjne
+- Reprezentacja liczby zmiennopozycyjnej w komputerze
+- float vs double w praktyce
+- Standard IEEE 754
+- Reprezentacja zmiennopozycyjna i błąd względny
+- Maszynowy epsilon
+- Model arytmetyki zmiennopozycyjnej
+- Porównywanie liczb: tolerancja absolutna i względna
+- Dlaczego 0.1 + 0.2 ̸= 0.3?
+- Gubienie małego składnika
+- Inf / NaN / overflow / underflow
+- Utrata cyfr znaczących
+- Stabilność i niestabilność numeryczna
+- Stabilność algorytmu
+- Uwarunkowanie zadania numerycznego
+- Liczba uwarunkowania (wersja względna)
+- Źle uwarunkowany problem:
+- Przykłady liczby uwarunkowania
+- Uwarunkowanie vs stabilność / Relacja między pojęciami
+- Problem sumowania
+- Klasyczne sumowanie
+- Algorytm Gilla–Møllera
+- Algorytm Kahana
+- Jakie czynniki możemy badać przy sumowaniu?
+- 
