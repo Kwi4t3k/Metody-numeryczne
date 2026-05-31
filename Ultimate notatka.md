@@ -10386,3 +10386,4 @@ $$
 
 ---
 
+# Wykład 5: Równania nieliniowe (lab 7)

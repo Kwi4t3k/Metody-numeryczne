@@ -109,3 +109,6 @@
 - Interpretacja warunku ∥W ∥ < 1
 - Zbieżność vs uwarunkowanie
 - Jak sprawdzić układ równań?
+
+## 05 - Równania nieliniowe
+- 

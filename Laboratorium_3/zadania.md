@@ -1,40 +1,40 @@
 **Zadanie 1.** Napisz program, który obliczy normę: euklidesową, Manhattan, maximum dla $n$-wymiarowego wektora.
 
 ```python
-import math
+import math  # importujemy moduł math, ponieważ używamy funkcji math.sqrt()
 
-def normy_wektora(wektor):
+def normy_wektora(wektor):  # funkcja liczy trzy normy wektora: euklidesową, Manhattan i maksimum
 
-    # norma euklidesowa
-    suma_kwadratow = 0
-    for x in wektor:
-        suma_kwadratow += x**2
-    norma_euklidesowa = math.sqrt(suma_kwadratow)
+    # norma euklidesowa  # norma euklidesowa to pierwiastek z sumy kwadratów elementów wektora
+    suma_kwadratow = 0  # tworzymy zmienną, w której będziemy przechowywać sumę kwadratów
+    for x in wektor:  # przechodzimy po każdym elemencie wektora
+        suma_kwadratow += x**2  # dodajemy kwadrat aktualnego elementu do sumy
+    norma_euklidesowa = math.sqrt(suma_kwadratow)  # obliczamy pierwiastek z sumy kwadratów
 
-    # norma Manhattan
-    norma_manhattan = 0
-    for x in wektor:
-        norma_manhattan += abs(x)
+    # norma Manhattan  # norma Manhattan to suma wartości bezwzględnych elementów wektora
+    norma_manhattan = 0  # tworzymy zmienną, w której będziemy przechowywać sumę wartości bezwzględnych
+    for x in wektor:  # przechodzimy po każdym elemencie wektora
+        norma_manhattan += abs(x)  # dodajemy wartość bezwzględną aktualnego elementu
 
-    # norma maximum
-    # norma_max = max(abs(x) for x in wektor)
-    norma_max = 0
+    # norma maximum  # norma maksimum to największa wartość bezwzględna elementu wektora
+    # norma_max = max(abs(x) for x in wektor)  # krótsza wersja z użyciem funkcji max(), ale tutaj jej nie używamy
+    norma_max = 0  # tworzymy zmienną przechowującą największą znalezioną wartość bezwzględną
 
-    for x in wektor:
-        wartosc_bezwzgledna = abs(x)
+    for x in wektor:  # przechodzimy po każdym elemencie wektora
+        wartosc_bezwzgledna = abs(x)  # liczymy wartość bezwzględną aktualnego elementu
 
-        if wartosc_bezwzgledna > norma_max:
-            norma_max = wartosc_bezwzgledna
+        if wartosc_bezwzgledna > norma_max:  # sprawdzamy, czy aktualna wartość bezwzględna jest większa od dotychczasowego maksimum
+            norma_max = wartosc_bezwzgledna  # jeśli tak, aktualizujemy maksimum
 
-    return norma_euklidesowa, norma_manhattan, norma_max
+    return norma_euklidesowa, norma_manhattan, norma_max  # zwracamy trzy obliczone normy
 
-wektor = [3, 4, 5]
+wektor = [3, 4, 5]  # tworzymy przykładowy wektor
 
-euklidesowa, manhattan, maksimum = normy_wektora(wektor)
+euklidesowa, manhattan, maksimum = normy_wektora(wektor)  # wywołujemy funkcję i zapisujemy trzy wyniki do osobnych zmiennych
 
-print("Norma euklidesowa:", euklidesowa)
-print("Norma Manhattan:", manhattan)
-print("Norma maximum:", maksimum)
+print("Norma euklidesowa:", euklidesowa)  # wypisujemy normę euklidesową
+print("Norma Manhattan:", manhattan)  # wypisujemy normę Manhattan
+print("Norma maximum:", maksimum)  # wypisujemy normę maksimum
 ```
 ![Normy wektorowe](zdjecia/normy_wektorowe.png)
 ## 1. Norma euklidesowa
@@ -157,42 +157,42 @@ $$
 
 
 ```python
-import math
+import math  # importujemy moduł math, ponieważ używamy pierwiastka math.sqrt() i potęgowania math.pow()
 
-def odleglosci(P, Q):
-    p1, p2 = P
-    q1, q2 = Q
+def odleglosci(P, Q):  # funkcja liczy różne odległości między punktami P i Q
+    p1, p2 = P  # rozpakowujemy współrzędne punktu P, czyli P = (p1, p2)
+    q1, q2 = Q  # rozpakowujemy współrzędne punktu Q, czyli Q = (q1, q2)
 
-    # metryka euklidesowa
-    euklidesowa = math.sqrt(math.pow((q1 - p1), 2) + math.pow((q2 - p2), 2))
+    # metryka euklidesowa  # zwykła odległość między punktami w linii prostej
+    euklidesowa = math.sqrt(math.pow((q1 - p1), 2) + math.pow((q2 - p2), 2))  # liczymy pierwiastek z sumy kwadratów różnic współrzędnych
 
-    #matryka Manhattan
-    manhattan = abs(p1 - q1) + abs(p2 - q2)
+    #matryka Manhattan  # odległość liczona jak poruszanie się po kratce, czyli poziomo i pionowo
+    manhattan = abs(p1 - q1) + abs(p2 - q2)  # dodajemy wartości bezwzględne różnic współrzędnych
 
-    #metryka rzeka
-    if p1 == q1:
-        rzeka = abs(p2 - q2)
-    else:
-        rzeka = abs(p1 - q1) + abs(p2) + abs(q2)
+    #metryka rzeka  # odległość w metryce rzeka
+    if p1 == q1:  # sprawdzamy, czy punkty leżą na tej samej pionowej prostej
+        rzeka = abs(p2 - q2)  # jeśli tak, odległość to tylko różnica drugich współrzędnych
+    else:  # jeśli punkty nie leżą na tej samej pionowej prostej
+        rzeka = abs(p1 - q1) + abs(p2) + abs(q2)  # liczymy drogę przez rzekę, czyli dojście do osi, przejście wzdłuż osi i odejście od osi
 
-    # metryka kolejowa
-    det = p1 * q2 - p2 * q1
-    if det == 0:
-        kolejowa = math.sqrt(math.pow((q1 - p1), 2) + math.pow((q2 - p2), 2))
-    else:
-        kolejowa = math.sqrt(math.pow((0 - p1), 2) + math.pow((0 - p2), 2)) + math.sqrt(math.pow((0 - q1), 2) + math.pow((0 - q2), 2))
+    # metryka kolejowa  # odległość w metryce kolejowej, gdzie centrum jest punktem (0, 0)
+    det = p1 * q2 - p2 * q1  # liczymy wyznacznik, który sprawdza, czy punkty i początek układu są współliniowe
+    if det == 0:  # jeśli wyznacznik jest równy 0, punkty leżą na jednej prostej przechodzącej przez początek układu
+        kolejowa = math.sqrt(math.pow((q1 - p1), 2) + math.pow((q2 - p2), 2))  # wtedy odległość kolejowa jest taka sama jak euklidesowa między P i Q
+    else:  # jeśli punkty nie leżą na jednej prostej z początkiem układu
+        kolejowa = math.sqrt(math.pow((0 - p1), 2) + math.pow((0 - p2), 2)) + math.sqrt(math.pow((0 - q1), 2) + math.pow((0 - q2), 2))  # liczymy drogę z P do centrum i z centrum do Q
 
-    return euklidesowa, manhattan, rzeka, kolejowa
+    return euklidesowa, manhattan, rzeka, kolejowa  # zwracamy wszystkie obliczone odległości
 
-punktP = (2, 3)
-punktQ = (5, 7)
+punktP = (2, 3)  # tworzymy punkt P o współrzędnych (2, 3)
+punktQ = (5, 7)  # tworzymy punkt Q o współrzędnych (5, 7)
 
-euklidesowa, manhattan, rzeka, kolejowa = odleglosci(punktP, punktQ)
+euklidesowa, manhattan, rzeka, kolejowa = odleglosci(punktP, punktQ)  # wywołujemy funkcję i zapisujemy wyniki do osobnych zmiennych
 
-print("Norma euklidesowa:", euklidesowa)
-print("Norma Manhattan:", manhattan)
-print("Norma rzeka:", rzeka)
-print("Norma kolejowa/centrum:", kolejowa)
+print("Norma euklidesowa:", euklidesowa)  # wypisujemy odległość euklidesową
+print("Norma Manhattan:", manhattan)  # wypisujemy odległość Manhattan
+print("Norma rzeka:", rzeka)  # wypisujemy odległość w metryce rzeka
+print("Norma kolejowa/centrum:", kolejowa)  # wypisujemy odległość w metryce kolejowej
 ```
 
 ![Odległości w R2(metryki)](zdjecia/odleglosci_w_R2.png)
@@ -502,45 +502,45 @@ $$
 **Zadanie 3.** Napisz program, który obliczy normę: Frobeniusa, Manhattan, maximum dla $n \times m$-wymiarowej macierzy.
 
 ```python
-import math
+import math  # importujemy moduł math, ponieważ używamy math.pow() i math.sqrt()
 
-def normy_macierzy(macierz):
-    wiersze = len(macierz)
-    kolumny = len(macierz[0])
+def normy_macierzy(macierz):  # funkcja liczy trzy normy macierzy: Frobeniusa, Manhattan i maksimum
+    wiersze = len(macierz)  # zapisujemy liczbę wierszy macierzy
+    kolumny = len(macierz[0])  # zapisujemy liczbę kolumn macierzy, czyli długość pierwszego wiersza
 
-    # norma Frobeniusa
-    suma_kwadratow = 0
-    for i in range(wiersze):
-        for j in range(kolumny):
-            suma_kwadratow += math.pow(macierz[i][j], 2)
-    Frobeniusa = math.sqrt(suma_kwadratow)
+    # norma Frobeniusa  # pierwiastek z sumy kwadratów wszystkich elementów macierzy
+    suma_kwadratow = 0  # tworzymy zmienną, w której będziemy przechowywać sumę kwadratów elementów
+    for i in range(wiersze):  # przechodzimy po indeksach wierszy
+        for j in range(kolumny):  # przechodzimy po indeksach kolumn
+            suma_kwadratow += math.pow(macierz[i][j], 2)  # dodajemy kwadrat aktualnego elementu macierzy
+    Frobeniusa = math.sqrt(suma_kwadratow)  # obliczamy pierwiastek z sumy kwadratów
 
-    # norma Manhattan
-    suma_modulow = 0
-    for i in range(wiersze):
-        for j in range(kolumny):
-            suma_modulow += abs(macierz[i][j])
-    Manhattan = suma_modulow
+    # norma Manhattan  # suma wartości bezwzględnych wszystkich elementów macierzy
+    suma_modulow = 0  # tworzymy zmienną, w której będziemy przechowywać sumę modułów
+    for i in range(wiersze):  # przechodzimy po indeksach wierszy
+        for j in range(kolumny):  # przechodzimy po indeksach kolumn
+            suma_modulow += abs(macierz[i][j])  # dodajemy wartość bezwzględną aktualnego elementu
+    Manhattan = suma_modulow  # zapisujemy sumę modułów jako normę Manhattan
 
-    # norma maksimum
-    maksimum = 0
-    for i in range(wiersze):
-        for j in range(kolumny):
-            if abs(macierz[i][j]) > maksimum:
-                maksimum = abs(macierz[i][j])
+    # norma maksimum  # największa wartość bezwzględna spośród elementów macierzy
+    maksimum = 0  # tworzymy zmienną przechowującą największą znalezioną wartość bezwzględną
+    for i in range(wiersze):  # przechodzimy po indeksach wierszy
+        for j in range(kolumny):  # przechodzimy po indeksach kolumn
+            if abs(macierz[i][j]) > maksimum:  # sprawdzamy, czy aktualny moduł elementu jest większy niż dotychczasowe maksimum
+                maksimum = abs(macierz[i][j])  # jeśli tak, aktualizujemy maksimum
 
-    return Frobeniusa, Manhattan, maksimum
+    return Frobeniusa, Manhattan, maksimum  # zwracamy trzy obliczone normy
 
-macierz = [
-    [1, -2, 3],
-    [4, 5, -6]
-]
+macierz = [  # tworzymy przykładową macierz
+    [1, -2, 3],  # pierwszy wiersz macierzy
+    [4, 5, -6]  # drugi wiersz macierzy
+]  # koniec definicji macierzy
 
-Frobeniusa, Manhattan, maksimum = normy_macierzy(macierz)
+Frobeniusa, Manhattan, maksimum = normy_macierzy(macierz)  # wywołujemy funkcję i zapisujemy wyniki do osobnych zmiennych
 
-print("Norma Frobeniusa:", Frobeniusa)
-print("Norma Manhattan:", Manhattan)
-print("Norma maksimum:", maksimum)
+print("Norma Frobeniusa:", Frobeniusa)  # wypisujemy normę Frobeniusa
+print("Norma Manhattan:", Manhattan)  # wypisujemy normę Manhattan
+print("Norma maksimum:", maksimum)  # wypisujemy normę maksimum
 ```
 
 ![normy macierzy](zdjecia/normy_macierzy.png)
@@ -720,42 +720,42 @@ Podwójna suma znaczy:
 **Zadanie 4.** Napisz program, który wykona mnożenie dwóch macierzy. Kiedy działanie takie nie może zostać przeprowadzone? Sprawdź czy mnożenie macierzy jest przemienne lub łączne?
 
 ```python
-def mnozenie_macierzy(macierz1, macierz2):
-    ilosc_wierszy_macierz1 = len(macierz1)
-    ilosc_wierszy_macierz2 = len(macierz2)
-    ilosc_kolumn_macierz1 = len(macierz1[0])
-    ilosc_kolumn_macierz2 = len(macierz2[0])
+def mnozenie_macierzy(macierz1, macierz2):  # funkcja mnoży dwie macierze
+    ilosc_wierszy_macierz1 = len(macierz1)  # zapisujemy liczbę wierszy pierwszej macierzy
+    ilosc_wierszy_macierz2 = len(macierz2)  # zapisujemy liczbę wierszy drugiej macierzy
+    ilosc_kolumn_macierz1 = len(macierz1[0])  # zapisujemy liczbę kolumn pierwszej macierzy
+    ilosc_kolumn_macierz2 = len(macierz2[0])  # zapisujemy liczbę kolumn drugiej macierzy
 
-    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
-        raise ValueError("Nie da się pomnożyć tych macierzy")
+    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:  # sprawdzamy, czy liczba kolumn pierwszej macierzy jest równa liczbie wierszy drugiej macierzy
+        raise ValueError("Nie da się pomnożyć tych macierzy")  # jeśli warunek nie jest spełniony, zgłaszamy błąd
     
-    wynik = []
-    for i in range(ilosc_wierszy_macierz1):
-        wiersz = []
-        for j in range(ilosc_kolumn_macierz2):
-            suma = 0
-            for k in range(ilosc_kolumn_macierz1):
-                suma += macierz1[i][k] * macierz2[k][j]
-            wiersz.append(suma)
-        wynik.append(wiersz)
+    wynik = []  # tworzymy pustą listę na macierz wynikową
+    for i in range(ilosc_wierszy_macierz1):  # przechodzimy po wierszach pierwszej macierzy
+        wiersz = []  # tworzymy pusty wiersz wyniku
+        for j in range(ilosc_kolumn_macierz2):  # przechodzimy po kolumnach drugiej macierzy
+            suma = 0  # zerujemy sumę dla jednego elementu macierzy wynikowej
+            for k in range(ilosc_kolumn_macierz1):  # przechodzimy po elementach wiersza pierwszej macierzy i kolumny drugiej macierzy
+                suma += macierz1[i][k] * macierz2[k][j]  # mnożymy odpowiednie elementy i dodajemy je do sumy
+            wiersz.append(suma)  # dodajemy obliczony element do aktualnego wiersza
+        wynik.append(wiersz)  # dodajemy gotowy wiersz do macierzy wynikowej
 
-    return wynik
+    return wynik  # zwracamy macierz wynikową
 
-macierz1 = [
-    [1, 2],
-    [3, 4]
-]
+macierz1 = [  # tworzymy pierwszą macierz
+    [1, 2],  # pierwszy wiersz pierwszej macierzy
+    [3, 4]  # drugi wiersz pierwszej macierzy
+]  # koniec pierwszej macierzy
 
-macierz2 = [
-    [5, 6],
-    [7, 8]
-]
+macierz2 = [  # tworzymy drugą macierz
+    [5, 6],  # pierwszy wiersz drugiej macierzy
+    [7, 8]  # drugi wiersz drugiej macierzy
+]  # koniec drugiej macierzy
 
-wynik = mnozenie_macierzy(macierz1, macierz2)
+wynik = mnozenie_macierzy(macierz1, macierz2)  # wywołujemy funkcję mnożenia i zapisujemy wynik
 
-print("Wynik mnożenia:")
-for wiersz in wynik:
-    print(wiersz)
+print("Wynik mnożenia:")  # wypisujemy tekst informacyjny
+for wiersz in wynik:  # przechodzimy po kolejnych wierszach wyniku
+    print(wiersz)  # wypisujemy aktualny wiersz
 ```
 
 # Mnożenie macierzy – notatka
