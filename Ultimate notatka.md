@@ -8307,20 +8307,6 @@ W wykładzie podano następujące przykłady metod iteracyjnych:
 - metoda gradientów sprzężonych dla macierzy symetrycznych i dodatnio określonych.
     
 
-### Przykład w Pythonie
-
-```python
-metody = [
-    "metoda Jacobiego",
-    "metoda Gaussa-Seidla",
-    "metoda sukcesywnych nadrelaksacji SOR",
-    "metoda gradientów sprzężonych"
-]
-
-for metoda in metody:
-    print(metoda)
-```
-
 ---
 
 ## 3. Ogólny schemat metod iteracyjnych
@@ -8479,6 +8465,10 @@ Dzięki temu metoda jest łatwa do zrównoleglenia.
 x_stare = [0.0, 0.0]
 x_nowe = [0.0, 0.0]
 
+# przykład wzorów iteracyjnych:  
+# x1 = 0.5 * x2  
+# x2 = 0.4 + 0.2 * x1
+
 x_nowe[0] = 0.5 * x_stare[1]
 x_nowe[1] = 0.4 + 0.2 * x_stare[0]
 
@@ -8516,9 +8506,9 @@ Macierz `D` zawiera tylko elementy z głównej przekątnej:
 $$  
 D =  
 \begin{bmatrix}  
-a_{1,1} & 0 & \dots & 0 \  
-0 & a_{2,2} & \dots & 0 \  
-\vdots & \vdots & \ddots & \vdots \  
+a_{1,1} & 0 & \dots & 0 \\  
+0 & a_{2,2} & \dots & 0 \\  
+\vdots & \vdots & \ddots & \vdots \\  
 0 & 0 & \dots & a_{n,n}  
 \end{bmatrix}  
 $$
@@ -8528,9 +8518,9 @@ Macierz `R` zawiera pozostałe elementy macierzy `A`:
 $$  
 R =  
 \begin{bmatrix}  
-0 & a_{1,2} & \dots & a_{1,n} \  
-a_{2,1} & 0 & \dots & a_{2,n} \  
-\vdots & \vdots & \ddots & \vdots \  
+0 & a_{1,2} & \dots & a_{1,n} \\  
+a_{2,1} & 0 & \dots & a_{2,n} \\  
+\vdots & \vdots & \ddots & \vdots \\  
 a_{n,1} & a_{n,2} & \dots & 0  
 \end{bmatrix}  
 $$
@@ -8542,7 +8532,7 @@ Dla macierzy:
 $$  
 A =  
 \begin{bmatrix}  
-4 & -2 \  
+4 & -2 \\  
 -2 & 5  
 \end{bmatrix}  
 $$
@@ -8552,7 +8542,7 @@ mamy:
 $$  
 D =  
 \begin{bmatrix}  
-4 & 0 \  
+4 & 0 \\  
 0 & 5  
 \end{bmatrix}  
 $$
@@ -8562,7 +8552,7 @@ oraz:
 $$  
 R =  
 \begin{bmatrix}  
-0 & -2 \  
+0 & -2 \\  
 -2 & 0  
 \end{bmatrix}  
 $$
@@ -8713,6 +8703,121 @@ W = [[0.0, 0.5], [0.4, 0.0]]
 Z = [0.0, 0.4]
 ```
 
+Dla przykładu:
+
+```python
+A = [
+    [4.0, -2.0],
+    [-2.0, 5.0]
+]
+
+b = [0.0, 2.0]
+```
+
+układ równań to:
+
+$$  
+4x_1 - 2x_2 = 0  
+$$
+
+$$  
+-2x_1 + 5x_2 = 2  
+$$
+
+Przekształcamy każde równanie tak, żeby po lewej zostało jedno `x`.
+
+Z pierwszego równania:
+
+$$  
+4x_1 = 2x_2  
+$$
+
+$$  
+x_1 = 0.5x_2  
+$$
+
+Z drugiego równania:
+
+$$  
+5x_2 = 2 + 2x_1  
+$$
+
+$$  
+x_2 = 0.4 + 0.4x_1  
+$$
+
+Czyli:
+
+$$  
+x_1 = 0 \cdot x_1 + 0.5x_2 + 0  
+$$
+
+$$  
+x_2 = 0.4x_1 + 0 \cdot x_2 + 0.4  
+$$
+
+Stąd:
+
+$$  
+W =  
+\begin{bmatrix}  
+0 & 0.5 \\  
+0.4 & 0  
+\end{bmatrix}  
+$$
+
+oraz:
+
+$$  
+Z =  
+\begin{bmatrix}  
+0 \\  
+0.4  
+\end{bmatrix}  
+$$
+
+Twój kod właśnie to liczy:
+
+```python
+wiersz_W.append(-A[i][j] / A[i][i])
+```
+
+bo dla elementów poza przekątną mamy:
+
+$$  
+w_{ij} = -\frac{a_{ij}}{a_{ii}}  
+$$
+
+a dla `Z`:
+
+```python
+Z.append(b[i] / A[i][i])
+```
+
+czyli:
+
+$$  
+z_i = \frac{b_i}{a_{ii}}  
+$$
+
+Transpozycja byłaby potrzebna tylko wtedy, gdyby chcieć zapisywać wektor `x` jako **wektor wierszowy** i mnożyć z innej strony. Ale w metodach numerycznych standardowo przyjmuje się, że:
+
+$$  
+x =  
+\begin{bmatrix}  
+x_1 \\  
+x_2  
+\end{bmatrix}  
+$$
+
+czyli jest to wektor kolumnowy. Dlatego zapis:
+
+$$  
+x^{(k+1)} = Wx^{(k)} + Z  
+$$
+
+jest poprawny bez transponowania.
+
 ---
 
 ## 5.4. Odwrotność macierzy diagonalnej
@@ -8724,9 +8829,9 @@ Jeżeli:
 $$  
 D =  
 \begin{bmatrix}  
-a_{1,1} & 0 & \dots & 0 \  
-0 & a_{2,2} & \dots & 0 \  
-\vdots & \vdots & \ddots & \vdots \  
+a_{1,1} & 0 & \dots & 0 \\  
+0 & a_{2,2} & \dots & 0 \\  
+\vdots & \vdots & \ddots & \vdots \\  
 0 & 0 & \dots & a_{n,n}  
 \end{bmatrix}  
 $$
@@ -8736,9 +8841,9 @@ to:
 $$  
 D^{-1} =  
 \begin{bmatrix}  
-\frac{1}{a_{1,1}} & 0 & \dots & 0 \  
-0 & \frac{1}{a_{2,2}} & \dots & 0 \  
-\vdots & \vdots & \ddots & \vdots \  
+\frac{1}{a_{1,1}} & 0 & \dots & 0 \\  
+0 & \frac{1}{a_{2,2}} & \dots & 0 \\  
+\vdots & \vdots & \ddots & \vdots \\  
 0 & 0 & \dots & \frac{1}{a_{n,n}}  
 \end{bmatrix}  
 $$

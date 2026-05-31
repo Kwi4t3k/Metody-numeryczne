@@ -36,19 +36,19 @@
             }
           },
           {
-            "id": "42b3d9dab25b6db4",
+            "id": "178b9b1b77876105",
             "type": "leaf",
             "state": {
               "type": "pdf",
               "state": {
-                "file": "Laboratorium_4/zadania lab 4.pdf"
+                "file": "Laboratorium_5/zadania lab 5.pdf"
               },
               "icon": "lucide-file-text",
-              "title": "zadania lab 4"
+              "title": "zadania lab 5"
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -210,11 +210,12 @@
       "bases:Stwórz nową bazę danych": false
     }
   },
-  "active": "42b3d9dab25b6db4",
+  "active": "2f319080ca259538",
   "lastOpenFiles": [
-    "Ultimate notatka.md",
-    "Laboratorium_4/zadania lab 4.pdf",
     "Spis wykładów.md",
+    "Ultimate notatka.md",
+    "Laboratorium_5/zadania lab 5.pdf",
+    "Laboratorium_4/zadania lab 4.pdf",
     "Laboratorium_3/zadania_lab3.pdf",
     "Laboratorium_3/zadania.md",
     "Laboratorium_2/Zadania_lab2.pdf",
@@ -228,7 +229,6 @@
     "Laboratorium_10/zadania_lab_10.md",
     "Laboratorium_10/zadania_lab_10.pdf",
     "Laboratorium_9/zadania_lab_9.md",
-    "Laboratorium_9/zadania_lab_9.pdf",
     "Laboratorium_8/zadania_lab_8.md",
     "Laboratorium_7/zadania_lab_7.md",
     "Laboratorium_6/zadania_lab_6.md",

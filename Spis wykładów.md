@@ -87,4 +87,11 @@
 - Metoda Doolittle’a
 - Metoda Crouta
 - Rozkład Cholesky’ego (Banachiewicza)
+
+## 04 - Układy równań liniowych II - metody iteracyjne (lab 5)
+- Ogólny schemat metod iteracyjnych
+- Metoda Jacobiego
+- Przekształcenie układu do postaci iteracyjnej
+- Odwrotność macierzy diagonalnej D
+- Wyznaczenie wartości macierzy W
 - 
