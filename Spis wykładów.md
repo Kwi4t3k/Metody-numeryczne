@@ -88,10 +88,24 @@
 - Metoda Crouta
 - Rozkład Cholesky’ego (Banachiewicza)
 
-## 04 - Układy równań liniowych II - metody iteracyjne (lab 5)
+## 04 - Układy równań liniowych II - metody iteracyjne (lab 5, 6)
 - Ogólny schemat metod iteracyjnych
 - Metoda Jacobiego
 - Przekształcenie układu do postaci iteracyjnej
 - Odwrotność macierzy diagonalnej D
 - Wyznaczenie wartości macierzy W
-- 
+- Wyznaczenie wartości wektora Z
+- Zapis dla poszczególnych niewiadomych
+- Metoda Jacobiego – idea algorytmu
+- Metoda Jacobiego – algorytm (koncepcyjnie)
+- Warunek stopu
+- Metoda Gaussa-Seidla
+- Metoda Gaussa-Seidla - przedstawienie w zapisie macierzowym
+- Kryterium zakończenia obliczeń
+- Jacobi vs Gauss–Seidel
+- Warunek zbieżności
+- Badanie zbieżności - liczenie norm macierzy W - przypomnienie
+- Sprawdzanie zbieżności (algorytm)
+- Interpretacja warunku ∥W ∥ < 1
+- Zbieżność vs uwarunkowanie
+- Jak sprawdzić układ równań?

@@ -6490,25 +6490,6 @@ Do metod bezpośrednich należą między innymi:
 - metoda Cholesky’ego.
     
 
-### Przykład w Pythonie
-
-```python
-metody_bezposrednie = [
-    "macierz odwrotna",
-    "wzory Cramera",
-    "macierz trójkątna",
-    "eliminacja Gaussa",
-    "rozkład LU",
-    "Gauss-Jordan",
-    "Doolittle",
-    "Crout",
-    "Cholesky"
-]
-
-for metoda in metody_bezposrednie:
-    print(metoda)
-```
-
 ---
 
 ## 7.2. Metody iteracyjne
@@ -6534,19 +6515,6 @@ Do metod iteracyjnych należą między innymi:
     
 - metoda Czebyszewa.
     
-
-### Przykład w Pythonie
-
-```python
-metody_iteracyjne = [
-    "Jacobi",
-    "Gauss-Seidel",
-    "Czebyszew"
-]
-
-for metoda in metody_iteracyjne:
-    print(metoda)
-```
 
 ---
 
@@ -8978,15 +8946,17 @@ print(Z)
 
 W praktyce często używa się wzoru:
 
-# $$  
+$$  
 x_i^{(k)}
 
-## \frac{1}{a_{i,i}}  
+=
+
+\frac{1}{a_{ii}}  
 \left(  
 b_i
 
 \sum_{\substack{j=1 \ j \neq i}}^{n}  
-a_{i,j}x_j^{(k-1)}  
+a_{ij}x_j^{(k-1)}  
 \right)  
 $$
 
@@ -9164,9 +9134,9 @@ Rozwiązanie dokładne wynosi:
 $$  
 x =  
 \begin{bmatrix}  
-0.5 \  
-1 \  
-2 \  
+0.5 \\  
+1 \\  
+2 \\  
 -2  
 \end{bmatrix}  
 $$
@@ -9200,9 +9170,9 @@ Macierz iteracji i wektor `Z`:
 $$  
 W =  
 \begin{bmatrix}  
-0 & \frac{2}{4} & 0 & 0 \  
-\frac{2}{5} & 0 & \frac{1}{5} & 0 \  
-0 & \frac{1}{4} & 0 & -\frac{2}{4} \  
+0 & \frac{2}{4} & 0 & 0 \\  
+\frac{2}{5} & 0 & \frac{1}{5} & 0 \\  
+0 & \frac{1}{4} & 0 & -\frac{2}{4} \\  
 0 & 0 & -\frac{2}{3} & 0  
 \end{bmatrix}  
 $$
@@ -9457,14 +9427,14 @@ print(x)
 
 Ogólny wzór metody Gaussa-Seidla:
 
-# $$  
+$$  
 x_i^{(k)}
-
-## \frac{1}{a_{i,i}}  
+=
+\frac{1}{a_{i,i}}  
 \left(  
 b_i
 
-## \sum_{j=1}^{i-1} a_{i,j}x_j^{(k)}
+\sum_{j=1}^{i-1} a_{i,j}x_j^{(k)}
 
 \sum_{j=i+1}^{n} a_{i,j}x_j^{(k-1)}  
 \right)  
@@ -9620,7 +9590,7 @@ $$
 
 Po przekształceniu:
 
-# $$  
+$$  
 x^{(k)}
 
 -(L+D)^{-1}Ux^{(k-1)}  
@@ -9748,19 +9718,117 @@ $$
 
 zakończenie obliczeń nastąpiło po `9` iteracjach.
 
+Obliczenia iteracyjne kończymy wtedy, gdy kolejne przybliżenia różnią się już bardzo mało.
+
+Stosujemy warunek:
+
+$$
+\frac{|x^{(k)} - x^{(k-1)}|}{|x^{(k)}|} \le \varepsilon
+$$
+
+W tym przykładzie:
+
+$$
+\varepsilon = 10^{-3}
+$$
+
+Korzystamy z normy maksimum, czyli:
+
+$$
+|x|_{\max} = \max_i |x_i|
+$$
+
+Oznacza to, że bierzemy największą wartość bezwzględną spośród elementów wektora.
+
+Dla ostatnich iteracji z wykładu:
+
+$$
+\frac{|x^{(k)} - x^{(k-1)}|}{|x^{(k)}|}
+=
+\frac{1.9997 - 1.9992}{1.9997}
+\approx 0.00025
+$$
+
+Ponieważ:
+
+$$
+0.00025 \le 10^{-3}
+$$
+
+to obliczenia można zakończyć po 9 iteracjach.
+
 W wykładzie ostatnie przybliżenie z tabeli to:
 
 $$  
 x \approx  
 \begin{bmatrix}  
-0.4995 \  
-0.9996 \  
-1.9995 \  
+0.4995 \\  
+0.9996 \\  
+1.9995 \\  
 -1.9997  
 \end{bmatrix}  
 $$
 
 ### Przykład w Pythonie
+
+```python
+```python
+def norma_maksimum_wektora(x):
+    maksimum = abs(x[0])
+
+    for xi in x:
+        if abs(xi) > maksimum:
+            maksimum = abs(xi)
+
+    return maksimum
+
+
+def roznica_wektorow(x_nowe, x_stare):
+    roznica = []
+
+    for i in range(len(x_nowe)):
+        roznica.append(x_nowe[i] - x_stare[i])
+
+    return roznica
+
+
+def kryterium_stopu(x_nowe, x_stare, epsilon):
+    roznica = roznica_wektorow(x_nowe, x_stare)
+
+    licznik = norma_maksimum_wektora(roznica)
+    mianownik = norma_maksimum_wektora(x_nowe)
+
+    if mianownik == 0:
+        return False
+
+    blad = licznik / mianownik
+
+    print("Błąd względny =", blad)
+
+    return blad <= epsilon
+
+
+x_stare = [0.4994, 0.9994, 1.9992, -1.9995]
+x_nowe = [0.4995, 0.9996, 1.9995, -1.9997]
+
+epsilon = 10**(-3)
+
+if kryterium_stopu(x_nowe, x_stare, epsilon):
+    print("Kończymy obliczenia")
+else:
+    print("Wykonujemy kolejną iterację")
+```
+
+Wynik będzie w stylu:
+
+```text
+Błąd względny = 0.00015002250337550562
+Kończymy obliczenia
+```
+
+**Inny przykład**
+
+```
 
 ```python
 x = [0.0, 0.0, 0.0, 0.0]
@@ -9826,17 +9894,6 @@ licz i od razu poprawiaj
 ### Wniosek
 
 Metoda Gaussa-Seidla zwykle zbiega szybciej, ale metoda Jacobiego łatwiej się zrównolegla.
-
-### Przykład w Pythonie
-
-```python
-metoda = "Gauss-Seidel"
-
-if metoda == "Jacobi":
-    print("Używamy tylko starych wartości i aktualizujemy jednocześnie")
-elif metoda == "Gauss-Seidel":
-    print("Używamy nowych i starych wartości oraz aktualizujemy sekwencyjnie")
-```
 
 ---
 
@@ -10041,11 +10098,11 @@ można wykonać następujące kroki:
 1. Wyznacz macierz iteracji `W`:
     
 
-# $$  
+$$  
 w_{i,j}
-
+=
 \begin{cases}  
-0, & i = j \  
+0, & i = j \\  
 -\frac{a_{i,j}}{a_{i,i}}, & i \neq j  
 \end{cases}  
 $$
@@ -10242,10 +10299,10 @@ $$
 
 W metodzie Jacobiego każdą nową wartość liczymy tylko ze starych wartości:
 
-# $$  
+$$  
 x_i^{(k)}
-
-## \frac{1}{a_{i,i}}  
+=
+\frac{1}{a_{i,i}}  
 \left(  
 b_i
 
@@ -10260,14 +10317,14 @@ $$
 
 W metodzie Gaussa-Seidla korzystamy z nowych i starych wartości:
 
-# $$  
+$$  
 x_i^{(k)}
-
-## \frac{1}{a_{i,i}}  
+=
+\frac{1}{a_{i,i}}  
 \left(  
 b_i
 
-## \sum_{j=1}^{i-1} a_{i,j}x_j^{(k)}
+\sum_{j=1}^{i-1} a_{i,j}x_j^{(k)}
 
 \sum_{j=i+1}^{n} a_{i,j}x_j^{(k-1)}  
 \right)  
@@ -10329,32 +10386,3 @@ $$
 
 ---
 
-# 18. Krótkie podsumowanie
-
-Wykład 4 dotyczył iteracyjnych metod rozwiązywania układów równań liniowych.
-
-Najważniejsze wnioski:
-
-1. Metody iteracyjne są dobre dla dużych i rzadkich układów.
-    
-2. Zaczynamy od przybliżenia początkowego.
-    
-3. Układ przekształca się do postaci `x = Wx + Z`.
-    
-4. Kolejne iteracje liczy się ze wzoru `x^(k) = Wx^(k-1) + Z`.
-    
-5. Metoda Jacobiego używa tylko starych wartości.
-    
-6. Metoda Gaussa-Seidla używa najnowszych dostępnych wartości.
-    
-7. Gauss-Seidel zwykle zbiega szybciej.
-    
-8. Jacobi łatwiej się zrównolegla.
-    
-9. Warunek stopu sprawdza, czy kolejne przybliżenia niewiele się różnią.
-    
-10. Warunek `||W|| < 1` pomaga ocenić zbieżność.
-    
-11. Zbieżność mówi, czy algorytm działa.
-    
-12. Uwarunkowanie mówi, czy wynik jest wiarygodny.
