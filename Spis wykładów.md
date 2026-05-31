@@ -111,4 +111,15 @@
 - Jak sprawdzić układ równań?
 
 ## 05 - Równania nieliniowe
+- Charakterystyka równań nieliniowych
+- Podstawowe metody rozwiązywania równań nieliniowych (bisekcji, Newtona (stycznych), siecznych)
+- Ważne twierdzenia (Darboux, Bolzano-Cauchy’ego, Przedział izolacji pierwiastka)
+- Funkcja signum
+- Pochodne funkcji (Charakterystyka pierwszej pochodnej, Charakterystyka drugiej pochodnej)
+- Metoda bisekcji (Obliczanie kolejnych przybliżeń, Zmniejszanie przedziału izolacji i szybkość iteracji, Kryteria zakończenia, Wyznaczanie błędu metody bisekcji, Przykład metody bisekcji)
+- Metoda stycznych (Newtona) (Wybór pierwszego przybliżenia x1, Oszacowanie błędu i zbieżność metody, Warunki zakończenia obliczeń, Potencjalne problemy, Metoda stycznych - przykład)
+- Metoda siecznych (Wybór punktów startowych - modyfikacja, Metoda siecznych - przykład)
+- Metoda regula falsi (Zasada działania metody regula falsi)
+
+## 06 - Interpolacja
 - 

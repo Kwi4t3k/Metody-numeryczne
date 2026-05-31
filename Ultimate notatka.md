@@ -10387,3 +10387,4672 @@ $$
 ---
 
 # Wykład 5: Równania nieliniowe (lab 7)
+
+## 1. Wprowadzenie do równań nieliniowych
+
+**Równania nieliniowe** są podstawą wielu zagadnień naukowych i inżynierskich.
+
+Często nie da się ich rozwiązać prostym wzorem analitycznym, dlatego stosuje się metody numeryczne.
+
+Równanie nieliniowe może mieć postać:
+
+$$  
+f(x) = 0  
+$$
+
+Szukamy takiej wartości:
+
+$$  
+x^*  
+$$
+
+dla której:
+
+$$  
+f(x^*) = 0  
+$$
+
+Wartość `x*` nazywamy **miejscem zerowym funkcji** albo **pierwiastkiem równania**.
+
+### Przykład
+
+Dla funkcji:
+
+$$  
+f(x) = x^2 - 4  
+$$
+
+miejscami zerowymi są:
+
+$$  
+x = -2  
+$$
+
+oraz:
+
+$$  
+x = 2  
+$$
+
+bo:
+
+$$  
+(-2)^2 - 4 = 0  
+$$
+
+oraz:
+
+$$  
+2^2 - 4 = 0  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4
+
+
+x = 2
+
+wartosc = f(x)
+
+if wartosc == 0:
+    print("x jest miejscem zerowym")
+else:
+    print("x nie jest miejscem zerowym")
+
+print("f(x) =", wartosc)
+```
+
+---
+
+## 2. Charakterystyka równań nieliniowych
+
+Równania nieliniowe charakteryzują się tym, że zależność między zmiennymi nie jest liniowa.
+
+Oznacza to, że zmiana jednej zmiennej nie powoduje proporcjonalnej zmiany drugiej zmiennej.
+
+### Przykłady równań nieliniowych z wykładu
+
+Równanie wielomianowe:
+
+$$  
+x^3 - 6x^2 + 11x - 6 = 0  
+$$
+
+Równanie trygonometryczne:
+
+$$  
+\sin(x) + x^2 - 1 = 0  
+$$
+
+Równanie eksponencjalne:
+
+$$  
+e^x - x - 2 = 0  
+$$
+
+Równanie logarytmiczne:
+
+$$  
+\ln(x) + x^2 - 3 = 0  
+$$
+
+Równanie z funkcją specjalną:
+
+$$  
+J_0(x) + x^2 - 2 = 0  
+$$
+
+gdzie `J_0(x)` jest funkcją Bessela pierwszego rodzaju zerowego rzędu.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def f1(x):
+    return x ** 3 - 6 * x ** 2 + 11 * x - 6
+
+
+def f2(x):
+    return math.sin(x) + x ** 2 - 1
+
+
+def f3(x):
+    return math.exp(x) - x - 2
+
+
+def f4(x):
+    return math.log(x) + x ** 2 - 3
+
+
+x = 1.5
+
+print("f1(x) =", f1(x))
+print("f2(x) =", f2(x))
+print("f3(x) =", f3(x))
+print("f4(x) =", f4(x))
+```
+
+---
+
+## 3. Problemy przy rozwiązywaniu równań nieliniowych
+
+Przy rozwiązywaniu równań nieliniowych mogą pojawić się problemy:
+
+1. Dobór punktu startowego może wpływać na zbieżność metody.
+    
+2. Metoda może nie zbiegać do rozwiązania.
+    
+3. Metoda może zbiegać bardzo wolno.
+    
+4. Jeżeli funkcja ma wiele pierwiastków, metoda może dojść do różnych rozwiązań zależnie od punktu startowego.
+    
+
+### Przykład
+
+Funkcja:
+
+$$  
+f(x) = x^3 - 6x^2 + 11x - 6  
+$$
+
+ma kilka miejsc zerowych.
+
+Dla różnych punktów startowych metoda numeryczna może znaleźć różne pierwiastki.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 3 - 6 * x ** 2 + 11 * x - 6
+
+
+punkty = [0, 1, 2, 3, 4]
+
+for x in punkty:
+    print("x =", x, "f(x) =", f(x))
+```
+
+---
+
+# 4. Podstawowe metody rozwiązywania równań nieliniowych
+
+W wykładzie wymieniono następujące metody:
+
+1. **Metoda bisekcji** — metoda podziału przedziału na pół.
+    
+2. **Metoda Newtona**, czyli metoda stycznych — wykorzystuje pochodną funkcji.
+    
+3. **Metoda siecznych** — podobna do metody Newtona, ale nie wymaga liczenia pochodnej.
+    
+4. **Metoda regula falsi** — metoda fałszywej pozycji, łącząca cechy metody siecznych i metod przedziałowych.
+    
+
+---
+
+# 5. Ważne twierdzenia
+
+## 5.1. Twierdzenie Darboux
+
+Jeżeli funkcja:
+
+$$  
+f(x)  
+$$
+
+jest ciągła w przedziale domkniętym:
+
+$$  
+[a,b]  
+$$
+
+oraz `u` jest liczbą z przedziału:
+
+$$  
+[f(a), f(b)]  
+$$
+
+to istnieje takie:
+
+$$  
+c \in [a,b]  
+$$
+
+że:
+
+$$  
+u = f(c)  
+$$
+
+### Sens twierdzenia
+
+Funkcja ciągła przyjmuje wszystkie wartości pośrednie między wartościami na końcach przedziału.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2
+
+
+a = 1
+b = 3
+
+fa = f(a)
+fb = f(b)
+
+u = 4
+
+if fa <= u <= fb:
+    print("Wartość u leży między f(a) i f(b)")
+    print("Dla tej funkcji istnieje c takie, że f(c) = u")
+else:
+    print("Nie sprawdzamy tym sposobem")
+```
+
+---
+
+## 5.2. Twierdzenie Bolzano-Cauchy’ego
+
+Jeżeli funkcja:
+
+$$  
+f(x)  
+$$
+
+jest ciągła w przedziale domkniętym:
+
+$$  
+[a,b]  
+$$
+
+oraz:
+
+$$  
+f(a) \cdot f(b) < 0  
+$$
+
+to między punktami `a` i `b` znajduje się co najmniej jeden pierwiastek równania:
+
+$$  
+f(x) = 0  
+$$
+
+### Sens twierdzenia
+
+Jeżeli funkcja na końcach przedziału ma różne znaki, to gdzieś pomiędzy musi przeciąć oś `OX`.
+
+### Przykład
+
+Dla funkcji:
+
+$$  
+f(x) = x^2 - 4  
+$$
+
+na przedziale:
+
+$$  
+[1,5]  
+$$
+
+mamy:
+
+$$  
+f(1) = -3  
+$$
+
+oraz:
+
+$$  
+f(5) = 21  
+$$
+
+czyli:
+
+$$  
+f(1) \cdot f(5) < 0  
+$$
+
+więc w przedziale istnieje pierwiastek.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4
+
+
+a = 1
+b = 5
+
+fa = f(a)
+fb = f(b)
+
+if fa * fb < 0:
+    print("W przedziale istnieje co najmniej jeden pierwiastek")
+else:
+    print("Nie można stwierdzić istnienia pierwiastka tym warunkiem")
+
+print("f(a) =", fa)
+print("f(b) =", fb)
+```
+
+---
+
+## 5.3. Przedział izolacji pierwiastka
+
+Jeżeli spełnione są założenia twierdzenia Bolzano-Cauchy’ego i dodatkowo znak pochodnej jest stały w przedziale:
+
+$$  
+sgn(f'(x)) = const  
+$$
+
+dla:
+
+$$  
+x \in [a,b]  
+$$
+
+to przedział ten jest **przedziałem izolacji pierwiastka** równania:
+
+$$  
+f(x) = 0  
+$$
+
+### Sens
+
+Przedział izolacji zawiera dokładnie jeden pierwiastek.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4
+
+
+def fp(x):
+    return 2 * x
+
+
+a = 1
+b = 5
+
+fa = f(a)
+fb = f(b)
+
+# Sprawdzamy znak pochodnej w kilku punktach przedziału
+punkty = [1, 2, 3, 4, 5]
+
+znak_dodatni = True
+
+for x in punkty:
+    if fp(x) <= 0:
+        znak_dodatni = False
+
+if fa * fb < 0 and znak_dodatni:
+    print("Przedział może być przedziałem izolacji pierwiastka")
+else:
+    print("Warunki nie są spełnione")
+```
+
+---
+
+# 6. Funkcja signum
+
+Funkcja signum, oznaczana jako:
+
+$$  
+sgn(x)  
+$$
+
+jest zdefiniowana następująco:
+
+$$  
+sgn(x) =  
+\begin{cases}  
+-1, & x < 0 \\  
+0, & x = 0 \\  
+1, & x > 0  
+\end{cases}  
+$$
+
+Czyli:
+
+- zwraca `-1` dla wartości ujemnych,
+    
+- zwraca `0` dla zera,
+    
+- zwraca `1` dla wartości dodatnich.
+    
+
+### Przykład w Pythonie
+
+```python
+def sgn(x):
+    if x < 0:
+        return -1
+    elif x == 0:
+        return 0
+    else:
+        return 1
+
+
+wartosci = [-5, 0, 3]
+
+for x in wartosci:
+    print("x =", x, "sgn(x) =", sgn(x))
+```
+
+---
+
+# 7. Pochodne funkcji
+
+## 7.1. Charakterystyka pierwszej pochodnej
+
+Pierwsza pochodna funkcji dostarcza informacji o tym, czy funkcja rośnie, czy maleje.
+
+Jeżeli:
+
+$$  
+f'(x) > 0  
+$$
+
+to funkcja rośnie w danym przedziale.
+
+Jeżeli:
+
+$$  
+f'(x) < 0  
+$$
+
+to funkcja maleje w danym przedziale.
+
+Miejsca zerowe pochodnej mogą wskazywać potencjalne punkty ekstremalne funkcji.
+
+Jeżeli funkcja najpierw rośnie, a potem maleje, to może mieć maksimum lokalne.
+
+Jeżeli funkcja najpierw maleje, a potem rośnie, to może mieć minimum lokalne.
+
+### Przykład
+
+Dla funkcji:
+
+$$  
+f(x) = x^2  
+$$
+
+pochodna wynosi:
+
+$$  
+f'(x) = 2x  
+$$
+
+Dla:
+
+$$  
+x > 0  
+$$
+
+funkcja rośnie, bo:
+
+$$  
+f'(x) > 0  
+$$
+
+Dla:
+
+$$  
+x < 0  
+$$
+
+funkcja maleje, bo:
+
+$$  
+f'(x) < 0  
+$$
+
+### Przykład w Pythonie
+
+```python
+def fp(x):
+    return 2 * x
+
+
+punkty = [-2, 0, 2]
+
+for x in punkty:
+    wartosc = fp(x)
+
+    if wartosc > 0:
+        print("x =", x, "funkcja rośnie")
+    elif wartosc < 0:
+        print("x =", x, "funkcja maleje")
+    else:
+        print("x =", x, "możliwe ekstremum")
+```
+
+---
+
+## 7.2. Charakterystyka drugiej pochodnej
+
+Druga pochodna funkcji informuje o krzywiźnie funkcji.
+
+Jeżeli:
+
+$$  
+f''(x) > 0  
+$$
+
+to funkcja jest wypukła w danym przedziale.
+
+Jeżeli:
+
+$$  
+f''(x) < 0  
+$$
+
+to funkcja jest wklęsła w danym przedziale.
+
+Punkty, w których:
+
+$$  
+f''(x) = 0  
+$$
+
+mogą oznaczać punkty przegięcia funkcji.
+
+### Przykład
+
+Dla funkcji:
+
+$$  
+f(x) = x^2  
+$$
+
+druga pochodna wynosi:
+
+$$  
+f''(x) = 2  
+$$
+
+czyli funkcja jest wypukła.
+
+### Przykład w Pythonie
+
+```python
+def fpp(x):
+    return 2
+
+
+x = 1
+wartosc = fpp(x)
+
+if wartosc > 0:
+    print("Funkcja jest wypukła")
+elif wartosc < 0:
+    print("Funkcja jest wklęsła")
+else:
+    print("Możliwy punkt przegięcia")
+```
+
+---
+
+# 8. Metoda bisekcji
+
+## 8.1. Idea metody bisekcji
+
+Metoda bisekcji służy do znajdowania pierwiastka równania:
+
+$$  
+f(x) = 0  
+$$
+
+w przedziale:
+
+$$  
+[a,b]  
+$$
+
+Metoda wymaga, aby funkcja była ciągła i zmieniała znak na końcach przedziału:
+
+$$  
+f(a) \cdot f(b) < 0  
+$$
+
+W każdej iteracji dzielimy przedział na pół i wybieramy tę połowę, w której nadal występuje zmiana znaku.
+
+### Punkt środkowy
+
+Punkt środkowy przedziału można liczyć jako:
+
+$$  
+x = \frac{a+b}{2}  
+$$
+
+ale w obliczeniach numerycznych lepiej liczyć:
+
+$$  
+x = a + \frac{b-a}{2}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 3 - 3 * x ** 2 - 2 * x + 5
+
+
+a = 1.0
+b = 2.0
+
+x = a + (b - a) / 2
+
+print("Punkt środkowy:", x)
+print("f(a) =", f(a))
+print("f(b) =", f(b))
+print("f(x) =", f(x))
+```
+
+---
+
+## 8.2. Algorytm bisekcji
+
+Kroki metody bisekcji:
+
+1. Wybierz przedział:
+    
+
+$$  
+[a,b]  
+$$
+
+2. Sprawdź, czy:
+    
+
+$$  
+f(a) \cdot f(b) < 0  
+$$
+
+3. Oblicz punkt środkowy:
+    
+
+$$  
+x = a + \frac{b-a}{2}  
+$$
+
+4. Sprawdź znak:
+    
+
+$$  
+f(x)  
+$$
+
+5. Wybierz nowy przedział, w którym funkcja zmienia znak.
+    
+6. Powtarzaj aż do spełnienia warunku stopu.
+    
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 3 - 3 * x ** 2 - 2 * x + 5
+
+
+def sgn(x):
+    if x < 0:
+        return -1
+    elif x == 0:
+        return 0
+    else:
+        return 1
+
+
+a = 1.0
+b = 2.0
+epsilon = 0.001
+
+if sgn(f(a)) == sgn(f(b)):
+    print("Brak zmiany znaku na końcach przedziału")
+else:
+    for i in range(100):
+        x = a + (b - a) / 2
+
+        if abs(b - a) < epsilon:
+            break
+
+        if sgn(f(a)) != sgn(f(x)):
+            b = x
+        else:
+            a = x
+
+    print("Przybliżony pierwiastek:", x)
+    print("Liczba iteracji:", i + 1)
+    print("f(x) =", f(x))
+```
+
+---
+
+## Obliczanie kolejnych przybliżeń w metodzie bisekcji
+
+W metodzie bisekcji rozpoczynamy od przedziału izolacji pierwiastka:
+
+$$  
+[a,b]  
+$$
+
+Zakładamy, że pierwsze dwie wartości ciągu to:
+
+$$  
+x_1 = a  
+$$
+
+oraz:
+
+$$  
+x_2 = b  
+$$
+
+Dla każdego kolejnego kroku iteracji:
+
+$$  
+i = 3,4,\dots  
+$$
+
+nową wartość:
+
+$$  
+x_i  
+$$
+
+obliczamy jako średnią dwóch wcześniejszych punktów ograniczających aktualny przedział izolacji:
+
+$$  
+x_i = \frac{x_{i-1} + x_k}{2}  
+$$
+
+gdzie:
+
+$$  
+k \in {i-3, i-2}  
+$$
+
+Wybór wartości `k` jest taki, aby spełnione były warunki:
+
+$$  
+|x_i - x_{i-1}| = |x_i - x_k|  
+$$
+
+oraz:
+
+$$  
+f(x_{i-1}) \cdot f(x_k) < 0  
+$$
+
+Drugi warunek oznacza, że wartości funkcji na końcach wybranego przedziału mają przeciwne znaki, więc w tym przedziale znajduje się pierwiastek równania:
+
+$$  
+f(x) = 0  
+$$
+
+### Prostsza interpretacja
+
+W praktyce oznacza to, że w każdym kroku:
+
+1. liczymy środek aktualnego przedziału,
+    
+2. sprawdzamy, po której stronie występuje zmiana znaku funkcji,
+    
+3. zostawiamy tylko tę połowę przedziału, w której nadal znajduje się pierwiastek.
+    
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 3 - 3 * x ** 2 - 2 * x + 5
+
+
+def sgn(x):
+    if x < 0:
+        return -1
+    elif x == 0:
+        return 0
+    else:
+        return 1
+
+
+# Początkowy przedział izolacji
+x1 = 1.0
+x2 = 2.0
+
+# Lista przechowuje kolejne wartości x_i
+x = [x1, x2]
+
+liczba_iteracji = 5
+
+for i in range(3, liczba_iteracji + 3):
+    # Aktualne końce przedziału
+    lewy = x[len(x) - 2]
+    prawy = x[len(x) - 1]
+
+    # Nowe przybliżenie jako środek przedziału
+    xi = lewy + (prawy - lewy) / 2
+
+    # Sprawdzamy, w której połowie jest zmiana znaku
+    if sgn(f(lewy)) != sgn(f(xi)):
+        # Pierwiastek jest między lewym końcem i środkiem
+        x.append(xi)
+    else:
+        # Pierwiastek jest między środkiem i prawym końcem
+        x[len(x) - 2] = xi
+
+    print("Iteracja:", i - 2)
+    print("Aktualne przybliżenie:", xi)
+    print("f(xi) =", f(xi))
+```
+
+---
+
+## 8.3. Kryteria zakończenia metody bisekcji
+
+W wykładzie podano następujące kryteria zakończenia iteracji:
+
+1. Zadana liczba kroków.
+    
+2. Dostatecznie mały błąd.
+    
+3. Wartość funkcji dostatecznie bliska zeru.
+    
+
+### Uwaga
+
+Równość:
+
+$$  
+f(x) = 0  
+$$
+
+nie powinna być głównym kryterium zakończenia obliczeń, ponieważ przez błędy zaokrągleń uzyskanie dokładnego zera jest mało prawdopodobne.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 3 - 3 * x ** 2 - 2 * x + 5
+
+
+a = 1.0
+b = 2.0
+epsilon = 0.001
+
+x = a + (b - a) / 2
+blad = abs(b - a)
+
+if blad < epsilon:
+    print("Przedział jest wystarczająco mały")
+
+if abs(f(x)) < epsilon:
+    print("Wartość funkcji jest bliska zeru")
+
+print("x =", x)
+print("błąd przedziału =", blad)
+print("f(x) =", f(x))
+```
+
+---
+
+## 8.4. Błąd metody bisekcji
+
+Dokładność przybliżenia w `i`-tym kroku można oszacować jako:
+
+$$  
+|x_i - x^*| < \frac{b-a}{2^{i-2}}  
+$$
+
+Oznacza to, że w każdej iteracji przedział izolacji pierwiastka zmniejsza się o połowę.
+
+### Przykład
+
+Po `12` krokach metody bisekcji dla przedziału:
+
+$$  
+[1,2]  
+$$
+
+mamy:
+
+$$  
+|x_{12} - x^*| < \frac{2-1}{2^{12-2}}  
+$$
+
+czyli:
+
+$$  
+|x_{12} - x^*| < \frac{1}{2^{10}}  
+$$
+
+### Przykład w Pythonie
+
+```python
+a = 1
+b = 2
+i = 12
+
+blad = (b - a) / (2 ** (i - 2))
+
+print("Oszacowanie błędu:", blad)
+```
+
+---
+
+## 8.5. Wskazówki praktyczne dla bisekcji
+
+Z wykładu:
+
+1. Metoda znajduje jedno miejsce zerowe, a nie wszystkie miejsca zerowe w przedziale.
+    
+2. Nie należy kończyć obliczeń warunkiem:
+    
+
+$$  
+f(x) = 0  
+$$
+
+3. Punkt środkowy lepiej liczyć ze wzoru:
+    
+
+$$  
+a + \frac{b-a}{2}  
+$$
+
+zamiast:
+
+$$  
+\frac{a+b}{2}  
+$$
+
+4. Zmianę znaku lepiej badać przez:
+    
+
+$$  
+sgn(f(x_i)) \neq sgn(f(x_j))  
+$$
+
+zamiast:
+
+$$  
+f(x_i) \cdot f(x_j) < 0  
+$$
+
+bo unikamy zbędnego mnożenia.
+
+### Przykład w Pythonie
+
+```python
+def sgn(x):
+    if x < 0:
+        return -1
+    elif x == 0:
+        return 0
+    else:
+        return 1
+
+
+def f(x):
+    return x ** 3 - 3 * x ** 2 - 2 * x + 5
+
+
+a = 1.0
+b = 2.0
+
+x = a + (b - a) / 2
+
+if sgn(f(a)) != sgn(f(x)):
+    print("Pierwiastek jest w przedziale [a, x]")
+else:
+    print("Pierwiastek jest w przedziale [x, b]")
+```
+
+---
+
+## 8.6. Przykład metody bisekcji z wykładu
+
+Rozważamy funkcję:
+
+$$  
+f(x) = x^3 - 3x^2 - 2x + 5  
+$$
+
+Szukamy pierwiastka w przedziale:
+
+$$  
+[1,2]  
+$$
+
+### Krok 1
+
+Początkowy przedział:
+
+$$  
+[a_1,b_1] = [1,2]  
+$$
+
+Punkt środkowy:
+
+$$  
+x_1 = \frac{1+2}{2} = 1.5  
+$$
+
+Wartości funkcji:
+
+$$  
+f(1) = 1  
+$$
+
+$$  
+f(2) = -3  
+$$
+
+$$  
+f(1.5) = -1.375  
+$$
+
+Ponieważ występuje zmiana znaku między `1` i `1.5`, przechodzimy do przedziału:
+
+$$  
+[1,1.5]  
+$$
+
+### Krok 2
+
+Nowy przedział:
+
+$$  
+[1,1.5]  
+$$
+
+Punkt środkowy:
+
+$$  
+x_2 = 1.25  
+$$
+
+Wartość:
+
+$$  
+f(1.25) = -0.234  
+$$
+
+Przechodzimy do przedziału:
+
+$$  
+[1,1.25]  
+$$
+
+### Krok 3
+
+Nowy przedział:
+
+$$  
+[1,1.25]  
+$$
+
+Punkt środkowy:
+
+$$  
+x_3 = 1.125  
+$$
+
+Wartość:
+
+$$  
+f(1.125) = 0.376  
+$$
+
+Przechodzimy do przedziału:
+
+$$  
+[1.125,1.25]  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 3 - 3 * x ** 2 - 2 * x + 5
+
+
+def sgn(x):
+    if x < 0:
+        return -1
+    elif x == 0:
+        return 0
+    else:
+        return 1
+
+
+a = 1.0
+b = 2.0
+
+for i in range(5):
+    x = a + (b - a) / 2
+
+    print("Krok:", i + 1)
+    print("a =", a, "b =", b, "x =", x, "f(x) =", f(x))
+
+    if sgn(f(a)) != sgn(f(x)):
+        b = x
+    else:
+        a = x
+```
+
+---
+
+# 9. Metoda stycznych Newtona
+
+## 9.1. Idea metody Newtona
+
+Metoda stycznych, czyli metoda Newtona, polega na przybliżaniu pierwiastka równania:
+
+$$  
+f(x) = 0  
+$$
+
+za pomocą miejsc zerowych stycznych do wykresu funkcji.
+
+Wzór iteracyjny:
+
+$$  
+x_i = x_{i-1} - \frac{f(x_{i-1})}{f'(x_{i-1})}  
+$$
+
+dla:
+
+$$  
+i = 2,3,4,\dots  
+$$
+
+### Interpretacja
+
+W każdym kroku budujemy styczną do wykresu funkcji w aktualnym punkcie, a miejsce przecięcia tej stycznej z osią `OX` traktujemy jako kolejne przybliżenie pierwiastka.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4 * x + 3
+
+
+def fp(x):
+    return 2 * x - 4
+
+
+x = 1.5
+
+for i in range(5):
+    if fp(x) == 0:
+        print("Pochodna równa zero — nie można wykonać kroku")
+        break
+
+    x_nowe = x - f(x) / fp(x)
+
+    print("Iteracja:", i + 1, "x =", x_nowe, "błąd =", abs(x_nowe - x))
+
+    x = x_nowe
+```
+
+---
+
+## 9.2. Wybór pierwszego przybliżenia w metodzie Newtona
+
+Pierwsze przybliżenie:
+
+$$  
+x_1  
+$$
+
+często wybiera się spośród końców przedziału:
+
+$$  
+[a,b]  
+$$
+
+W wykładzie podano kryteria:
+
+Jeżeli dla:
+
+$$  
+x \in [a,b]  
+$$
+
+zachodzi:
+
+$$  
+f'(x) \cdot f''(x) < 0  
+$$
+
+to wybieramy:
+
+$$  
+x_1 = a  
+$$
+
+Jeżeli:
+
+$$  
+f'(x) \cdot f''(x) > 0  
+$$
+
+to wybieramy:
+
+$$  
+x_1 = b  
+$$
+
+### Przykład w Pythonie
+
+```python
+def fp(x):
+    return 2 * x - 4
+
+
+def fpp(x):
+    return 2
+
+
+a = 0
+b = 2
+
+# Sprawdzamy znak iloczynu pochodnych w punkcie środkowym
+x = a + (b - a) / 2
+
+iloczyn = fp(x) * fpp(x)
+
+if iloczyn < 0:
+    x1 = a
+elif iloczyn > 0:
+    x1 = b
+else:
+    x1 = x
+
+print("Wybrane pierwsze przybliżenie:", x1)
+```
+
+---
+
+## 9.3. Błąd i zbieżność metody Newtona
+
+Błąd w każdym kroku można oszacować wzorem:
+
+$$  
+\Delta \approx |x_i - x_{i-1}|  
+$$
+
+Metoda stycznych wykazuje szybką zbieżność, dokładniej zbieżność kwadratową.
+
+Współczynnik zbieżności wynosi:
+
+$$  
+2  
+$$
+
+Metoda może być rozbieżna, jeżeli:
+
+- pierwsze przybliżenie jest zbyt daleko od pierwiastka,
+    
+- funkcja nie jest dostatecznie gładka w otoczeniu pierwiastka.
+    
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4 * x + 3
+
+
+def fp(x):
+    return 2 * x - 4
+
+
+x = 1.5
+epsilon = 0.001
+
+for i in range(20):
+    if fp(x) == 0:
+        print("Pochodna równa zero")
+        break
+
+    x_nowe = x - f(x) / fp(x)
+    blad = abs(x_nowe - x)
+
+    print("Iteracja:", i + 1, "x =", x_nowe, "błąd =", blad)
+
+    x = x_nowe
+
+    if blad < epsilon:
+        break
+```
+
+---
+
+## 9.4. Warunek zakończenia metody Newtona
+
+Obliczenia kończymy, gdy:
+
+$$  
+|x_i - x_{i-1}| < \epsilon  
+$$
+
+gdzie:
+
+$$  
+\epsilon  
+$$
+
+jest wcześniej ustalonym progiem błędu.
+
+### Przykład w Pythonie
+
+```python
+x_poprzednie = 0.9996951220
+x_aktualne = 0.9999999535
+
+epsilon = 0.001
+
+blad = abs(x_aktualne - x_poprzednie)
+
+if blad < epsilon:
+    print("Warunek stopu spełniony")
+else:
+    print("Trzeba liczyć dalej")
+
+print("Błąd =", blad)
+```
+
+---
+
+## 9.5. Potencjalne problemy metody Newtona
+
+Podczas stosowania metody stycznych mogą pojawić się problemy:
+
+1. Iteracje mogą być rozbieżne przy złym wyborze punktu startowego.
+    
+2. Może nastąpić zatrzymanie postępu, gdy:
+    
+
+$$  
+f'(x_{i-1})  
+$$
+
+jest bliskie zeru.
+
+3. Mogą pojawić się trudności z oszacowaniem globalnej dokładności przybliżenia.
+    
+
+### Przykład z wykładu
+
+Dla funkcji:
+
+$$  
+f(x) = x^2 - 4x + 3  
+$$
+
+i punktu startowego:
+
+$$  
+x_1 = 2  
+$$
+
+pochodna wynosi:
+
+$$  
+f'(x) = 2x - 4  
+$$
+
+czyli:
+
+$$  
+f'(2) = 0  
+$$
+
+Nie można wtedy wykonać kroku Newtona, bo wystąpiłoby dzielenie przez zero.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4 * x + 3
+
+
+def fp(x):
+    return 2 * x - 4
+
+
+x = 2
+
+if fp(x) == 0:
+    print("Nie można zastosować metody Newtona, bo pochodna jest równa zero")
+else:
+    x_nowe = x - f(x) / fp(x)
+    print(x_nowe)
+```
+
+---
+
+## 9.6. Przykład metody Newtona z wykładu
+
+Funkcja:
+
+$$  
+f(x) = x^2 - 4x + 3  
+$$
+
+Pochodna:
+
+$$  
+f'(x) = 2x - 4  
+$$
+
+Dla punktu startowego:
+
+$$  
+x_0 = 1.5  
+$$
+
+mamy:
+
+$$  
+f(x_0) = -0.75  
+$$
+
+oraz:
+
+$$  
+f'(x_0) = -1  
+$$
+
+Pierwszy krok:
+
+$$  
+x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}  
+$$
+
+czyli:
+
+$$  
+x_1 = 1.5 - \frac{-0.75}{-1} = 0.75  
+$$
+
+Następnie:
+
+$$  
+x_2 = 0.975  
+$$
+
+W tabeli z wykładu kolejne wartości zbliżają się do:
+
+$$  
+x = 1  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4 * x + 3
+
+
+def fp(x):
+    return 2 * x - 4
+
+
+x = 1.5
+
+for i in range(5):
+    if fp(x) == 0:
+        print("Pochodna równa zero")
+        break
+
+    x_nowe = x - f(x) / fp(x)
+    blad = abs(x_nowe - x)
+
+    print("Iteracja:", i + 1)
+    print("x =", x_nowe)
+    print("błąd =", blad)
+
+    x = x_nowe
+```
+
+---
+
+# 10. Metoda siecznych
+
+## 10.1. Idea metody siecznych
+
+Metoda siecznych służy do przybliżania pierwiastka równania:
+
+$$  
+f(x) = 0  
+$$
+
+Nie wymaga obliczania pochodnej funkcji.
+
+Zamiast stycznej wykorzystuje prostą przechodzącą przez dwa punkty wykresu:
+
+$$  
+(x_i, f(x_i))  
+$$
+
+oraz:
+
+$$  
+(x_{i-1}, f(x_{i-1}))  
+$$
+
+Wzór na kolejne przybliżenie:
+
+$$  
+x_{i+1}
+=
+x_i
+-
+f(x_i)  
+\cdot  
+\frac{x_i - x_{i-1}}{f(x_i) - f(x_{i-1})}  
+$$
+
+dla:
+
+$$  
+i = 2,3,4,\dots  
+$$
+
+Błąd przybliżenia można oszacować jako:
+
+$$  
+\Delta \approx |x_{i+1} - x_i|  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4 * x + 3
+
+
+x_poprzedni = 0.0
+x_aktualny = 2.0
+
+for i in range(5):
+    f_poprzedni = f(x_poprzedni)
+    f_aktualny = f(x_aktualny)
+
+    mianownik = f_aktualny - f_poprzedni
+
+    if mianownik == 0:
+        print("Nie można wykonać kroku, mianownik jest równy zero")
+        break
+
+    x_nowy = x_aktualny - f_aktualny * (x_aktualny - x_poprzedni) / mianownik
+
+    blad = abs(x_nowy - x_aktualny)
+
+    print("Iteracja:", i + 1, "x =", x_nowy, "błąd =", blad)
+
+    x_poprzedni = x_aktualny
+    x_aktualny = x_nowy
+```
+
+---
+
+## 10.2. Wybór punktów startowych w metodzie siecznych
+
+W wykładzie opisano wybór punktów startowych zależnie od znaków pierwszej i drugiej pochodnej.
+
+Jeżeli:
+
+$$  
+f'(x) > 0  
+$$
+
+oraz:
+
+$$  
+f''(x) > 0  
+$$
+
+albo:
+
+$$  
+f'(x) < 0  
+$$
+
+oraz:
+
+$$  
+f''(x) < 0  
+$$
+
+to kolejne przybliżenia są z niedomiarem:
+
+$$  
+x_i < x_{i+1} < x_{i+2} < \dots < x^*  
+$$
+
+Jeżeli:
+
+$$  
+f'(x) > 0  
+$$
+
+oraz:
+
+$$  
+f''(x) < 0  
+$$
+
+albo:
+
+$$  
+f'(x) < 0  
+$$
+
+oraz:
+
+$$  
+f''(x) > 0  
+$$
+
+to kolejne przybliżenia są z nadmiarem:
+
+$$  
+x_i > x_{i+1} > x_{i+2} > \dots > x^*  
+$$
+
+Dla:
+
+$$  
+x \in [a,b]  
+$$
+
+punkty startowe można dobrać na podstawie iloczynu:
+
+$$  
+f'(x) \cdot f''(x)  
+$$
+
+Jeżeli:
+
+$$  
+f'(x) \cdot f''(x) < 0  
+$$
+
+to:
+
+$$  
+x_2 = a  
+$$
+
+oraz:
+
+$$  
+x_1 = b  
+$$
+
+Jeżeli:
+
+$$  
+f'(x) \cdot f''(x) > 0  
+$$
+
+to:
+
+$$  
+x_2 = b  
+$$
+
+oraz:
+
+$$  
+x_1 = a  
+$$
+
+### Przykład w Pythonie
+
+```python
+def fp(x):
+    return 2 * x - 4
+
+
+def fpp(x):
+    return 2
+
+
+a = 0
+b = 2
+
+x = a + (b - a) / 2
+
+iloczyn = fp(x) * fpp(x)
+
+if iloczyn < 0:
+    x2 = a
+    x1 = b
+elif iloczyn > 0:
+    x2 = b
+    x1 = a
+else:
+    x1 = a
+    x2 = b
+
+print("x1 =", x1)
+print("x2 =", x2)
+```
+
+---
+
+## 10.3. Przykład metody siecznych z wykładu
+
+Analizujemy funkcję:
+
+$$  
+f(x) = x^2 - 4x + 3  
+$$
+
+w przedziale:
+
+$$  
+[0,2]  
+$$
+
+Punkty startowe:
+
+$$  
+x_0 = 0  
+$$
+
+oraz:
+
+$$  
+x_1 = 2  
+$$
+
+### Krok 1
+
+Obliczamy:
+
+$$  
+x_2 =  
+2
+-
+f(2)  
+\cdot  
+\frac{2-0}{f(2)-f(0)}  
+$$
+
+Z wykładu:
+
+$$  
+x_2 = 1.5  
+$$
+
+Błąd:
+
+$$  
+\Delta \approx |1.5 - 2| = 0.5  
+$$
+
+### Krok 2
+
+Używamy:
+
+$$  
+x_1 = 2  
+$$
+
+oraz:
+
+$$  
+x_2 = 1.5  
+$$
+
+Obliczamy:
+
+$$  
+x_3 = 0  
+$$
+
+Błąd:
+
+$$  
+\Delta \approx |0 - 1.5| = 1.5  
+$$
+
+Dalsze iteracje z wykładu prowadzą do:
+
+$$  
+x = 1  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 2 - 4 * x + 3
+
+
+x0 = 0.0
+x1 = 2.0
+
+for i in range(10):
+    f0 = f(x0)
+    f1 = f(x1)
+
+    mianownik = f1 - f0
+
+    if mianownik == 0:
+        print("Mianownik równy zero")
+        break
+
+    x2 = x1 - f1 * (x1 - x0) / mianownik
+
+    blad = abs(x2 - x1)
+
+    print("Iteracja:", i + 1, "x =", x2, "błąd =", blad)
+
+    x0 = x1
+    x1 = x2
+```
+
+---
+
+## 10.4. Podsumowanie metody siecznych
+
+Z wykładu:
+
+- metoda siecznych nie wymaga liczenia pochodnych,
+    
+- metoda może nie być zbieżna przy źle dobranym przedziale,
+    
+- w ogólnym przypadku wymaga więcej iteracji niż metoda stycznych,
+    
+- współczynnik zbieżności wynosi około:
+    
+
+$$  
+1.62  
+$$
+
+Metoda Newtona ma zwykle mniejszą liczbę iteracji, ale wymaga pochodnej.
+
+### Przykład w Pythonie
+
+```python
+czy_pochodna_dostepna = False
+
+if czy_pochodna_dostepna:
+    print("Można rozważyć metodę Newtona")
+else:
+    print("Można rozważyć metodę siecznych")
+```
+
+---
+
+# 11. Metoda regula falsi
+
+## 11.1. Idea metody regula falsi
+
+Metoda **regula falsi**, czyli metoda fałszywej pozycji, jest metodą numeryczną rozwiązywania równań nieliniowych.
+
+Łączy cechy:
+
+- metody siecznych,
+    
+- metod przedziałowych.
+    
+
+Podobnie jak metoda siecznych, konstruuje prostą łączącą dwa punkty wykresu funkcji.
+
+Jednak w przeciwieństwie do metody siecznych zachowuje przedział izolacji pierwiastka.
+
+### Zasada działania
+
+Wybieramy przedział:
+
+$$  
+[a,b]  
+$$
+
+taki, że:
+
+$$  
+f(a)  
+$$
+
+oraz:
+
+$$  
+f(b)  
+$$
+
+mają przeciwne znaki.
+
+Następnie rysujemy cięciwę między punktami:
+
+$$  
+(a, f(a))  
+$$
+
+oraz:
+
+$$  
+(b, f(b))  
+$$
+
+Punkt przecięcia tej cięciwy z osią `OX` jest nowym przybliżeniem pierwiastka.
+
+Potem aktualizujemy jeden z końców przedziału tak, aby pierwiastek nadal pozostawał w przedziale.
+
+### Własności z wykładu
+
+Metoda regula falsi:
+
+- jest zawsze zbieżna, jeśli dobrze wybrano przedział początkowy,
+    
+- zachowuje przedział izolacji pierwiastka,
+    
+- ma wolną zbieżność,
+    
+- jest metodą liniową, czyli:
+    
+
+$$  
+p = 1  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x ** 3 - 3 * x ** 2 - 2 * x + 5
+
+
+def sgn(x):
+    if x < 0:
+        return -1
+    elif x == 0:
+        return 0
+    else:
+        return 1
+
+
+a = 1.0
+b = 2.0
+epsilon = 0.001
+
+if sgn(f(a)) == sgn(f(b)):
+    print("Brak zmiany znaku — nie można zastosować metody")
+else:
+    x = a
+
+    for i in range(100):
+        fa = f(a)
+        fb = f(b)
+
+        mianownik = fb - fa
+
+        if mianownik == 0:
+            print("Mianownik równy zero")
+            break
+
+        x_nowe = a - fa * (b - a) / mianownik
+
+        if abs(x_nowe - x) < epsilon:
+            x = x_nowe
+            break
+
+        x = x_nowe
+
+        if sgn(f(a)) != sgn(f(x)):
+            b = x
+        else:
+            a = x
+
+    print("Przybliżony pierwiastek:", x)
+    print("f(x) =", f(x))
+```
+
+---
+
+# 12. Porównanie metod
+
+|Metoda|Najważniejsza cecha|Zaleta|Wada|
+|---|---|---|---|
+|Bisekcja|dzieli przedział na pół|niezawodna przy zmianie znaku|wolna zbieżność|
+|Newton|używa stycznej i pochodnej|szybka zbieżność|wymaga pochodnej i dobrego startu|
+|Siecznych|używa dwóch punktów|nie wymaga pochodnej|może nie być zbieżna|
+|Regula falsi|zachowuje przedział izolacji|zbieżna przy dobrym przedziale|wolna zbieżność|
+
+---
+
+# 13. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 13.1. Miejsce zerowe
+
+Miejsce zerowe funkcji to taka wartość:
+
+$$  
+x^*  
+$$
+
+że:
+
+$$  
+f(x^*) = 0  
+$$
+
+---
+
+## 13.2. Twierdzenie Bolzano-Cauchy’ego
+
+Jeżeli:
+
+$$  
+f(a) \cdot f(b) < 0  
+$$
+
+i funkcja jest ciągła na:
+
+$$  
+[a,b]  
+$$
+
+to w tym przedziale istnieje co najmniej jeden pierwiastek.
+
+---
+
+## 13.3. Funkcja signum
+
+$$  
+sgn(x) =  
+\begin{cases}  
+-1, & x < 0 \\  
+0, & x = 0 \\  
+1, & x > 0  
+\end{cases}  
+$$
+
+---
+
+## 13.4. Metoda bisekcji
+
+Punkt środkowy najlepiej liczyć jako:
+
+$$  
+x = a + \frac{b-a}{2}  
+$$
+
+W każdym kroku przedział zmniejsza się o połowę.
+
+---
+
+## 13.5. Błąd bisekcji
+
+$$  
+|x_i - x^*| < \frac{b-a}{2^{i-2}}  
+$$
+
+---
+
+## 13.6. Metoda Newtona
+
+$$  
+x_i = x_{i-1} - \frac{f(x_{i-1})}{f'(x_{i-1})}  
+$$
+
+Wymaga pochodnej.
+
+Nie działa dobrze, gdy:
+
+$$  
+f'(x_{i-1}) = 0  
+$$
+
+albo gdy pochodna jest bliska zeru.
+
+---
+
+## 13.7. Metoda siecznych
+
+$$  
+x_{i+1}
+=
+x_i
+-
+f(x_i)  
+\cdot  
+\frac{x_i - x_{i-1}}{f(x_i) - f(x_{i-1})}  
+$$
+
+Nie wymaga pochodnej.
+
+---
+
+## 13.8. Metoda regula falsi
+
+Metoda regula falsi zachowuje przedział izolacji pierwiastka i dlatego ma gwarancję zbieżności przy dobrze dobranym przedziale początkowym.
+
+---
+
+# Wykład 6: Interpolacja (lab 8)
+
+## 1. Co to jest interpolacja?
+
+**Interpolacja** to proces znajdowania takiej funkcji, która przechodzi przez zadany zbiór punktów danych.
+
+W matematyce i informatyce interpolacja jest podstawową techniką wykorzystywaną do estymacji wartości między znanymi punktami danych.
+
+Jeżeli mamy dane punkty:
+
+$$  
+(x_i, y_i)  
+$$
+
+gdzie:
+
+$$  
+y_i = f(x_i)  
+$$
+
+dla:
+
+$$  
+i = 0,1,2,\dots,n  
+$$
+
+to szukamy funkcji interpolacyjnej:
+
+$$  
+W(x)  
+$$
+
+takiej, że:
+
+$$  
+W(x_i) = y_i  
+$$
+
+dla każdego węzła interpolacji.
+
+Punkty:
+
+$$  
+(x_i, y_i)  
+$$
+
+nazywa się **węzłami interpolacji**.
+
+### Przykład
+
+Dane są punkty:
+
+$$  
+(0,1), (1,3), (2,2)  
+$$
+
+Interpolacja polega na znalezieniu funkcji, która przechodzi przez te punkty.
+
+### Przykład w Pythonie
+
+```python
+punkty = [
+    [0, 1],
+    [1, 3],
+    [2, 2]
+]
+
+for punkt in punkty:
+    x = punkt[0]
+    y = punkt[1]
+    print("x =", x, "y =", y)
+```
+
+---
+
+## 2. Do czego służy interpolacja?
+
+Interpolacja ma szerokie zastosowanie, między innymi w:
+
+- przetwarzaniu sygnałów i obrazów,
+    
+- aproksymacji funkcji w analizie numerycznej,
+    
+- symulacjach komputerowych,
+    
+- grafice komputerowej,
+    
+- inżynierii i naukach przyrodniczych do modelowania zjawisk.
+    
+
+Interpolacja pozwala oszacować wartości funkcji między punktami, które już znamy.
+
+### Przykład
+
+Jeżeli znamy temperaturę o godzinie `10:00` i `12:00`, to za pomocą interpolacji możemy oszacować temperaturę o godzinie `11:00`.
+
+### Przykład w Pythonie
+
+```python
+# Znane dane:
+# godzina 10 -> temperatura 20
+# godzina 12 -> temperatura 24
+
+x0 = 10
+y0 = 20
+
+x1 = 12
+y1 = 24
+
+x = 11
+
+# Interpolacja liniowa
+y = y0 + (y1 - y0) / (x1 - x0) * (x - x0)
+
+print("Przybliżona temperatura o godzinie", x, "wynosi", y)
+```
+
+---
+
+## 3. Rodzaje interpolacji
+
+Wyróżnia się kilka podstawowych rodzajów interpolacji:
+
+1. **Interpolacja wielomianowa**, np. metoda Lagrange’a i Newtona.
+    
+2. **Interpolacja funkcji sklejanych**, czyli splajny liniowe, kwadratowe i sześcienne.
+    
+3. **Interpolacja za pomocą krzywych Béziera**.
+    
+4. **Interpolacja Hermite’a**.
+    
+
+### Przykład w Pythonie
+
+```python
+rodzaje = [
+    "interpolacja wielomianowa",
+    "interpolacja Lagrange'a",
+    "interpolacja Newtona",
+    "interpolacja funkcji sklejanych",
+    "krzywe Béziera",
+    "interpolacja Hermite'a"
+]
+
+for rodzaj in rodzaje:
+    print(rodzaj)
+```
+
+---
+
+## 4. Funkcja interpolacyjna
+
+Funkcja interpolacyjna:
+
+$$  
+W(x)  
+$$
+
+jest konstruowana tak, aby dokładnie przechodziła przez dane punkty.
+
+Warunek interpolacji:
+
+$$  
+W(x_i) = y_i  
+$$
+
+dla:
+
+$$  
+i = 0,1,2,\dots,n  
+$$
+
+Celem interpolacji jest:
+
+- przybliżenie wartości funkcji w punktach poza danymi węzłami,
+    
+- oszacowanie błędu wartości przybliżonych.
+    
+
+### Przykład
+
+Jeżeli:
+
+$$  
+W(0) = 1  
+$$
+
+oraz:
+
+$$  
+W(1) = 3  
+$$
+
+to funkcja interpolacyjna musi przechodzić przez punkty:
+
+$$  
+(0,1)  
+$$
+
+oraz:
+
+$$  
+(1,3)  
+$$
+
+### Przykład w Pythonie
+
+```python
+def W(x):
+    # Prosta przechodząca przez punkty (0,1) i (1,3)
+    return 1 + 2 * x
+
+
+punkty = [
+    [0, 1],
+    [1, 3]
+]
+
+for punkt in punkty:
+    x = punkt[0]
+    y = punkt[1]
+
+    if W(x) == y:
+        print("W(", x, ") =", W(x), "zgadza się z y =", y)
+    else:
+        print("Punkt nie leży na funkcji")
+```
+
+---
+
+# 5. Konstrukcja funkcji interpolacyjnej
+
+Funkcja interpolacyjna jest konstruowana jako kombinacja liniowa funkcji bazowych:
+
+$$  
+W(x) = \sum_{i=0}^{n} a_i\varphi_i(x)  
+$$
+
+czyli:
+
+$$  
+W(x) = a_0\varphi_0(x) + a_1\varphi_1(x) + \dots + a_n\varphi_n(x)  
+$$
+
+gdzie:
+
+- $$\varphi_i(x)$$ — funkcje bazowe,
+    
+- $$a_i$$ — współczynniki wyznaczane na podstawie danych węzłów interpolacji.
+    
+
+### Zapis macierzowy
+
+Wprowadzamy macierz bazową:
+
+$$  
+\Phi(x) = [\varphi_0(x), \varphi_1(x), \dots, \varphi_n(x)]  
+$$
+
+oraz wektor współczynników:
+
+$$  
+A =  
+\begin{bmatrix}  
+a_0 \  
+a_1 \  
+\vdots \  
+a_n  
+\end{bmatrix}  
+$$
+
+Wtedy:
+
+$$  
+W(x) = \Phi(x) \cdot A  
+$$
+
+Po podstawieniu `n + 1` węzłów tworzy się układ `n + 1` równań z `n + 1` niewiadomymi:
+
+$$  
+W(x_0) = a_0\varphi_0(x_0) + a_1\varphi_1(x_0) + \dots + a_n\varphi_n(x_0) = y_0  
+$$
+
+$$  
+W(x_1) = a_0\varphi_0(x_1) + a_1\varphi_1(x_1) + \dots + a_n\varphi_n(x_1) = y_1  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+W(x_n) = a_0\varphi_0(x_n) + a_1\varphi_1(x_n) + \dots + a_n\varphi_n(x_n) = y_n  
+$$
+
+W zapisie macierzowym:
+
+$$  
+X \cdot A = Y  
+$$
+
+czyli:
+
+# $$  
+\begin{bmatrix}  
+\varphi_0(x_0) & \varphi_1(x_0) & \dots & \varphi_n(x_0) \  
+\varphi_0(x_1) & \varphi_1(x_1) & \dots & \varphi_n(x_1) \  
+\vdots & \vdots & \ddots & \vdots \  
+\varphi_0(x_n) & \varphi_1(x_n) & \dots & \varphi_n(x_n)  
+\end{bmatrix}  
+\begin{bmatrix}  
+a_0 \  
+a_1 \  
+\vdots \  
+a_n  
+\end{bmatrix}
+
+\begin{bmatrix}  
+y_0 \  
+y_1 \  
+\vdots \  
+y_n  
+\end{bmatrix}  
+$$
+
+gdzie:
+
+- `X` — macierz główna układu,
+    
+- `A` — wektor współczynników,
+    
+- `Y` — wektor wartości funkcji.
+    
+
+Jeżeli macierz `X` jest nieosobliwa, czyli:
+
+$$  
+\det(X) \neq 0  
+$$
+
+to współczynniki można zapisać jako:
+
+$$  
+A = X^{-1} \cdot Y  
+$$
+
+a wielomian interpolacyjny:
+
+$$  
+W(x) = \Phi(x) \cdot X^{-1} \cdot Y  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Przykład dla bazy:
+# phi0(x) = 1
+# phi1(x) = x
+# Szukamy W(x) = a0 + a1*x dla punktów (0,1), (1,3)
+
+x0 = 0
+y0 = 1
+
+x1 = 1
+y1 = 3
+
+# Układ:
+# a0 + a1*x0 = y0
+# a0 + a1*x1 = y1
+
+a1 = (y1 - y0) / (x1 - x0)
+a0 = y0 - a1 * x0
+
+print("a0 =", a0)
+print("a1 =", a1)
+
+def W(x):
+    return a0 + a1 * x
+
+print("W(0.5) =", W(0.5))
+```
+
+---
+
+# 6. Tablicowanie a interpolacja
+
+Interpolację można rozumieć jako proces odwrotny do tablicowania funkcji.
+
+## Tablicowanie
+
+Tablicowanie polega na stworzeniu tablicy wartości dla danej funkcji.
+
+Używa się go wtedy, gdy znana jest analityczna postać funkcji.
+
+Czyli mamy wzór funkcji, np.:
+
+$$  
+f(x) = x^2  
+$$
+
+i liczymy wartości dla kolejnych argumentów.
+
+## Interpolacja
+
+Interpolacja polega na wyznaczeniu analitycznej formy funkcji na podstawie zestawu jej wartości.
+
+Czyli mamy punkty, np.:
+
+$$  
+(0,0), (1,1), (2,4)  
+$$
+
+i szukamy funkcji, która przez nie przechodzi.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+# Tablicowanie funkcji
+wartosci = []
+
+for x in range(0, 4):
+    y = f(x)
+    wartosci.append([x, y])
+
+print("Tablica wartości:")
+
+for para in wartosci:
+    print(para)
+```
+
+---
+
+# 7. Poszukiwanie funkcji interpolacyjnej
+
+W procesie interpolacji zazwyczaj dąży się do znalezienia funkcji interpolacyjnej o wcześniej założonej formie.
+
+Przykłady takich funkcji:
+
+- wielomiany algebraiczne,
+    
+- funkcje trygonometryczne,
+    
+- inne postacie funkcji dopasowane do charakteru danych.
+    
+
+Najczęściej w praktyce używa się wielomianów algebraicznych, ponieważ są łatwe do definiowania i obliczania.
+
+### Przykład w Pythonie
+
+```python
+# Przykład różnych możliwych postaci funkcji przybliżającej
+
+def wielomian(x):
+    return 1 + 2 * x - x * x
+
+
+def trygonometryczna(x):
+    import math
+    return math.sin(x)
+
+
+x = 0.5
+
+print("Wielomian:", wielomian(x))
+print("Funkcja trygonometryczna:", trygonometryczna(x))
+```
+
+---
+
+# 8. Interpolacja wielomianowa
+
+Interpolacja wielomianowa jest powszechnie stosowaną metodą interpolacji.
+
+Opiera się na bazie jednomianów:
+
+$$  
+\varphi_0(x) = 1  
+$$
+
+$$  
+\varphi_1(x) = x  
+$$
+
+$$  
+\varphi_2(x) = x^2  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+\varphi_n(x) = x^n  
+$$
+
+Wielomian interpolacyjny ma postać:
+
+$$  
+W_n(x) = a_0 + a_1x + a_2x^2 + \dots + a_nx^n  
+$$
+
+Po podstawieniu wartości w węzłach otrzymujemy układ równań:
+
+$$  
+W_n(x_0) = a_0 + a_1x_0 + \dots + a_nx_0^n = y_0  
+$$
+
+$$  
+W_n(x_1) = a_0 + a_1x_1 + \dots + a_nx_1^n = y_1  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+W_n(x_n) = a_0 + a_1x_n + \dots + a_nx_n^n = y_n  
+$$
+
+Warunek interpolacji wymaga, aby:
+
+$$  
+W_n(x_i) = y_i  
+$$
+
+dla:
+
+$$  
+i = 0,1,\dots,n  
+$$
+
+Układ równań ma jednoznaczne rozwiązanie, gdy wszystkie węzły:
+
+$$  
+x_i  
+$$
+
+są różne.
+
+### Przykład w Pythonie
+
+```python
+# Wielomian W(x) = a0 + a1*x + a2*x^2
+# Pokazujemy obliczanie wartości dla znanych współczynników
+
+a0 = 1
+a1 = 2
+a2 = -1
+
+def W(x):
+    return a0 + a1 * x + a2 * x * x
+
+
+punkty_x = [0, 1, 2, 3]
+
+for x in punkty_x:
+    print("x =", x, "W(x) =", W(x))
+```
+
+---
+
+# 9. Macierz Vandermonde’a
+
+Dla interpolacji wielomianowej macierz główna układu ma postać macierzy Vandermonde’a:
+
+$$  
+X =  
+\begin{bmatrix}  
+1 & x_0 & \dots & x_0^n \  
+1 & x_1 & \dots & x_1^n \  
+\vdots & \vdots & \ddots & \vdots \  
+1 & x_n & \dots & x_n^n  
+\end{bmatrix}  
+$$
+
+Wyznacznik macierzy Vandermonde’a:
+
+$$  
+D = \det(X) =  
+\prod_{0 \leq j < i \leq n}(x_i - x_j)  
+$$
+
+Jeżeli wszystkie węzły są różne, to:
+
+$$  
+D \neq 0  
+$$
+
+Macierz odwrotna do bazy wielomianowej jest czasami nazywana macierzą Lagrange’a.
+
+### Uwaga numeryczna
+
+Ta metoda interpolacji jest matematycznie elegancka, ale może nie być efektywna numerycznie.
+
+Macierz `X` jest pełna i może być źle uwarunkowana, co prowadzi do ryzyka dużych błędów w obliczeniach numerycznych.
+
+### Przykład z wykładu
+
+Dla punktów:
+
+$$  
+x_0 = 2  
+$$
+
+$$  
+x_1 = 3  
+$$
+
+$$  
+x_2 = 4  
+$$
+
+wyznacznik Vandermonde’a:
+
+$$  
+D =  
+\begin{vmatrix}  
+1 & 2 & 4 \  
+1 & 3 & 9 \  
+1 & 4 & 16  
+\end{vmatrix}  
+$$
+
+Korzystając ze wzoru:
+
+$$  
+D = (x_1 - x_0)(x_2 - x_0)(x_2 - x_1)  
+$$
+
+otrzymujemy:
+
+$$  
+D = (3-2)(4-2)(4-3) = 2  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [2, 3, 4]
+
+D = 1
+
+for i in range(len(x)):
+    for j in range(i):
+        D = D * (x[i] - x[j])
+
+print("Wyznacznik Vandermonde'a =", D)
+```
+
+---
+
+# 10. Obliczanie współczynników wielomianu
+
+Wartości współczynników:
+
+$$  
+a_i  
+$$
+
+można obliczać ze wzoru wynikającego z twierdzenia Cramera:
+
+$$  
+a_i =  
+\frac{1}{D}  
+\sum_{j=0}^{n}  
+y_j X_{j+1,i+1}  
+$$
+
+gdzie:
+
+- `D` — wyznacznik macierzy głównej układu,
+    
+- $$X_{j+1,i+1}$$ — dopełnienia algebraiczne elementów z odpowiedniej kolumny macierzy głównej.
+    
+
+### Przykład w Pythonie
+
+Poniżej prosty przykład dla wielomianu liniowego przechodzącego przez dwa punkty.
+
+```python
+# Punkty: (0,1), (1,3)
+# Szukamy W(x)=a0+a1*x
+
+x0 = 0
+y0 = 1
+
+x1 = 1
+y1 = 3
+
+D = x1 - x0
+
+if D != 0:
+    a1 = (y1 - y0) / D
+    a0 = y0 - a1 * x0
+
+    print("a0 =", a0)
+    print("a1 =", a1)
+else:
+    print("Nie można wyznaczyć wielomianu, bo węzły są takie same")
+```
+
+---
+
+# 11. Przykład interpolacji funkcji $$\sin(\pi x)$$
+
+W wykładzie podano przykład interpolacji funkcji:
+
+$$  
+\sin(\pi x)  
+$$
+
+w przedziale:
+
+$$  
+[-1,1]  
+$$
+
+dla pięciu węzłów interpolacji.
+
+Dane węzły:
+
+$$  
+x_0 = -1,\quad y_0 = 0  
+$$
+
+$$  
+x_1 = -0.5,\quad y_1 = -1  
+$$
+
+$$  
+x_2 = 0,\quad y_2 = 0  
+$$
+
+$$  
+x_3 = 0.5,\quad y_3 = 1  
+$$
+
+$$  
+x_4 = 1,\quad y_4 = 0  
+$$
+
+Macierz Vandermonde’a:
+
+$$  
+X =  
+\begin{bmatrix}  
+1 & -1 & 1 & -1 & 1 \  
+1 & -0.5 & 0.25 & -0.125 & 0.0625 \  
+1 & 0 & 0 & 0 & 0 \  
+1 & 0.5 & 0.25 & 0.125 & 0.0625 \  
+1 & 1 & 1 & 1 & 1  
+\end{bmatrix}  
+$$
+
+Wyznacznik:
+
+$$  
+D = \frac{9}{32}  
+$$
+
+Po obliczeniu współczynników:
+
+$$  
+a_0 = 0  
+$$
+
+$$  
+a_1 = \frac{8}{3}  
+$$
+
+$$  
+a_2 = 0  
+$$
+
+$$  
+a_3 = -\frac{8}{3}  
+$$
+
+$$  
+a_4 = 0  
+$$
+
+Ostatecznie wielomian interpolacyjny:
+
+$$  
+W_3(x) = \frac{8}{3}x - \frac{8}{3}x^3  
+$$
+
+### Przykład w Pythonie
+
+```python
+def W(x):
+    return (8 / 3) * x - (8 / 3) * x * x * x
+
+
+wezly = [-1, -0.5, 0, 0.5, 1]
+
+for x in wezly:
+    print("x =", x, "W(x) =", W(x))
+```
+
+---
+
+# 12. Interpolacja Lagrange’a
+
+## 12.1. Funkcje bazowe Lagrange’a
+
+Dla `n + 1` węzłów:
+
+$$  
+(x_0, y_0), (x_1, y_1), \dots, (x_n, y_n)  
+$$
+
+funkcje bazowe są zdefiniowane jako:
+
+$$  
+\varphi_i(x) =  
+\prod_{\substack{j=0 \ j \neq i}}^{n}  
+(x - x_j)  
+$$
+
+gdzie dla każdego `i` funkcja:
+
+$$  
+\varphi_i(x)  
+$$
+
+pomija czynnik:
+
+$$  
+(x - x_i)  
+$$
+
+i jest wielomianem stopnia `n`.
+
+Wielomian interpolacyjny Lagrange’a można zapisać w uproszczonej formie:
+
+# $$  
+W(x)
+
+\sum_{i=0}^{n}  
+y_i  
+\left(  
+\prod_{\substack{j=0 \ j \neq i}}^{n}  
+\frac{x - x_j}{x_i - x_j}  
+\right)  
+$$
+
+Ta postać daje bezpośrednią metodę obliczania wartości wielomianu interpolacyjnego w dowolnym punkcie `x`.
+
+### Przykład
+
+Dla dwóch punktów:
+
+$$  
+(x_0,y_0)  
+$$
+
+oraz:
+
+$$  
+(x_1,y_1)  
+$$
+
+wielomian Lagrange’a:
+
+$$  
+W(x) =  
+y_0 \frac{x-x_1}{x_0-x_1}  
++  
+y_1 \frac{x-x_0}{x_1-x_0}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x_wezly = [0, 1, 2]
+y_wezly = [1, 3, 2]
+
+x = 1.5
+
+W = 0
+
+for i in range(len(x_wezly)):
+    L = 1
+
+    for j in range(len(x_wezly)):
+        if j != i:
+            L = L * (x - x_wezly[j]) / (x_wezly[i] - x_wezly[j])
+
+    W = W + y_wezly[i] * L
+
+print("W(", x, ") =", W)
+```
+
+---
+
+# 13. Interpolacja Newtona
+
+Interpolacja Newtona wykorzystuje **ilorazy różnicowe**.
+
+Wielomian interpolacyjny Newtona:
+
+# $$  
+p(x)
+
+\sum_{k=0}^{n}  
+f[x_0,x_1,\dots,x_k]  
+\prod_{j=0}^{k-1}(x-x_j)  
+$$
+
+czyli można też zapisać:
+
+$$  
+P(x) =  
+a_0  
++  
+a_1(x-x_0)  
++  
+a_2(x-x_0)(x-x_1)  
++  
+\dots  
+$$
+
+gdzie współczynniki:
+
+$$  
+a_k  
+$$
+
+są ilorazami różnicowymi:
+
+$$  
+a_k = f[x_0,x_1,\dots,x_k]  
+$$
+
+### Iloraz różnicowy rzędu zerowego
+
+$$  
+f[x_i] = f(x_i)  
+$$
+
+### Iloraz różnicowy rzędu pierwszego
+
+# $$  
+f[x_i,x_{i+1}]
+
+\frac{f[x_{i+1}] - f[x_i]}{x_{i+1}-x_i}  
+$$
+
+### Iloraz różnicowy rzędu `k`
+
+# $$  
+f[x_i,x_{i+1},\dots,x_{i+k}]
+
+## \frac{  
+f[x_{i+1},\dots,x_{i+k}]
+
+f[x_i,\dots,x_{i+k-1}]  
+}  
+{x_{i+k}-x_i}  
+$$
+
+Ilorazy różnicowe można obliczać tablicą trójkątną.
+
+### Przykład w Pythonie — tablica ilorazów różnicowych
+
+```python
+x = [0.0, 1.0, 2.0]
+y = [1.0, 3.0, 2.0]
+
+n = len(x)
+
+# Tworzymy tablicę ilorazów różnicowych
+tablica = []
+
+for i in range(n):
+    wiersz = []
+
+    for j in range(n):
+        wiersz.append(0.0)
+
+    tablica.append(wiersz)
+
+# Pierwsza kolumna to wartości funkcji
+for i in range(n):
+    tablica[i][0] = y[i]
+
+# Kolejne kolumny
+for j in range(1, n):
+    for i in range(n - j):
+        licznik = tablica[i + 1][j - 1] - tablica[i][j - 1]
+        mianownik = x[i + j] - x[i]
+        tablica[i][j] = licznik / mianownik
+
+print("Tablica ilorazów różnicowych:")
+for wiersz in tablica:
+    print(wiersz)
+```
+
+---
+
+## 13.1. Współczynniki Newtona w jednej tablicy
+
+Ze wskazówek do laboratorium: współczynniki wielomianu Newtona można wyznaczać metodą ilorazów różnicowych, ale nie trzeba przechowywać całej tablicy trójkątnej.
+
+Można użyć jednej tablicy i nadpisywać wartości.
+
+Na początku tablica współczynników zawiera wartości:
+
+$$  
+a_i = y_i  
+$$
+
+Potem kolejne współczynniki wyznaczamy, idąc od końca tablicy.
+
+Schemat aktualizacji:
+
+$$  
+a_i =  
+\frac{a_i - a_{i-1}}{x_i - x_{i-j}}  
+$$
+
+Złożoność takiego algorytmu wynosi:
+
+$$  
+O(n^2)  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [0.0, 1.0, 2.0]
+y = [1.0, 3.0, 2.0]
+
+n = len(x)
+
+# Kopiujemy y do tablicy współczynników a
+a = []
+
+for i in range(n):
+    a.append(y[i])
+
+# Obliczamy ilorazy różnicowe w jednej tablicy
+for j in range(1, n):
+    for i in range(n - 1, j - 1, -1):
+        licznik = a[i] - a[i - 1]
+        mianownik = x[i] - x[i - j]
+        a[i] = licznik / mianownik
+
+print("Współczynniki Newtona:")
+for wspolczynnik in a:
+    print(wspolczynnik)
+```
+
+---
+
+## 13.2. Obliczanie wartości wielomianu Newtona
+
+Wielomian Newtona ma postać:
+
+$$  
+P(x) =  
+a_0  
++  
+a_1(x-x_0)  
++  
+a_2(x-x_0)(x-x_1)  
++  
+\dots  
+$$
+
+Wartość tego wielomianu można liczyć bezpośrednio, ale wygodniej i szybciej użyć schematu Hornera dla postaci Newtona.
+
+Schemat Hornera dla postaci Newtona:
+
+$$  
+P(x) =  
+a_n  
++  
+(x-x_{n-1})  
+\left(  
+a_{n-1}  
++  
+(x-x_{n-2})(\dots)  
+\right)  
+$$
+
+W praktyce iterujemy od końca:
+
+```text
+result = result * (X - x_i) + a_i
+```
+
+Złożoność obliczania wartości wielomianu tym sposobem:
+
+$$  
+O(n)  
+$$
+
+### Przykład w Pythonie
+
+```python
+x_wezly = [0.0, 1.0, 2.0]
+a = [1.0, 2.0, -1.5]
+
+X = 1.5
+
+# Zaczynamy od ostatniego współczynnika
+result = a[len(a) - 1]
+
+for i in range(len(a) - 2, -1, -1):
+    result = result * (X - x_wezly[i]) + a[i]
+
+print("P(", X, ") =", result)
+```
+
+---
+
+# 14. Aproksymacja funkcji za pomocą szeregów Maclaurina
+
+Ze wskazówek do laboratorium wynika, że w praktyce często zamiast dokładnej funkcji można liczyć jej przybliżenie za pomocą skończonej sumy szeregu Maclaurina.
+
+Nie jest to interpolacja w ścisłym sensie, ale jest powiązane z tematem przybliżania funkcji wartościami obliczanymi numerycznie.
+
+---
+
+## 14.1. Aproksymacja funkcji $$e^x$$
+
+Funkcja eksponencjalna ma rozwinięcie Maclaurina:
+
+$$  
+e^x =  
+\sum_{k=0}^{\infty}  
+\frac{x^k}{k!}  
+$$
+
+W praktyce stosuje się sumę skończoną:
+
+$$  
+e^x \approx  
+\sum_{k=0}^{n}  
+\frac{x^k}{k!}  
+$$
+
+### Wskazówki implementacyjne
+
+Obliczanie silni w każdej iteracji jest kosztowne.
+
+Lepiej użyć zależności między kolejnymi wyrazami szeregu:
+
+# $$  
+\frac{x^k}{k!}
+
+\frac{x^{k-1}}{(k-1)!}  
+\cdot  
+\frac{x}{k}  
+$$
+
+Dzięki temu nie trzeba osobno liczyć:
+
+$$  
+x^k  
+$$
+
+ani:
+
+$$  
+k!  
+$$
+
+Nie trzeba też używać funkcji `pow()`.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+x = 1.0
+n = 10
+
+suma = 1.0
+wyraz = 1.0
+
+for k in range(1, n + 1):
+    wyraz = wyraz * x / k
+    suma = suma + wyraz
+
+print("Przybliżenie e^x =", suma)
+print("Wartość biblioteczna =", math.exp(x))
+print("Błąd =", abs(suma - math.exp(x)))
+```
+
+---
+
+## 14.2. Aproksymacja funkcji $$\sin x$$
+
+Rozwinięcie Maclaurina funkcji sinus:
+
+$$  
+\sin x =  
+\sum_{k=1}^{\infty}  
+(-1)^{k-1}  
+\frac{x^{2k-1}}{(2k-1)!}  
+$$
+
+Aproksymacja skończona:
+
+$$  
+\sin x \approx  
+\sum_{k=1}^{n}  
+(-1)^{k-1}  
+\frac{x^{2k-1}}{(2k-1)!}  
+$$
+
+### Wskazówki implementacyjne
+
+Dla dużych wartości `x` szereg może zbiegać wolno.
+
+Warto redukować argument:
+
+$$  
+x \mapsto x \bmod 2\pi  
+$$
+
+Współczynnik:
+
+$$  
+(-1)^{k-1}  
+$$
+
+można aktualizować zmienną, bez używania `pow()`.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+x = 1.0
+n = 10
+
+# Redukcja argumentu
+x = x % (2 * math.pi)
+
+suma = 0.0
+
+# Pierwszy wyraz szeregu to x
+wyraz = x
+znak = 1
+
+for k in range(1, n + 1):
+    suma = suma + znak * wyraz
+
+    # Przechodzimy do kolejnego wyrazu:
+    # x^(2k+1)/(2k+1)! z x^(2k-1)/(2k-1)!
+    mianownik = (2 * k) * (2 * k + 1)
+    wyraz = wyraz * x * x / mianownik
+
+    znak = -znak
+
+print("Przybliżenie sin(x) =", suma)
+print("Wartość biblioteczna =", math.sin(x))
+print("Błąd =", abs(suma - math.sin(x)))
+```
+
+---
+
+## 14.3. Wnioski praktyczne z aproksymacji Maclaurina
+
+Rozwinięcia Maclaurina są proste, ale mogą być numerycznie niestabilne.
+
+Biblioteki standardowe są zwykle lepiej zoptymalizowane i dokładniejsze.
+
+W praktyce warto:
+
+- unikać kosztownego liczenia silni w każdej iteracji,
+    
+- unikać `pow()` tam, gdzie wystarczy mnożenie,
+    
+- porównywać wynik z funkcją biblioteczną,
+    
+- mierzyć czas wykonania programu,
+    
+- pamiętać, że dla dużych argumentów niektóre szeregi zbiegać mogą wolno.
+    
+
+### Przykład w Pythonie — bardzo prosty pomiar czasu
+
+```python
+import time
+import math
+
+x = 1.0
+n = 100000
+
+start = time.time()
+
+suma = 1.0
+wyraz = 1.0
+
+for k in range(1, n + 1):
+    wyraz = wyraz * x / k
+    suma = suma + wyraz
+
+koniec = time.time()
+
+print("Wynik =", suma)
+print("math.exp(x) =", math.exp(x))
+print("Czas =", koniec - start)
+```
+
+---
+
+# 15. Funkcje interpolacyjne i przybliżanie funkcji
+
+Funkcje odgrywają ważną rolę w modelowaniu matematycznym, ponieważ opisują relacje między zmiennymi.
+
+W obliczeniach numerycznych często pojawia się problem przybliżonego przedstawienia funkcji tak, aby można było obliczać jej wartości dla dowolnych argumentów z przedziału:
+
+$$  
+[a,b]  
+$$
+
+za pomocą ograniczonej liczby operacji arytmetycznych i logicznych.
+
+Wielomiany algebraiczne są często wybierane jako funkcje przybliżające, ponieważ:
+
+- łatwo je zdefiniować,
+    
+- łatwo obliczać ich wartości,
+    
+- mają skończoną liczbę współczynników.
+    
+
+Przykładowy wielomian:
+
+$$  
+W_n(x) =  
+a_0 + a_1x + a_2x^2 + a_3x^3 + \dots + a_nx^n  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Obliczanie wartości wielomianu zwykłą metodą
+
+a = [1, 2, -1, 0.5]
+x = 2
+
+wynik = 0
+potega = 1
+
+for i in range(len(a)):
+    wynik = wynik + a[i] * potega
+    potega = potega * x
+
+print("Wartość wielomianu =", wynik)
+```
+
+---
+
+# 16. Błąd interpolacji
+
+Wielomian interpolacyjny:
+
+$$  
+W_n(x)  
+$$
+
+dla argumentów `x`, które nie są węzłami, reprezentuje przybliżoną wartość funkcji.
+
+Błąd przybliżenia to różnica między funkcją oryginalną a funkcją przybliżającą.
+
+Dla wielomianu interpolacyjnego stopnia `n`, przybliżającego funkcję:
+
+$$  
+f(x)  
+$$
+
+na podstawie `n + 1` węzłów, istnieje taka liczba:
+
+$$  
+\xi \in (a,b)  
+$$
+
+że reszta interpolacji ma postać:
+
+# $$  
+r(x)
+
+\frac{f^{(n+1)}(\xi)}{(n+1)!}  
+p_n(x)  
+$$
+
+gdzie:
+
+$$  
+p_n(x) = (x-x_0)(x-x_1)\dots(x-x_n)  
+$$
+
+### Sens
+
+Błąd zależy od:
+
+- pochodnej rzędu `n+1`,
+    
+- rozmieszczenia węzłów,
+    
+- punktu, w którym liczymy wartość.
+    
+
+### Przykład w Pythonie
+
+```python
+# Liczymy p_n(x) = (x-x0)(x-x1)...(x-xn)
+
+wezly = [0, 1, 2]
+x = 1.5
+
+p = 1
+
+for xi in wezly:
+    p = p * (x - xi)
+
+print("p_n(x) =", p)
+```
+
+---
+
+# 17. Zbieżność wielomianów interpolacyjnych
+
+## 17.1. Twierdzenie Fabera
+
+Dla dowolnego ciągu układów węzłów:
+
+$$  
+a \leq x_0 < x_1 < \dots < x_n \leq b  
+$$
+
+istnieje taka funkcja ciągła w:
+
+$$  
+[a,b]  
+$$
+
+że ciąg wielomianów interpolacyjnych zbudowanych dla tych węzłów nie jest do niej zbieżny.
+
+### Sens
+
+Nie zawsze zwiększanie liczby węzłów poprawia interpolację.
+
+---
+
+## 17.2. Drugie twierdzenie o zbieżności
+
+Jeżeli `f` jest funkcją ciągłą w:
+
+$$  
+[a,b]  
+$$
+
+to istnieje taki ciąg układów węzłów:
+
+$$  
+a \leq x_0 < x_1 < \dots < x_n \leq b  
+$$
+
+że zbudowane dla nich wielomiany interpolacyjne tworzą ciąg zbieżny do `f`.
+
+### Sens
+
+Można dobrać takie węzły, aby interpolacja była zbieżna.
+
+### Przykład w Pythonie
+
+```python
+liczby_wezlow = [3, 5, 10, 20]
+
+for n in liczby_wezlow:
+    print("Liczba węzłów:", n)
+```
+
+---
+
+# 18. Efekt Rungego
+
+Efekt Rungego oznacza, że zwiększenie liczby węzłów interpolacji lub stopnia wielomianu interpolacyjnego nie zawsze prowadzi do lepszego przybliżenia funkcji.
+
+Problem pojawia się szczególnie, gdy:
+
+- interpolowana funkcja jest przybliżana wielomianem wysokiego stopnia,
+    
+- węzły interpolacyjne są równoodległe,
+    
+- patrzymy na końce przedziału interpolacji.
+    
+
+Wielomiany wysokiego stopnia mogą wykazywać oscylacje między punktami węzłowymi, co prowadzi do dużego wzrostu błędu na krańcach przedziału.
+
+### Rozwiązanie problemu
+
+Aby ograniczyć efekt Rungego, można użyć:
+
+1. interpolacji kawałkowej, np. funkcji sklejanych,
+    
+2. węzłów Czebyszewa zamiast równoodległych punktów.
+    
+
+### Przykład w Pythonie
+
+```python
+# Przykład tworzenia równoodległych węzłów w przedziale [-1,1]
+
+a = -1
+b = 1
+n = 5
+
+wezly = []
+
+for i in range(n):
+    x = a + i * (b - a) / (n - 1)
+    wezly.append(x)
+
+print("Równoodległe węzły:")
+for x in wezly:
+    print(x)
+```
+
+---
+
+# 19. Interpolacja funkcjami sklejanymi
+
+Interpolacja funkcjami sklejanymi, czyli **spline interpolation**, to metoda przybliżania funkcji za pomocą kawałkami wielomianów niskiego stopnia.
+
+Wielomiany te są sklejane tak, aby całość była gładka.
+
+Funkcja sklejana stopnia `k`:
+
+- na każdym podprzedziale jest wielomianem stopnia co najwyżej `k`,
+    
+- ma ciągłe pochodne do rzędu:
+    
+
+$$  
+k-1  
+$$
+
+w punktach sklejenia.
+
+### Sens
+
+Zamiast jednego wielomianu wysokiego stopnia używa się kilku wielomianów niskiego stopnia na mniejszych podprzedziałach.
+
+Dzięki temu można zmniejszyć oscylacje.
+
+### Przykład w Pythonie
+
+```python
+# Dane punkty
+x = [0, 1, 2, 3]
+y = [1, 3, 2, 5]
+
+# Sprawdzamy, do którego przedziału należy punkt xp
+xp = 1.5
+
+indeks = 0
+
+for i in range(len(x) - 1):
+    if x[i] <= xp <= x[i + 1]:
+        indeks = i
+
+print("Punkt", xp, "leży w przedziale [", x[indeks], ",", x[indeks + 1], "]")
+```
+
+---
+
+# 20. Funkcje sklejane liniowe
+
+Najprostszy typ funkcji sklejanych to funkcje sklejane liniowe.
+
+Dla każdego podprzedziału:
+
+$$  
+[x_i,x_{i+1}]  
+$$
+
+interpolacja liniowa jest dana wzorem:
+
+# $$  
+S(x)
+
+y_i  
++  
+\frac{y_{i+1}-y_i}{x_{i+1}-x_i}  
+(x-x_i)  
+$$
+
+### Przykład z wykładu
+
+Dane pomiarowe:
+
+$$  
+(0,1), (1,3), (2,2), (3,5)  
+$$
+
+Na kolejnych przedziałach:
+
+$$  
+S_0(x) = 1 + 2x,\quad x \in [0,1]  
+$$
+
+$$  
+S_1(x) = 4 - x,\quad x \in [1,2]  
+$$
+
+$$  
+S_2(x) = 3x - 4,\quad x \in [2,3]  
+$$
+
+Zatem funkcja sklejana:
+
+$$  
+S(x) =  
+\begin{cases}  
+1 + 2x, & x \in [0,1] \  
+4 - x, & x \in [1,2] \  
+3x - 4, & x \in [2,3]  
+\end{cases}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [0, 1, 2, 3]
+y = [1, 3, 2, 5]
+
+xp = 1.5
+
+wartosc = None
+
+for i in range(len(x) - 1):
+    if x[i] <= xp <= x[i + 1]:
+        wartosc = y[i] + (y[i + 1] - y[i]) / (x[i + 1] - x[i]) * (xp - x[i])
+
+print("S(", xp, ") =", wartosc)
+```
+
+---
+
+# 21. Funkcje sklejane kubiczne
+
+Funkcje sklejane kubiczne są funkcjami sklejanymi stopnia `3`.
+
+Są często używane w praktyce, ponieważ dają dobrą równowagę między złożonością obliczeniową a jakością interpolacji.
+
+Na przedziale:
+
+$$  
+[x_i,x_{i+1}]  
+$$
+
+funkcja ma postać:
+
+# $$  
+S_i(x)
+
+a_i  
++  
+b_i(x-x_i)  
++  
+c_i(x-x_i)^2  
++  
+d_i(x-x_i)^3  
+$$
+
+Warunki sklejenia zapewniają gładkość przejść między wielomianami.
+
+### Warunki brzegowe i warunki sklejenia
+
+Dla węzłów zewnętrznych:
+
+$$  
+s_0(x_0) = f(x_0)  
+$$
+
+oraz:
+
+$$  
+s_{n-1}(x_n) = f(x_n)  
+$$
+
+Warunek naturalności:
+
+$$  
+s_0''(x_0) = 0  
+$$
+
+oraz:
+
+$$  
+s_{n-1}''(x_n) = 0  
+$$
+
+Dla każdego węzła wewnętrznego:
+
+$$  
+x_i  
+$$
+
+dla:
+
+$$  
+i = 1,2,\dots,n-1  
+$$
+
+mamy warunki:
+
+$$  
+s_{i-1}(x_i) = s_i(x_i) = f(x_i)  
+$$
+
+$$  
+s_{i-1}'(x_i) = s_i'(x_i)  
+$$
+
+$$  
+s_{i-1}''(x_i) = s_i''(x_i)  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Obliczamy wartość przykładowego wielomianu kubicznego:
+# S_i(x) = ai + bi*(x-xi) + ci*(x-xi)^2 + di*(x-xi)^3
+
+ai = 1
+bi = 2
+ci = -1
+di = 0.5
+
+xi = 0
+x = 0.5
+
+h = x - xi
+
+S = ai + bi * h + ci * h * h + di * h * h * h
+
+print("S(x) =", S)
+```
+
+---
+
+# 22. Przykład naturalnego splajnu kubicznego
+
+Dla danych:
+
+$$  
+(0,0), (1,1), (2,0)  
+$$
+
+szukamy naturalnego splajnu kubicznego w postaci:
+
+# $$  
+S_i(x)
+
+a_i  
++  
+b_i(x-x_i)  
++  
+c_i(x-x_i)^2  
++  
+d_i(x-x_i)^3  
+$$
+
+Na przedziałach:
+
+$$  
+[0,1]  
+$$
+
+oraz:
+
+$$  
+[1,2]  
+$$
+
+przyjmujemy:
+
+$$  
+S_0(x) = a_0 + b_0x + c_0x^2 + d_0x^3  
+$$
+
+$$  
+S_1(x) = a_1 + b_1(x-1) + c_1(x-1)^2 + d_1(x-1)^3  
+$$
+
+Warunki interpolacji:
+
+$$  
+S_0(0) = 0  
+$$
+
+$$  
+S_0(1) = 1  
+$$
+
+$$  
+S_1(1) = 1  
+$$
+
+$$  
+S_1(2) = 0  
+$$
+
+Warunki naturalności:
+
+$$  
+S_0''(0) = 0  
+$$
+
+$$  
+S_1''(2) = 0  
+$$
+
+Warunki sklejenia w punkcie:
+
+$$  
+x = 1  
+$$
+
+są następujące:
+
+$$  
+S_0'(1) = S_1'(1)  
+$$
+
+$$  
+S_0''(1) = S_1''(1)  
+$$
+
+Z warunków dostajemy:
+
+$$  
+a_0 = 0  
+$$
+
+$$  
+a_1 = 1  
+$$
+
+$$  
+c_0 = 0  
+$$
+
+oraz układ:
+
+$$  
+b_0 + d_0 = 1  
+$$
+
+$$  
+b_1 + c_1 + d_1 = -1  
+$$
+
+$$  
+b_0 + 3d_0 = b_1  
+$$
+
+$$  
+6d_0 = 2c_1  
+$$
+
+$$  
+2c_1 + 6d_1 = 0  
+$$
+
+Po rozwiązaniu:
+
+$$  
+b_0 = \frac{3}{2}  
+$$
+
+$$  
+d_0 = -\frac{1}{2}  
+$$
+
+$$  
+b_1 = 0  
+$$
+
+$$  
+c_1 = -\frac{3}{2}  
+$$
+
+$$  
+d_1 = \frac{1}{2}  
+$$
+
+Zatem:
+
+## $$  
+S_0(x) =  
+\frac{3}{2}x
+
+\frac{1}{2}x^3,  
+\quad x \in [0,1]  
+$$
+
+## $$  
+S_1(x) =  
+1
+
+\frac{3}{2}(x-1)^2  
++  
+\frac{1}{2}(x-1)^3,  
+\quad x \in [1,2]  
+$$
+
+Ostatecznie:
+
+$$  
+S(x) =  
+\begin{cases}  
+\frac{3}{2}x - \frac{1}{2}x^3, & x \in [0,1] \  
+1 - \frac{3}{2}(x-1)^2 + \frac{1}{2}(x-1)^3, & x \in [1,2]  
+\end{cases}  
+$$
+
+Splajn kubiczny daje funkcję gładką: ciągłe są:
+
+$$  
+S(x)  
+$$
+
+$$  
+S'(x)  
+$$
+
+oraz:
+
+$$  
+S''(x)  
+$$
+
+w punkcie sklejenia.
+
+### Przykład w Pythonie
+
+```python
+def S(x):
+    if 0 <= x <= 1:
+        return (3 / 2) * x - (1 / 2) * x * x * x
+    elif 1 < x <= 2:
+        h = x - 1
+        return 1 - (3 / 2) * h * h + (1 / 2) * h * h * h
+    else:
+        return None
+
+
+punkty = [0, 0.5, 1, 1.5, 2]
+
+for x in punkty:
+    print("x =", x, "S(x) =", S(x))
+```
+
+---
+
+# 23. Krzywe Béziera
+
+Krzywe Béziera są szeroko stosowane w:
+
+- grafice komputerowej,
+    
+- animacji,
+    
+- projektowaniu CAD,
+    
+- modelowaniu gładkich i łatwo kontrolowanych kształtów.
+    
+
+Krzywa Béziera stopnia `n` jest kombinacją liniową punktów kontrolnych:
+
+$$  
+P_0, P_1, \dots, P_n  
+$$
+
+z wykorzystaniem wielomianów bazowych Bernsteina:
+
+$$  
+B(t) =  
+\sum_{i=0}^{n}  
+P_i B_{i,n}(t)  
+$$
+
+gdzie:
+
+# $$  
+B_{i,n}(t)
+
+\binom{n}{i}  
+t^i(1-t)^{n-i}  
+$$
+
+dla:
+
+$$  
+t \in [0,1]  
+$$
+
+### Właściwości krzywych Béziera
+
+1. Krzywa zaczyna się w:
+    
+
+$$  
+P_0  
+$$
+
+2. Krzywa kończy się w:
+    
+
+$$  
+P_n  
+$$
+
+3. Tylko punkty kontrolne:
+    
+
+$$  
+P_0  
+$$
+
+oraz:
+
+$$  
+P_n  
+$$
+
+leżą na krzywej.
+
+4. Pozostałe punkty kontrolne wpływają na kształt krzywej.
+    
+5. Krzywa jest zawsze zawarta w otoczce wypukłej swoich punktów kontrolnych.
+    
+6. Do wyznaczania punktów na krzywej można użyć algorytmu de Casteljau.
+    
+
+### Przykład w Pythonie — algorytm de Casteljau
+
+```python
+# Punkty kontrolne 2D
+punkty = [
+    [0.0, 0.0],
+    [1.0, 2.0],
+    [2.0, 0.0]
+]
+
+t = 0.5
+
+# Kopiujemy punkty do roboczej listy
+robocze = []
+
+for punkt in punkty:
+    robocze.append([punkt[0], punkt[1]])
+
+n = len(robocze)
+
+for r in range(1, n):
+    for i in range(n - r):
+        robocze[i][0] = (1 - t) * robocze[i][0] + t * robocze[i + 1][0]
+        robocze[i][1] = (1 - t) * robocze[i][1] + t * robocze[i + 1][1]
+
+print("Punkt na krzywej dla t =", t, "to", robocze[0])
+```
+
+---
+
+# 24. Wizualizacja interpolacji
+
+Ze wskazówek do laboratorium: przy interpolacji warto obliczyć wartości wielomianu w wielu punktach i narysować wykres.
+
+Na wykresie dobrze jest zaznaczyć:
+
+- punkty wejściowe,
+    
+- wielomian interpolacyjny.
+    
+
+Dzięki temu widać, czy wielomian dobrze przechodzi przez punkty oraz czy nie pojawiają się duże oscylacje.
+
+### Przykład w Pythonie
+
+```python
+import matplotlib.pyplot as plt
+
+x_wezly = [0.0, 1.0, 2.0]
+y_wezly = [1.0, 3.0, 2.0]
+
+# Obliczamy współczynniki Newtona w jednej tablicy
+n = len(x_wezly)
+a = []
+
+for i in range(n):
+    a.append(y_wezly[i])
+
+for j in range(1, n):
+    for i in range(n - 1, j - 1, -1):
+        a[i] = (a[i] - a[i - 1]) / (x_wezly[i] - x_wezly[i - j])
+
+# Funkcja do obliczania wartości wielomianu Newtona schematem Hornera
+def P(X):
+    result = a[len(a) - 1]
+
+    for i in range(len(a) - 2, -1, -1):
+        result = result * (X - x_wezly[i]) + a[i]
+
+    return result
+
+
+# Punkty do wykresu
+x_wykres = []
+y_wykres = []
+
+start = 0.0
+koniec = 2.0
+liczba_punktow = 100
+
+for i in range(liczba_punktow):
+    X = start + i * (koniec - start) / (liczba_punktow - 1)
+    x_wykres.append(X)
+    y_wykres.append(P(X))
+
+plt.plot(x_wykres, y_wykres, label="wielomian interpolacyjny")
+plt.scatter(x_wezly, y_wezly, label="punkty wejściowe")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+---
+
+# 25. Problemy i wyzwania interpolacji
+
+Interpolacja jest użyteczna, ale wiąże się z pewnymi problemami.
+
+Najważniejsze problemy:
+
+1. **Efekt Rungego** przy interpolacji wielomianowej na równoodległych węzłach.
+    
+2. **Wybór odpowiedniej metody interpolacji** dla danego problemu.
+    
+3. **Złożoność obliczeniowa** niektórych metod interpolacyjnych.
+    
+4. **Błędy numeryczne** wynikające ze złego uwarunkowania macierzy.
+    
+
+### Przykład w Pythonie
+
+```python
+metoda = "wielomian wysokiego stopnia"
+wezly_rownoodlegle = True
+
+if metoda == "wielomian wysokiego stopnia" and wezly_rownoodlegle:
+    print("Może pojawić się efekt Rungego")
+else:
+    print("Ryzyko efektu Rungego jest mniejsze")
+```
+
+---
+
+# 26. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 26.1. Definicja interpolacji
+
+Interpolacja polega na znalezieniu funkcji:
+
+$$  
+W(x)  
+$$
+
+takiej, że:
+
+$$  
+W(x_i) = y_i  
+$$
+
+dla danych węzłów:
+
+$$  
+(x_i,y_i)  
+$$
+
+---
+
+## 26.2. Funkcja interpolacyjna
+
+Funkcję interpolacyjną zapisujemy jako:
+
+$$  
+W(x) =  
+\sum_{i=0}^{n} a_i\varphi_i(x)  
+$$
+
+---
+
+## 26.3. Interpolacja wielomianowa
+
+Wielomian interpolacyjny ma postać:
+
+$$  
+W_n(x) = a_0 + a_1x + a_2x^2 + \dots + a_nx^n  
+$$
+
+---
+
+## 26.4. Macierz Vandermonde’a
+
+Dla bazy jednomianowej powstaje macierz:
+
+$$  
+X =  
+\begin{bmatrix}  
+1 & x_0 & \dots & x_0^n \  
+1 & x_1 & \dots & x_1^n \  
+\vdots & \vdots & \ddots & \vdots \  
+1 & x_n & \dots & x_n^n  
+\end{bmatrix}  
+$$
+
+Jej wyznacznik:
+
+$$  
+D =  
+\prod_{0 \leq j < i \leq n}(x_i-x_j)  
+$$
+
+---
+
+## 26.5. Interpolacja Lagrange’a
+
+Wzór Lagrange’a:
+
+# $$  
+W(x)
+
+\sum_{i=0}^{n}  
+y_i  
+\left(  
+\prod_{\substack{j=0 \ j \neq i}}^{n}  
+\frac{x-x_j}{x_i-x_j}  
+\right)  
+$$
+
+---
+
+## 26.6. Interpolacja Newtona
+
+Wzór Newtona:
+
+# $$  
+p(x)
+
+\sum_{k=0}^{n}  
+f[x_0,x_1,\dots,x_k]  
+\prod_{j=0}^{k-1}(x-x_j)  
+$$
+
+---
+
+## 26.7. Ilorazy różnicowe
+
+Rząd zerowy:
+
+$$  
+f[x_i] = f(x_i)  
+$$
+
+Rząd pierwszy:
+
+# $$  
+f[x_i,x_{i+1}]
+
+\frac{f[x_{i+1}] - f[x_i]}{x_{i+1}-x_i}  
+$$
+
+Rząd `k`:
+
+# $$  
+f[x_i,x_{i+1},\dots,x_{i+k}]
+
+## \frac{  
+f[x_{i+1},\dots,x_{i+k}]
+
+f[x_i,\dots,x_{i+k-1}]  
+}  
+{x_{i+k}-x_i}  
+$$
+
+---
+
+## 26.8. Współczynniki Newtona
+
+Współczynniki Newtona można zapisać jako:
+
+$$  
+a_k = f[x_0,x_1,\dots,x_k]  
+$$
+
+Można je liczyć w jednej tablicy, nadpisując wartości od końca.
+
+Złożoność:
+
+$$  
+O(n^2)  
+$$
+
+---
+
+## 26.9. Schemat Hornera dla postaci Newtona
+
+Wartość wielomianu Newtona można liczyć od końca:
+
+```text
+result = result * (X - x_i) + a_i
+```
+
+Złożoność:
+
+$$  
+O(n)  
+$$
+
+---
+
+## 26.10. Rozwinięcie Maclaurina dla $$e^x$$
+
+$$  
+e^x =  
+\sum_{k=0}^{\infty}  
+\frac{x^k}{k!}  
+$$
+
+W praktyce:
+
+$$  
+e^x \approx  
+\sum_{k=0}^{n}  
+\frac{x^k}{k!}  
+$$
+
+---
+
+## 26.11. Rozwinięcie Maclaurina dla $$\sin x$$
+
+$$  
+\sin x =  
+\sum_{k=1}^{\infty}  
+(-1)^{k-1}  
+\frac{x^{2k-1}}{(2k-1)!}  
+$$
+
+W praktyce:
+
+$$  
+\sin x \approx  
+\sum_{k=1}^{n}  
+(-1)^{k-1}  
+\frac{x^{2k-1}}{(2k-1)!}  
+$$
+
+---
+
+## 26.12. Błąd interpolacji
+
+Reszta interpolacji:
+
+# $$  
+r(x)
+
+\frac{f^{(n+1)}(\xi)}{(n+1)!}  
+p_n(x)  
+$$
+
+gdzie:
+
+$$  
+p_n(x) = (x-x_0)(x-x_1)\dots(x-x_n)  
+$$
+
+---
+
+## 26.13. Efekt Rungego
+
+Efekt Rungego pojawia się głównie przy:
+
+- wielomianach wysokiego stopnia,
+    
+- równoodległych węzłach,
+    
+- końcach przedziału interpolacji.
+    
+
+---
+
+## 26.14. Funkcje sklejane
+
+Funkcje sklejane to wielomiany niskiego stopnia na podprzedziałach, sklejone tak, aby całość była gładka.
+
+---
+
+## 26.15. Liniowa funkcja sklejana
+
+# $$  
+S(x)
+
+y_i  
++  
+\frac{y_{i+1}-y_i}{x_{i+1}-x_i}  
+(x-x_i)  
+$$
+
+---
+
+## 26.16. Kubiczna funkcja sklejana
+
+# $$  
+S_i(x)
+
+a_i  
++  
+b_i(x-x_i)  
++  
+c_i(x-x_i)^2  
++  
+d_i(x-x_i)^3  
+$$
+
+---
+
+## 26.17. Krzywa Béziera
+
+$$  
+B(t) =  
+\sum_{i=0}^{n}  
+P_i B_{i,n}(t)  
+$$
+
+gdzie:
+
+# $$  
+B_{i,n}(t)
+
+\binom{n}{i}  
+t^i(1-t)^{n-i}  
+$$
+
+---
+
+# 27. Krótkie podsumowanie
+
+Wykład 6 dotyczył interpolacji, czyli wyznaczania funkcji przechodzącej przez zadane punkty.
+
+Najważniejsze wnioski:
+
+1. Interpolacja pozwala estymować wartości między znanymi punktami.
+    
+2. Funkcja interpolacyjna spełnia warunek:
+    
+
+$$  
+W(x_i) = y_i  
+$$
+
+3. Interpolację można zapisać przez funkcje bazowe.
+    
+4. W interpolacji wielomianowej używa się bazy:
+    
+
+$$  
+1,x,x^2,\dots,x^n  
+$$
+
+5. Macierz Vandermonde’a powstaje przy bazie jednomianowej.
+    
+6. Interpolacja Lagrange’a daje bezpośredni wzór na wielomian.
+    
+7. Interpolacja Newtona korzysta z ilorazów różnicowych.
+    
+8. Współczynniki Newtona można liczyć w jednej tablicy.
+    
+9. Schemat Hornera znacząco przyspiesza obliczanie wartości wielomianu.
+    
+10. Rozwinięcia Maclaurina dla funkcji `e^x` i `sin(x)` są proste, ale mogą być numerycznie mniej dokładne niż funkcje biblioteczne.
+    
+11. Zwiększanie liczby węzłów nie zawsze poprawia wynik.
+    
+12. Efekt Rungego pokazuje problem oscylacji wielomianów wysokiego stopnia.
+    
+13. Funkcje sklejane ograniczają oscylacje, bo używają wielomianów niskiego stopnia na podprzedziałach.
+    
+14. Splajny kubiczne dają gładką funkcję z ciągłością pochodnych.
+    
+15. Krzywe Béziera są używane w grafice, animacji i projektowaniu CAD.
