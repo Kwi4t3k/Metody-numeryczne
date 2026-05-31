@@ -25,6 +25,13 @@ def wypisz_wektor(wektor, nazwa="x"):
 def jacobi(A, b, x0, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje", rozwiazanie_dokladne=None):
     n = len(A)
     x_stare = x0[:]
+    #     /\
+    # dla macierzy lepiej:
+    # B = []
+
+    # for i in range(len(A)):
+    #     B.append(A[i][:])
+    #---------------------------------------
 
     for i in range(n):
         if A[i][i] == 0:
