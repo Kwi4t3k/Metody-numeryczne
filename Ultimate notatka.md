@@ -12681,22 +12681,6 @@ Wyróżnia się kilka podstawowych rodzajów interpolacji:
 4. **Interpolacja Hermite’a**.
     
 
-### Przykład w Pythonie
-
-```python
-rodzaje = [
-    "interpolacja wielomianowa",
-    "interpolacja Lagrange'a",
-    "interpolacja Newtona",
-    "interpolacja funkcji sklejanych",
-    "krzywe Béziera",
-    "interpolacja Hermite'a"
-]
-
-for rodzaj in rodzaje:
-    print(rodzaj)
-```
-
 ---
 
 ## 4. Funkcja interpolacyjna
@@ -12813,9 +12797,9 @@ oraz wektor współczynników:
 $$  
 A =  
 \begin{bmatrix}  
-a_0 \  
-a_1 \  
-\vdots \  
+a_0 \\  
+a_1 \\  
+\vdots \\  
 a_n  
 \end{bmatrix}  
 $$
@@ -12852,24 +12836,24 @@ $$
 
 czyli:
 
-# $$  
+$$  
 \begin{bmatrix}  
-\varphi_0(x_0) & \varphi_1(x_0) & \dots & \varphi_n(x_0) \  
-\varphi_0(x_1) & \varphi_1(x_1) & \dots & \varphi_n(x_1) \  
-\vdots & \vdots & \ddots & \vdots \  
+\varphi_0(x_0) & \varphi_1(x_0) & \dots & \varphi_n(x_0) \\  
+\varphi_0(x_1) & \varphi_1(x_1) & \dots & \varphi_n(x_1) \\  
+\vdots & \vdots & \ddots & \vdots \\  
 \varphi_0(x_n) & \varphi_1(x_n) & \dots & \varphi_n(x_n)  
 \end{bmatrix}  
 \begin{bmatrix}  
-a_0 \  
-a_1 \  
-\vdots \  
+a_0 \\  
+a_1 \\  
+\vdots \\  
 a_n  
 \end{bmatrix}
-
+=
 \begin{bmatrix}  
-y_0 \  
-y_1 \  
-\vdots \  
+y_0 \\  
+y_1 \\  
+\vdots \\  
 y_n  
 \end{bmatrix}  
 $$
@@ -13121,9 +13105,9 @@ Dla interpolacji wielomianowej macierz główna układu ma postać macierzy Vand
 $$  
 X =  
 \begin{bmatrix}  
-1 & x_0 & \dots & x_0^n \  
-1 & x_1 & \dots & x_1^n \  
-\vdots & \vdots & \ddots & \vdots \  
+1 & x_0 & \dots & x_0^n \\  
+1 & x_1 & \dots & x_1^n \\  
+\vdots & \vdots & \ddots & \vdots \\  
 1 & x_n & \dots & x_n^n  
 \end{bmatrix}  
 $$
@@ -13170,8 +13154,8 @@ wyznacznik Vandermonde’a:
 $$  
 D =  
 \begin{vmatrix}  
-1 & 2 & 4 \  
-1 & 3 & 9 \  
+1 & 2 & 4 \\  
+1 & 3 & 9 \\  
 1 & 4 & 16  
 \end{vmatrix}  
 $$
@@ -13256,7 +13240,157 @@ else:
 
 ---
 
-# 11. Przykład interpolacji funkcji $$\sin(\pi x)$$
+# 11. Funkcje interpolacyjne i przybliżanie funkcji
+
+Funkcje odgrywają kluczową rolę w modelowaniu matematycznym, ponieważ służą jako narzędzia do opisu relacji między różnymi zmiennymi.
+
+W obliczeniach numerycznych pojawia się problem przybliżonego przedstawiania funkcji. Chodzi o to, aby możliwe było obliczenie jej wartości dla dowolnych argumentów z przedziału:
+
+$$
+\langle a,b \rangle
+$$
+
+za pomocą ograniczonej liczby operacji arytmetycznych i logicznych.
+
+Zamiast pracować bezpośrednio na funkcji oryginalnej:
+
+$$
+f
+$$
+
+wybiera się funkcję przybliżającą:
+
+$$
+\tilde{f}
+$$
+
+która ma reprezentować oryginalną funkcję.
+
+Wybór funkcji przybliżającej:
+
+$$
+\tilde{f}
+$$
+
+może zależeć od wielu czynników. Ważne jest, aby taka funkcja umożliwiała proste obliczenie jej wartości.
+
+Dlatego często wybiera się wielomiany algebraiczne jako funkcje przybliżające, ponieważ są łatwe do definiowania i obliczania.
+
+Wielomian algebraiczny ma postać:
+
+$$
+W_n(x) = a_0 + a_1x + a_2x^2 + a_3x^3 + \dots + a_nx^n
+$$
+
+Taki wielomian jest często stosowany jako funkcja przybliżająca, ponieważ można go zdefiniować za pomocą skończonej liczby współczynników:
+
+$$
+a_0, a_1, a_2, \dots, a_n
+$$
+
+oraz łatwo obliczać jego wartości.
+
+Interpolacja za pomocą wielomianów umożliwia przybliżenie dowolnej funkcji. Jeżeli argument:
+
+$$
+x
+$$
+
+nie jest węzłem interpolacji, to wartość:
+
+$$
+W_n(x)
+$$
+
+reprezentuje estymację wartości:
+
+$$
+y
+$$
+
+czyli przybliżoną wartość funkcji w tym punkcie.
+
+Błąd przybliżenia to różnica między funkcją oryginalną a funkcją przybliżającą. Można go oceniać przez porównanie wartości funkcji oryginalnej i wielomianu interpolacyjnego w wybranych punktach poza węzłami interpolacji.
+
+Czyli porównujemy:
+
+$$
+f(x)
+$$
+
+oraz:
+
+$$
+W_n(x)
+$$
+
+a błąd można zapisać jako:
+
+$$
+|f(x) - W_n(x)|
+$$
+
+### Przykład
+
+Załóżmy, że funkcją oryginalną jest:
+
+$$
+f(x) = x^2
+$$
+
+a funkcją przybliżającą jest wielomian:
+
+$$
+W_1(x) = 2x - 1
+$$
+
+Dla punktu:
+
+$$
+x = 1.5
+$$
+
+możemy porównać wartości:
+
+$$
+f(1.5)
+$$
+
+oraz:
+
+$$
+W_1(1.5)
+$$
+
+Różnica między tymi wartościami jest błędem przybliżenia.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+def W(x):
+    return 2 * x - 1
+
+
+x = 1.5
+
+wartosc_f = f(x)
+wartosc_W = W(x)
+
+blad = abs(wartosc_f - wartosc_W)
+
+print("f(x) =", wartosc_f)
+print("W(x) =", wartosc_W)
+print("Błąd przybliżenia =", blad)
+```
+
+
+---
+
+# 12. Przykład interpolacji funkcji $\sin(\pi x)$
 
 W wykładzie podano przykład interpolacji funkcji:
 
@@ -13299,15 +13433,40 @@ Macierz Vandermonde’a:
 $$  
 X =  
 \begin{bmatrix}  
-1 & -1 & 1 & -1 & 1 \  
-1 & -0.5 & 0.25 & -0.125 & 0.0625 \  
-1 & 0 & 0 & 0 & 0 \  
-1 & 0.5 & 0.25 & 0.125 & 0.0625 \  
+1 & x_0 & x_0^2 & x_0^3 & x_0^4 \\  
+1 & x_1 & x_1^2 & x_1^3 & x_1^4 \\  
+1 & x_2 & x_2^2 & x_2^3 & x_2^4 \\  
+1 & x_3 & x_3^2 & x_3^3 & x_3^4 \\  
+1 & x_4 & x_4^2 & x_4^3 & x_4^4  
+\end{bmatrix}  
+$$
+Podstawiając wartości węzłów:
+
+$$  
+X =  
+\begin{bmatrix}  
+1 & -1 & 1 & -1 & 1 \\  
+1 & -0.5 & 0.25 & -0.125 & 0.0625 \\  
+1 & 0 & 0 & 0 & 0 \\  
+1 & 0.5 & 0.25 & 0.125 & 0.0625 \\  
 1 & 1 & 1 & 1 & 1  
 \end{bmatrix}  
 $$
 
-Wyznacznik:
+Wyznacznik $D = \det(X)$ obliczamy jako:
+
+$$
+D =
+(x_1 - x_0)(x_2 - x_0)(x_3 - x_0)(x_4 - x_0)
+\cdot
+(x_2 - x_1)(x_3 - x_1)(x_4 - x_1)
+\cdot
+(x_3 - x_2)(x_4 - x_2)
+\cdot
+(x_4 - x_3)
+$$
+
+Co daje:
 
 $$  
 D = \frac{9}{32}  
@@ -13356,9 +13515,9 @@ for x in wezly:
 
 ---
 
-# 12. Interpolacja Lagrange’a
+# 13. Interpolacja Lagrange’a
 
-## 12.1. Funkcje bazowe Lagrange’a
+## 13.1. Funkcje bazowe Lagrange’a
 
 Dla `n + 1` węzłów:
 
@@ -13390,9 +13549,9 @@ i jest wielomianem stopnia `n`.
 
 Wielomian interpolacyjny Lagrange’a można zapisać w uproszczonej formie:
 
-# $$  
+$$  
 W(x)
-
+=
 \sum_{i=0}^{n}  
 y_i  
 \left(  
@@ -13450,15 +13609,15 @@ print("W(", x, ") =", W)
 
 ---
 
-# 13. Interpolacja Newtona
+# 14. Interpolacja Newtona
 
 Interpolacja Newtona wykorzystuje **ilorazy różnicowe**.
 
 Wielomian interpolacyjny Newtona:
 
-# $$  
+$$  
 p(x)
-
+=
 \sum_{k=0}^{n}  
 f[x_0,x_1,\dots,x_k]  
 \prod_{j=0}^{k-1}(x-x_j)  
@@ -13497,26 +13656,28 @@ $$
 
 ### Iloraz różnicowy rzędu pierwszego
 
-# $$  
+$$  
 f[x_i,x_{i+1}]
-
+=
 \frac{f[x_{i+1}] - f[x_i]}{x_{i+1}-x_i}  
 $$
 
 ### Iloraz różnicowy rzędu `k`
 
-# $$  
+$$  
 f[x_i,x_{i+1},\dots,x_{i+k}]
-
-## \frac{  
+=
+\frac{  
 f[x_{i+1},\dots,x_{i+k}]
-
+-
 f[x_i,\dots,x_{i+k-1}]  
 }  
 {x_{i+k}-x_i}  
 $$
 
 Ilorazy różnicowe można obliczać tablicą trójkątną.
+
+**Dla i = 0, ..., n**
 
 ### Przykład w Pythonie — tablica ilorazów różnicowych
 
@@ -13555,7 +13716,7 @@ for wiersz in tablica:
 
 ---
 
-## 13.1. Współczynniki Newtona w jednej tablicy
+## 14.1. Współczynniki Newtona w jednej tablicy
 
 Ze wskazówek do laboratorium: współczynniki wielomianu Newtona można wyznaczać metodą ilorazów różnicowych, ale nie trzeba przechowywać całej tablicy trójkątnej.
 
@@ -13610,7 +13771,7 @@ for wspolczynnik in a:
 
 ---
 
-## 13.2. Obliczanie wartości wielomianu Newtona
+## 14.2. Obliczanie wartości wielomianu Newtona
 
 Wielomian Newtona ma postać:
 
@@ -13672,7 +13833,7 @@ print("P(", X, ") =", result)
 
 ---
 
-# 14. Aproksymacja funkcji za pomocą szeregów Maclaurina
+# 15. Aproksymacja funkcji za pomocą szeregów Maclaurina
 
 Ze wskazówek do laboratorium wynika, że w praktyce często zamiast dokładnej funkcji można liczyć jej przybliżenie za pomocą skończonej sumy szeregu Maclaurina.
 
@@ -13680,7 +13841,7 @@ Nie jest to interpolacja w ścisłym sensie, ale jest powiązane z tematem przyb
 
 ---
 
-## 14.1. Aproksymacja funkcji $$e^x$$
+## 15.1. Aproksymacja funkcji $e^x$
 
 Funkcja eksponencjalna ma rozwinięcie Maclaurina:
 
@@ -13704,9 +13865,9 @@ Obliczanie silni w każdej iteracji jest kosztowne.
 
 Lepiej użyć zależności między kolejnymi wyrazami szeregu:
 
-# $$  
+$$  
 \frac{x^k}{k!}
-
+=
 \frac{x^{k-1}}{(k-1)!}  
 \cdot  
 \frac{x}{k}  
@@ -13748,7 +13909,7 @@ print("Błąd =", abs(suma - math.exp(x)))
 
 ---
 
-## 14.2. Aproksymacja funkcji $$\sin x$$
+## 15.2. Aproksymacja funkcji $\sin x$
 
 Rozwinięcie Maclaurina funkcji sinus:
 
@@ -13820,7 +13981,7 @@ print("Błąd =", abs(suma - math.sin(x)))
 
 ---
 
-## 14.3. Wnioski praktyczne z aproksymacji Maclaurina
+## 15.3. Wnioski praktyczne z aproksymacji Maclaurina
 
 Rozwinięcia Maclaurina są proste, ale mogą być numerycznie niestabilne.
 
@@ -13866,7 +14027,7 @@ print("Czas =", koniec - start)
 
 ---
 
-# 15. Funkcje interpolacyjne i przybliżanie funkcji
+# 16. Funkcje interpolacyjne i przybliżanie funkcji
 
 Funkcje odgrywają ważną rolę w modelowaniu matematycznym, ponieważ opisują relacje między zmiennymi.
 
@@ -13914,7 +14075,7 @@ print("Wartość wielomianu =", wynik)
 
 ---
 
-# 16. Błąd interpolacji
+# 17. Błąd interpolacji
 
 Wielomian interpolacyjny:
 
@@ -13940,10 +14101,11 @@ $$
 
 że reszta interpolacji ma postać:
 
-# $$  
+$$  
 r(x)
-
+=
 \frac{f^{(n+1)}(\xi)}{(n+1)!}  
+\cdot
 p_n(x)  
 $$
 
@@ -13982,9 +14144,9 @@ print("p_n(x) =", p)
 
 ---
 
-# 17. Zbieżność wielomianów interpolacyjnych
+# 18. Zbieżność wielomianów interpolacyjnych
 
-## 17.1. Twierdzenie Fabera
+## 18.1. Twierdzenie Fabera
 
 Dla dowolnego ciągu układów węzłów:
 
@@ -14006,7 +14168,7 @@ Nie zawsze zwiększanie liczby węzłów poprawia interpolację.
 
 ---
 
-## 17.2. Drugie twierdzenie o zbieżności
+## 18.2. Drugie twierdzenie o zbieżności
 
 Jeżeli `f` jest funkcją ciągłą w:
 
@@ -14037,7 +14199,7 @@ for n in liczby_wezlow:
 
 ---
 
-# 18. Efekt Rungego
+# 19. Efekt Rungego
 
 Efekt Rungego oznacza, że zwiększenie liczby węzłów interpolacji lub stopnia wielomianu interpolacyjnego nie zawsze prowadzi do lepszego przybliżenia funkcji.
 
@@ -14083,7 +14245,7 @@ for x in wezly:
 
 ---
 
-# 19. Interpolacja funkcjami sklejanymi
+# 20. Interpolacja funkcjami sklejanymi
 
 Interpolacja funkcjami sklejanymi, czyli **spline interpolation**, to metoda przybliżania funkcji za pomocą kawałkami wielomianów niskiego stopnia.
 
@@ -14129,7 +14291,7 @@ print("Punkt", xp, "leży w przedziale [", x[indeks], ",", x[indeks + 1], "]")
 
 ---
 
-# 20. Funkcje sklejane liniowe
+# 21. Funkcje sklejane liniowe
 
 Najprostszy typ funkcji sklejanych to funkcje sklejane liniowe.
 
@@ -14141,9 +14303,9 @@ $$
 
 interpolacja liniowa jest dana wzorem:
 
-# $$  
+$$  
 S(x)
-
+=
 y_i  
 +  
 \frac{y_{i+1}-y_i}{x_{i+1}-x_i}  
@@ -14177,8 +14339,8 @@ Zatem funkcja sklejana:
 $$  
 S(x) =  
 \begin{cases}  
-1 + 2x, & x \in [0,1] \  
-4 - x, & x \in [1,2] \  
+1 + 2x, & x \in [0,1] \\  
+4 - x, & x \in [1,2] \\  
 3x - 4, & x \in [2,3]  
 \end{cases}  
 $$
@@ -14202,7 +14364,7 @@ print("S(", xp, ") =", wartosc)
 
 ---
 
-# 21. Funkcje sklejane kubiczne
+# 22. Funkcje sklejane kubiczne
 
 Funkcje sklejane kubiczne są funkcjami sklejanymi stopnia `3`.
 
@@ -14216,9 +14378,9 @@ $$
 
 funkcja ma postać:
 
-# $$  
+$$  
 S_i(x)
-
+=
 a_i  
 +  
 b_i(x-x_i)  
@@ -14305,7 +14467,7 @@ print("S(x) =", S)
 
 ---
 
-# 22. Przykład naturalnego splajnu kubicznego
+# 23. Przykład naturalnego splajnu kubicznego
 
 Dla danych:
 
@@ -14315,9 +14477,9 @@ $$
 
 szukamy naturalnego splajnu kubicznego w postaci:
 
-# $$  
+$$  
 S_i(x)
-
+=
 a_i  
 +  
 b_i(x-x_i)  
@@ -14453,7 +14615,7 @@ $$
 
 Zatem:
 
-## $$  
+$$  
 S_0(x) =  
 \frac{3}{2}x
 
@@ -14461,7 +14623,7 @@ S_0(x) =
 \quad x \in [0,1]  
 $$
 
-## $$  
+$$  
 S_1(x) =  
 1
 
@@ -14476,7 +14638,7 @@ Ostatecznie:
 $$  
 S(x) =  
 \begin{cases}  
-\frac{3}{2}x - \frac{1}{2}x^3, & x \in [0,1] \  
+\frac{3}{2}x - \frac{1}{2}x^3, & x \in [0,1] \\  
 1 - \frac{3}{2}(x-1)^2 + \frac{1}{2}(x-1)^3, & x \in [1,2]  
 \end{cases}  
 $$
@@ -14520,7 +14682,7 @@ for x in punkty:
 
 ---
 
-# 23. Krzywe Béziera
+# 24. Krzywe Béziera
 
 Krzywe Béziera są szeroko stosowane w:
 
@@ -14549,9 +14711,9 @@ $$
 
 gdzie:
 
-# $$  
+$$  
 B_{i,n}(t)
-
+=
 \binom{n}{i}  
 t^i(1-t)^{n-i}  
 $$
@@ -14630,7 +14792,7 @@ print("Punkt na krzywej dla t =", t, "to", robocze[0])
 
 ---
 
-# 24. Wizualizacja interpolacji
+# 25. Wizualizacja interpolacji
 
 Ze wskazówek do laboratorium: przy interpolacji warto obliczyć wartości wielomianu w wielu punktach i narysować wykres.
 
@@ -14694,7 +14856,7 @@ plt.show()
 
 ---
 
-# 25. Problemy i wyzwania interpolacji
+# 26. Problemy i wyzwania interpolacji
 
 Interpolacja jest użyteczna, ale wiąże się z pewnymi problemami.
 
@@ -14723,9 +14885,9 @@ else:
 
 ---
 
-# 26. Najważniejsze rzeczy do zapamiętania na kolosa
+# 27. Najważniejsze rzeczy do zapamiętania na kolosa
 
-## 26.1. Definicja interpolacji
+## 27.1. Definicja interpolacji
 
 Interpolacja polega na znalezieniu funkcji:
 
@@ -14747,7 +14909,7 @@ $$
 
 ---
 
-## 26.2. Funkcja interpolacyjna
+## 27.2. Funkcja interpolacyjna
 
 Funkcję interpolacyjną zapisujemy jako:
 
@@ -14758,7 +14920,7 @@ $$
 
 ---
 
-## 26.3. Interpolacja wielomianowa
+## 27.3. Interpolacja wielomianowa
 
 Wielomian interpolacyjny ma postać:
 
@@ -14768,7 +14930,7 @@ $$
 
 ---
 
-## 26.4. Macierz Vandermonde’a
+## 27.4. Macierz Vandermonde’a
 
 Dla bazy jednomianowej powstaje macierz:
 
@@ -14791,13 +14953,13 @@ $$
 
 ---
 
-## 26.5. Interpolacja Lagrange’a
+## 27.5. Interpolacja Lagrange’a
 
 Wzór Lagrange’a:
 
-# $$  
+$$  
 W(x)
-
+=
 \sum_{i=0}^{n}  
 y_i  
 \left(  
@@ -14808,13 +14970,13 @@ $$
 
 ---
 
-## 26.6. Interpolacja Newtona
+## 27.6. Interpolacja Newtona
 
 Wzór Newtona:
 
-# $$  
+$$  
 p(x)
-
+=
 \sum_{k=0}^{n}  
 f[x_0,x_1,\dots,x_k]  
 \prod_{j=0}^{k-1}(x-x_j)  
@@ -14822,7 +14984,7 @@ $$
 
 ---
 
-## 26.7. Ilorazy różnicowe
+## 27.7. Ilorazy różnicowe
 
 Rząd zerowy:
 
@@ -14832,20 +14994,20 @@ $$
 
 Rząd pierwszy:
 
-# $$  
+$$  
 f[x_i,x_{i+1}]
-
+=
 \frac{f[x_{i+1}] - f[x_i]}{x_{i+1}-x_i}  
 $$
 
 Rząd `k`:
 
-# $$  
+$$  
 f[x_i,x_{i+1},\dots,x_{i+k}]
-
-## \frac{  
+=
+\frac{  
 f[x_{i+1},\dots,x_{i+k}]
-
+-
 f[x_i,\dots,x_{i+k-1}]  
 }  
 {x_{i+k}-x_i}  
@@ -14853,7 +15015,7 @@ $$
 
 ---
 
-## 26.8. Współczynniki Newtona
+## 27.8. Współczynniki Newtona
 
 Współczynniki Newtona można zapisać jako:
 
@@ -14871,7 +15033,7 @@ $$
 
 ---
 
-## 26.9. Schemat Hornera dla postaci Newtona
+## 27.9. Schemat Hornera dla postaci Newtona
 
 Wartość wielomianu Newtona można liczyć od końca:
 
@@ -14887,7 +15049,7 @@ $$
 
 ---
 
-## 26.10. Rozwinięcie Maclaurina dla $$e^x$$
+## 27.10. Rozwinięcie Maclaurina dla $e^x$
 
 $$  
 e^x =  
@@ -14905,7 +15067,7 @@ $$
 
 ---
 
-## 26.11. Rozwinięcie Maclaurina dla $$\sin x$$
+## 27.11. Rozwinięcie Maclaurina dla $\sin x$
 
 $$  
 \sin x =  
@@ -14925,13 +15087,13 @@ $$
 
 ---
 
-## 26.12. Błąd interpolacji
+## 27.12. Błąd interpolacji
 
 Reszta interpolacji:
 
-# $$  
+$$  
 r(x)
-
+=
 \frac{f^{(n+1)}(\xi)}{(n+1)!}  
 p_n(x)  
 $$
@@ -14944,7 +15106,7 @@ $$
 
 ---
 
-## 26.13. Efekt Rungego
+## 27.13. Efekt Rungego
 
 Efekt Rungego pojawia się głównie przy:
 
@@ -14957,17 +15119,17 @@ Efekt Rungego pojawia się głównie przy:
 
 ---
 
-## 26.14. Funkcje sklejane
+## 27.14. Funkcje sklejane
 
 Funkcje sklejane to wielomiany niskiego stopnia na podprzedziałach, sklejone tak, aby całość była gładka.
 
 ---
 
-## 26.15. Liniowa funkcja sklejana
+## 27.15. Liniowa funkcja sklejana
 
-# $$  
+$$  
 S(x)
-
+=
 y_i  
 +  
 \frac{y_{i+1}-y_i}{x_{i+1}-x_i}  
@@ -14976,11 +15138,11 @@ $$
 
 ---
 
-## 26.16. Kubiczna funkcja sklejana
+## 27.16. Kubiczna funkcja sklejana
 
-# $$  
+$$  
 S_i(x)
-
+=
 a_i  
 +  
 b_i(x-x_i)  
@@ -14992,7 +15154,7 @@ $$
 
 ---
 
-## 26.17. Krzywa Béziera
+## 27.17. Krzywa Béziera
 
 $$  
 B(t) =  
@@ -15002,57 +15164,12 @@ $$
 
 gdzie:
 
-# $$  
+$$  
 B_{i,n}(t)
-
+=
 \binom{n}{i}  
 t^i(1-t)^{n-i}  
 $$
 
 ---
 
-# 27. Krótkie podsumowanie
-
-Wykład 6 dotyczył interpolacji, czyli wyznaczania funkcji przechodzącej przez zadane punkty.
-
-Najważniejsze wnioski:
-
-1. Interpolacja pozwala estymować wartości między znanymi punktami.
-    
-2. Funkcja interpolacyjna spełnia warunek:
-    
-
-$$  
-W(x_i) = y_i  
-$$
-
-3. Interpolację można zapisać przez funkcje bazowe.
-    
-4. W interpolacji wielomianowej używa się bazy:
-    
-
-$$  
-1,x,x^2,\dots,x^n  
-$$
-
-5. Macierz Vandermonde’a powstaje przy bazie jednomianowej.
-    
-6. Interpolacja Lagrange’a daje bezpośredni wzór na wielomian.
-    
-7. Interpolacja Newtona korzysta z ilorazów różnicowych.
-    
-8. Współczynniki Newtona można liczyć w jednej tablicy.
-    
-9. Schemat Hornera znacząco przyspiesza obliczanie wartości wielomianu.
-    
-10. Rozwinięcia Maclaurina dla funkcji `e^x` i `sin(x)` są proste, ale mogą być numerycznie mniej dokładne niż funkcje biblioteczne.
-    
-11. Zwiększanie liczby węzłów nie zawsze poprawia wynik.
-    
-12. Efekt Rungego pokazuje problem oscylacji wielomianów wysokiego stopnia.
-    
-13. Funkcje sklejane ograniczają oscylacje, bo używają wielomianów niskiego stopnia na podprzedziałach.
-    
-14. Splajny kubiczne dają gładką funkcję z ciągłością pochodnych.
-    
-15. Krzywe Béziera są używane w grafice, animacji i projektowaniu CAD.

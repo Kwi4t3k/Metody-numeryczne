@@ -122,4 +122,23 @@
 - Metoda regula falsi (Zasada działania metody regula falsi)
 
 ## 06 - Interpolacja
+- Do czego służy interpolacja?
+- Rodzaje interpolacji (wielomianowa, funkcji sklejanych, za pomocą krzywych Bezjera, Inne metody, takie jak interpolacja Hermite’a)
+- Konstrukcja funkcji interpolacyjnej
+- Tablicowanie vs. Interpolacja
+- Poszukiwanie funkcji interpolacyjnej
+- Wstęp do interpolacji wielomianowej
+- Forma wielomianu funkcyjnego
+- Wyznacznik macierzy i macierz odwrotna (Macierz Vandermonde’a)
+- Przykład - wyznacznik Vandermonde’a
+- Obliczanie wartości ai (współczynniki wielomianu)
+- Funkcje interpolacyjne
+- Interpolacja Lagrange’a i funkcje bazowe
+- Interpolacja Newtona
+- Ilorazy różnicowe f [x0, x1, . . . , xk ]
+- Twierdzenia o zbieżności
+- Błąd interpolacji
+- Efekt Rungego
+- Interpolacja funkcjami sklejanymi
+- Zastosowanie krzywych B´eziera w interpolacji
 - 
