@@ -15257,3 +15257,2112 @@ for punkt in punkty:
     x = punkt[0]
     y = punkt[1]
     print("x =", x, "y =", y)
+```
+
+---
+
+## 2. Źródła błędów w aproksymacji
+
+W aproksymacji występują dwa główne źródła błędów.
+
+### 2.1. Błędy danych wejściowych
+
+Są to błędy pomiarów.
+
+Dane wejściowe mogą pochodzić z doświadczeń, pomiarów lub obserwacji, więc mogą być niedokładne.
+
+### 2.2. Błędy modelu
+
+Są to błędy wynikające z wyboru konkretnego modelu, czyli klasy funkcji, którą dopasowujemy do danych.
+
+Przykład: próbujemy dopasować prostą do danych, które w rzeczywistości układają się bardziej jak parabola.
+
+### Ważny wniosek
+
+Aproksymację można traktować jako problem dostosowania modelu matematycznego do danych wejściowych i znanych faktów.
+
+### Przykład w Pythonie
+
+```python
+# Dane pomiarowe mogą być niedokładne.
+# Model liniowy może nie pasować idealnie.
+
+x = [1, 2, 3]
+y_pomiar = [2.1, 3.9, 6.2]
+
+# Przykładowy model: F(x) = 2x
+def F(x):
+    return 2 * x
+
+
+for i in range(len(x)):
+    blad = abs(y_pomiar[i] - F(x[i]))
+    print("x =", x[i], "pomiar =", y_pomiar[i], "model =", F(x[i]), "błąd =", blad)
+```
+
+---
+
+## 3. Aproksymacja w postaci ogólnej
+
+W aproksymacji liniowej względem współczynników funkcję przybliża się funkcją postaci:
+
+$$  
+f^*(x) = a_0\varphi_0(x) + a_1\varphi_1(x) + \dots + a_k\varphi_k(x)  
+$$
+
+gdzie:
+
+- $$\varphi_0, \varphi_1, \dots, \varphi_k$$ — znane funkcje bazowe,
+    
+- $$a_0, a_1, \dots, a_k$$ — współczynniki, które trzeba dobrać,
+    
+- współczynniki dobiera się tak, aby zminimalizować błąd.
+    
+
+Jeżeli:
+
+$$  
+\varphi_i(x) = x^i  
+$$
+
+to funkcja:
+
+$$  
+f^*(x)  
+$$
+
+jest wielomianem stopnia `k`.
+
+Wtedy układ:
+
+$$  
+1, x, x^2, \dots, x^k  
+$$
+
+nazywamy bazą zbioru wszystkich wielomianów stopnia `k`.
+
+### Przykład
+
+Dla wielomianu stopnia 2 mamy:
+
+$$  
+f^*(x) = a_0 + a_1x + a_2x^2  
+$$
+
+czyli funkcje bazowe to:
+
+$$  
+\varphi_0(x) = 1  
+$$
+
+$$  
+\varphi_1(x) = x  
+$$
+
+$$  
+\varphi_2(x) = x^2  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Funkcja aproksymująca:
+# f*(x) = a0 + a1*x + a2*x^2
+
+a0 = 1
+a1 = 2
+a2 = -0.5
+
+def f_aproksymujaca(x):
+    return a0 + a1 * x + a2 * x * x
+
+
+punkty_x = [0, 1, 2, 3]
+
+for x in punkty_x:
+    print("x =", x, "f*(x) =", f_aproksymujaca(x))
+```
+
+---
+
+## 4. Aproksymacja dla punktów danych
+
+Mając dany zbiór punktów:
+
+$$  
+(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n)  
+$$
+
+szukamy funkcji:
+
+$$  
+f(x)  
+$$
+
+z danej klasy, która w punktach:
+
+$$  
+x_1, x_2, \dots, x_n  
+$$
+
+najlepiej przybliża wartości:
+
+$$  
+y_i  
+$$
+
+Podobne zagadnienie można sformułować dla funkcji. Dla danej funkcji:
+
+$$  
+g(x)  
+$$
+
+szukamy funkcji:
+
+$$  
+f(x)  
+$$
+
+która ją przybliża.
+
+Trzeba wtedy określić miarę jakości przybliżenia, czyli odległość między:
+
+$$  
+{y_1, y_2, \dots, y_n}  
+$$
+
+a:
+
+$$  
+{f(x_1), f(x_2), \dots, f(x_n)}  
+$$
+
+albo między funkcjami:
+
+$$  
+g(x)  
+$$
+
+oraz:
+
+$$  
+f(x)  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [1, 2, 3]
+y = [2, 4, 5]
+
+def f_model(x):
+    return 1.5 * x + 0.5
+
+
+for i in range(len(x)):
+    wartosc_modelu = f_model(x[i])
+    blad = y[i] - wartosc_modelu
+    print("x =", x[i], "y =", y[i], "model =", wartosc_modelu, "różnica =", blad)
+```
+
+---
+
+# 5. Metryka
+
+Metryka to miara odległości w zbiorze.
+
+Przestrzeń metryczna to para:
+
+$$  
+(X,d)  
+$$
+
+gdzie:
+
+- $$X$$ — zbiór,
+    
+- $$d$$ — funkcja określająca odległość między elementami zbioru.
+    
+
+Metryka:
+
+$$  
+d(x,y)  
+$$
+
+spełnia warunki:
+
+1. Odległość jest równa zero wtedy i tylko wtedy, gdy punkty są takie same:
+    
+
+$$  
+d(x,y) = 0 \Leftrightarrow x = y  
+$$
+
+2. Odległość jest symetryczna:
+    
+
+$$  
+d(x,y) = d(y,x)  
+$$
+
+3. Spełniony jest warunek trójkąta:
+    
+
+$$  
+d(x,y) + d(y,z) \geq d(x,z)  
+$$
+
+Wartość:
+
+$$  
+d(x,y)  
+$$
+
+reprezentuje odległość między punktami `x` i `y`.
+
+### Przykład w Pythonie
+
+```python
+def odleglosc_1D(x, y):
+    return abs(x - y)
+
+
+x = 2
+y = 7
+
+d = odleglosc_1D(x, y)
+
+print("Odległość =", d)
+```
+
+---
+
+# 6. Norma funkcji
+
+Niech `F` będzie rodziną funkcji rzeczywistych, ciągłych i ograniczonych, określonych na przedziale:
+
+$$  
+K = [a,b]  
+$$
+
+albo na zbiorze:
+
+$$  
+K = {x_1, x_2, \dots, x_n}  
+$$
+
+Norma funkcji to odwzorowanie:
+
+$$  
+|\cdot| : F \to [0,1)  
+$$
+
+które funkcji:
+
+$$  
+f \in F  
+$$
+
+przypisuje nieujemną liczbę:
+
+$$  
+|f|  
+$$
+
+Norma spełnia warunki:
+
+1. Norma jest równa zero tylko dla funkcji zerowej:
+    
+
+$$  
+|f| = 0 \Leftrightarrow f \equiv 0  
+$$
+
+2. Norma jest jednorodna:
+    
+
+$$  
+|\lambda f| = |\lambda||f|  
+$$
+
+3. Spełnia warunek trójkąta:
+    
+
+$$  
+|f| + |g| \geq |f+g|  
+$$
+
+Norma określa metrykę w rodzinie funkcji:
+
+$$  
+d_{|\cdot|}(f,g) = |f-g|  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Prosty przykład dla funkcji określonej na skończonym zbiorze punktów
+
+def f(x):
+    return x * x
+
+
+def g(x):
+    return x + 1
+
+
+punkty = [0, 1, 2]
+
+for x in punkty:
+    roznica = abs(f(x) - g(x))
+    print("x =", x, "|f(x)-g(x)| =", roznica)
+```
+
+---
+
+# 7. Norma jednostajna
+
+Norma jednostajna jest zdefiniowana wzorem:
+
+$$  
+|f| = \sup_{x \in K}|f(x)|  
+$$
+
+gdzie:
+
+$$  
+\sup  
+$$
+
+oznacza supremum, czyli najmniejsze ograniczenie górne.
+
+Dla skończonego zbioru punktów można rozumieć ją jako największą wartość bezwzględną funkcji.
+
+### Norma różnicy funkcji
+
+Dla dwóch funkcji:
+
+$$  
+f  
+$$
+
+oraz:
+
+$$  
+g  
+$$
+
+możemy liczyć:
+
+$$  
+|f-g| = \sup_{x \in K}|f(x)-g(x)|  
+$$
+
+Czyli szukamy największej różnicy między funkcjami na danym zbiorze lub przedziale.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+def g(x):
+    return x + 1
+
+
+punkty = [-2, -1, 0, 1, 2]
+
+najwieksza_roznica = abs(f(punkty[0]) - g(punkty[0]))
+
+for i in range(1, len(punkty)):
+    roznica = abs(f(punkty[i]) - g(punkty[i]))
+
+    if roznica > najwieksza_roznica:
+        najwieksza_roznica = roznica
+
+print("Norma jednostajna różnicy =", najwieksza_roznica)
+```
+
+---
+
+## 7.1. Przykład normy jednostajnej z wykładu
+
+Na przedziale:
+
+$$  
+K = [-5,5]  
+$$
+
+zdefiniowano funkcje:
+
+$$  
+f(x) = \frac{x}{x^2+1} - \frac{10x^2}{10x^2+1}  
+$$
+
+oraz:
+
+$$  
+g(x) = \frac{x}{10}  
+$$
+
+Interesuje nas maksimum ich różnicy:
+
+$$  
+h(x) = f(x) - g(x)  
+$$
+
+W wykładzie podano:
+
+$$  
+h(x) = \frac{9x}{100x^2+10}  
+$$
+
+Pochodna funkcji:
+
+$$  
+h'(x) =  
+\frac{-9(10x^2-1)}{10(10x^2+1)^2}  
+$$
+
+Dla:
+
+$$  
+x > 0  
+$$
+
+pochodna zeruje się w punkcie:
+
+$$  
+x_0 = \sqrt{\frac{1}{10}} \approx 0.3162277660168379  
+$$
+
+W tym punkcie funkcja `h` osiąga maksimum.
+
+Maksymalna różnica między funkcjami wynosi:
+
+$$  
+|f-g| = h(x_0) =  
+\frac{9}{2 \cdot 10^{3/2}}  
+\approx 0.142302494707577  
+$$
+
+### Przykład w Pythonie
+
+```python
+def h(x):
+    return 9 * x / (100 * x * x + 10)
+
+
+x0 = (1 / 10) ** 0.5
+
+wartosc = h(x0)
+
+print("x0 =", x0)
+print("h(x0) =", wartosc)
+```
+
+---
+
+# 8. Norma L2
+
+Norma `L2`, nazywana także normą kwadratową, jest zdefiniowana wzorem:
+
+$$  
+|f|_2 =  
+\sqrt{  
+\int_a^b f^2(x)dx  
+}  
+$$
+
+Można ją też zapisać jako:
+
+$$  
+|f| =  
+\sqrt{  
+\int_a^b f^2(x)dx  
+}  
+$$
+
+Norma `L2` mierzy błąd w sensie średniokwadratowym.
+
+### Przykład w Pythonie — przybliżenie całki metodą prostokątów
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 1000
+
+dx = (b - a) / n
+
+calka = 0.0
+
+for i in range(n):
+    x = a + i * dx
+    calka = calka + f(x) * f(x) * dx
+
+norma_L2 = calka ** 0.5
+
+print("Przybliżona norma L2 =", norma_L2)
+```
+
+---
+
+## 8.1. Przykład normy L2 z wykładu
+
+Dla funkcji:
+
+$$  
+h(x) = \frac{9x}{100x^2 + 10}  
+$$
+
+na przedziale:
+
+$$  
+[-5,5]  
+$$
+
+norma `L2` wynosi:
+
+$$  
+|h| =  
+\sqrt{  
+\int_{-5}^{5} h^2(x),dx  
+}  
+$$
+
+Z wykładu:
+
+$$  
+|h| \approx 0.1923634359500439  
+$$
+
+### Przykład w Pythonie — numeryczne oszacowanie
+
+```python
+def h(x):
+    return 9 * x / (100 * x * x + 10)
+
+
+a = -5.0
+b = 5.0
+n = 100000
+
+dx = (b - a) / n
+
+calka = 0.0
+
+for i in range(n):
+    x = a + i * dx
+    calka = calka + h(x) * h(x) * dx
+
+norma = calka ** 0.5
+
+print("Przybliżona norma L2 =", norma)
+```
+
+---
+
+# 9. Norma L1
+
+Norma `L1` dla funkcji:
+
+$$  
+f  
+$$
+
+jest zdefiniowana wzorem:
+
+$$  
+|f|_1 =  
+\int_a^b |f(x)|dx  
+$$
+
+Norma ta jest dobrze zdefiniowana, jeżeli całka jest zbieżna.
+
+### Przykład w Pythonie — przybliżenie całki
+
+```python
+def f(x):
+    return x
+
+
+a = -1.0
+b = 1.0
+n = 1000
+
+dx = (b - a) / n
+
+calka = 0.0
+
+for i in range(n):
+    x = a + i * dx
+    calka = calka + abs(f(x)) * dx
+
+print("Przybliżona norma L1 =", calka)
+```
+
+---
+
+## 9.1. Przykład normy L1 z wykładu
+
+Dla funkcji:
+
+$$  
+h(x) = \frac{9x}{100x^2 + 10}  
+$$
+
+na przedziale:
+
+$$  
+[0,5]  
+$$
+
+z wykładu:
+
+$$  
+\int_0^5 h(x)dx =  
+\frac{9\ln 210}{200}  
+\approx 0.2486453822609302  
+$$
+
+Na przedziale:
+
+$$  
+[-5,5]  
+$$
+
+norma `L1` wynosi:
+
+$$  
+|h|_1 =  
+\int_{-5}^{5}|h(x)|dx  
+\approx 0.4972907645218605  
+$$
+
+### Przykład w Pythonie
+
+```python
+def h(x):
+    return 9 * x / (100 * x * x + 10)
+
+
+a = -5.0
+b = 5.0
+n = 100000
+
+dx = (b - a) / n
+
+calka = 0.0
+
+for i in range(n):
+    x = a + i * dx
+    calka = calka + abs(h(x)) * dx
+
+print("Przybliżona norma L1 =", calka)
+```
+
+---
+
+# 10. Normy funkcji na zbiorach skończonych lub ciągach
+
+Normy można definiować także dla funkcji określonych na zbiorach skończonych lub ciągach.
+
+Niech:
+
+$$  
+K = {x_1,x_2,\dots,x_n}  
+$$
+
+oraz:
+
+$$  
+a_i = f(x_i)  
+$$
+
+Wtedy można określić:
+
+### Norma jednostajna
+
+$$  
+|f| = \sup\{|a_1|, |a_2|, \dots\}  
+$$
+
+### Norma L2
+
+$$  
+|f|_2 =  
+\sqrt{  
+\sum_{i=1}^{\infty} a_i^2  
+}  
+$$
+
+### Norma L1
+
+$$  
+|f|_1 =  
+\sum_{i=1}^{\infty}|a_i|  
+$$
+
+Dla skończonego zbioru punktów sumy kończą się na ostatnim elemencie.
+
+### Przykład w Pythonie
+
+```python
+a = [1, -2, 3, -4]
+
+# Norma jednostajna
+norma_jednostajna = abs(a[0])
+
+for i in range(1, len(a)):
+    if abs(a[i]) > norma_jednostajna:
+        norma_jednostajna = abs(a[i])
+
+# Norma L2
+suma_kwadratow = 0
+
+for i in range(len(a)):
+    suma_kwadratow = suma_kwadratow + a[i] * a[i]
+
+norma_L2 = suma_kwadratow ** 0.5
+
+# Norma L1
+norma_L1 = 0
+
+for i in range(len(a)):
+    norma_L1 = norma_L1 + abs(a[i])
+
+print("Norma jednostajna =", norma_jednostajna)
+print("Norma L2 =", norma_L2)
+print("Norma L1 =", norma_L1)
+```
+
+---
+
+# 11. Szeregi potęgowe
+
+Szereg potęgowy zdefiniowany dla pewnego punktu:
+
+$$  
+x_0  
+$$
+
+ma postać:
+
+$$  
+f(x) =  
+\sum_{k=0}^{\infty}  
+a_k(x-x_0)^k  
+$$
+
+gdzie:
+
+$$  
+x \in (x_0-r, x_0+r)  
+$$
+
+a:
+
+$$  
+r  
+$$
+
+jest promieniem zbieżności szeregu.
+
+Dla:
+
+$$  
+x  
+$$
+
+spoza tego przedziału szereg jest rozbieżny.
+
+### Przykład w Pythonie
+
+```python
+# Przykład obliczania skończonej części szeregu:
+# a0 + a1*(x-x0) + a2*(x-x0)^2
+
+a = [1, 2, 3]
+x0 = 0
+x = 2
+
+wynik = 0
+potega = 1
+
+for k in range(len(a)):
+    wynik = wynik + a[k] * potega
+    potega = potega * (x - x0)
+
+print("Wartość przybliżenia =", wynik)
+```
+
+---
+
+# 12. Forma szeregu potęgowego i reszta szeregu
+
+Szereg potęgowy można zapisać jako sumę skończoną oraz resztę:
+
+$$  
+f(x) =  
+\sum_{k=0}^{n-1}  
+a_k(x-x_0)^k + R_n  
+$$
+
+gdzie:
+
+$$  
+R_n  
+$$
+
+jest resztą szeregu.
+
+W praktyce do aproksymacji używa się skończonej liczby składników:
+
+$$  
+f(x) \approx  
+\sum_{k=0}^{n-1}  
+a_k(x-x_0)^k  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Im więcej wyrazów szeregu, tym zwykle lepsze przybliżenie,
+# o ile x leży w przedziale zbieżności.
+
+a = [1, 1, 0.5, 1 / 6]
+x0 = 0
+x = 1
+
+wynik = 0
+potega = 1
+
+for k in range(len(a)):
+    wynik = wynik + a[k] * potega
+    potega = potega * (x - x0)
+
+print("Przybliżenie =", wynik)
+```
+
+---
+
+# 13. Wzór Taylora i Maclaurina
+
+Jeżeli:
+
+$$  
+f(x) =  
+\sum_{k=0}^{n-1}  
+a_k(x-x_0)^k + R_n  
+$$
+
+oraz:
+
+$$  
+x \in (x_0-r, x_0+r)  
+$$
+
+to można przybliżać:
+
+$$  
+f(x) \approx  
+\sum_{k=0}^{n-1}  
+a_k(x-x_0)^k  
+$$
+
+gdzie:
+
+$$  
+a_k =  
+\frac{f^{(k)(x_0)}}{k!}  
+$$
+
+Taki wzór nazywamy **wzorem Taylora**.
+
+Dla:
+
+$$  
+x_0 = 0  
+$$
+
+wzór Taylora nazywamy **wzorem Maclaurina**:
+
+$$  
+f(x) \approx  
+\sum_{k=0}^{n-1}  
+a_kx^k  
+$$
+
+### Przykład w Pythonie — przybliżenie funkcji $e^x$
+
+```python
+# e^x ≈ 1 + x + x^2/2! + x^3/3! + ...
+
+x = 1.0
+n = 10
+
+suma = 1.0
+wyraz = 1.0
+
+for k in range(1, n):
+    wyraz = wyraz * x / k
+    suma = suma + wyraz
+
+print("Przybliżenie e^x =", suma)
+```
+
+---
+
+# 14. Aproksymacja funkcji $\sin x$ wzorem Maclaurina
+
+Przybliżenie funkcji:
+
+$$  
+\sin x  
+$$
+
+wzorem Maclaurina ma postać:
+
+$$  
+\sin x \approx  
+\sum_{k=1}^{n}  
+(-1)^{k-1}  
+\frac{x^{2k-1}}{(2k-1)!}  
+$$
+
+czyli:
+
+$$  
+\sin x  
+\approx  
+x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots  
++  
+(-1)^{n-1}  
+\frac{x^{2n-1}}{(2n-1)!}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = 1.0
+n = 10
+
+suma = 0.0
+wyraz = x
+znak = 1
+
+for k in range(1, n + 1):
+    suma = suma + znak * wyraz
+
+    mianownik = (2 * k) * (2 * k + 1)
+    wyraz = wyraz * x * x / mianownik
+
+    znak = -znak
+
+print("Przybliżenie sin(x) =", suma)
+```
+
+---
+
+# 15. Wielomiany Czebyszewa
+
+Wielomiany Czebyszewa definiuje się rekurencyjnie:
+
+$$  
+T_0(x) = 1  
+$$
+
+$$  
+T_1(x) = x  
+$$
+
+$$  
+T_k(x) = 2xT_{k-1}(x) - T_{k-2}(x)  
+$$
+
+dla:
+
+$$  
+k \geq 2  
+$$
+
+W przedziale:
+
+$$  
+[-1,1]  
+$$
+
+wielomiany Czebyszewa można zapisać jako:
+
+$$  
+T_k(x) = \cos(k\arccos x)  
+$$
+
+dla:
+
+$$  
+k = 0,1,2,\dots  
+$$
+
+### Przykład
+
+Pierwsze wielomiany:
+
+$$  
+T_0(x) = 1  
+$$
+
+$$  
+T_1(x) = x  
+$$
+
+$$  
+T_2(x) = 2x^2 - 1  
+$$
+
+$$  
+T_3(x) = 4x^3 - 3x  
+$$
+
+### Przykład w Pythonie
+
+```python
+def T(k, x):
+    if k == 0:
+        return 1
+    elif k == 1:
+        return x
+    else:
+        T_poprzedni_2 = 1
+        T_poprzedni_1 = x
+
+        for i in range(2, k + 1):
+            T_aktualny = 2 * x * T_poprzedni_1 - T_poprzedni_2
+            T_poprzedni_2 = T_poprzedni_1
+            T_poprzedni_1 = T_aktualny
+
+        return T_poprzedni_1
+
+
+x = 0.5
+
+for k in range(5):
+    print("T_", k, "(", x, ") =", T(k, x))
+```
+
+---
+
+# 16. Aproksymacja za pomocą wielomianów Czebyszewa
+
+Funkcję:
+
+$$  
+f(x)  
+$$
+
+można przybliżać sumami wielomianów Czebyszewa:
+
+$$  
+f(x) \approx  
+\frac{c_0}{2}  
++  
+\sum_{k=1}^{n}  
+c_kT_k(x)  
+$$
+
+gdzie:
+
+$$  
+c_k =  
+\frac{2}{\pi}  
+\int_{-1}^{1}  
+\frac{f(x)T_k(x)}  
+{\sqrt{1-x^2}}  
+,dx  
+$$
+
+Wielomiany Czebyszewa są użyteczne w aproksymacji, ponieważ pomagają ograniczać błędy przybliżenia.
+
+### Przykład w Pythonie — obliczanie sumy dla danych współczynników
+
+```python
+def T(k, x):
+    if k == 0:
+        return 1
+    elif k == 1:
+        return x
+    else:
+        T0 = 1
+        T1 = x
+
+        for i in range(2, k + 1):
+            T2 = 2 * x * T1 - T0
+            T0 = T1
+            T1 = T2
+
+        return T1
+
+
+# Przykładowe współczynniki c0, c1, c2
+c = [1.0, 0.5, -0.25]
+
+x = 0.3
+
+wynik = c[0] / 2
+
+for k in range(1, len(c)):
+    wynik = wynik + c[k] * T(k, x)
+
+print("Przybliżenie =", wynik)
+```
+
+---
+
+# 17. Przykład funkcji signum dla wielomianów Czebyszewa
+
+Funkcja signum:
+
+$$  
+sgn(x)  
+$$
+
+jest określona jako:
+
+$$  
+sgn(x) =  
+\begin{cases}  
+1, & x > 0 \\  
+-1, & x < 0 \\  
+0, & x = 0  
+\end{cases}  
+$$
+
+Na dziedzinie:
+
+$$  
+(-1,1)  
+$$
+
+można zapisać:
+
+$$  
+f(x) =  
+\begin{cases}  
+1, & x \in (0,1) \\  
+-1, & x \in (-1,0) \\  
+0, & x = 0  
+\end{cases}  
+$$
+
+Współczynniki:
+
+$$  
+c_k  
+$$
+
+dla funkcji signum wynoszą:
+
+$$  
+c_k =  
+\begin{cases}  
+0, & k = 2i \\  
+(-1)^{k+1}\frac{4}{\pi k}, & k = 2i+1  
+\end{cases}  
+$$
+
+dla:
+
+$$  
+k = 0,1,\dots  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def c(k):
+    if k % 2 == 0:
+        return 0
+    else:
+        return ((-1) ** (k + 1)) * 4 / (math.pi * k)
+
+
+for k in range(1, 8):
+    print("k =", k, "c_k =", c(k))
+```
+
+---
+
+# 18. Szeregi trygonometryczne Fouriera
+
+Szereg trygonometryczny Fouriera dla funkcji okresowej ma postać:
+
+$$  
+f(x) =  
+\frac{a_0}{2}  
++  
+\sum_{k=1}^{\infty}  
+\left(  
+a_k\cos(kx) + b_k\sin(kx)  
+\right)  
+$$
+
+gdzie:
+
+$$  
+x \in [-\pi,\pi]  
+$$
+
+pod warunkiem zbieżności szeregu.
+
+Funkcja:
+
+$$  
+f(x)  
+$$
+
+jest okresowa z okresem:
+
+$$  
+2\pi  
+$$
+
+Aproksymację funkcji otrzymujemy, biorąc początkowe składniki sumy:
+
+$$  
+f(x) \approx  
+\frac{a_0}{2}  
++  
+\sum_{k=1}^{n}  
+\left(  
+a_k\cos(kx) + b_k\sin(kx)  
+\right)  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+x = 1.0
+
+# Przykładowe współczynniki
+a0 = 0.0
+a = [0.0, 0.0, 0.0]
+b = [1.0, 0.5, 0.25]
+
+wynik = a0 / 2
+
+for k in range(1, 4):
+    wynik = wynik + a[k - 1] * math.cos(k * x) + b[k - 1] * math.sin(k * x)
+
+print("Przybliżenie Fouriera =", wynik)
+```
+
+---
+
+# 19. Przykład funkcji signum w szeregu Fouriera
+
+Dla funkcji signum na dziedzinie:
+
+$$  
+(-\pi,\pi)  
+$$
+
+mamy:
+
+$$  
+f(x) =  
+\begin{cases}  
+1, & x \in (0,\pi) \\  
+-1, & x \in (-\pi,0) \\  
+0, & x = 0  
+\end{cases}  
+$$
+
+Współczynniki szeregu Fouriera są takie, że:
+
+$$  
+a_k = 0  
+$$
+
+oraz:
+
+$$  
+b_k =  
+\begin{cases}  
+0, & k = 2i \\  
+\frac{4}{\pi k}, & k = 2i+1  
+\end{cases}  
+$$
+
+gdzie:
+
+$$  
+k = 0,1,2,\dots  
+$$
+
+Aproksymacja funkcji signum szeregiem trygonometrycznym:
+
+$$  
+f(x) \approx  
+\sum_{k=0}^{n}  
+b_{2k+1}\sin((2k+1)x)  
+$$
+
+gdzie:
+
+$$  
+s(k,x) = b_k\sin(kx)  
+$$
+
+czyli:
+
+$$  
+f(x) \approx  
+\sum_{k=0}^{n}  
+s(2k+1,x)  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def przyblizenie_sgn(x, n):
+    wynik = 0.0
+
+    for k in range(n + 1):
+        indeks = 2 * k + 1
+        b = 4 / (math.pi * indeks)
+        wynik = wynik + b * math.sin(indeks * x)
+
+    return wynik
+
+
+x = 1.0
+n = 10
+
+print("Przybliżenie signum =", przyblizenie_sgn(x, n))
+```
+
+---
+
+# 20. Aproksymacja średniokwadratowa
+
+Aproksymacja średniokwadratowa, czyli **metoda najmniejszych kwadratów**, służy do przybliżania funkcji z użyciem normy `L2`.
+
+Dla zbioru punktów:
+
+$$  
+(x_i,y_i)  
+$$
+
+gdzie:
+
+$$  
+y_i = f(x_i)  
+$$
+
+szukamy funkcji:
+
+$$  
+F(x)  
+$$
+
+takiej, aby wyrażenie:
+
+$$  
+|F-f|^2 =  
+\sum_{i=1}^{n}  
+w(x_i)(F(x_i)-y_i)^2  
+$$
+
+osiągało minimum.
+
+W dalszych rozważaniach przyjmuje się dla uproszczenia:
+
+$$  
+w(x) = 1  
+$$
+
+czyli:
+
+$$  
+|F-f|^2 =  
+\sum_{i=1}^{n}  
+(F(x_i)-y_i)^2  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [1, 2, 3]
+y = [2, 4, 5]
+
+def F(x):
+    return 1.5 * x + 0.5
+
+
+blad_kwadratowy = 0
+
+for i in range(len(x)):
+    roznica = F(x[i]) - y[i]
+    blad_kwadratowy = blad_kwadratowy + roznica * roznica
+
+print("Suma kwadratów błędów =", blad_kwadratowy)
+```
+
+---
+
+# 21. Aproksymacja liniowa
+
+Najprostszym przypadkiem aproksymacji średniokwadratowej jest aproksymacja liniowa.
+
+Szukamy funkcji:
+
+$$  
+F(x) = ax + b  
+$$
+
+która minimalizuje funkcję błędu:
+
+$$  
+h(a,b) =  
+\sum_{i=1}^{n}  
+(ax_i + b - y_i)^2  
+$$
+
+Po obliczeniu pochodnych cząstkowych i przekształceniach otrzymujemy:
+
+$$  
+a =  
+\frac{nA - BC}{nD - B^2}  
+$$
+
+oraz:
+
+$$  
+b =  
+\frac{CD - AB}{nD - B^2}  
+$$
+
+gdzie:
+
+$$  
+A =  
+\sum_{i=1}^{n}x_iy_i  
+$$
+
+$$  
+B =  
+\sum_{i=1}^{n}x_i  
+$$
+
+$$  
+C =  
+\sum_{i=1}^{n}y_i  
+$$
+
+$$  
+D =  
+\sum_{i=1}^{n}x_i^2  
+$$
+
+### Przykład z wykładu
+
+Dane:
+
+|$$x_i$$|$$y_i$$|
+|--:|--:|
+|1|1|
+|3|12|
+|5|25|
+|7|38|
+
+Wynik z wykładu:
+
+$$  
+a = 6.2  
+$$
+
+$$  
+b = -5.8  
+$$
+
+czyli prosta aproksymująca:
+
+$$  
+F(x) = 6.2x - 5.8  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [1, 3, 5, 7]
+y = [1, 12, 25, 38]
+
+n = len(x)
+
+A = 0
+B = 0
+C = 0
+D = 0
+
+for i in range(n):
+    A = A + x[i] * y[i]
+    B = B + x[i]
+    C = C + y[i]
+    D = D + x[i] * x[i]
+
+mianownik = n * D - B * B
+
+if mianownik != 0:
+    a = (n * A - B * C) / mianownik
+    b = (C * D - A * B) / mianownik
+
+    print("a =", a)
+    print("b =", b)
+else:
+    print("Nie można obliczyć współczynników")
+```
+
+---
+
+## 21.1. Układ równań dla aproksymacji liniowej
+
+Dla prostej:
+
+$$  
+F(x) = ax + b  
+$$
+
+układ równań można zapisać jako:
+
+$$  
+nb + a\sum_{i=1}^{n}x_i =  
+\sum_{i=1}^{n}y_i  
+$$
+
+$$  
+b\sum_{i=1}^{n}x_i  
++  
+a\sum_{i=1}^{n}x_i^2
+
+\sum_{i=1}^{n}x_iy_i  
+$$
+
+W postaci macierzowej:
+
+$$  
+\begin{bmatrix}  
+n & \sum_{i=1}^{n}x_i \\  
+\sum_{i=1}^{n}x_i & \sum_{i=1}^{n}x_i^2  
+\end{bmatrix}  
+\begin{bmatrix}  
+b \\  
+a  
+\end{bmatrix}
+
+\begin{bmatrix}  
+\sum_{i=1}^{n}y_i \  
+\sum_{i=1}^{n}x_iy_i  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [1, 3, 5, 7]
+y = [1, 12, 25, 38]
+
+n = len(x)
+
+suma_x = 0
+suma_y = 0
+suma_x2 = 0
+suma_xy = 0
+
+for i in range(n):
+    suma_x = suma_x + x[i]
+    suma_y = suma_y + y[i]
+    suma_x2 = suma_x2 + x[i] * x[i]
+    suma_xy = suma_xy + x[i] * y[i]
+
+macierz = [
+    [n, suma_x],
+    [suma_x, suma_x2]
+]
+
+prawa_strona = [suma_y, suma_xy]
+
+print("Macierz układu:")
+print(macierz)
+
+print("Prawa strona:")
+print(prawa_strona)
+```
+
+---
+
+# 22. Aproksymacja wielomianowa
+
+W aproksymacji wielomianowej przyjmujemy funkcję aproksymującą:
+
+$$  
+F(x) =  
+a_0\varphi_0(x) + a_1\varphi_1(x) + \dots + a_m\varphi_m(x)  
+$$
+
+Dla uproszczenia często przyjmuje się:
+
+$$  
+\varphi_k(x) = x^k  
+$$
+
+Wtedy:
+
+$$  
+F(x) =  
+a_0 + a_1x + a_2x^2 + \dots + a_mx^m  
+$$
+
+Zadaniem jest minimalizacja funkcji błędu:
+
+$$  
+h(a_0,a_1,\dots,a_m)
+=
+\sum_{i=1}^{n}  
+\left(  
+\sum_{j=0}^{m}  
+a_jx_i^j
+
+y_i  
+\right)^2  
+$$
+
+Dla każdego współczynnika dostajemy układ równań normalnych.
+
+### Przykład w Pythonie — obliczenie błędu dla wielomianu drugiego stopnia
+
+```python
+x = [0, 0.5, 1.0, 1.5, 2.0]
+y = [2.00, 2.48, 2.84, 3.00, 2.91]
+
+a = -67 / 175
+b = 2159 / 1750
+c = 6953 / 3500
+
+blad = 0
+
+for i in range(len(x)):
+    F = a * x[i] * x[i] + b * x[i] + c
+    roznica = F - y[i]
+    blad = blad + roznica * roznica
+
+print("Suma kwadratów błędów =", blad)
+```
+
+---
+
+# 23. Przykład aproksymacji wielomianem drugiego stopnia
+
+Dane z wykładu:
+
+|$$x_i$$|$$y_i$$|
+|--:|--:|
+|0|2.00|
+|0.5|2.48|
+|1.0|2.84|
+|1.5|3.00|
+|2.0|2.91|
+
+Szukamy wielomianu:
+
+$$  
+F(x) = ax^2 + bx + c  
+$$
+
+Równania wynikające z minimalizacji błędu:
+
+$$  
+a\sum_{i=1}^{n}x_i^4  
++  
+b\sum_{i=1}^{n}x_i^3  
++  
+c\sum_{i=1}^{n}x_i^2
+
+\sum_{i=1}^{n}x_i^2y_i  
+$$
+
+$$  
+a\sum_{i=1}^{n}x_i^3  
++  
+b\sum_{i=1}^{n}x_i^2  
++  
+c\sum_{i=1}^{n}x_i
+
+\sum_{i=1}^{n}x_iy_i  
+$$
+
+$$  
+a\sum_{i=1}^{n}x_i^2  
++  
+b\sum_{i=1}^{n}x_i  
++  
+nc
+
+\sum_{i=1}^{n}y_i  
+$$
+
+Po rozwiązaniu układu z wykładu:
+
+$$  
+a = -\frac{67}{175}  
+$$
+
+$$  
+b = \frac{2159}{1750}  
+$$
+
+$$  
+c = \frac{6953}{3500}  
+$$
+
+Wielomian aproksymujący:
+
+$$  
+F(x) =  
+-\frac{67}{175}x^2  
++  
+\frac{2159}{1750}x  
++  
+\frac{6953}{3500}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [0, 0.5, 1.0, 1.5, 2.0]
+
+a = -67 / 175
+b = 2159 / 1750
+c = 6953 / 3500
+
+for i in range(len(x)):
+    F = a * x[i] * x[i] + b * x[i] + c
+    print("x =", x[i], "F(x) =", F)
+```
+
+---
+
+# 24. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 24.1. Aproksymacja
+
+Aproksymacja polega na zastąpieniu funkcji:
+
+$$  
+f  
+$$
+
+prostszą funkcją:
+
+$$  
+f^*  
+$$
+
+która dobrze ją przybliża.
+
+---
+
+## 24.2. Źródła błędów
+
+W aproksymacji występują:
+
+- błędy danych wejściowych,
+    
+- błędy modelu.
+    
+
+---
+
+## 24.3. Ogólna postać aproksymacji liniowej względem współczynników
+
+$$  
+f^*(x) = a_0\varphi_0(x) + a_1\varphi_1(x) + \dots + a_k\varphi_k(x)  
+$$
+
+---
+
+## 24.4. Metryka
+
+Metryka określa odległość między elementami zbioru.
+
+Warunek trójkąta:
+
+$$  
+d(x,y) + d(y,z) \geq d(x,z)  
+$$
+
+---
+
+## 24.5. Norma funkcji
+
+Norma funkcji określa jej „wielkość”.
+
+Metrykę między funkcjami można zapisać jako:
+
+$$  
+d_{|\cdot|}(f,g) = |f-g|  
+$$
+
+---
+
+## 24.6. Norma jednostajna
+
+$$  
+|f| = \sup_{x \in K}|f(x)|  
+$$
+
+---
+
+## 24.7. Norma L2
+
+$$  
+|f|_2 =  
+\sqrt{  
+\int_a^b f^2(x),dx  
+}  
+$$
+
+---
+
+## 24.8. Norma L1
+
+$$  
+|f|_1 =  
+\int_a^b |f(x)|,dx  
+$$
+
+---
+
+## 24.9. Szereg potęgowy
+
+$$  
+f(x) =  
+\sum_{k=0}^{\infty}  
+a_k(x-x_0)^k  
+$$
+
+---
+
+## 24.10. Wzór Taylora
+
+$$  
+f(x) \approx  
+\sum_{k=0}^{n-1}  
+a_k(x-x_0)^k  
+$$
+
+gdzie:
+
+$$  
+a_k =  
+\frac{f^{(k)}(x_0)}{k!}  
+$$
+
+---
+
+## 24.11. Wzór Maclaurina
+
+Dla:
+
+$$  
+x_0 = 0  
+$$
+
+wzór Taylora nazywa się wzorem Maclaurina:
+
+$$  
+f(x) \approx  
+\sum_{k=0}^{n-1}  
+a_kx^k  
+$$
+
+---
+
+## 24.12. Maclaurin dla $$\sin x$$
+
+$$  
+\sin x  
+\approx  
+x - \frac{x^3}{3!} + \frac{x^5}{5!} - \dots  
+$$
+
+---
+
+## 24.13. Wielomiany Czebyszewa
+
+$$  
+T_0(x) = 1  
+$$
+
+$$  
+T_1(x) = x  
+$$
+
+$$  
+T_k(x) = 2xT_{k-1}(x) - T_{k-2}(x)  
+$$
+
+---
+
+## 24.14. Szereg Fouriera
+
+$$  
+f(x) =  
+\frac{a_0}{2}  
++  
+\sum_{k=1}^{\infty}  
+\left(  
+a_k\cos(kx) + b_k\sin(kx)  
+\right)  
+$$
+
+---
+
+## 24.15. Aproksymacja średniokwadratowa
+
+Szukamy funkcji:
+
+$$  
+F(x)  
+$$
+
+takiej, aby suma kwadratów błędów była minimalna:
+
+$$  
+\sum_{i=1}^{n}  
+(F(x_i)-y_i)^2  
+$$
+
+---
+
+## 24.16. Aproksymacja liniowa
+
+Dla:
+
+$$  
+F(x) = ax + b  
+$$
+
+minimalizujemy:
+
+$$  
+h(a,b) =  
+\sum_{i=1}^{n}  
+(ax_i + b - y_i)^2  
+$$
+
+---
+
+## 24.17. Współczynniki aproksymacji liniowej
+
+$$  
+a =  
+\frac{nA - BC}{nD - B^2}  
+$$
+
+$$  
+b =  
+\frac{CD - AB}{nD - B^2}  
+$$
+
+gdzie:
+
+$$  
+A =  
+\sum_{i=1}^{n}x_iy_i  
+$$
+
+$$  
+B =  
+\sum_{i=1}^{n}x_i  
+$$
+
+$$  
+C =  
+\sum_{i=1}^{n}y_i  
+$$
+
+$$  
+D =  
+\sum_{i=1}^{n}x_i^2  
+$$
+
+---
+
+# Wykład 8: Różniczkowanie numeryczne (lab 10)
+
+## 1. Wstęp do różniczkowania numerycznego
+
+**Różniczkowanie numeryczne** jest metodą obliczania przybliżonych wartości pochodnych funkcji na podstawie wartości tej funkcji w skończonej liczbie punktów.
+
+Stosuje się je wtedy, gdy trudno albo niemożliwe jest uzyskanie pochodnej analitycznie.
+
+Może się tak zdarzyć, gdy:
+
+- funkcja jest bardzo skomplikowana,
+- funkcja pochodzi z danych pomiarowych,
+- mamy tylko wartości funkcji w wybranych punktach,
+- model opisuje złożone zjawisko fizyczne, ekonomiczne albo biologiczne.
+
+Zamiast liczyć dokładną pochodną ze wzoru, przybliżamy ją za pomocą wartości funkcji w punktach położonych blisko badanego punktu.
+
+### Przykład
+
+Jeżeli znamy wartości funkcji:
+
+$$
+f(x)
+$$
+
+w punktach:
+
+$$
+x
+$$
+
+oraz:
+
+$$
+x+h
+$$
+
+to możemy przybliżyć pochodną wzorem:
+
+$$
+f'(x) \approx \frac{f(x+h)-f(x)}{h}
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.01
+
+pochodna = (f(x + h) - f(x)) / h
+
+print("Przybliżona pochodna =", pochodna)

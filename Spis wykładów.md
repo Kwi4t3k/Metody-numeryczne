@@ -141,4 +141,25 @@
 - Efekt Rungego
 - Interpolacja funkcjami sklejanymi
 - Zastosowanie krzywych B´eziera w interpolacji
+
+## 07 - Aproksymacja
+- Zagadnienie aproksymacji
+- Źródła błędów w aproksymacji
+- Wprowadzenie do metryk i norm
+- Normy funkcji
+- Norma jednostajna
+- Norma L2
+- Norma L1
+- Normy funkcji określone na zbiorach skończonych lub ciągach
+- Aproksymacja wielomianowa
+- Szeregi potęgowe
+- Forma szeregu potęgowego
+- Aproksymacja szeregu potęgowego - wzór Taylora i Maclaurina
+- Wielomiany Czebyszewa i ich zastosowanie w aproksymacji (funkcja signum (sgn))
+- Aproksymacja szeregami trygonometrycznymi
+- Szeregi trygonometryczne Fouriera (funkcja signum (sgn))
+- Aproksymacja średniokwadratowa
+- Aproksymacja liniowa
+- Przykład 9 - aproksymacja liniowa
+- Aproksymacja wielomianowa
 - 
