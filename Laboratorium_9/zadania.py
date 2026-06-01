@@ -1,5 +1,5 @@
-import sys
-print("URUCHAMIAM PYTHONA Z:", sys.executable)
+# import sys
+# print("URUCHAMIAM PYTHONA Z:", sys.executable)
 
 #zad 1
 print("-------------------- ZADANIE 1 --------------------")

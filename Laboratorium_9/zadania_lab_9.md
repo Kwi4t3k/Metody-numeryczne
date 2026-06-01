@@ -222,7 +222,7 @@ $$
 ```python
 print("-------------------- ZADANIE 1 --------------------")  # wypisujemy nagłówek zadania
 
-punkty = [(1, 1), (3, 12), (5, 25), (7, 38)]  # zapisujemy punkty z zadania w postaci par (x, y)
+punkty = [(1.1, 2.1), (1.4, 2.3), (1.8, 2.9), (2.5, 3.2),(2.8, 3.6), (3.0, 4.2)]  # zapisujemy punkty z zadania w postaci par (x, y)
 
 n = len(punkty)  # obliczamy liczbę punktów, czyli n
 
@@ -677,6 +677,121 @@ print("\nSuma kwadratów błędów:")  # wypisujemy nagłówek dla błędu
 print(h)  # wypisujemy końcową wartość funkcji błędu
 ```
 
+**Dodatkowa wersja z zamianą wierszy żeby się nie kończyło gdy znajdzie 0**
+
+```python
+punkty = [(0.0, 2.0), (0.5, 2.48), (1.0, 2.84), (1.5, 3.0), (2.0, 2.91)]  # lista punktów pomiarowych w postaci (x, y)
+
+
+def rozwiaz_uklad_gaussa(macierz, wyrazy_wolne):  # funkcja rozwiązuje układ równań liniowych metodą Gaussa
+    n = len(wyrazy_wolne)  # liczba niewiadomych, czyli długość wektora wyrazów wolnych
+
+    # eliminacja Gaussa z zamianą wierszy
+    for i in range(n):  # przechodzimy po kolejnych kolumnach i wierszach głównych
+
+        # szukanie najlepszego wiersza, czyli największego elementu w kolumnie i
+        max_wiersz = i  # zakładamy, że najlepszy wiersz to aktualny wiersz i
+
+        for k in range(i + 1, n):  # sprawdzamy wiersze znajdujące się poniżej aktualnego
+            if abs(macierz[k][i]) > abs(macierz[max_wiersz][i]):  # porównujemy wartości bezwzględne elementów w kolumnie i
+                max_wiersz = k  # zapamiętujemy numer wiersza z większym elementem
+
+        # jeśli największy element jest zerem, układ nie ma jednoznacznego rozwiązania
+        if macierz[max_wiersz][i] == 0:  # sprawdzamy, czy element główny jest równy zero
+            raise ValueError("Układ nie ma jednoznacznego rozwiązania.")  # przerywamy działanie, bo nie można dalej dzielić przez zero
+
+        # zamiana wierszy, jeśli trzeba
+        if max_wiersz != i:  # sprawdzamy, czy znaleziony najlepszy wiersz jest inny niż aktualny
+            macierz[i], macierz[max_wiersz] = macierz[max_wiersz], macierz[i]  # zamieniamy miejscami wiersze macierzy
+            wyrazy_wolne[i], wyrazy_wolne[max_wiersz] = wyrazy_wolne[max_wiersz], wyrazy_wolne[i]  # zamieniamy też odpowiednie wyrazy wolne
+
+        # zerowanie elementów pod przekątną
+        for j in range(i + 1, n):  # przechodzimy po wierszach poniżej aktualnego wiersza
+            wspolczynnik = macierz[j][i] / macierz[i][i]  # obliczamy współczynnik potrzebny do wyzerowania elementu pod przekątną
+
+            for k in range(i, n):  # przechodzimy po kolumnach od aktualnej do ostatniej
+                macierz[j][k] = macierz[j][k] - wspolczynnik * macierz[i][k]  # odejmujemy odpowiednią wielokrotność wiersza głównego
+
+            wyrazy_wolne[j] = wyrazy_wolne[j] - wspolczynnik * wyrazy_wolne[i]  # aktualizujemy wyraz wolny w tym samym wierszu
+
+    # podstawianie wsteczne
+    rozwiazanie = [0.0] * n  # tworzymy listę na rozwiązania, początkowo wypełnioną zerami
+
+    for i in range(n - 1, -1, -1):  # przechodzimy od ostatniego równania do pierwszego
+        suma = 0.0  # tworzymy zmienną pomocniczą na sumę znanych składników
+
+        for j in range(i + 1, n):  # przechodzimy po niewiadomych, które są już obliczone
+            suma += macierz[i][j] * rozwiazanie[j]  # dodajemy znany składnik równania do sumy
+
+        rozwiazanie[i] = (wyrazy_wolne[i] - suma) / macierz[i][i]  # obliczamy aktualną niewiadomą
+
+    return rozwiazanie  # zwracamy listę rozwiązań układu
+
+
+print("-------------------- ZADANIE 2 --------------------")  # wypisujemy nagłówek zadania
+
+n = len(punkty)  # zapisujemy liczbę punktów pomiarowych
+
+suma_x = 0.0  # suma wartości x
+suma_x2 = 0.0  # suma wartości x^2
+suma_x3 = 0.0  # suma wartości x^3
+suma_x4 = 0.0  # suma wartości x^4
+suma_y = 0.0  # suma wartości y
+suma_xy = 0.0  # suma wartości x*y
+suma_x2y = 0.0  # suma wartości x^2*y
+
+for x, y in punkty:  # przechodzimy po wszystkich punktach
+    suma_x += x  # dodajemy aktualne x do sumy x
+    suma_x2 += x ** 2  # dodajemy x^2 do sumy x^2
+    suma_x3 += x ** 3  # dodajemy x^3 do sumy x^3
+    suma_x4 += x ** 4  # dodajemy x^4 do sumy x^4
+    suma_y += y  # dodajemy aktualne y do sumy y
+    suma_xy += x * y  # dodajemy iloczyn x*y do sumy
+    suma_x2y += x ** 2 * y  # dodajemy iloczyn x^2*y do sumy
+
+
+macierz_ukladu = [  # tworzymy macierz układu równań normalnych
+    [suma_x4, suma_x3, suma_x2],  # pierwszy wiersz macierzy układu
+    [suma_x3, suma_x2, suma_x],  # drugi wiersz macierzy układu
+    [suma_x2, suma_x, n]  # trzeci wiersz macierzy układu
+]  # koniec definicji macierzy układu
+
+wyrazy_wolne = [suma_x2y, suma_xy, suma_y]  # tworzymy wektor wyrazów wolnych układu równań normalnych
+
+
+macierz_kopia = []  # tworzymy pustą listę na kopię macierzy układu
+
+for wiersz in macierz_ukladu:  # przechodzimy po każdym wierszu macierzy układu
+    macierz_kopia.append(wiersz.copy())  # dodajemy kopię wiersza, żeby nie zmieniać oryginalnej macierzy
+
+wyrazy_wolne_kopia = wyrazy_wolne.copy()  # tworzymy kopię wektora wyrazów wolnych
+
+
+rozwiazanie = rozwiaz_uklad_gaussa(macierz_kopia, wyrazy_wolne_kopia)  # rozwiązujemy układ równań normalnych
+
+a = rozwiazanie[0]  # pierwszy współczynnik wielomianu, stojący przy x^2
+b = rozwiazanie[1]  # drugi współczynnik wielomianu, stojący przy x
+c = rozwiazanie[2]  # trzeci współczynnik wielomianu, wyraz wolny
+
+
+print("Współczynniki wielomianu aproksymacyjnego:")  # wypisujemy opis współczynników
+print("a =", a)  # wypisujemy współczynnik a
+print("b =", b)  # wypisujemy współczynnik b
+print("c =", c)  # wypisujemy współczynnik c
+
+print("\nWielomian aproksymacyjny:")  # wypisujemy opis wielomianu
+print(f"y = {a} * x^2 + {b} * x + {c}")  # wypisujemy wzór wielomianu aproksymacyjnego
+
+
+h = 0.0  # tworzymy zmienną na sumę kwadratów błędów
+
+for x, y in punkty:  # przechodzimy po wszystkich punktach
+    h += (a * x**2 + b * x + c - y) ** 2  # dodajemy kwadrat różnicy między wartością wielomianu a wartością y
+
+print("\nSuma kwadratów błędów:")  # wypisujemy opis sumy błędów
+print(h)  # wypisujemy sumę kwadratów błędów
+```
+
 ## Wnioski
 
 W zadaniu wyznaczono wielomian aproksymacyjny drugiego stopnia metodą najmniejszych kwadratów dla punktów:
@@ -1053,6 +1168,114 @@ for i in range(len(wspolczynniki)):  # przechodzimy po wszystkich współczynnik
 
 print("\n\nSuma kwadratów błędów:")  # wypisujemy nagłówek dla błędu
 print(h)  # wypisujemy sumę kwadratów błędów
+```
+
+**Wersja z zamianą wierszy żeby nie wywaliło się jak znajdzie 0**
+
+```python
+def rozwiaz_uklad_gaussa(A, b):  # funkcja rozwiązuje układ równań liniowych Ax = b metodą Gaussa
+    n = len(b)  # liczba niewiadomych, czyli długość wektora wyrazów wolnych
+
+    for i in range(n):  # przechodzimy po kolejnych kolumnach i wierszach głównych
+
+        max_wiersz = i  # zakładamy, że najlepszy wiersz to aktualny wiersz i
+
+        for k in range(i + 1, n):  # sprawdzamy wiersze poniżej aktualnego wiersza
+            if abs(A[k][i]) > abs(A[max_wiersz][i]):  # szukamy największej wartości bezwzględnej w kolumnie i
+                max_wiersz = k  # zapamiętujemy numer wiersza z największym elementem
+
+        if A[max_wiersz][i] == 0:  # jeśli największy element w kolumnie jest zerem
+            raise ValueError("Układ nie ma jednoznacznego rozwiązania.")  # układ nie ma jednoznacznego rozwiązania
+
+        if max_wiersz != i:  # sprawdzamy, czy trzeba zamienić wiersze
+            A[i], A[max_wiersz] = A[max_wiersz], A[i]  # zamieniamy wiersze w macierzy A
+            b[i], b[max_wiersz] = b[max_wiersz], b[i]  # zamieniamy odpowiadające im wyrazy wolne
+
+        for j in range(i + 1, n):  # przechodzimy po wierszach poniżej aktualnego wiersza
+            wspolczynnik = A[j][i] / A[i][i]  # obliczamy współczynnik potrzebny do wyzerowania elementu pod przekątną
+
+            for k in range(i, n):  # przechodzimy po kolumnach od aktualnej do ostatniej
+                A[j][k] = A[j][k] - wspolczynnik * A[i][k]  # odejmujemy odpowiednią wielokrotność wiersza głównego
+
+            b[j] = b[j] - wspolczynnik * b[i]  # aktualizujemy wyraz wolny w tym samym wierszu
+
+    x = [0.0] * n  # tworzymy listę na rozwiązanie układu, początkowo wypełnioną zerami
+
+    for i in range(n - 1, -1, -1):  # wykonujemy podstawianie wsteczne od ostatniego równania do pierwszego
+        suma = 0.0  # zmienna pomocnicza na sumę znanych składników
+
+        for j in range(i + 1, n):  # przechodzimy po niewiadomych, które są już obliczone
+            suma += A[i][j] * x[j]  # dodajemy znany składnik równania do sumy
+
+        x[i] = (b[i] - suma) / A[i][i]  # obliczamy aktualną niewiadomą
+
+    return x  # zwracamy rozwiązanie układu
+
+
+def aproksymacja_najmniejszych_kwadratow(punkty, stopien):  # funkcja liczy aproksymację średniokwadratową wielomianem danego stopnia
+    n = stopien + 1  # liczba współczynników wielomianu
+
+    A = []  # tworzymy pustą macierz układu równań normalnych
+    B = []  # tworzymy pusty wektor wyrazów wolnych
+
+    for i in range(n):  # przechodzimy po kolejnych równaniach układu
+        wiersz = []  # tworzymy pusty wiersz macierzy A
+
+        for j in range(n):  # przechodzimy po kolejnych kolumnach macierzy A
+            suma = 0.0  # tworzymy zmienną na sumę
+
+            for x, y in punkty:  # przechodzimy po wszystkich punktach
+                suma += x ** (i + j)  # dodajemy x podniesione do odpowiedniej potęgi
+
+            wiersz.append(suma)  # dodajemy obliczoną sumę do wiersza macierzy
+
+        A.append(wiersz)  # dodajemy gotowy wiersz do macierzy A
+
+        suma = 0.0  # zerujemy sumę dla wyrazu wolnego
+
+        for x, y in punkty:  # przechodzimy po wszystkich punktach
+            suma += y * (x ** i)  # dodajemy składnik y razy x do odpowiedniej potęgi
+
+        B.append(suma)  # dodajemy obliczony wyraz wolny do wektora B
+
+    A_kopia = []  # tworzymy pustą listę na kopię macierzy A
+
+    for wiersz in A:  # przechodzimy po wierszach macierzy A
+        A_kopia.append(wiersz.copy())  # kopiujemy każdy wiersz, żeby nie zmieniać oryginalnej macierzy
+
+    B_kopia = B.copy()  # tworzymy kopię wektora wyrazów wolnych
+
+    wspolczynniki = rozwiaz_uklad_gaussa(A_kopia, B_kopia)  # rozwiązujemy układ równań i otrzymujemy współczynniki wielomianu
+
+    h = 0.0  # zmienna na sumę kwadratów błędów
+
+    for x, y in punkty:  # przechodzimy po wszystkich punktach
+        y_aprox = 0.0  # zmienna na wartość wielomianu aproksymacyjnego w punkcie x
+
+        for i in range(len(wspolczynniki)):  # przechodzimy po wszystkich współczynnikach wielomianu
+            y_aprox += wspolczynniki[i] * (x ** i)  # dodajemy kolejny składnik wielomianu
+
+        h += (y_aprox - y) ** 2  # dodajemy kwadrat błędu dla aktualnego punktu
+
+    return wspolczynniki, h  # zwracamy współczynniki wielomianu i sumę kwadratów błędów
+
+
+punkty = [(0.0, 2.0), (0.5, 2.48), (1.0, 2.84), (1.5, 3.0), (2.0, 2.91)]  # lista punktów pomiarowych
+
+stopien = 2  # stopień wielomianu aproksymacyjnego
+
+wspolczynniki, blad = aproksymacja_najmniejszych_kwadratow(punkty, stopien)  # wywołujemy funkcję aproksymacji
+
+print("Współczynniki wielomianu:")  # wypisujemy opis wyniku
+
+for i in range(len(wspolczynniki)):  # przechodzimy po kolejnych współczynnikach
+    print(f"a{i} = {wspolczynniki[i]}")  # wypisujemy współczynnik ai
+
+print("\nWielomian aproksymacyjny:")  # wypisujemy opis wielomianu
+print(f"y = {wspolczynniki[0]} + {wspolczynniki[1]} * x + {wspolczynniki[2]} * x^2")  # wypisujemy wzór wielomianu
+
+print("\nSuma kwadratów błędów:")  # wypisujemy opis błędu
+print(blad)  # wypisujemy sumę kwadratów błędów
 ```
 
 ## Wnioski
