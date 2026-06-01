@@ -15173,3 +15173,87 @@ $$
 
 ---
 
+# Wykład 7: Aproksymacja (lab 9)
+
+## 1. Zagadnienie aproksymacji
+
+**Aproksymacja** polega na zastąpieniu funkcji:
+
+$$
+f
+$$
+
+inną funkcją:
+
+$$
+f^*
+$$
+
+albo na znalezieniu funkcji:
+
+$$
+f^*
+$$
+
+na podstawie pewnego znanego ciągu wartości funkcji:
+
+$$
+f
+$$
+
+Wartości te mogą być obarczone błędem, ponieważ często pochodzą z pomiarów empirycznych.
+
+Funkcja aproksymująca:
+
+$$
+f^*
+$$
+
+powinna mieć taką własność, że łatwo wykonuje się na niej operacje matematyczne, na przykład:
+
+- różniczkowanie,
+- całkowanie,
+- obliczanie wartości.
+
+Dlatego jako funkcje aproksymujące stosuje się między innymi:
+
+- wielomiany algebraiczne,
+- funkcje wymierne,
+- wielomiany trygonometryczne.
+
+### Różnica między interpolacją a aproksymacją
+
+W interpolacji funkcja musi dokładnie przechodzić przez dane punkty.
+
+W aproksymacji funkcja nie musi przechodzić dokładnie przez punkty. Ma tylko możliwie dobrze przybliżać dane.
+
+### Przykład
+
+Dane są punkty pomiarowe:
+
+$$
+(1,1), (3,12), (5,25), (7,38)
+$$
+
+Szukamy funkcji, np. prostej:
+
+$$
+F(x) = ax + b
+$$
+
+która najlepiej przybliża te dane.
+
+### Przykład w Pythonie
+
+```python
+punkty = [
+    [1, 1],
+    [3, 12],
+    [5, 25],
+    [7, 38]
+]
+
+for punkt in punkty:
+    x = punkt[0]
+    y = punkt[1]
+    print("x =", x, "y =", y)
