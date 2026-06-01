@@ -9598,3 +9598,8 @@ W tym zadaniu tak właśnie się dzieje, więc można stwierdzić, że:
 - współczynniki Newtona zostały wyznaczone poprawnie,
 - wartość wielomianu jest liczona poprawnie,
 - wizualizacja została wykonana poprawnie.
+
+---
+
+# Lab 9
+
