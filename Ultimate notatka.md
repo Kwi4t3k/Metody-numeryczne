@@ -17311,7 +17311,6 @@ $$
 ---
 
 # Wykład 8: Różniczkowanie numeryczne (lab 10)
-
 ## 1. Wstęp do różniczkowania numerycznego
 
 **Różniczkowanie numeryczne** jest metodą obliczania przybliżonych wartości pochodnych funkcji na podstawie wartości tej funkcji w skończonej liczbie punktów.
@@ -17366,3 +17365,2371 @@ h = 0.01
 pochodna = (f(x + h) - f(x)) / h
 
 print("Przybliżona pochodna =", pochodna)
+```
+
+Wynik:
+
+```text
+Przybliżona pochodna = 4.009999999999891
+```
+
+---
+
+## 2. Zastosowania różniczkowania numerycznego
+
+Różniczkowanie numeryczne ma wiele zastosowań praktycznych.
+
+### 2.1. Inżynieria i fizyka
+
+W inżynierii i fizyce różniczkowanie numeryczne jest używane między innymi do analizy dynamiki układów fizycznych.
+
+Stosuje się je np. w:
+
+- mechanice płynów,
+    
+- symulacjach komputerowych,
+    
+- analizie prędkości i przyspieszenia,
+    
+- obliczaniu gradientów ciśnienia i prędkości.
+    
+
+Przykładowo, w mechanice płynów pochodną ciśnienia:
+
+$$  
+p  
+$$
+
+względem współrzędnej:
+
+$$  
+x  
+$$
+
+można przybliżyć wzorem różnicy w przód:
+
+$$  
+\frac{dp}{dx} \approx \frac{p(x+h)-p(x)}{h}  
+$$
+
+gdzie:
+
+$$  
+h  
+$$
+
+oznacza mały krok przestrzenny.
+
+### Przykład w Pythonie
+
+```python
+def p(x):
+    return 2 * x * x + 3
+
+
+x = 1.0
+h = 0.01
+
+dp_dx = (p(x + h) - p(x)) / h
+
+print("Przybliżona pochodna ciśnienia =", dp_dx)
+```
+
+---
+
+### 2.2. Ekonomia i finanse
+
+W ekonomii i finansach różniczkowanie numeryczne pozwala obliczać stopy zmian.
+
+Może być używane np. przy modelowaniu opcji finansowych za pomocą równania Blacka-Scholesa.
+
+### Przykład w Pythonie
+
+```python
+# Przykładowa funkcja wartości pewnego wskaźnika finansowego
+
+def wartosc(t):
+    return 100 + 5 * t + 0.2 * t * t
+
+
+t = 10.0
+h = 0.01
+
+tempo_zmian = (wartosc(t + h) - wartosc(t)) / h
+
+print("Przybliżone tempo zmian =", tempo_zmian)
+```
+
+---
+
+### 2.3. Biologia i medycyna
+
+W biologii i medycynie różniczkowanie numeryczne stosuje się do modelowania zmian w czasie.
+
+Można w ten sposób obliczać np.:
+
+- szybkość zmian stężenia leku w organizmie,
+    
+- tempo rozprzestrzeniania się substancji chemicznych,
+    
+- zmiany liczebności populacji.
+    
+
+### Przykład w Pythonie
+
+```python
+def stezenie(t):
+    return 10 / (1 + t)
+
+
+t = 2.0
+h = 0.01
+
+szybkosc_zmiany = (stezenie(t + h) - stezenie(t)) / h
+
+print("Przybliżona szybkość zmiany stężenia =", szybkosc_zmiany)
+```
+
+---
+
+### 2.4. Informatyka
+
+W informatyce różniczkowanie numeryczne występuje m.in. w algorytmach uczenia maszynowego.
+
+Pochodne funkcji kosztu są potrzebne do aktualizacji parametrów modelu, np. w metodzie spadku gradientu.
+
+### Przykład w Pythonie
+
+```python
+def funkcja_kosztu(w):
+    return (w - 3) * (w - 3)
+
+
+w = 0.0
+h = 0.001
+
+gradient = (funkcja_kosztu(w + h) - funkcja_kosztu(w)) / h
+
+print("Przybliżony gradient =", gradient)
+```
+
+---
+
+# 3. Metoda różnic skończonych
+
+**Różnice skończone** to metoda przybliżania pochodnych funkcji przez wykorzystanie wartości funkcji w skończonej liczbie punktów.
+
+Metoda różnic skończonych może być wyprowadzona:
+
+- z ilorazu różnicowego,
+    
+- z rozwinięcia funkcji w szereg Taylora.
+    
+
+Jest szeroko stosowana w numerycznym rozwiązywaniu równań różniczkowych, szczególnie wtedy, gdy rozwiązanie analityczne jest trudne albo niemożliwe.
+
+### Przykład
+
+Dla funkcji:
+
+$$  
+f(x) = x^2  
+$$
+
+pochodna dokładna wynosi:
+
+$$  
+f'(x) = 2x  
+$$
+
+Ale numerycznie możemy ją przybliżyć na przykład wzorem:
+
+$$  
+f'(x) \approx \frac{f(x+h)-f(x)}{h}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.1
+
+pochodna_numeryczna = (f(x + h) - f(x)) / h
+pochodna_dokladna = 2 * x
+
+print("Pochodna numeryczna =", pochodna_numeryczna)
+print("Pochodna dokładna =", pochodna_dokladna)
+print("Błąd =", abs(pochodna_numeryczna - pochodna_dokladna))
+```
+
+---
+
+# 4. Podstawowe wzory różnic skończonych
+
+Dla funkcji:
+
+$$  
+f  
+$$
+
+określonej w punkcie:
+
+$$  
+x  
+$$
+
+oraz małego przyrostu:
+
+$$  
+h  
+$$
+
+pochodną można przybliżyć na kilka sposobów.
+
+---
+
+## 4.1. Różnica w przód (zwykła) - metoda Newtona
+
+Różnica w przód, nazywana też zwykłą, ma postać:
+
+$$  
+f'(x) \approx \frac{f(x+h)-f(x)}{h}  
+$$
+
+Korzysta z wartości funkcji w punkcie:
+
+$$  
+x  
+$$
+
+oraz w punkcie po prawej stronie:
+
+$$  
+x+h  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.01
+
+pochodna = (f(x + h) - f(x)) / h
+
+print(pochodna)
+```
+
+---
+
+## 4.2. Różnica wsteczna
+
+Różnica wsteczna ma postać:
+
+$$  
+f'(x) \approx \frac{f(x)-f(x-h)}{h}  
+$$
+
+Korzysta z wartości funkcji w punkcie:
+
+$$  
+x  
+$$
+
+oraz w punkcie po lewej stronie:
+
+$$  
+x-h  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.01
+
+pochodna = (f(x) - f(x - h)) / h
+
+print(pochodna)
+```
+
+---
+
+## 4.3. Różnica centralna
+
+Różnica centralna ma postać:
+
+$$  
+f'(x) \approx \frac{f(x+h)-f(x-h)}{2h}  
+$$
+
+Korzysta z wartości funkcji po obu stronach punktu:
+
+$$  
+x  
+$$
+
+czyli w punktach:
+
+$$  
+x-h  
+$$
+
+oraz:
+
+$$  
+x+h  
+$$
+
+Na slajdzie z porównaniem różnic skończonych pokazano, że różnica centralna jest symetryczna względem punktu:
+
+$$  
+x_0  
+$$
+
+i zwykle lepiej przybliża prawdziwą pochodną niż proste różnice jednostronne.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.1
+
+pochodna = (f(x + h) - f(x - h)) / (2 * h)
+
+print(pochodna)
+```
+
+Wynik:
+
+```text
+4.0000000000000036
+```
+
+---
+
+# 5. Przykład różnicy w przód (metoda Newtona)
+
+Chcemy obliczyć pochodną funkcji:
+
+$$  
+f(x) = x^2  
+$$
+
+w punkcie:
+
+$$  
+x = 2  
+$$
+
+dla:
+
+$$  
+h = 0.01  
+$$
+
+Stosujemy wzór:
+
+$$  
+f'(2) \approx \frac{f(2.01)-f(2)}{0.01}  
+$$
+
+Obliczamy:
+
+$$  
+f(2.01) = 2.01^2 = 4.0401  
+$$
+
+oraz:
+
+$$  
+f(2) = 4  
+$$
+
+Zatem:
+
+$$  
+f'(2) \approx \frac{4.0401-4}{0.01} = 4.01  
+$$
+
+Pochodna dokładna funkcji:
+
+$$  
+f(x) = x^2  
+$$
+
+wynosi:
+
+$$  
+f'(x) = 2x  
+$$
+
+więc:
+
+$$  
+f'(2) = 4  
+$$
+
+Otrzymane przybliżenie jest bliskie wartości dokładnej.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.01
+
+pochodna_numeryczna = (f(x + h) - f(x)) / h
+pochodna_dokladna = 2 * x
+
+print("Pochodna numeryczna =", pochodna_numeryczna)
+print("Pochodna dokładna =", pochodna_dokladna)
+print("Błąd =", abs(pochodna_numeryczna - pochodna_dokladna))
+```
+
+---
+
+# 6. Przykład różnicy centralnej
+
+Chcemy obliczyć pochodną funkcji:
+
+$$  
+f(x) = x^2  
+$$
+
+w punkcie:
+
+$$  
+x = 2  
+$$
+
+dla:
+
+$$  
+h = 0.1  
+$$
+
+Stosujemy wzór różnicy centralnej:
+
+$$  
+f'(2) \approx \frac{f(2.1)-f(1.9)}{0.2}  
+$$
+
+Ponieważ:
+
+$$  
+f(2.1) = 2.1^2 = 4.41  
+$$
+
+oraz:
+
+$$  
+f(1.9) = 1.9^2 = 3.61  
+$$
+
+to:
+
+$$  
+f'(2) \approx \frac{4.41-3.61}{0.2} = 4.0  
+$$
+
+Wartość dokładna:
+
+$$  
+f'(2) = 4  
+$$
+
+czyli w tym przykładzie wynik jest dokładny.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.1
+
+pochodna_numeryczna = (f(x + h) - f(x - h)) / (2 * h)
+pochodna_dokladna = 2 * x
+
+print("Pochodna numeryczna =", pochodna_numeryczna)
+print("Pochodna dokładna =", pochodna_dokladna)
+```
+
+---
+
+# 7. Wyprowadzenie metod różnic skończonych ze wzoru Taylora
+
+Rozwinięcie funkcji analitycznej:
+
+$$  
+f(x)  
+$$
+
+w otoczeniu punktu:
+
+$$  
+x  
+$$
+
+w szereg Taylora ma postać:
+
+$$  
+f(x+h) =  
+f(x)  
++  
+hf'(x)  
++  
+\frac{h^2}{2!}f''(x)  
++  
+\dots  
+$$
+
+Wprowadzamy operator różniczkowania:
+
+$$  
+D^k f(x) = f^{(k)}(x)  
+$$
+
+Wtedy można zapisać:
+
+$$  
+f(x+h)
+=
+\left(  
+1  
++  
+\frac{hD}{1!}  
++  
+\frac{h^2D^2}{2!}  
++  
+\dots  
+\right)f(x)  
+$$
+
+czyli:
+
+$$  
+f(x+h) = e^{hD}f(x)  
+$$
+
+Definiujemy operator różnicy zwykłej:
+
+$$  
+\Delta f(x) = f(x+h)-f(x)  
+$$
+
+oraz operator różnicy wstecznej:
+
+$$  
+\nabla f(x) = f(x)-f(x-h)  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.1
+
+delta = f(x + h) - f(x)
+nabla = f(x) - f(x - h)
+
+print("Delta f(x) =", delta)
+print("Nabla f(x) =", nabla)
+```
+
+---
+
+# 8. Równość operatorów i logarytmowanie
+
+Z zależności operatorowych otrzymujemy:
+
+$$  
+e^{hD} = 1 + \Delta  
+$$
+
+oraz:
+
+$$  
+1 - \nabla = e^{-hD}  
+$$
+
+Po logarytmowaniu:
+
+$$  
+\ln(1+\Delta) = hD  
+$$
+
+czyli:
+
+$$  
+D = \frac{1}{h}\ln(1+\Delta)  
+$$
+
+Dla różnicy wstecznej:
+
+$$  
+\ln(1-\nabla) = -hD  
+$$
+
+czyli:
+
+$$  
+D = -\frac{1}{h}\ln(1-\nabla)  
+$$
+
+To pozwala wyprowadzać wzory na pochodne za pomocą operatorów różnic skończonych.
+
+### Przykład w Pythonie
+
+```python
+# Ten przykład pokazuje tylko ideę operatora różnicy.
+# Nie liczymy logarytmu operatora, tylko samą różnicę.
+
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.1
+
+Delta = f(x + h) - f(x)
+
+przyblizenie = Delta / h
+
+print("Przybliżenie pochodnej z operatora Delta =", przyblizenie)
+```
+
+---
+
+# 9. Wzory na pochodne dla różnicy zwykłej
+
+Dla różnicy zwykłej:
+
+$$  
+D^k =  
+\frac{1}{h^k}  
+\left(  
+\ln(1+\Delta)  
+\right)^k  
+$$
+
+Rozwijamy logarytm:
+
+$$  
+\ln(1+\Delta)
+=
+\Delta
+-
+\frac{\Delta^2}{2}  
++  
+\frac{\Delta^3}{3}
+
+\frac{\Delta^4}{4}  
++  
+\dots  
+$$
+
+Stąd można wyprowadzić wzory na pochodne funkcji wyrażone za pomocą różnic zwykłych.
+
+Dla pierwszej pochodnej (k = 1):
+
+$$  
+f^{(1)}(x)
+=
+\frac{1}{h}  
+\left(  
+\Delta f(x)
+-
+\frac{1}{2}\Delta^2 f(x)  
++  
+\frac{1}{3}\Delta^3 f(x)
+-
+\frac{1}{4}\Delta^4 f(x)  
++  
+\dots  
+\right)  
+$$
+
+Dla drugiej pochodnej (k = 2):
+
+$$  
+f^{(2)}(x)
+=
+\frac{1}{h^2}  
+\left(  
+\Delta^2 f(x)
+-
+\Delta^3 f(x)  
++  
+\frac{11}{12}\Delta^4 f(x)
+-
+\frac{10}{12}\Delta^5 f(x)  
++  
+\dots  
+\right)  
+$$
+
+Dla trzeciej pochodnej (k = 3):
+
+$$  
+f^{(3)}(x)
+=
+\frac{1}{h^3}  
+\left(  
+\Delta^3 f(x)
+-
+\frac{3}{2}\Delta^4 f(x)  
++  
+\frac{7}{4}\Delta^5 f(x)
+-
+\frac{45}{24}\Delta^6 f(x)  
++  
+\dots  
+\right)  
+$$
+
+### Przykład w Pythonie — różnice zwykłe
+
+```python
+def f(x):
+    return x * x * x
+
+
+x = 1.0
+h = 0.1
+
+f0 = f(x)
+f1 = f(x + h)
+f2 = f(x + 2 * h)
+f3 = f(x + 3 * h)
+
+Delta1 = f1 - f0
+Delta2 = f2 - 2 * f1 + f0
+Delta3 = f3 - 3 * f2 + 3 * f1 - f0
+
+print("Delta f(x) =", Delta1)
+print("Delta^2 f(x) =", Delta2)
+print("Delta^3 f(x) =", Delta3)
+```
+
+---
+
+# 10. Wzory jednostronne dla pochodnych
+
+Z rozwinięć operatorowych można otrzymać wzory z różną liczbą punktów.
+
+---
+
+## 10.1. Dwupunktowa różnica zwykła
+
+$$  
+f'(x) \approx \frac{f(x_i+h)-f(x_i)}{h}  
+$$
+
+albo dla siatki:
+
+$$  
+f'(x) \approx \frac{f(x_{i+1})-f(x_i)}{h}  
+$$
+
+Błąd tej metody jest rzędu:
+
+$$  
+O(h)  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+xi = 2.0
+h = 0.01
+
+wynik = (f(xi + h) - f(xi)) / h
+
+print(wynik)
+```
+
+---
+
+## 10.2. Trzypunktowa różnica zwykła
+
+Dokładniejszy wzór jednostronny w przód:
+
+$$  
+f'(x)  
+\approx  
+\frac{  
+-3f(x_i) + 4f(x_{i+1}) - f(x_{i+2})  
+}  
+{2h}  
+$$
+
+Błąd tej metody jest rzędu:
+
+$$  
+O(h^2)  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+xi = 2.0
+h = 0.1
+
+wynik = (-3 * f(xi) + 4 * f(xi + h) - f(xi + 2 * h)) / (2 * h)
+
+print(wynik)
+```
+
+---
+
+## 10.3. Druga pochodna z różnic zwykłych
+
+Dla drugiej pochodnej można użyć wzoru:
+
+$$  
+f''(x)  
+\approx  
+\frac{  
+f(x_i) - 2f(x_{i+1}) + f(x_{i+2})  
+}  
+{h^2}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+xi = 2.0
+h = 0.1
+
+wynik = (f(xi) - 2 * f(xi + h) + f(xi + 2 * h)) / (h * h)
+
+print(wynik)
+```
+
+---
+
+## 10.4. Druga pochodna z większą liczbą punktów
+
+W wykładzie podano też wzór:
+
+$$  
+f''(x_i)  
+\approx  
+\frac{  
+2f(x_i) - 5f(x_{i+1}) + 4f(x_{i+2}) - 3f(x_{i+3})  
+}  
+{h^2}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+xi = 2.0
+h = 0.1
+
+wynik = (
+    2 * f(xi)
+    - 5 * f(xi + h)
+    + 4 * f(xi + 2 * h)
+    - 3 * f(xi + 3 * h)
+) / (h * h)
+
+print(wynik)
+```
+
+---
+
+# 11. Wzory na pochodne dla różnicy wstecznej
+
+Dla różnicy wstecznej:
+
+$$  
+D^k =  
+\frac{1}{h^k}  
+\left(  
+-\ln(1-\nabla)  
+\right)^k  
+$$
+
+Ponieważ:
+
+# $$  
+\ln(1-\nabla)
+
+-\left(  
+\nabla  
++  
+\frac{\nabla^2}{2}  
++  
+\frac{\nabla^3}{3}  
++  
+\frac{\nabla^4}{4}  
++  
+\dots  
+\right)  
+$$
+
+to:
+
+$$  
+D^k =  
+\frac{1}{h^k}  
+\left(  
+\nabla  
++  
+\frac{\nabla^2}{2}  
++  
+\frac{\nabla^3}{3}  
++  
+\frac{\nabla^4}{4}  
++  
+\dots  
+\right)^k  
+$$
+
+Dla pierwszej pochodnej:
+
+# $$  
+f^{(1)}(x)
+
+\frac{1}{h}  
+\left(  
+\nabla f(x)  
++  
+\frac{1}{2}\nabla^2 f(x)  
++  
+\frac{1}{3}\nabla^3 f(x)  
++  
+\dots  
+\right)  
+$$
+
+Dla drugiej pochodnej:
+
+# $$  
+f^{(2)}(x)
+
+\frac{1}{h^2}  
+\left(  
+\nabla^2 f(x)  
++  
+\nabla^3 f(x)  
++  
+\frac{11}{12}\nabla^4 f(x)  
++  
+\dots  
+\right)  
+$$
+
+Dla trzeciej pochodnej:
+
+# $$  
+f^{(3)}(x)
+
+\frac{1}{h^3}  
+\left(  
+\nabla^3 f(x)  
++  
+\frac{3}{2}\nabla^4 f(x)  
++  
+\frac{34}{24}\nabla^5 f(x)  
++  
+\dots  
+\right)  
+$$
+
+### Przykład w Pythonie — różnice wsteczne
+
+```python
+def f(x):
+    return x * x * x
+
+
+x = 1.0
+h = 0.1
+
+f0 = f(x)
+f1 = f(x - h)
+f2 = f(x - 2 * h)
+f3 = f(x - 3 * h)
+
+Nabla1 = f0 - f1
+Nabla2 = f0 - 2 * f1 + f2
+Nabla3 = f0 - 3 * f1 + 3 * f2 - f3
+
+print("Nabla f(x) =", Nabla1)
+print("Nabla^2 f(x) =", Nabla2)
+print("Nabla^3 f(x) =", Nabla3)
+```
+
+---
+
+# 12. Podsumowanie wzorów jednostronnych
+
+## 12.1. Dwupunktowe różnice zwykłe
+
+$$  
+f'(x)  
+\approx  
+\frac{f(x+h)-f(x)}{h}  
+$$
+
+Błąd:
+
+$$  
+O(h)  
+$$
+
+## 12.2. Trzypunktowe różnice zwykłe
+
+$$  
+f'(x)  
+\approx  
+\frac{  
+-3f(x)+4f(x+h)-f(x+2h)  
+}  
+{2h}  
+$$
+
+Błąd:
+
+$$  
+O(h^2)  
+$$
+
+## 12.3. Dwupunktowe różnice wsteczne
+
+$$  
+f'(x)  
+\approx  
+\frac{f(x)-f(x-h)}{h}  
+$$
+
+Błąd:
+
+$$  
+O(h)  
+$$
+
+## 12.4. Trzypunktowe różnice wsteczne
+
+$$  
+f'(x)  
+\approx  
+\frac{  
+3f(x)-4f(x-h)+f(x-2h)  
+}  
+{2h}  
+$$
+
+Błąd:
+
+$$  
+O(h^2)  
+$$
+
+### Przykład w Pythonie — porównanie wzorów
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.1
+
+roznica_przod_2 = (f(x + h) - f(x)) / h
+
+roznica_przod_3 = (-3 * f(x) + 4 * f(x + h) - f(x + 2 * h)) / (2 * h)
+
+roznica_wstecz_2 = (f(x) - f(x - h)) / h
+
+roznica_wstecz_3 = (3 * f(x) - 4 * f(x - h) + f(x - 2 * h)) / (2 * h)
+
+print("Dwupunktowa w przód =", roznica_przod_2)
+print("Trzypunktowa w przód =", roznica_przod_3)
+print("Dwupunktowa wsteczna =", roznica_wstecz_2)
+print("Trzypunktowa wsteczna =", roznica_wstecz_3)
+```
+
+---
+
+# 13. Różnice centralne
+
+Wzory różniczkowania numerycznego dla różnicy zwykłej i wstecznej korzystają z punktów leżących tylko po jednej stronie punktu:
+
+$$  
+x_0  
+$$
+
+Różnice centralne korzystają z wartości funkcji po obu stronach punktu:
+
+$$  
+x_0  
+$$
+
+Są to wzory symetryczne.
+
+Operator różnicy centralnej dla pierwszej pochodnej:
+
+# $$  
+\delta f(x)
+
+\frac{f(x+h)-f(x-h)}{2h}  
+$$
+
+Dla drugiej pochodnej:
+
+# $$  
+\delta^2 f(x)
+
+\frac{f(x+h)-2f(x)+f(x-h)}{h^2}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x = 2.0
+h = 0.1
+
+pierwsza = (f(x + h) - f(x - h)) / (2 * h)
+druga = (f(x + h) - 2 * f(x) + f(x - h)) / (h * h)
+
+print("Pierwsza pochodna =", pierwsza)
+print("Druga pochodna =", druga)
+```
+
+---
+
+# 14. Wyprowadzenie różnic centralnych z szeregu Taylora
+
+Rozwijamy funkcję w punktach:
+
+$$  
+x+h  
+$$
+
+oraz:
+
+$$  
+x-h  
+$$
+
+Wzory Taylora:
+
+# $$  
+f(x+h)
+
+f(x)  
++  
+f'(x)h  
++  
+\frac{f''(x)}{2}h^2  
++  
+\frac{f'''(x)}{6}h^3  
++  
+O(h^4)  
+$$
+
+oraz:
+
+# $$  
+f(x-h)
+
+## f(x)
+
+## f'(x)h  
++  
+\frac{f''(x)}{2}h^2
+
+\frac{f'''(x)}{6}h^3  
++  
+O(h^4)  
+$$
+
+Po odjęciu tych wzorów dostajemy wzór na pierwszą pochodną:
+
+# $$  
+\frac{f(x+h)-f(x-h)}{2h}
+
+f'(x)  
++  
+O(h^2)  
+$$
+
+czyli:
+
+$$  
+\delta f(x) = f'(x) + O(h^2)  
+$$
+
+Po odpowiednim złożeniu wzorów dostajemy drugą pochodną:
+
+# $$  
+\frac{f(x+h)-2f(x)+f(x-h)}{h^2}
+
+f''(x)  
++  
+O(h^2)  
+$$
+
+czyli:
+
+$$  
+\delta^2 f(x) = f''(x) + O(h^2)  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x * x
+
+
+x = 2.0
+h = 0.01
+
+pochodna_centralna = (f(x + h) - f(x - h)) / (2 * h)
+
+# Dokładna pochodna funkcji x^3 to 3x^2
+pochodna_dokladna = 3 * x * x
+
+print("Pochodna centralna =", pochodna_centralna)
+print("Pochodna dokładna =", pochodna_dokladna)
+print("Błąd =", abs(pochodna_centralna - pochodna_dokladna))
+```
+
+---
+
+# 15. Podsumowanie wzorów centralnych
+
+## 15.1. Dwupunktowe różnice centralne
+
+$$  
+f'(x)  
+\approx  
+\frac{f(x+h)-f(x-h)}{2h}  
+$$
+
+Błąd:
+
+$$  
+O(h^2)  
+$$
+
+## 15.2. Czteropunktowe różnice centralne
+
+## $$  
+f'(x)  
+\approx  
+\frac{  
+f(x-2h)
+
+## 8f(x-h)  
++  
+8f(x+h)
+
+f(x+2h)  
+}  
+{12h}  
+$$
+
+Błąd:
+
+$$  
+O(h^4)  
+$$
+
+Czteropunktowy wzór centralny jest dokładniejszy, ponieważ ma błąd rzędu:
+
+$$  
+O(h^4)  
+$$
+
+zamiast:
+
+$$  
+O(h^2)  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x * x
+
+
+x = 2.0
+h = 0.1
+
+pochodna_2pkt = (f(x + h) - f(x - h)) / (2 * h)
+
+pochodna_4pkt = (
+    f(x - 2 * h)
+    - 8 * f(x - h)
+    + 8 * f(x + h)
+    - f(x + 2 * h)
+) / (12 * h)
+
+pochodna_dokladna = 3 * x * x
+
+print("Dwupunktowa centralna =", pochodna_2pkt)
+print("Czteropunktowa centralna =", pochodna_4pkt)
+print("Dokładna =", pochodna_dokladna)
+```
+
+---
+
+# 16. Błędy metody różnic skończonych
+
+Błąd metody różnic skończonych zależy od:
+
+- wartości kroku:
+    
+
+$$  
+h  
+$$
+
+- wyższych pochodnych funkcji:
+    
+
+$$  
+f  
+$$
+
+- błędów zaokrągleń w komputerze.
+    
+
+Dla różnicy centralnej błąd jest zwykle rzędu:
+
+$$  
+O(h^2)  
+$$
+
+Oznacza to, że zmniejszanie:
+
+$$  
+h  
+$$
+
+początkowo poprawia wynik.
+
+Ale zbyt małe:
+
+$$  
+h  
+$$
+
+może powodować problemy numeryczne związane z precyzją arytmetyki komputerowej.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def f(x):
+    return math.exp(x)
+
+
+x = 0.0
+
+kroki = [1.0, 0.1, 0.01, 0.001, 0.0001]
+
+for h in kroki:
+    pochodna = (f(x + h) - f(x - h)) / (2 * h)
+    blad = abs(pochodna - 1.0)
+
+    print("h =", h, "pochodna =", pochodna, "błąd =", blad)
+```
+
+---
+
+## 16.1. Przykład błędu dla funkcji $$e^x$$
+
+Rozważamy funkcję:
+
+$$  
+f(x) = e^x  
+$$
+
+Chcemy obliczyć pochodną w punkcie:
+
+$$  
+x = 0  
+$$
+
+korzystając z dwupunktowych różnic centralnych:
+
+$$  
+f'(x) =  
+\frac{f(x+h)-f(x-h)}{2h}  
++  
+O(h^2)  
+$$
+
+Dla:
+
+$$  
+x = 0  
+$$
+
+mamy:
+
+# $$  
+f'(0)
+
+\frac{e^h-e^{-h}}{2h}  
++  
+O(h^2)  
+$$
+
+Podczas obliczeń komputer wprowadza błąd zaokrąglenia:
+
+$$  
+e^h \leftrightarrow e^h + R_1  
+$$
+
+oraz:
+
+$$  
+e^{-h} \leftrightarrow e^{-h} + R_2  
+$$
+
+Wtedy otrzymujemy:
+
+# $$  
+f'(0)
+
+\frac{e^h + R_1 - e^{-h} - R_2}{2h}  
++  
+O(h^2)  
+$$
+
+czyli:
+
+# $$  
+f'(0)
+
+\frac{e^h-e^{-h}}{2h}  
++  
+\frac{R_1-R_2}{2h}  
++  
+O(h^2)  
+$$
+
+Gdy zmniejszamy:
+
+$$  
+h  
+$$
+
+to błąd obcięcia:
+
+$$  
+O(h^2)  
+$$
+
+maleje, ale błąd zaokrąglenia:
+
+$$  
+\frac{R_1-R_2}{2h}  
+$$
+
+rośnie.
+
+### Wniosek
+
+Nie zawsze warto wybierać bardzo małe:
+
+$$  
+h  
+$$
+
+bo może to zwiększyć błąd zaokrągleń.
+
+---
+
+# 17. Różniczkowanie funkcji aproksymującej
+
+Często funkcja:
+
+$$  
+f  
+$$
+
+nie jest znana dokładnie.
+
+Możemy mieć tylko jej przybliżone wartości w punktach, np. z pomiarów.
+
+W takim przypadku używa się różnic skończonych do aproksymowania pochodnej na podstawie tych wartości.
+
+### Przykład
+
+Mamy dane:
+
+|$$x$$|$$f(x)$$|
+|--:|--:|
+|1.0|1.0|
+|1.1|1.21|
+|1.2|1.44|
+
+Możemy przybliżyć pochodną w punkcie:
+
+$$  
+x = 1.1  
+$$
+
+za pomocą różnicy centralnej:
+
+$$  
+f'(1.1) \approx \frac{f(1.2)-f(1.0)}{0.2}  
+$$
+
+### Przykład w Pythonie
+
+```python
+x = [1.0, 1.1, 1.2]
+y = [1.0, 1.21, 1.44]
+
+h = x[1] - x[0]
+
+pochodna = (y[2] - y[0]) / (2 * h)
+
+print("Przybliżona pochodna =", pochodna)
+```
+
+---
+
+# 18. Różniczkowanie za pomocą wielomianów Lagrange’a
+
+Różnice skończone można połączyć z interpolacją wielomianową Lagrange’a.
+
+Pozwala to obliczać pochodne w punktach między znanymi wartościami funkcji.
+
+Ogólnie można zapisać:
+
+$$  
+f'(x)  
+\approx  
+\frac{  
+\sum_{k=0}^{n} f(x_k)l'_k(x)  
+}  
+{  
+\sum_{k=0}^{n} l_k(x)  
+}  
+$$
+
+gdzie:
+
+$$  
+l_k(x)  
+$$
+
+to wielomiany interpolacyjne Lagrange’a.
+
+Ponieważ dla bazy Lagrange’a zachodzi:
+
+$$  
+\sum_{k=0}^{n} l_k(x) = 1  
+$$
+
+to w praktyce często zostaje:
+
+$$  
+f'(x)  
+\approx  
+\sum_{k=0}^{n} f(x_k)l'_k(x)  
+$$
+
+### Przykład w Pythonie — idea
+
+```python
+# Ten przykład pokazuje sam sens:
+# najpierw można zbudować wielomian interpolacyjny,
+# a potem różniczkować go numerycznie.
+
+def W(x):
+    # Przykładowy wielomian interpolacyjny
+    return x * x
+
+
+x = 2.0
+h = 0.001
+
+pochodna = (W(x + h) - W(x - h)) / (2 * h)
+
+print("Przybliżona pochodna wielomianu =", pochodna)
+```
+
+---
+
+## 18.1. Wielomian Lagrange’a przez trzy punkty
+
+Zapisujemy wielomian przechodzący przez trzy punkty:
+
+$$  
+(x_i,y_i)  
+$$
+
+$$  
+(x_{i+1},y_{i+1})  
+$$
+
+$$  
+(x_{i+2},y_{i+2})  
+$$
+
+Wielomian ma postać:
+
+# $$  
+f(x)
+
+\frac{(x-x_{i+1})(x-x_{i+2})}  
+{(x_i-x_{i+1})(x_i-x_{i+2})}  
+y_i  
++  
+\frac{(x-x_i)(x-x_{i+2})}  
+{(x_{i+1}-x_i)(x_{i+1}-x_{i+2})}  
+y_{i+1}  
++  
+\frac{(x-x_i)(x-x_{i+1})}  
+{(x_{i+2}-x_i)(x_{i+2}-x_{i+1})}  
+y_{i+2}  
+$$
+
+Po zróżniczkowaniu i podstawieniu:
+
+$$  
+x = x_{i+1}  
+$$
+
+można otrzymać wzór na pochodną w punkcie środkowym.
+
+Jeżeli punkty są równomiernie rozłożone, czyli:
+
+$$  
+x_{i+2}-x_{i+1} = x_{i+1}-x_i = h  
+$$
+
+to dostajemy różnicę centralną:
+
+$$  
+f'(x_{i+1}) =  
+\frac{y_{i+2}-y_i}{2h}  
+$$
+
+### Zalety tego podejścia
+
+1. Punkty nie muszą być równomiernie rozłożone.
+    
+2. Można policzyć pochodną w dowolnym punkcie między:
+    
+
+$$  
+x_i  
+$$
+
+a:
+
+$$  
+x_{i+2}  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Punkty równomiernie rozłożone:
+# x0 = 1.0, x1 = 1.1, x2 = 1.2
+
+x0 = 1.0
+x1 = 1.1
+x2 = 1.2
+
+y0 = x0 * x0
+y1 = x1 * x1
+y2 = x2 * x2
+
+h = x1 - x0
+
+pochodna_w_x1 = (y2 - y0) / (2 * h)
+
+print("Pochodna w x1 =", pochodna_w_x1)
+```
+
+---
+
+# 19. Ekstrapolacja Richardsona
+
+Ekstrapolacja Richardsona to metoda poprawiania dokładności przybliżenia.
+
+Zakładamy, że mamy przybliżenie:
+
+$$  
+D(h)  
+$$
+
+pewnej wartości dokładnej:
+
+$$  
+L  
+$$
+
+i że błąd zależy od potęg:
+
+$$  
+h^2, h^4, h^6, \dots  
+$$
+
+Dla różnicy centralnej z szeregu Taylora otrzymujemy:
+
+$$  
+L =  
+D(h)  
++  
+a_2h^2  
++  
+a_4h^4  
++  
+a_6h^6  
++  
+\dots  
+$$
+
+gdzie:
+
+- $$L$$ — dokładna pierwsza pochodna,
+    
+- $$D(h)$$ — przybliżenie pochodnej,
+    
+- $$a_2h^2 + a_4h^4 + a_6h^6 + \dots$$ — błąd przybliżenia.
+    
+
+### Przykład
+
+Dla różnicy centralnej:
+
+# $$  
+D(h)
+
+\frac{f(x+h)-f(x-h)}{2h}  
+$$
+
+błąd jest rzędu:
+
+$$  
+O(h^2)  
+$$
+
+Ekstrapolacja Richardsona pozwala zbudować przybliżenie o błędzie:
+
+$$  
+O(h^4)  
+$$
+
+---
+
+## 19.1. Pierwszy krok ekstrapolacji Richardsona
+
+Zapisujemy:
+
+$$  
+L =  
+D(h)  
++  
+a_2h^2  
++  
+a_4h^4  
++  
+a_6h^6  
++  
+\dots  
+$$
+
+Następnie zamieniamy:
+
+$$  
+h  
+$$
+
+na:
+
+$$  
+\frac{h}{2}  
+$$
+
+i mnożymy równanie przez `4`:
+
+$$  
+4L =  
+4D\left(\frac{h}{2}\right)  
++  
+a_2h^2  
++  
+\frac{a_4h^4}{4}  
++  
+\frac{a_6h^6}{16}  
++  
+\dots  
+$$
+
+Po odjęciu pierwszego równania od drugiego i podzieleniu przez `3` otrzymujemy:
+
+## $$  
+L =  
+\frac{4}{3}D\left(\frac{h}{2}\right)
+
+## \frac{1}{3}D(h)
+
+## \frac{a_4h^4}{4}
+
+## \frac{a_6h^6}{16}
+
+\dots  
+$$
+
+Pierwszy krok ekstrapolacji Richardsona:
+
+# $$  
+D^{(1)}(h)
+
+## \frac{  
+4D\left(\frac{h}{2}\right)
+
+D(h)  
+}  
+{3}  
+$$
+
+Wynik ma błąd rzędu:
+
+$$  
+O(h^4)  
+$$
+
+zamiast:
+
+$$  
+O(h^2)  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def f(x):
+    return math.exp(x)
+
+
+def D(x, h):
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+
+x = 0.0
+h = 0.1
+
+D_h = D(x, h)
+D_h2 = D(x, h / 2)
+
+richardson = (4 * D_h2 - D_h) / 3
+
+print("D(h) =", D_h)
+print("D(h/2) =", D_h2)
+print("Richardson =", richardson)
+print("Wartość dokładna =", 1.0)
+```
+
+---
+
+# 20. Ogólny wzór ekstrapolacji Richardsona
+
+Oznaczamy:
+
+# $$  
+D^{(1)}(h)
+
+\frac{4D\left(\frac{h}{2}\right)-D(h)}{3}  
+$$
+
+Po pierwszym kroku:
+
+$$  
+L =  
+D^{(1)}(h)  
++  
+b_4h^4  
++  
+b_6h^6  
++  
+\dots  
+$$
+
+Ogólnie:
+
+# $$  
+D^{(k)}(h)
+
+## \frac{  
+4^kD^{(k-1)}\left(\frac{h}{2}\right)
+
+D^{(k-1)}(h)  
+}  
+{4^k-1}  
+$$
+
+---
+
+# 21. Schemat ekstrapolacji Richardsona
+
+Wybieramy krok początkowy:
+
+$$  
+h  
+$$
+
+oraz liczbę kroków ekstrapolacji:
+
+$$  
+M  
+$$
+
+Obliczamy:
+
+$$  
+D(n,0) = D\left(\frac{h}{2^n}\right)  
+$$
+
+dla:
+
+$$  
+0 \leq n \leq M  
+$$
+
+Następnie dla:
+
+$$  
+k = 1,2,\dots,M  
+$$
+
+oraz:
+
+$$  
+n = k,k+1,\dots,M  
+$$
+
+stosujemy wzór:
+
+# $$  
+D(n,k)
+
+D(n,k-1)  
++  
+\frac{  
+D(n,k-1)-D(n-1,k-1)  
+}  
+{4^k-1}  
+$$
+
+Równoważnie:
+
+# $$  
+D(n,k)
+
+\frac{  
+4^kD(n,k-1)-D(n-1,k-1)  
+}  
+{4^k-1}  
+$$
+
+Otrzymujemy trójkątną tablicę przybliżeń:
+
+$$  
+\begin{array}{cccc}  
+D(0,0) \  
+D(1,0) & D(1,1) \  
+D(2,0) & D(2,1) & D(2,2) \  
+\vdots & \vdots & \vdots & \ddots \  
+D(M,0) & D(M,1) & D(M,2) & \dots & D(M,M)  
+\end{array}  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def f(x):
+    return math.exp(x)
+
+
+def D_pochodna(x, h):
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+
+x = 0.0
+h = 1.0
+M = 4
+
+# Tworzymy tablicę wypełnioną zerami
+D = []
+
+for i in range(M + 1):
+    wiersz = []
+
+    for j in range(M + 1):
+        wiersz.append(0.0)
+
+    D.append(wiersz)
+
+# Pierwsza kolumna
+for n in range(M + 1):
+    krok = h / (2 ** n)
+    D[n][0] = D_pochodna(x, krok)
+
+# Kolejne kolumny
+for k in range(1, M + 1):
+    for n in range(k, M + 1):
+        czynnik = 4 ** k
+        D[n][k] = (czynnik * D[n][k - 1] - D[n - 1][k - 1]) / (czynnik - 1)
+
+# Wypisanie tablicy
+for i in range(M + 1):
+    for j in range(i + 1):
+        print(D[i][j], end=" ")
+    print()
+```
+
+---
+
+# 22. Przykład ekstrapolacji Richardsona z wykładu
+
+W wykładzie podano przykład dla funkcji:
+
+$$  
+f(x) = \arctan x  
+$$
+
+w punkcie:
+
+$$  
+x = \sqrt{2}  
+$$
+
+Pochodna funkcji:
+
+$$  
+f'(x) = \frac{1}{x^2+1}  
+$$
+
+więc:
+
+$$  
+f'(\sqrt{2}) = \frac{1}{3}  
+$$
+
+W tabeli z wykładu kolejne przybliżenia dążą do wartości:
+
+$$  
+0.3333337  
+$$
+
+czyli do:
+
+$$  
+\frac{1}{3}  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def f(x):
+    return math.atan(x)
+
+
+def D_pochodna(x, h):
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+
+x = math.sqrt(2)
+h = 1.0
+M = 4
+
+D = []
+
+for i in range(M + 1):
+    wiersz = []
+
+    for j in range(M + 1):
+        wiersz.append(0.0)
+
+    D.append(wiersz)
+
+for n in range(M + 1):
+    krok = h / (2 ** n)
+    D[n][0] = D_pochodna(x, krok)
+
+for k in range(1, M + 1):
+    for n in range(k, M + 1):
+        czynnik = 4 ** k
+        D[n][k] = (czynnik * D[n][k - 1] - D[n - 1][k - 1]) / (czynnik - 1)
+
+print("Tablica Richardsona:")
+
+for i in range(M + 1):
+    for j in range(i + 1):
+        print(round(D[i][j], 7), end=" ")
+    print()
+
+print("Wartość dokładna =", 1 / 3)
+```
+
+---
+
+# 23. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 23.1. Różniczkowanie numeryczne
+
+Różniczkowanie numeryczne polega na przybliżaniu pochodnych funkcji za pomocą wartości tej funkcji w skończonej liczbie punktów.
+
+---
+
+## 23.2. Różnica w przód
+
+$$  
+f'(x) \approx \frac{f(x+h)-f(x)}{h}  
+$$
+
+Błąd:
+
+$$  
+O(h)  
+$$
+
+---
+
+## 23.3. Różnica wsteczna
+
+$$  
+f'(x) \approx \frac{f(x)-f(x-h)}{h}  
+$$
+
+Błąd:
+
+$$  
+O(h)  
+$$
+
+---
+
+## 23.4. Różnica centralna
+
+$$  
+f'(x) \approx \frac{f(x+h)-f(x-h)}{2h}  
+$$
+
+Błąd:
+
+$$  
+O(h^2)  
+$$
+
+---
+
+## 23.5. Druga pochodna centralna
+
+$$  
+f''(x)  
+\approx  
+\frac{f(x+h)-2f(x)+f(x-h)}{h^2}  
+$$
+
+Błąd:
+
+$$  
+O(h^2)  
+$$
+
+---
+
+## 23.6. Czteropunktowa różnica centralna
+
+## $$  
+f'(x)  
+\approx  
+\frac{  
+f(x-2h)
+
+## 8f(x-h)  
++  
+8f(x+h)
+
+f(x+2h)  
+}  
+{12h}  
+$$
+
+Błąd:
+
+$$  
+O(h^4)  
+$$
+
+---
+
+## 23.7. Problem z bardzo małym krokiem
+
+Zmniejszanie kroku:
+
+$$  
+h  
+$$
+
+zmniejsza błąd obcięcia, ale może zwiększać błąd zaokrągleń.
+
+Dlatego bardzo małe:
+
+$$  
+h  
+$$
+
+nie zawsze daje najlepszy wynik.
+
+---
+
+## 23.8. Różniczkowanie funkcji aproksymującej
+
+Jeżeli znamy tylko wartości funkcji w punktach, możemy różniczkować funkcję aproksymującą albo interpolującą, np. wielomian Lagrange’a.
+
+---
+
+## 23.9. Różniczkowanie z Lagrange’a
+
+Dla trzech równomiernie rozłożonych punktów:
+
+$$  
+x_i,\ x_{i+1},\ x_{i+2}  
+$$
+
+otrzymujemy wzór:
+
+$$  
+f'(x_{i+1}) =  
+\frac{y_{i+2}-y_i}{2h}  
+$$
+
+---
+
+## 23.10. Ekstrapolacja Richardsona
+
+Jeżeli:
+
+$$  
+L = D(h) + a_2h^2 + a_4h^4 + \dots  
+$$
+
+to pierwszy krok Richardsona daje:
+
+# $$  
+D^{(1)}(h)
+
+\frac{  
+4D\left(\frac{h}{2}\right)-D(h)  
+}  
+{3}  
+$$
+
+---
+
+## 23.11. Ogólny schemat Richardsona
+
+# $$  
+D(n,k)
+
+D(n,k-1)  
++  
+\frac{  
+D(n,k-1)-D(n-1,k-1)  
+}  
+{4^k-1}  
+$$
+
+---
+
+# 24. Krótkie podsumowanie
+
+Wykład 8 dotyczył różniczkowania numerycznego, czyli przybliżania pochodnych funkcji za pomocą wartości funkcji w wybranych punktach.
+
+Najważniejsze wnioski:
+
+1. Różniczkowanie numeryczne jest potrzebne, gdy pochodnej nie da się łatwo policzyć analitycznie.
+    
+2. Różnice skończone przybliżają pochodną za pomocą wartości funkcji w punktach oddalonych o krok `h`.
+    
+3. Różnica w przód korzysta z punktu `x+h`.
+    
+4. Różnica wsteczna korzysta z punktu `x-h`.
+    
+5. Różnica centralna korzysta z punktów `x-h` i `x+h`.
+    
+6. Różnice centralne są zwykle dokładniejsze od jednostronnych.
+    
+7. Wzory różnic skończonych można wyprowadzić z szeregu Taylora.
+    
+8. Zbyt małe `h` może pogarszać wynik przez błędy zaokrągleń.
+    
+9. Jeżeli funkcja nie jest znana dokładnie, można różniczkować funkcję aproksymującą.
+    
+10. Wielomiany Lagrange’a pozwalają różniczkować dane punktowe.
+    
+11. Ekstrapolacja Richardsona poprawia dokładność przybliżeń.
+    
+12. Pierwszy krok Richardsona zmienia błąd z rzędu `O(h^2)` na `O(h^4)`.

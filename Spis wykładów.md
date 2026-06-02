@@ -162,4 +162,14 @@
 - Aproksymacja liniowa
 - Przykład 9 - aproksymacja liniowa
 - Aproksymacja wielomianowa
+
+## 08 - Różniczkowanie numeryczne
+- Zastosowania różniczkowania numerycznego
+- Metoda różnic skończonych
+- Podstawowe wzory różnic skończonych
+- Wyprowadzenie metody różnic skończonych ze wzoru Taylora
+- Równość operatorów i logarytmowanie
+- Wzory na pochodne dla różnicy zwykłej
+- Wzory na pochodne funkcji dla różnicy zwykłej
+- Wzory na pochodne funkcji
 - 
