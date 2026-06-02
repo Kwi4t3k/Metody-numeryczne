@@ -172,4 +172,17 @@
 - Wzory na pochodne dla różnicy zwykłej
 - Wzory na pochodne funkcji dla różnicy zwykłej
 - Wzory na pochodne funkcji
+- Wzory na pochodne dla różnicy wstecznej
+- Wzory na pochodne funkcji dla różnicy wstecznej
+- Różnice centralne
+- Definicja operatora różnicy centralnej
+- Rozwinięcie w szereg Taylora
+- Różnice centralne i błąd
+- Wzory na pochodne - podsumowanie
+- Błędy metody różnic skończonych
+- Błąd w różniczkowaniu numerycznym - przykład
+- Różniczkowanie funkcji aproksymującej
+- Różniczkowanie za pomocą wielomianów Lagrange’a
+- Ekstrapolacja Richardsona
+- Ekstrapolacja Richardsona - schemat
 - 

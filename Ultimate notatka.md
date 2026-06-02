@@ -18295,9 +18295,9 @@ $$
 
 Ponieważ:
 
-# $$  
+$$  
 \ln(1-\nabla)
-
+=
 -\left(  
 \nabla  
 +  
@@ -18329,11 +18329,11 @@ D^k =
 \right)^k  
 $$
 
-Dla pierwszej pochodnej:
+Dla pierwszej pochodnej (k=1):
 
-# $$  
+$$  
 f^{(1)}(x)
-
+=
 \frac{1}{h}  
 \left(  
 \nabla f(x)  
@@ -18346,11 +18346,11 @@ f^{(1)}(x)
 \right)  
 $$
 
-Dla drugiej pochodnej:
+Dla drugiej pochodnej (k=2):
 
-# $$  
+$$  
 f^{(2)}(x)
-
+=
 \frac{1}{h^2}  
 \left(  
 \nabla^2 f(x)  
@@ -18363,11 +18363,11 @@ f^{(2)}(x)
 \right)  
 $$
 
-Dla trzeciej pochodnej:
+Dla trzeciej pochodnej (k=3):
 
-# $$  
+$$  
 f^{(3)}(x)
-
+=
 \frac{1}{h^3}  
 \left(  
 \nabla^3 f(x)  
@@ -18514,17 +18514,17 @@ Są to wzory symetryczne.
 
 Operator różnicy centralnej dla pierwszej pochodnej:
 
-# $$  
+$$  
 \delta f(x)
-
+=
 \frac{f(x+h)-f(x-h)}{2h}  
 $$
 
 Dla drugiej pochodnej:
 
-# $$  
+$$  
 \delta^2 f(x)
-
+=
 \frac{f(x+h)-2f(x)+f(x-h)}{h^2}  
 $$
 
@@ -18563,9 +18563,9 @@ $$
 
 Wzory Taylora:
 
-# $$  
+$$  
 f(x+h)
-
+=
 f(x)  
 +  
 f'(x)h  
@@ -18579,15 +18579,15 @@ $$
 
 oraz:
 
-# $$  
+$$  
 f(x-h)
-
-## f(x)
-
-## f'(x)h  
+=
+f(x)
+-
+f'(x)h  
 +  
 \frac{f''(x)}{2}h^2
-
+-
 \frac{f'''(x)}{6}h^3  
 +  
 O(h^4)  
@@ -18595,9 +18595,9 @@ $$
 
 Po odjęciu tych wzorów dostajemy wzór na pierwszą pochodną:
 
-# $$  
+$$  
 \frac{f(x+h)-f(x-h)}{2h}
-
+=
 f'(x)  
 +  
 O(h^2)  
@@ -18611,9 +18611,9 @@ $$
 
 Po odpowiednim złożeniu wzorów dostajemy drugą pochodną:
 
-# $$  
+$$  
 \frac{f(x+h)-2f(x)+f(x-h)}{h^2}
-
+=
 f''(x)  
 +  
 O(h^2)  
@@ -18665,16 +18665,16 @@ $$
 
 ## 15.2. Czteropunktowe różnice centralne
 
-## $$  
+$$  
 f'(x)  
 \approx  
 \frac{  
 f(x-2h)
-
-## 8f(x-h)  
+=
+8f(x-h)  
 +  
 8f(x+h)
-
+-
 f(x+2h)  
 }  
 {12h}  
@@ -18791,7 +18791,7 @@ for h in kroki:
 
 ---
 
-## 16.1. Przykład błędu dla funkcji $$e^x$$
+## 16.1. Przykład błędu dla funkcji $e^x$
 
 Rozważamy funkcję:
 
@@ -18822,9 +18822,9 @@ $$
 
 mamy:
 
-# $$  
+$$  
 f'(0)
-
+=
 \frac{e^h-e^{-h}}{2h}  
 +  
 O(h^2)  
@@ -18844,9 +18844,9 @@ $$
 
 Wtedy otrzymujemy:
 
-# $$  
+$$  
 f'(0)
-
+=
 \frac{e^h + R_1 - e^{-h} - R_2}{2h}  
 +  
 O(h^2)  
@@ -18854,9 +18854,9 @@ $$
 
 czyli:
 
-# $$  
+$$  
 f'(0)
-
+=
 \frac{e^h-e^{-h}}{2h}  
 +  
 \frac{R_1-R_2}{2h}  
@@ -19028,9 +19028,9 @@ $$
 
 Wielomian ma postać:
 
-# $$  
+$$  
 f(x)
-
+=
 \frac{(x-x_{i+1})(x-x_{i+2})}  
 {(x_i-x_{i+1})(x_i-x_{i+2})}  
 y_i  
@@ -19072,7 +19072,7 @@ $$
 2. Można policzyć pochodną w dowolnym punkcie między:
     
 
-$$  
+$$ 
 x_i  
 $$
 
@@ -19155,9 +19155,9 @@ gdzie:
 
 Dla różnicy centralnej:
 
-# $$  
+$$  
 D(h)
-
+=
 \frac{f(x+h)-f(x-h)}{2h}  
 $$
 
@@ -19221,25 +19221,25 @@ $$
 
 Po odjęciu pierwszego równania od drugiego i podzieleniu przez `3` otrzymujemy:
 
-## $$  
+$$  
 L =  
 \frac{4}{3}D\left(\frac{h}{2}\right)
-
-## \frac{1}{3}D(h)
-
-## \frac{a_4h^4}{4}
-
-## \frac{a_6h^6}{16}
-
+-
+\frac{1}{3}D(h)
+-
+\frac{a_4h^4}{4}
+-
+\frac{a_6h^6}{16}
+-
 \dots  
 $$
 
 Pierwszy krok ekstrapolacji Richardsona:
 
-# $$  
+$$  
 D^{(1)}(h)
-
-## \frac{  
+=
+\frac{  
 4D\left(\frac{h}{2}\right)
 
 D(h)  
@@ -19292,9 +19292,9 @@ print("Wartość dokładna =", 1.0)
 
 Oznaczamy:
 
-# $$  
+$$  
 D^{(1)}(h)
-
+=
 \frac{4D\left(\frac{h}{2}\right)-D(h)}{3}  
 $$
 
@@ -19313,10 +19313,10 @@ $$
 
 Ogólnie:
 
-# $$  
+$$  
 D^{(k)}(h)
-
-## \frac{  
+=
+\frac{  
 4^kD^{(k-1)}\left(\frac{h}{2}\right)
 
 D^{(k-1)}(h)  
@@ -19366,9 +19366,9 @@ $$
 
 stosujemy wzór:
 
-# $$  
+$$  
 D(n,k)
-
+:=
 D(n,k-1)  
 +  
 \frac{  
@@ -19379,9 +19379,9 @@ $$
 
 Równoważnie:
 
-# $$  
+$$  
 D(n,k)
-
+=
 \frac{  
 4^kD(n,k-1)-D(n-1,k-1)  
 }  
@@ -19392,10 +19392,10 @@ Otrzymujemy trójkątną tablicę przybliżeń:
 
 $$  
 \begin{array}{cccc}  
-D(0,0) \  
-D(1,0) & D(1,1) \  
-D(2,0) & D(2,1) & D(2,2) \  
-\vdots & \vdots & \vdots & \ddots \  
+D(0,0) \\  
+D(1,0) & D(1,1) \\  
+D(2,0) & D(2,1) & D(2,2) \\  
+\vdots & \vdots & \vdots & \ddots \\  
 D(M,0) & D(M,1) & D(M,2) & \dots & D(M,M)  
 \end{array}  
 $$
@@ -19602,16 +19602,16 @@ $$
 
 ## 23.6. Czteropunktowa różnica centralna
 
-## $$  
+$$  
 f'(x)  
 \approx  
 \frac{  
 f(x-2h)
-
-## 8f(x-h)  
+-
+8f(x-h)  
 +  
 8f(x+h)
-
+-
 f(x+2h)  
 }  
 {12h}  
@@ -19678,9 +19678,9 @@ $$
 
 to pierwszy krok Richardsona daje:
 
-# $$  
+$$  
 D^{(1)}(h)
-
+=
 \frac{  
 4D\left(\frac{h}{2}\right)-D(h)  
 }  
@@ -19691,9 +19691,9 @@ $$
 
 ## 23.11. Ogólny schemat Richardsona
 
-# $$  
+$$  
 D(n,k)
-
+=
 D(n,k-1)  
 +  
 \frac{  
@@ -19704,32 +19704,2055 @@ $$
 
 ---
 
-# 24. Krótkie podsumowanie
+# Wykład 9: Całkowanie numeryczne (lab 11)
 
-Wykład 8 dotyczył różniczkowania numerycznego, czyli przybliżania pochodnych funkcji za pomocą wartości funkcji w wybranych punktach.
+## 1. Cel całkowania numerycznego
+
+**Całkowanie numeryczne**, nazywane również **kwadraturą numeryczną**, służy do znajdowania przybliżonej wartości całek oznaczonych.
+
+Stosuje się je szczególnie wtedy, gdy:
+
+- rozwiązanie analityczne jest trudne,
+- rozwiązanie analityczne jest niemożliwe do uzyskania,
+- funkcja podcałkowa jest skomplikowana,
+- znamy tylko wartości funkcji w wybranych punktach.
+
+Głównym celem całkowania numerycznego jest obliczenie pola pod wykresem funkcji.
+
+Całka oznaczona ma postać:
+
+$$
+I = \int_a^b f(x)\,dx
+$$
+
+W wykładzie zakładamy, że funkcja:
+
+$$
+f
+$$
+
+jest przynajmniej ciągła w domkniętym przedziale:
+
+$$
+[a,b]
+$$
+
+Oznacza to, że funkcja jest też ograniczona w tym przedziale.
+
+### Przykład
+
+Dla funkcji:
+
+$$
+f(x) = x^2
+$$
+
+całka:
+
+$$
+\int_0^1 x^2\,dx
+$$
+
+oznacza pole pod wykresem funkcji `x^2` na przedziale:
+
+$$
+[0,1]
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+
+print("Przedział całkowania:")
+print("a =", a)
+print("b =", b)
+
+print("Przykładowa wartość funkcji f(0.5) =", f(0.5))
+```
+
+---
+
+## 2. Podstawowe definicje
+
+## 2.1. Całkowanie numeryczne
+
+Całkowanie numeryczne to metoda obliczania przybliżonej wartości całki za pomocą dyskretnych sum.
+
+Zamiast liczyć dokładną wartość całki, zastępujemy ją sumą prostszych elementów, np. prostokątów, trapezów albo pól pod parabolami.
+
+### Przykład
+
+Pole pod krzywą można przybliżyć sumą prostokątów:
+
+$$  
+\int_a^b f(x),dx \approx h \sum_{i=0}^{n-1} f(x_i)  
+$$
+
+gdzie:
+
+$$  
+h  
+$$
+
+jest szerokością podprzedziału.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+h = (b - a) / n
+
+suma = 0.0
+
+for i in range(n):
+    x = a + i * h
+    suma = suma + f(x)
+
+calka = h * suma
+
+print("Przybliżona całka =", calka)
+```
+
+---
+
+## 2.2. Kwadratura
+
+**Kwadratura** to tradycyjny termin używany w całkowaniu numerycznym.
+
+Najczęściej odnosi się do obliczania całek jednowymiarowych.
+
+Dwu- i wielowymiarowe całkowania nazywane są czasami **kubaturami**, chociaż nazwa kwadratura bywa stosowana również w wyższych wymiarach.
+
+---
+
+## 2.3. Błąd całkowania numerycznego
+
+**Błąd całkowania numerycznego** to różnica między wartością przybliżoną a dokładną wartością całki.
+
+Można zapisać:
+
+$$  
+\text{błąd} = |I - I_{przybl}|  
+$$
+
+gdzie:
+
+- $$I$$ — dokładna wartość całki,
+    
+- $$I_{przybl}$$ — wartość obliczona metodą numeryczną.
+    
+
+### Przykład w Pythonie
+
+```python
+wartosc_dokladna = 1 / 3
+wartosc_przyblizona = 0.328125
+
+blad = abs(wartosc_dokladna - wartosc_przyblizona)
+
+print("Błąd =", blad)
+```
+
+---
+
+# 3. Zastosowania całkowania numerycznego
+
+Całkowanie numeryczne jest stosowane w wielu dziedzinach, między innymi w:
+
+- fizyce,
+    
+- inżynierii,
+    
+- ekonomii,
+    
+- finansach,
+    
+- biologii,
+    
+- statystyce,
+    
+- symulacjach komputerowych.
+    
+
+Jest potrzebne tam, gdzie nie można uzyskać rozwiązania analitycznego, na przykład w:
+
+- dynamice płynów,
+    
+- optyce,
+    
+- metodach elementów skończonych,
+    
+- obliczaniu wartości oczekiwanych,
+    
+- obliczaniu prawdopodobieństw,
+    
+- obliczaniu parametrów statystycznych.
+    
+
+### Przykład w Pythonie
+
+```python
+zastosowania = [
+    "fizyka",
+    "inżynieria",
+    "ekonomia",
+    "finanse",
+    "statystyka",
+    "symulacje komputerowe"
+]
+
+for zastosowanie in zastosowania:
+    print(zastosowanie)
+```
+
+---
+
+# 4. Funkcja pierwotna
+
+Funkcja:
+
+$$  
+F(x)  
+$$
+
+jest funkcją pierwotną funkcji:
+
+$$  
+f(x)  
+$$
+
+jeżeli spełnia warunek:
+
+$$  
+F'(x) = f(x)  
+$$
+
+Jeżeli:
+
+$$  
+F(x)  
+$$
+
+jest funkcją pierwotną funkcji:
+
+$$  
+f(x)  
+$$
+
+to również:
+
+$$  
+F(x) + C  
+$$
+
+jest funkcją pierwotną tej samej funkcji, gdzie:
+
+$$  
+C  
+$$
+
+jest dowolną stałą.
+
+### Przykład
+
+Dla funkcji:
+
+$$  
+f(x) = 2x  
+$$
+
+funkcją pierwotną jest:
+
+$$  
+F(x) = x^2  
+$$
+
+bo:
+
+$$  
+F'(x) = 2x  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return 2 * x
+
+
+def F(x):
+    return x * x
+
+
+x = 3
+
+print("f(x) =", f(x))
+print("F(x) =", F(x))
+```
+
+---
+
+# 5. Całka nieoznaczona
+
+Klasa funkcji pierwotnych jest całką nieoznaczoną funkcji:
+
+$$  
+f(x)  
+$$
+
+Zapis:
+
+$$  
+\int f(x),dx = F(x) + C  
+$$
+
+gdzie:
+
+- $$F(x)$$ — funkcja pierwotna,
+    
+- $$C$$ — dowolna stała.
+    
+
+### Przykład
+
+$$  
+\int 2x,dx = x^2 + C  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Python nie liczy tutaj symbolicznie całki.
+# Pokazujemy tylko sprawdzenie wartości funkcji pierwotnej.
+
+def F(x, C):
+    return x * x + C
+
+
+x = 2
+C = 5
+
+print("F(x) + C =", F(x, C))
+```
+
+---
+
+# 6. Funkcje elementarne
+
+Funkcjami elementarnymi są:
+
+- funkcje stałe,
+    
+- funkcje potęgowe,
+    
+- funkcje wykładnicze,
+    
+- funkcje logarytmiczne,
+    
+- funkcje trygonometryczne,
+    
+- funkcje cyklometryczne,
+    
+- funkcje otrzymane z nich za pomocą skończonej liczby działań arytmetycznych,
+    
+- funkcje otrzymane przez składanie funkcji.
+    
+
+### Przykład
+
+Funkcją elementarną jest na przykład:
+
+$$  
+f(x) = e^x + \sin(x) + x^2  
+$$
+
+bo składa się z funkcji elementarnych.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def f(x):
+    return math.exp(x) + math.sin(x) + x * x
+
+
+x = 1.0
+
+print("f(x) =", f(x))
+```
+
+---
+
+# 7. Przykłady funkcji pierwotnych, które nie są elementarne
+
+W wykładzie podano przykłady całek, których funkcje pierwotne nie są funkcjami elementarnymi, mimo że funkcje podcałkowe są elementarne.
+
+Przykłady:
+
+$$  
+F(x) = \int e^{-x^2},dx  
+$$
+
+$$  
+G(x) = \int \frac{\sin x}{x},dx  
+$$
+
+$$  
+H(x) = \int \frac{e^x}{\sqrt{x}},dx  
+$$
+
+Oznacza to, że nie zawsze da się zapisać funkcję pierwotną za pomocą prostych znanych funkcji elementarnych.
+
+W takich sytuacjach stosuje się metody numeryczne.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def f(x):
+    return math.exp(-x * x)
+
+
+x = 1.0
+
+print("Wartość funkcji podcałkowej e^(-x^2) dla x=1:", f(x))
+```
+
+---
+
+# 8. Całka oznaczona
+
+Całka oznaczona funkcji:
+
+$$  
+f(x)  
+$$
+
+w granicach od:
+
+$$  
+a  
+$$
+
+do:
+
+$$  
+b  
+$$
+
+jest liczbą:
+
+$$  
+\int_a^b f(x),dx = F(x)\Big|_a^b = F(b) - F(a)  
+$$
+
+gdzie:
+
+$$  
+F(x)  
+$$
+
+jest dowolną funkcją pierwotną funkcji:
+
+$$  
+f(x)  
+$$
+
+Zauważmy też, że:
+
+$$  
+\int_a^x f(t),dt = F(x)  
+$$
+
+jest pewną funkcją pierwotną funkcji:
+
+$$  
+f(x)  
+$$
+
+### Przykład
+
+Dla:
+
+$$  
+f(x) = 2x  
+$$
+
+funkcja pierwotna to:
+
+$$  
+F(x) = x^2  
+$$
+
+Zatem:
+
+$$  
+\int_0^3 2x,dx = F(3)-F(0)  
+$$
+
+czyli:
+
+$$  
+\int_0^3 2x,dx = 9 - 0 = 9  
+$$
+
+### Przykład w Pythonie
+
+```python
+def F(x):
+    return x * x
+
+
+a = 0
+b = 3
+
+calka = F(b) - F(a)
+
+print("Wartość całki =", calka)
+```
+
+---
+
+# 9. Rozwinięcie funkcji podcałkowej w szereg potęgowy
+
+Problem obliczenia całki można czasami rozwiązać przez rozwinięcie funkcji podcałkowej w szereg potęgowy.
+
+W wykładzie podano przykład funkcji:
+
+$$  
+e^{-x^2}  
+$$
+
+Korzystamy z rozwinięcia funkcji wykładniczej:
+
+$$  
+e^x =  
+\sum_{n=0}^{\infty}  
+\frac{x^n}{n!}  
+$$
+
+Dla funkcji:
+
+$$  
+e^{-x^2}  
+$$
+
+otrzymujemy:
+
+# $$  
+e^{-x^2}
+
+\sum_{n=0}^{\infty}  
+\frac{(-1)^n x^{2n}}{n!}  
+$$
+
+### Przykład w Pythonie
+
+```python
+import math
+
+x = 0.5
+m = 5
+
+suma = 0.0
+
+silnia = 1.0
+potega_x2 = 1.0
+znak = 1.0
+
+for n in range(m + 1):
+    if n > 0:
+        silnia = silnia * n
+        potega_x2 = potega_x2 * x * x
+        znak = -znak
+
+    wyraz = znak * potega_x2 / silnia
+    suma = suma + wyraz
+
+print("Przybliżenie e^(-x^2) =", suma)
+print("Wartość biblioteczna =", math.exp(-x * x))
+```
+
+---
+
+## 9.1. Obliczanie całki z rozwinięcia funkcji
+
+Skoro:
+
+# $$  
+e^{-x^2}
+
+\sum_{n=0}^{\infty}  
+\frac{(-1)^n x^{2n}}{n!}  
+$$
+
+to:
+
+# $$  
+\int e^{-x^2},dx
+
+\sum_{n=0}^{\infty}  
+\int  
+\frac{(-1)^n x^{2n}}{n!}  
+,dx  
+$$
+
+Po scałkowaniu wyraz po wyrazie:
+
+# $$  
+\int e^{-x^2},dx
+
+\sum_{n=0}^{\infty}  
+\frac{(-1)^n x^{2n+1}}{(2n+1)n!}  
+$$
+
+W praktyce stosujemy sumę skończoną:
+
+$$  
+\int e^{-x^2},dx  
+\approx  
+\sum_{n=0}^{m}  
+\frac{(-1)^n x^{2n+1}}{(2n+1)n!}  
+$$
+
+Liczba:
+
+$$  
+m  
+$$
+
+musi być dostatecznie duża, aby błąd był dostatecznie mały.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+def F_przyblizone(x, m):
+    suma = 0.0
+
+    silnia = 1.0
+    potega = x
+    znak = 1.0
+
+    for n in range(m + 1):
+        if n > 0:
+            silnia = silnia * n
+            potega = potega * x * x
+            znak = -znak
+
+        wyraz = znak * potega / ((2 * n + 1) * silnia)
+        suma = suma + wyraz
+
+    return suma
+
+
+x = 1.0
+
+print("m = 2:", F_przyblizone(x, 2))
+print("m = 3:", F_przyblizone(x, 3))
+```
+
+---
+
+## 9.2. Funkcja z wykładu
+
+W wykładzie zdefiniowano funkcję:
+
+$$  
+F(x) =  
+\int_0^x e^{-t^2},dt  
+$$
+
+Następnie porównano wartości tej funkcji dla:
+
+$$  
+x = 0.1,\ 0.2,\ \dots,\ 1.0  
+$$
+
+obliczone programem Maxima oraz ze wzoru szeregowego dla:
+
+$$  
+m = 2  
+$$
+
+i:
+
+$$  
+m = 3  
+$$
+
+Dla:
+
+$$  
+x = 1.0  
+$$
+
+w tabeli z wykładu podano wartości:
+
+$$  
+F(1.0) \approx 0.7468  
+$$
+
+dla programu Maxima,
+
+$$  
+F(1.0) \approx 0.7667  
+$$
+
+dla:
+
+$$  
+m = 2  
+$$
+
+oraz:
+
+$$  
+F(1.0) \approx 0.7429  
+$$
+
+dla:
+
+$$  
+m = 3  
+$$
+
+### Przykład w Pythonie
+
+```python
+def F_przyblizone(x, m):
+    suma = 0.0
+
+    silnia = 1.0
+    potega = x
+    znak = 1.0
+
+    for n in range(m + 1):
+        if n > 0:
+            silnia = silnia * n
+            potega = potega * x * x
+            znak = -znak
+
+        wyraz = znak * potega / ((2 * n + 1) * silnia)
+        suma = suma + wyraz
+
+    return suma
+
+
+x = 1.0
+
+print("F(1.0), m=2 =", F_przyblizone(x, 2))
+print("F(1.0), m=3 =", F_przyblizone(x, 3))
+```
+
+---
+
+# 10. Kwadratury interpolacyjne
+
+**Metody Newtona-Cotesa** to zbiór metod numerycznego całkowania, nazywanego też kwadraturą.
+
+Dana jest funkcja:
+
+$$  
+f(x)  
+$$
+
+ciągła i ograniczona w przedziale:
+
+$$  
+[a,b]  
+$$
+
+Przedział dzielimy na skończoną liczbę podprzedziałów:
+
+$$  
+a = x_0 < x_1 < x_2 < \dots < x_i < x_{i+1} < \dots < x_n = b  
+$$
+
+gdzie:
+
+$$  
+i = 0,1,\dots,n  
+$$
+
+Zwykle punkty są rozmieszczone równomiernie:
+
+$$  
+h = x_{i+1} - x_i = const  
+$$
+
+Wtedy:
+
+$$  
+h = \frac{b-a}{n}  
+$$
+
+Całkę można zapisać jako sumę całek po podprzedziałach:
+
+# $$  
+\int_{x_0=a}^{x_n=b} f(x),dx
+
+\sum_{i=0}^{n-1}  
+\int_{x_i}^{x_{i+1}} f(x),dx  
+$$
+
+### Przykład w Pythonie
+
+```python
+a = 0.0
+b = 1.0
+n = 4
+
+h = (b - a) / n
+
+wezly = []
+
+for i in range(n + 1):
+    x = a + i * h
+    wezly.append(x)
+
+print("Węzły:")
+
+for x in wezly:
+    print(x)
+```
+
+---
+
+## 10.1. Interpolacyjne przybliżenie całki
+
+Poszczególne składniki sumy oznaczamy jako:
+
+$$  
+\sigma_i =  
+\int_{x_i}^{x_{i+1}} f(x),dx  
+$$
+
+Istotą kwadratur interpolacyjnych jest przybliżenie funkcji:
+
+$$  
+f(x)  
+$$
+
+w przedziale:
+
+$$  
+[x_i,x_{i+1}]  
+$$
+
+wielomianem interpolacyjnym:
+
+$$  
+W(x)  
+$$
+
+Wtedy:
+
+$$  
+\sigma_i  
+\approx  
+\int_{x_i}^{x_{i+1}} W(x),dx  
+$$
+
+gdzie:
+
+$$  
+W(x)  
+$$
+
+jest wielomianem interpolacyjnym.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+h = (b - a) / n
+
+for i in range(n):
+    xi = a + i * h
+    xi1 = xi + h
+
+    print("Podprzedział:", xi, xi1)
+```
+
+---
+
+# 11. Interpolacja Lagrange’a w całkowaniu numerycznym
+
+Jeżeli mamy równoodległe węzły interpolacji:
+
+$$  
+a = x_0 < x_1 < x_2 < \dots < x_{n-1} < x_n = b  
+$$
+
+oraz znamy wartości:
+
+$$  
+f(x_i) = y_i  
+$$
+
+to całkę:
+
+$$  
+\int_a^b f(x),dx  
+$$
+
+można przybliżyć przez całkę z wielomianu interpolacyjnego Lagrange’a:
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+\int_a^b L_n(x),dx  
+$$
+
+gdzie:
+
+$$  
+L_n(x)  
+$$
+
+jest wielomianem interpolacyjnym Lagrange’a stopnia co najwyżej:
+
+$$  
+n  
+$$
+
+i spełnia warunki:
+
+$$  
+L_n(x_0) = y(x_0)  
+$$
+
+$$  
+L_n(x_1) = y(x_1)  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+L_n(x_n) = y(x_n)  
+$$
+
+### Przykład w Pythonie
+
+```python
+x_wezly = [0.0, 0.5, 1.0]
+y_wezly = [0.0, 0.25, 1.0]
+
+for i in range(len(x_wezly)):
+    print("x =", x_wezly[i], "y =", y_wezly[i])
+```
+
+---
+
+## 11.1. Zmienna pomocnicza
+
+Niech:
+
+$$  
+h_n = \frac{b-a}{n}  
+$$
+
+będzie długością kroku między węzłami interpolacji.
+
+Wprowadzamy zmienną pomocniczą:
+
+$$  
+x = a + th  
+$$
+
+Wtedy dla funkcji bazowej Lagrange’a:
+
+$$  
+\lambda_i(x)  
+$$
+
+można zapisać:
+
+# $$  
+\lambda_i(x)
+
+# \lambda_i(a + th)
+
+# \prod_{\substack{j=0 \ j \neq i}}^{n}  
+\frac{t-j}{i-j}
+
+g(t)  
+$$
+
+### Przykład w Pythonie
+
+```python
+a = 0.0
+h = 0.25
+t = 2.0
+
+x = a + t * h
+
+print("x =", x)
+```
+
+---
+
+## 11.2. Przybliżenie całki przez wielomiany Lagrange’a
+
+Mamy:
+
+# $$  
+\int_a^b L_n(x),dx
+
+\int_a^b  
+\sum_{i=0}^{n}  
+f(x_i)\lambda_i(x)  
+,dx  
+$$
+
+czyli:
+
+# $$  
+\int_a^b L_n(x),dx
+
+\sum_{i=0}^{n}  
+f(x_i)  
+\int_a^b  
+\lambda_i(x)  
+,dx  
+$$
+
+Korzystając z podstawienia:
+
+$$  
+x = a + t \cdot h  
+$$
+
+oraz:
+
+$$  
+f(x_i) = f(a+i\cdot h)  
+$$
+
+otrzymujemy wzór:
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+\sum_{i=0}^{n}  
+f(x_i)\cdot h  
+\int_0^n  
+\prod_{\substack{j=0 \ j \neq i}}^{n}  
+\frac{t-j}{i-j}  
+,dt  
+$$
+
+To prowadzi do wzorów Newtona-Cotesa.
+
+---
+
+# 12. Rodzaje wzorów Newtona-Cotesa
+
+W wykładzie wyróżniono dwa główne rodzaje wzorów Newtona-Cotesa:
+
+1. **wzory otwarte**,
+    
+2. **wzory zamknięte**.
+    
+
+---
+
+## 12.1. Zamknięte wzory Newtona-Cotesa
+
+Zamknięte wzory Newtona-Cotesa uwzględniają wartości funkcji we wszystkich punktach, włącznie ze skrajnymi punktami przedziału.
+
+Dla zamkniętego wzoru Newtona-Cotesa rzędu:
+
+$$  
+n  
+$$
+
+mamy:
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+\sum_{i=0}^{n}  
+w_i f(x_i)  
+$$
+
+gdzie:
+
+$$  
+x_i = h \cdot i + x_0  
+$$
+
+oraz:
+
+$$  
+h = \frac{x_n - x_0}{n}  
+$$
+
+Liczby:
+
+$$  
+w_i  
+$$
+
+to wagi uzyskane z wielomianów bazowych Lagrange’a.
+
+Przykładami wzorów zamkniętych są:
+
+- metoda trapezów,
+    
+- metoda Simpsona.
+    
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+x0 = 0.0
+xn = 1.0
+n = 2
+
+h = (xn - x0) / n
+
+for i in range(n + 1):
+    xi = h * i + x0
+    print("x_", i, "=", xi, "f(x_i) =", f(xi))
+```
+
+---
+
+## 12.2. Otwarte wzory Newtona-Cotesa
+
+Otwarte wzory Newtona-Cotesa pomijają wartości funkcji w skrajnych punktach przedziału.
+
+Dla otwartego wzoru Newtona-Cotesa rzędu:
+
+$$  
+n  
+$$
+
+mamy:
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+\sum_{i=1}^{n-1}  
+w_i f(x_i)  
+$$
+
+Wagi są wyznaczane podobnie jak w przypadku wzoru zamkniętego.
+
+Przykładem wzoru otwartego jest metoda prostokątów.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+h = (b - a) / n
+
+for i in range(n):
+    x_srodek = a + i * h + h / 2
+    print("Środek podprzedziału:", x_srodek, "f =", f(x_srodek))
+```
+
+---
+
+# 13. Metoda prostokątów
+
+Metoda prostokątów jest najprostszą metodą kwadratury.
+
+Pole pod wykresem funkcji przybliża się za pomocą sumy pól prostokątów.
+
+W wykładzie przyjęto, że funkcję podcałkową:
+
+$$  
+f(x)  
+$$
+
+na odcinku:
+
+$$  
+[x_i,x_{i+1}]  
+$$
+
+przybliżamy stałą wartością:
+
+$$  
+W(x) = f(x_i)  
+$$
+
+albo w praktyce dla węzłów równoodległych często:
+
+$$  
+y_i = f\left(x_i+\frac{h}{2}\right)  
+$$
+
+czyli wartością w środku podprzedziału.
+
+Dla jednego podprzedziału:
+
+$$  
+\sigma_i =  
+\int_{x_i}^{x_{i+1}} f(x),dx  
+\approx  
+\int_{x_i}^{x_{i+1}} y_i,dx  
+$$
+
+Ponieważ:
+
+# $$  
+\int_{x_i}^{x_{i+1}} y_i,dx
+
+# [y_i x]_{x_i}^{x_{i+1}}
+
+# y_i(x_{i+1}-x_i)
+
+y_i h  
+$$
+
+to:
+
+$$  
+\sigma_i \approx y_i h  
+$$
+
+Dla całego przedziału:
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+h  
+\sum_{i=0}^{n-1}  
+y_i  
+$$
+
+Przybliżona wartość całki jest sumą pól prostokątów o podstawie:
+
+$$  
+h  
+$$
+
+i wysokości:
+
+$$  
+y_i  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+h = (b - a) / n
+
+suma = 0.0
+
+for i in range(n):
+    x_srodek = a + i * h + h / 2
+    y = f(x_srodek)
+    suma = suma + y
+
+calka = h * suma
+
+print("Metoda prostokątów =", calka)
+```
+
+---
+
+## 13.1. Przykład metody prostokątów z wykładu
+
+Dana jest funkcja:
+
+$$  
+f(x) = -0.1x^2 + 2x  
+$$
+
+Liczymy całkę oznaczoną w przedziale:
+
+$$  
+[0,15]  
+$$
+
+metodą prostokątów.
+
+Przedział dzielimy na odcinki długości:
+
+$$  
+h = 3  
+$$
+
+W wykładzie podano, że metoda prostokątów daje wynik:
+
+$$  
+113.625  
+$$
+
+Dokładny wynik wynosi:
+
+$$  
+112.5  
+$$
+
+Na wykresie z wykładu prostokąty pokazują przybliżenie pola pod parabolą.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return -0.1 * x * x + 2 * x
+
+
+a = 0.0
+b = 15.0
+h = 3.0
+
+n = int((b - a) / h)
+
+suma = 0.0
+
+for i in range(n):
+    x_srodek = a + i * h + h / 2
+    y = f(x_srodek)
+    suma = suma + y
+
+calka = h * suma
+
+print("Wartość metodą prostokątów =", calka)
+print("Wartość dokładna z wykładu =", 112.5)
+print("Błąd =", abs(calka - 112.5))
+```
+
+Wynik:
+
+```text
+Wartość metodą prostokątów = 113.625
+Wartość dokładna z wykładu = 112.5
+Błąd = 1.125
+```
+
+---
+
+# 14. Metoda trapezów
+
+Metoda trapezów polega na przybliżeniu funkcji podcałkowej prostą przechodzącą przez dwa punkty:
+
+$$  
+(x_i, f(x_i))  
+$$
+
+oraz:
+
+$$  
+(x_{i+1}, f(x_{i+1}))  
+$$
+
+Zamiast prostokąta używamy trapezu.
+
+Dla jednego podprzedziału:
+
+$$  
+[x_i,x_{i+1}]  
+$$
+
+pole trapezu wynosi:
+
+$$  
+\sigma_i =  
+\frac{1}{2}h(y_{i+1}+y_i)  
+$$
+
+gdzie:
+
+$$  
+y_i = f(x_i)  
+$$
+
+oraz:
+
+$$  
+y_{i+1} = f(x_{i+1})  
+$$
+
+Po zsumowaniu pól trapezów dla całego przedziału:
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+\frac{1}{2}h  
+\sum_{i=0}^{n-1}  
+(y_{i+1}+y_i)  
+$$
+
+Można to zapisać także jako:
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+h  
+\left[  
+\frac{1}{2}(y_0+y_n)  
++  
+\sum_{i=1}^{n-1}  
+y_i  
+\right]  
+$$
+
+Przybliżona wartość całki jest sumą pól trapezów.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+h = (b - a) / n
+
+suma = 0.0
+
+for i in range(1, n):
+    x = a + i * h
+    suma = suma + f(x)
+
+calka = h * (0.5 * (f(a) + f(b)) + suma)
+
+print("Metoda trapezów =", calka)
+```
+
+---
+
+## 14.1. Błąd metody trapezów
+
+Wzór trapezów jest dokładny, jeżeli funkcja:
+
+$$  
+f  
+$$
+
+jest wielomianem stopnia co najwyżej pierwszego.
+
+W innych przypadkach pojawia się błąd przybliżenia.
+
+W wykładzie podano błąd w postaci:
+
+$$  
+\delta =  
+\frac{1}{12}  
+|f''(\xi)|(b-a)^3  
+$$
+
+gdzie:
+
+$$  
+\xi \in (a,b)  
+$$
+
+oraz:
+
+$$  
+h = \frac{b-a}{n}  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+h = (b - a) / n
+
+suma = 0.0
+
+for i in range(1, n):
+    x = a + i * h
+    suma = suma + f(x)
+
+calka = h * (0.5 * (f(a) + f(b)) + suma)
+
+dokladna = 1 / 3
+blad = abs(dokladna - calka)
+
+print("Metoda trapezów =", calka)
+print("Wartość dokładna =", dokladna)
+print("Błąd =", blad)
+```
+
+---
+
+## 14.2. Przykład dla funkcji z wykładu
+
+Dla funkcji:
+
+$$  
+f(x) = -0.1x^2 + 2x  
+$$
+
+na przedziale:
+
+$$  
+[0,15]  
+$$
+
+i kroku:
+
+$$  
+h = 3  
+$$
+
+można policzyć przybliżenie metodą trapezów.
+
+Na wykresie z wykładu trapezy lepiej dopasowują się do kształtu paraboli niż prostokąty.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return -0.1 * x * x + 2 * x
+
+
+a = 0.0
+b = 15.0
+h = 3.0
+
+n = int((b - a) / h)
+
+suma = 0.0
+
+for i in range(1, n):
+    x = a + i * h
+    suma = suma + f(x)
+
+calka = h * (0.5 * (f(a) + f(b)) + suma)
+
+print("Metoda trapezów =", calka)
+print("Dokładny wynik z wykładu =", 112.5)
+print("Błąd =", abs(calka - 112.5))
+```
+
+---
+
+# 15. Metoda Simpsona
+
+Metoda Simpsona przybliża pole pod wykresem funkcji za pomocą pól pod parabolami.
+
+W porównaniu z metodą trapezów zwykle daje większą dokładność, ponieważ zamiast prostymi odcinkami przybliża funkcję wielomianami drugiego stopnia.
+
+Dla przedziału:
+
+$$  
+[a,b]  
+$$
+
+dzielonego na:
+
+$$  
+n  
+$$
+
+podprzedziałów, gdzie:
+
+$$  
+n  
+$$
+
+jest parzyste, definiujemy:
+
+$$  
+h = \frac{b-a}{n}  
+$$
+
+oraz:
+
+$$  
+x_i = a + ih  
+$$
+
+dla:
+
+$$  
+i = 0,1,\dots,n  
+$$
+
+Wzór Simpsona:
+
+$$  
+S_n =  
+\frac{h}{3}  
+\left[  
+f(x_0)  
++  
+4(f(x_1)+f(x_3)+\dots+f(x_{n-1}))  
++  
+2(f(x_2)+f(x_4)+\dots+f(x_{n-2}))  
++  
+f(x_n)  
+\right]  
+$$
+
+### Warunek
+
+Liczba podprzedziałów:
+
+$$  
+n  
+$$
+
+musi być parzysta.
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+if n % 2 != 0:
+    print("n musi być parzyste")
+else:
+    h = (b - a) / n
+
+    suma_nieparzyste = 0.0
+    suma_parzyste = 0.0
+
+    for i in range(1, n):
+        x = a + i * h
+
+        if i % 2 == 1:
+            suma_nieparzyste = suma_nieparzyste + f(x)
+        else:
+            suma_parzyste = suma_parzyste + f(x)
+
+    calka = (h / 3) * (
+        f(a)
+        + 4 * suma_nieparzyste
+        + 2 * suma_parzyste
+        + f(b)
+    )
+
+    print("Metoda Simpsona =", calka)
+```
+
+---
+
+## 15.1. Błąd metody Simpsona
+
+Błąd przybliżenia metodą Simpsona wynosi:
+
+$$  
+\epsilon =  
+\frac{  
+|f^{(4)}(\xi)|(b-a)h^4  
+}  
+{180}  
+$$
+
+gdzie:
+
+$$  
+f^{(4)}(\xi)  
+$$
+
+to czwarta pochodna funkcji:
+
+$$  
+f  
+$$
+
+w punkcie:
+
+$$  
+\xi \in (a,b)  
+$$
+
+oraz:
+
+$$  
+h = \frac{b-a}{n}  
+$$
+
+Wzór Simpsona jest dokładny dla wielomianów stopnia co najwyżej:
+
+$$  
+3  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return x * x * x
+
+
+a = 0.0
+b = 1.0
+n = 4
+
+if n % 2 != 0:
+    print("n musi być parzyste")
+else:
+    h = (b - a) / n
+
+    suma_nieparzyste = 0.0
+    suma_parzyste = 0.0
+
+    for i in range(1, n):
+        x = a + i * h
+
+        if i % 2 == 1:
+            suma_nieparzyste = suma_nieparzyste + f(x)
+        else:
+            suma_parzyste = suma_parzyste + f(x)
+
+    calka = (h / 3) * (
+        f(a)
+        + 4 * suma_nieparzyste
+        + 2 * suma_parzyste
+        + f(b)
+    )
+
+    dokladna = 1 / 4
+
+    print("Metoda Simpsona =", calka)
+    print("Wartość dokładna =", dokladna)
+    print("Błąd =", abs(calka - dokladna))
+```
+
+---
+
+## 15.2. Przykład dla funkcji z wykładu
+
+Dla funkcji:
+
+$$  
+f(x) = -0.1x^2 + 2x  
+$$
+
+na przedziale:
+
+$$  
+[0,15]  
+$$
+
+można zastosować metodę Simpsona, jeżeli liczba podprzedziałów jest parzysta.
+
+Dla przykładu weźmy:
+
+$$  
+n = 10  
+$$
+
+Wtedy:
+
+$$  
+h = \frac{15-0}{10} = 1.5  
+$$
+
+### Przykład w Pythonie
+
+```python
+def f(x):
+    return -0.1 * x * x + 2 * x
+
+
+a = 0.0
+b = 15.0
+n = 10
+
+if n % 2 != 0:
+    print("n musi być parzyste")
+else:
+    h = (b - a) / n
+
+    suma_nieparzyste = 0.0
+    suma_parzyste = 0.0
+
+    for i in range(1, n):
+        x = a + i * h
+
+        if i % 2 == 1:
+            suma_nieparzyste = suma_nieparzyste + f(x)
+        else:
+            suma_parzyste = suma_parzyste + f(x)
+
+    calka = (h / 3) * (
+        f(a)
+        + 4 * suma_nieparzyste
+        + 2 * suma_parzyste
+        + f(b)
+    )
+
+    print("Metoda Simpsona =", calka)
+    print("Dokładny wynik z wykładu =", 112.5)
+    print("Błąd =", abs(calka - 112.5))
+```
+
+---
+
+# 16. Porównanie metod z wykładu
+
+|Metoda|Idea|Co przybliża pole?|Uwagi|
+|---|---|---|---|
+|Metoda prostokątów|zastępuje funkcję stałą wartością na podprzedziale|prostokąty|najprostsza metoda|
+|Metoda trapezów|zastępuje funkcję prostą przez dwa punkty|trapezy|dokładna dla wielomianów stopnia co najwyżej 1|
+|Metoda Simpsona|przybliża funkcję parabolami|parabole|wymaga parzystego `n`, dokładna dla wielomianów stopnia co najwyżej 3|
+
+---
+
+# 17. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 17.1. Całka oznaczona
+
+$$  
+\int_a^b f(x),dx = F(b)-F(a)  
+$$
+
+gdzie:
+
+$$  
+F'(x) = f(x)  
+$$
+
+---
+
+## 17.2. Cel całkowania numerycznego
+
+Całkowanie numeryczne służy do przybliżonego obliczania całek oznaczonych, szczególnie wtedy, gdy rozwiązanie analityczne jest trudne albo niemożliwe.
+
+---
+
+## 17.3. Błąd całkowania numerycznego
+
+$$  
+\text{błąd} = |I - I_{przybl}|  
+$$
+
+---
+
+## 17.4. Rozwinięcie funkcji $$e^{-x^2}$$
+
+# $$  
+e^{-x^2}
+
+\sum_{n=0}^{\infty}  
+\frac{(-1)^n x^{2n}}{n!}  
+$$
+
+---
+
+## 17.5. Całka z rozwinięcia funkcji $$e^{-x^2}$$
+
+$$  
+\int e^{-x^2},dx  
+\approx  
+\sum_{n=0}^{m}  
+\frac{(-1)^n x^{2n+1}}{(2n+1)n!}  
+$$
+
+---
+
+## 17.6. Podział przedziału
+
+Dla równoodległych węzłów:
+
+$$  
+h = \frac{b-a}{n}  
+$$
+
+oraz:
+
+$$  
+x_i = a + ih  
+$$
+
+---
+
+## 17.7. Kwadratury interpolacyjne
+
+W kwadraturach interpolacyjnych funkcję:
+
+$$  
+f(x)  
+$$
+
+zastępuje się wielomianem interpolacyjnym:
+
+$$  
+W(x)  
+$$
+
+i liczy:
+
+$$  
+\int f(x),dx  
+\approx  
+\int W(x),dx  
+$$
+
+---
+
+## 17.8. Metoda prostokątów
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+h  
+\sum_{i=0}^{n-1}  
+y_i  
+$$
+
+gdzie najczęściej:
+
+$$  
+y_i = f\left(x_i+\frac{h}{2}\right)  
+$$
+
+---
+
+## 17.9. Metoda trapezów
+
+$$  
+\int_a^b f(x),dx  
+\approx  
+h  
+\left[  
+\frac{1}{2}(y_0+y_n)  
++  
+\sum_{i=1}^{n-1}  
+y_i  
+\right]  
+$$
+
+---
+
+## 17.10. Błąd metody trapezów
+
+$$  
+\delta =  
+\frac{1}{12}  
+|f''(\xi)|(b-a)^3  
+$$
+
+---
+
+## 17.11. Metoda Simpsona
+
+$$  
+S_n =  
+\frac{h}{3}  
+\left[  
+f(x_0)  
++  
+4(f(x_1)+f(x_3)+\dots+f(x_{n-1}))  
++  
+2(f(x_2)+f(x_4)+\dots+f(x_{n-2}))  
++  
+f(x_n)  
+\right]  
+$$
+
+gdzie:
+
+$$  
+n  
+$$
+
+musi być parzyste.
+
+---
+
+## 17.12. Błąd metody Simpsona
+
+$$  
+\epsilon =  
+\frac{  
+|f^{(4)}(\xi)|(b-a)h^4  
+}  
+{180}  
+$$
+
+---
+
+# 18. Krótkie podsumowanie
+
+Wykład 9 dotyczył całkowania numerycznego, czyli przybliżonego obliczania całek oznaczonych.
 
 Najważniejsze wnioski:
 
-1. Różniczkowanie numeryczne jest potrzebne, gdy pochodnej nie da się łatwo policzyć analitycznie.
+1. Całkowanie numeryczne stosuje się wtedy, gdy trudno znaleźć funkcję pierwotną albo obliczyć całkę analitycznie.
     
-2. Różnice skończone przybliżają pochodną za pomocą wartości funkcji w punktach oddalonych o krok `h`.
+2. Kwadratura numeryczna polega na przybliżaniu całki za pomocą sum.
     
-3. Różnica w przód korzysta z punktu `x+h`.
+3. Błąd całkowania to różnica między wartością dokładną a przybliżoną.
     
-4. Różnica wsteczna korzysta z punktu `x-h`.
+4. Nie każda funkcja elementarna ma funkcję pierwotną elementarną.
     
-5. Różnica centralna korzysta z punktów `x-h` i `x+h`.
+5. Funkcję podcałkową można czasem rozwinąć w szereg potęgowy i całkować wyraz po wyrazie.
     
-6. Różnice centralne są zwykle dokładniejsze od jednostronnych.
+6. Metody Newtona-Cotesa opierają się na przybliżaniu funkcji wielomianem interpolacyjnym.
     
-7. Wzory różnic skończonych można wyprowadzić z szeregu Taylora.
+7. Wzory Newtona-Cotesa mogą być otwarte albo zamknięte.
     
-8. Zbyt małe `h` może pogarszać wynik przez błędy zaokrągleń.
+8. Metoda prostokątów przybliża pole sumą prostokątów.
     
-9. Jeżeli funkcja nie jest znana dokładnie, można różniczkować funkcję aproksymującą.
+9. Metoda trapezów przybliża pole sumą trapezów.
     
-10. Wielomiany Lagrange’a pozwalają różniczkować dane punktowe.
+10. Metoda Simpsona przybliża pole sumą pól pod parabolami.
     
-11. Ekstrapolacja Richardsona poprawia dokładność przybliżeń.
+11. Metoda Simpsona wymaga parzystej liczby podprzedziałów.
     
-12. Pierwszy krok Richardsona zmienia błąd z rzędu `O(h^2)` na `O(h^4)`.
+12. Im mniejszy krok `h`, tym zwykle mniejszy błąd przybliżenia, ale trzeba pamiętać o kosztach obliczeń.
