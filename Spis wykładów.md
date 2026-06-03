@@ -185,4 +185,27 @@
 - Różniczkowanie za pomocą wielomianów Lagrange’a
 - Ekstrapolacja Richardsona
 - Ekstrapolacja Richardsona - schemat
-- 
+
+## 09 - Całkowanie numeryczne
+- Cele całkowania numerycznego
+- Definicje i podstawy
+- Zastosowania całkowania numerycznego
+- Kwadratura i metody całkowania (Metoda prostokątów, trapezów, Simpsona)
+- Całkowanie
+- Całka nieoznaczona
+- Funkcje elementarne
+- Przykłady funkcji pierwotnych
+- Całka oznaczona
+- Rozwinięcie funkcji podcałkowej w szereg potęgowy
+- Obliczanie całki z rozwinięcia funkcji
+- Wartości funkcji F(x)
+- Kwadratury interpolacyjne
+- Interpolacyjne przybliżenie całki
+- Interpolacja Lagrange’a w całkowaniu numerycznym
+- Rodzaje wzorów Newtona-Cotesa
+- Zamknięty wzór Newtona-Cotesa
+- Otwarty wzór Newtona-Cotesa
+- Zastosowania i błędy wzorów Newtona-Cotesa
+- Metoda prostokątów
+- Metoda trapezów
+- Metoda Simpsona

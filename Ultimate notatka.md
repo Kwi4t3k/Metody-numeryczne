@@ -19791,7 +19791,7 @@ Zamiast liczyć dokładną wartość całki, zastępujemy ją sumą prostszych e
 Pole pod krzywą można przybliżyć sumą prostokątów:
 
 $$  
-\int_a^b f(x),dx \approx h \sum_{i=0}^{n-1} f(x_i)  
+\int_a^b f(x)dx \approx h \sum_{i=0}^{n-1} f(x_i)  
 $$
 
 gdzie:
@@ -20016,7 +20016,7 @@ $$
 Zapis:
 
 $$  
-\int f(x),dx = F(x) + C  
+\int f(x) \space dx = F(x) + C  
 $$
 
 gdzie:
@@ -20029,7 +20029,7 @@ gdzie:
 ### Przykład
 
 $$  
-\int 2x,dx = x^2 + C  
+\int 2x \space dx = x^2 + C  
 $$
 
 ### Przykład w Pythonie
@@ -20104,15 +20104,15 @@ W wykładzie podano przykłady całek, których funkcje pierwotne nie są funkcj
 Przykłady:
 
 $$  
-F(x) = \int e^{-x^2},dx  
+F(x) = \int e^{-x^2}dx  
 $$
 
 $$  
-G(x) = \int \frac{\sin x}{x},dx  
+G(x) = \int \frac{\sin x}{x}dx  
 $$
 
 $$  
-H(x) = \int \frac{e^x}{\sqrt{x}},dx  
+H(x) = \int \frac{e^x}{\sqrt{x}}dx  
 $$
 
 Oznacza to, że nie zawsze da się zapisać funkcję pierwotną za pomocą prostych znanych funkcji elementarnych.
@@ -20158,7 +20158,7 @@ $$
 jest liczbą:
 
 $$  
-\int_a^b f(x),dx = F(x)\Big|_a^b = F(b) - F(a)  
+\int_a^b f(x)dx = F(x)\Big|_a^b = F(b) - F(a)  
 $$
 
 gdzie:
@@ -20176,7 +20176,7 @@ $$
 Zauważmy też, że:
 
 $$  
-\int_a^x f(t),dt = F(x)  
+\int_a^x f(t)dt = F(x)  
 $$
 
 jest pewną funkcją pierwotną funkcji:
@@ -20202,13 +20202,13 @@ $$
 Zatem:
 
 $$  
-\int_0^3 2x,dx = F(3)-F(0)  
+\int_0^3 2x \space dx = F(3)-F(0)  
 $$
 
 czyli:
 
 $$  
-\int_0^3 2x,dx = 9 - 0 = 9  
+\int_0^3 2x \space dx = 9 - 0 = 9  
 $$
 
 ### Przykład w Pythonie
@@ -20254,9 +20254,9 @@ $$
 
 otrzymujemy:
 
-# $$  
+$$  
 e^{-x^2}
-
+=
 \sum_{n=0}^{\infty}  
 \frac{(-1)^n x^{2n}}{n!}  
 $$
@@ -20294,29 +20294,29 @@ print("Wartość biblioteczna =", math.exp(-x * x))
 
 Skoro:
 
-# $$  
+$$  
 e^{-x^2}
-
+=
 \sum_{n=0}^{\infty}  
 \frac{(-1)^n x^{2n}}{n!}  
 $$
 
 to:
 
-# $$  
-\int e^{-x^2},dx
-
+$$  
+\int e^{-x^2}dx
+=
 \sum_{n=0}^{\infty}  
 \int  
 \frac{(-1)^n x^{2n}}{n!}  
-,dx  
+dx  
 $$
 
 Po scałkowaniu wyraz po wyrazie:
 
-# $$  
-\int e^{-x^2},dx
-
+$$  
+\int e^{-x^2}dx
+=
 \sum_{n=0}^{\infty}  
 \frac{(-1)^n x^{2n+1}}{(2n+1)n!}  
 $$
@@ -20324,7 +20324,7 @@ $$
 W praktyce stosujemy sumę skończoną:
 
 $$  
-\int e^{-x^2},dx  
+\int e^{-x^2}dx  
 \approx  
 \sum_{n=0}^{m}  
 \frac{(-1)^n x^{2n+1}}{(2n+1)n!}  
@@ -20376,7 +20376,7 @@ W wykładzie zdefiniowano funkcję:
 
 $$  
 F(x) =  
-\int_0^x e^{-t^2},dt  
+\int_0^x e^{-t^2}dt  
 $$
 
 Następnie porównano wartości tej funkcji dla:
@@ -20505,11 +20505,11 @@ $$
 
 Całkę można zapisać jako sumę całek po podprzedziałach:
 
-# $$  
-\int_{x_0=a}^{x_n=b} f(x),dx
-
+$$  
+\int_{x_0=a}^{x_n=b} f(x)dx
+=
 \sum_{i=0}^{n-1}  
-\int_{x_i}^{x_{i+1}} f(x),dx  
+\int_{x_i}^{x_{i+1}} f(x) dx  
 $$
 
 ### Przykład w Pythonie
@@ -20541,7 +20541,7 @@ Poszczególne składniki sumy oznaczamy jako:
 
 $$  
 \sigma_i =  
-\int_{x_i}^{x_{i+1}} f(x),dx  
+\int_{x_i}^{x_{i+1}} f(x)dx  
 $$
 
 Istotą kwadratur interpolacyjnych jest przybliżenie funkcji:
@@ -20567,7 +20567,7 @@ Wtedy:
 $$  
 \sigma_i  
 \approx  
-\int_{x_i}^{x_{i+1}} W(x),dx  
+\int_{x_i}^{x_{i+1}} W(x)dx  
 $$
 
 gdzie:
@@ -20617,15 +20617,15 @@ $$
 to całkę:
 
 $$  
-\int_a^b f(x),dx  
+\int_a^b f(x)dx  
 $$
 
 można przybliżyć przez całkę z wielomianu interpolacyjnego Lagrange’a:
 
 $$  
-\int_a^b f(x),dx  
+\int_a^b f(x)dx  
 \approx  
-\int_a^b L_n(x),dx  
+\int_a^b L_n(x)dx  
 $$
 
 gdzie:
@@ -20694,14 +20694,14 @@ $$
 
 można zapisać:
 
-# $$  
+$$  
 \lambda_i(x)
-
-# \lambda_i(a + th)
-
-# \prod_{\substack{j=0 \ j \neq i}}^{n}  
+=
+\lambda_i(a + th)
+=
+\prod_{\substack{j=0 \ j \neq i}}^{n}  
 \frac{t-j}{i-j}
-
+=
 g(t)  
 $$
 
@@ -20723,25 +20723,25 @@ print("x =", x)
 
 Mamy:
 
-# $$  
-\int_a^b L_n(x),dx
-
+$$  
+\int_a^b L_n(x)dx
+=
 \int_a^b  
 \sum_{i=0}^{n}  
-f(x_i)\lambda_i(x)  
-,dx  
+f(x_i) \cdot \lambda_i(x)  
+dx  
 $$
 
 czyli:
 
-# $$  
-\int_a^b L_n(x),dx
-
+$$  
+\int_a^b L_n(x)dx
+=
 \sum_{i=0}^{n}  
 f(x_i)  
 \int_a^b  
 \lambda_i(x)  
-,dx  
+dx  
 $$
 
 Korzystając z podstawienia:
@@ -20759,14 +20759,14 @@ $$
 otrzymujemy wzór:
 
 $$  
-\int_a^b f(x),dx  
-\approx  
+\int_a^b f(x)dx  
+=  
 \sum_{i=0}^{n}  
-f(x_i)\cdot h  
+f(x_i)\cdot h \cdot 
 \int_0^n  
 \prod_{\substack{j=0 \ j \neq i}}^{n}  
 \frac{t-j}{i-j}  
-,dt  
+dt  
 $$
 
 To prowadzi do wzorów Newtona-Cotesa.
@@ -20797,7 +20797,7 @@ $$
 mamy:
 
 $$  
-\int_a^b f(x),dx  
+\int_a^b f(x)dx  
 \approx  
 \sum_{i=0}^{n}  
 w_i f(x_i)  
@@ -20863,7 +20863,7 @@ $$
 mamy:
 
 $$  
-\int_a^b f(x),dx  
+\int_a^b f(x)dx  
 \approx  
 \sum_{i=1}^{n-1}  
 w_i f(x_i)  
@@ -20929,20 +20929,20 @@ Dla jednego podprzedziału:
 
 $$  
 \sigma_i =  
-\int_{x_i}^{x_{i+1}} f(x),dx  
+\int_{x_i}^{x_{i+1}} f(x)dx  
 \approx  
-\int_{x_i}^{x_{i+1}} y_i,dx  
+\int_{x_i}^{x_{i+1}} y_idx  
 $$
 
 Ponieważ:
 
-# $$  
-\int_{x_i}^{x_{i+1}} y_i,dx
-
-# [y_i x]_{x_i}^{x_{i+1}}
-
-# y_i(x_{i+1}-x_i)
-
+$$  
+\int_{x_i}^{x_{i+1}} y_idx
+=
+[y_i x]_{x_i}^{x_{i+1}}
+=
+y_i(x_{i+1}-x_i)
+=
 y_i h  
 $$
 
@@ -20955,8 +20955,8 @@ $$
 Dla całego przedziału:
 
 $$  
-\int_a^b f(x),dx  
-\approx  
+\int_a^b f(x)dx  
+=  
 h  
 \sum_{i=0}^{n-1}  
 y_i  
@@ -21118,8 +21118,8 @@ $$
 Po zsumowaniu pól trapezów dla całego przedziału:
 
 $$  
-\int_a^b f(x),dx  
-\approx  
+\int_a^b f(x)dx  
+= 
 \frac{1}{2}h  
 \sum_{i=0}^{n-1}  
 (y_{i+1}+y_i)  
@@ -21128,8 +21128,8 @@ $$
 Można to zapisać także jako:
 
 $$  
-\int_a^b f(x),dx  
-\approx  
+\int_a^b f(x)dx  
+=  
 h  
 \left[  
 \frac{1}{2}(y_0+y_n)  
@@ -21328,7 +21328,7 @@ Wzór Simpsona:
 
 $$  
 S_n =  
-\frac{h}{3}  
+\frac{h}{3}
 \left[  
 f(x_0)  
 +  
@@ -21395,8 +21395,9 @@ Błąd przybliżenia metodą Simpsona wynosi:
 
 $$  
 \epsilon =  
+|f^{(4)}(\xi)|
 \frac{  
-|f^{(4)}(\xi)|(b-a)h^4  
+(b-a)h^4  
 }  
 {180}  
 $$
@@ -21558,7 +21559,7 @@ else:
 ## 17.1. Całka oznaczona
 
 $$  
-\int_a^b f(x),dx = F(b)-F(a)  
+\int_a^b f(x)dx = F(b)-F(a)  
 $$
 
 gdzie:
@@ -21583,21 +21584,21 @@ $$
 
 ---
 
-## 17.4. Rozwinięcie funkcji $$e^{-x^2}$$
+## 17.4. Rozwinięcie funkcji $e^{-x^2}$
 
-# $$  
+$$  
 e^{-x^2}
-
+=
 \sum_{n=0}^{\infty}  
 \frac{(-1)^n x^{2n}}{n!}  
 $$
 
 ---
 
-## 17.5. Całka z rozwinięcia funkcji $$e^{-x^2}$$
+## 17.5. Całka z rozwinięcia funkcji $e^{-x^2}$
 
 $$  
-\int e^{-x^2},dx  
+\int e^{-x^2}dx  
 \approx  
 \sum_{n=0}^{m}  
 \frac{(-1)^n x^{2n+1}}{(2n+1)n!}  
@@ -21638,9 +21639,9 @@ $$
 i liczy:
 
 $$  
-\int f(x),dx  
-\approx  
-\int W(x),dx  
+\int_{x^i}^{x_{i+1}} f(x)dx  
+=  
+\int_{x^i}^{x_{i+1}} W(x)dx  
 $$
 
 ---
@@ -21648,8 +21649,8 @@ $$
 ## 17.8. Metoda prostokątów
 
 $$  
-\int_a^b f(x),dx  
-\approx  
+\int_a^b f(x)dx  
+=  
 h  
 \sum_{i=0}^{n-1}  
 y_i  
@@ -21666,8 +21667,8 @@ $$
 ## 17.9. Metoda trapezów
 
 $$  
-\int_a^b f(x),dx  
-\approx  
+\int_a^b f(x)dx  
+=  
 h  
 \left[  
 \frac{1}{2}(y_0+y_n)  
@@ -21727,32 +21728,2325 @@ $$
 
 ---
 
-# 18. Krótkie podsumowanie
+Poniżej masz notatkę w Markdown do skopiowania z wykładu 10. Zachowałam wcześniejsze zasady: wzory w `$$...$$`, nowe wiersze w macierzach przez `\\`, przykłady w Pythonie pisane możliwie ręcznie, bez `sum()` i `max()`. Notatka jest oparta na przesłanym wykładzie.
 
-Wykład 9 dotyczył całkowania numerycznego, czyli przybliżonego obliczania całek oznaczonych.
+# Wykład 10: Miejsca zerowe wielomianów (lab 12)
+
+## 1. Wprowadzenie
+
+Poszukiwanie miejsc zerowych wielomianów jest ważnym problemem w matematyce stosowanej, fizyce i inżynierii.
+
+**Miejsce zerowe wielomianu** to taka wartość argumentu, dla której wielomian przyjmuje wartość zero.
+
+Czyli dla wielomianu:
+
+$$  
+P(z)  
+$$
+
+szukamy takiego:
+
+$$  
+z_0  
+$$
+
+że:
+
+$$  
+P(z_0) = 0  
+$$
+
+Miejsca zerowe są ważne między innymi w:
+
+- analizie równań różniczkowych,
+    
+- optymalizacji,
+    
+- naukach inżynieryjnych,
+    
+- modelowaniu matematycznym.
+    
+
+### Główne zagadnienia wykładu
+
+W wykładzie omówiono:
+
+1. algorytm Hornera,
+    
+2. wpływ zaburzeń współczynników,
+    
+3. metodę Laguerre’a,
+    
+4. obniżanie stopnia wielomianu, czyli deflację,
+    
+5. wygładzanie znalezionych miejsc zerowych.
+    
+
+### Przykład
+
+Dla wielomianu:
+
+$$  
+P(z) = z^2 - 4  
+$$
+
+miejscami zerowymi są:
+
+$$  
+z_1 = -2  
+$$
+
+oraz:
+
+$$  
+z_2 = 2  
+$$
+
+bo:
+
+$$  
+P(-2) = 0  
+$$
+
+oraz:
+
+$$  
+P(2) = 0  
+$$
+
+### Przykład w Pythonie
+
+```python
+def P(z):
+    return z * z - 4
+
+
+punkty = [-2, 0, 2]
+
+for z in punkty:
+    wartosc = P(z)
+
+    print("z =", z)
+    print("P(z) =", wartosc)
+
+    if wartosc == 0:
+        print("To jest miejsce zerowe")
+    else:
+        print("To nie jest miejsce zerowe")
+```
+
+---
+
+## 2. Ogólna postać wielomianu
+
+Wielomian stopnia `n` można zapisać jako:
+
+$$  
+P_n(z) =  
+a_nz^n + a_{n-1}z^{n-1} + \dots + a_1z + a_0  
+$$
+
+Równanie wielomianowe ma postać:
+
+$$  
+P_n(z) = 0  
+$$
+
+czyli:
+
+$$  
+a_nz^n + a_{n-1}z^{n-1} + \dots + a_1z + a_0 = 0  
+$$
+
+gdzie:
+
+- $$a_n, a_{n-1}, \dots, a_0$$ — współczynniki wielomianu,
+    
+- $$z$$ — zmienna,
+    
+- $$n$$ — stopień wielomianu.
+    
+
+### Przykład
+
+Dla wielomianu:
+
+$$  
+P(z) = 3z^3 + 2z^2 - z + 5  
+$$
+
+mamy:
+
+$$  
+a_3 = 3  
+$$
+
+$$  
+a_2 = 2  
+$$
+
+$$  
+a_1 = -1  
+$$
+
+$$  
+a_0 = 5  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Współczynniki wielomianu:
+# P(z) = 3z^3 + 2z^2 - z + 5
+
+wspolczynniki = [3, 2, -1, 5]
+
+for i in range(len(wspolczynniki)):
+    print("współczynnik", i, "=", wspolczynniki[i])
+```
+
+---
+
+# 3. Podstawowe Twierdzenie Algebry
+
+**Podstawowe Twierdzenie Algebry** mówi, że wielomian stopnia:
+
+$$  
+n  
+$$
+
+ma na płaszczyźnie zespolonej dokładnie:
+
+$$  
+n  
+$$
+
+pierwiastków, przy czym pierwiastki wielokrotne liczy się z ich krotnościami.
+
+Czyli jeżeli:
+
+$$  
+P_n(z)  
+$$
+
+jest wielomianem stopnia:
+
+$$  
+n  
+$$
+
+to na płaszczyźnie zespolonej ma dokładnie:
+
+$$  
+n  
+$$
+
+miejsc zerowych.
+
+### Ważna uwaga
+
+W przypadku rzeczywistym wielomian stopnia `n` może nie mieć żadnych pierwiastków rzeczywistych.
+
+Przykład:
+
+$$  
+P(x) = x^2 + 1  
+$$
+
+nie ma pierwiastków rzeczywistych, ale ma pierwiastki zespolone:
+
+$$  
+z_1 = i  
+$$
+
+oraz:
+
+$$  
+z_2 = -i  
+$$
+
+Każdy wielomian rzeczywisty stopnia nieparzystego ma przynajmniej jeden pierwiastek rzeczywisty.
+
+Wynika to z tego, że dla wielomianu rzeczywistego stopnia nieparzystego granice niewłaściwe mają różne znaki, a wielomian jako funkcja ciągła ma własność Darboux.
+
+### Charakter twierdzenia
+
+Podstawowe Twierdzenie Algebry nie jest konstruktywne.
+
+Oznacza to, że mówi, ile pierwiastków istnieje, ale nie podaje sposobu ich znajdowania.
+
+### Przykład w Pythonie
+
+```python
+def P(x):
+    return x * x + 1
+
+
+punkty = [-2, -1, 0, 1, 2]
+
+for x in punkty:
+    print("x =", x, "P(x) =", P(x))
+
+print("Dla liczb rzeczywistych nie widać miejsca zerowego")
+print("Pierwiastki są zespolone: i oraz -i")
+```
+
+---
+
+# 4. Schemat Hornera
+
+## 4.1. Znaczenie schematu Hornera
+
+**Schemat Hornera** to efektywny sposób obliczania wartości wielomianu w danym punkcie.
+
+Można go też wykorzystywać przy obliczaniu pochodnych wielomianu.
+
+Zaletą schematu Hornera jest zmniejszenie liczby działań arytmetycznych.
+
+Dla wielomianu:
+
+$$  
+P_n(z) =  
+a_nz^n + a_{n-1}z^{n-1} + \dots + a_1z + a_0  
+$$
+
+zamiast liczyć potęgi:
+
+$$  
+z^n, z^{n-1}, \dots, z^2  
+$$
+
+przekształcamy wielomian do postaci zagnieżdżonej.
+
+---
+
+## 4.2. Postać Hornera
+
+Wielomian:
+
+$$  
+P_n(z) =  
+a_nz^n + a_{n-1}z^{n-1} + \dots + a_1z + a_0  
+$$
+
+można zapisać jako:
+
+$$  
+P_n(z) =  
+((((a_nz + a_{n-1})z + a_{n-2})z + \dots + a_1)z + a_0)  
+$$
+
+Dzięki temu do obliczenia wartości wielomianu potrzeba tylko:
+
+$$  
+n  
+$$
+
+mnożeń i:
+
+$$  
+n  
+$$
+
+dodawań.
+
+### Przykład
+
+Dla:
+
+$$  
+P(z) = 3z^3 + 2z^2 - z + 5  
+$$
+
+postać Hornera to:
+
+$$  
+P(z) = ((3z + 2)z - 1)z + 5  
+$$
+
+---
+
+## 4.3. Algorytm Hornera
+
+Dane:
+
+- współczynniki wielomianu:
+    
+
+$$  
+a_n, a_{n-1}, \dots, a_0  
+$$
+
+- punkt:
+    
+
+$$  
+z  
+$$
+
+Algorytm:
+
+1. Ustaw:
+    
+
+$$  
+p = a_n  
+$$
+
+2. Dla:
+    
+
+$$  
+i = n-1, n-2, \dots, 0  
+$$
+
+wykonuj:
+
+$$  
+p = p \cdot z + a_i  
+$$
+
+3. Zwróć:
+    
+
+$$  
+p  
+$$
+
+czyli wartość:
+
+$$  
+P_n(z)  
+$$
+
+### Przykład w Pythonie
+
+```python
+def horner(wspolczynniki, z):
+    p = wspolczynniki[0]
+
+    for i in range(1, len(wspolczynniki)):
+        p = p * z + wspolczynniki[i]
+
+    return p
+
+
+# P(z) = 3z^3 + 2z^2 - z + 5
+wspolczynniki = [3, 2, -1, 5]
+
+z = 2
+
+wartosc = horner(wspolczynniki, z)
+
+print("P(z) =", wartosc)
+```
+
+Wynik:
+
+```text
+P(z) = 35
+```
+
+---
+
+## 4.4. Przykład schematu Hornera z wykładu
+
+Rozważamy wielomian:
+
+$$  
+P(z) = 3z^3 + 2z^2 - z + 5  
+$$
+
+i chcemy obliczyć jego wartość dla:
+
+$$  
+z = 2  
+$$
+
+Kroki:
+
+$$  
+p \leftarrow 3  
+$$
+
+Następnie:
+
+$$  
+p \leftarrow p \cdot 2 + 2 = 3 \cdot 2 + 2 = 8  
+$$
+
+Dalej:
+
+$$  
+p \leftarrow p \cdot 2 - 1 = 8 \cdot 2 - 1 = 15  
+$$
+
+Dalej:
+
+$$  
+p \leftarrow p \cdot 2 + 5 = 15 \cdot 2 + 5 = 35  
+$$
+
+Ostatecznie:
+
+$$  
+P(2) = 35  
+$$
+
+### Przykład w Pythonie z wypisaniem kroków
+
+```python
+wspolczynniki = [3, 2, -1, 5]
+z = 2
+
+p = wspolczynniki[0]
+
+print("Start p =", p)
+
+for i in range(1, len(wspolczynniki)):
+    p = p * z + wspolczynniki[i]
+    print("Po kroku", i, "p =", p)
+
+print("Wynik końcowy:", p)
+```
+
+---
+
+## 4.5. Obliczanie pochodnej wielomianu
+
+Dla wielomianu:
+
+$$  
+P(z) =  
+a_nz^n + a_{n-1}z^{n-1} + \dots + a_1z + a_0  
+$$
+
+pochodna ma postać:
+
+$$  
+P'(z) =  
+na_nz^{n-1} + (n-1)a_{n-1}z^{n-2} + \dots + a_1  
+$$
+
+Drugą pochodną można zapisać jako:
+
+$$  
+P''(z) =  
+n(n-1)a_nz^{n-2} + (n-1)(n-2)a_{n-1}z^{n-3} + \dots  
+$$
+
+W metodzie Laguerre’a potrzebne są wartości:
+
+$$  
+P(z)  
+$$
+
+$$  
+P'(z)  
+$$
+
+oraz:
+
+$$  
+P''(z)  
+$$
+
+w danym punkcie.
+
+### Przykład w Pythonie — współczynniki pochodnej
+
+```python
+# P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10
+wspolczynniki = [1, 5, 13, 19, 10]
+
+n = len(wspolczynniki) - 1
+
+pochodna = []
+
+for i in range(len(wspolczynniki) - 1):
+    stopien = n - i
+    pochodna.append(wspolczynniki[i] * stopien)
+
+print("Współczynniki P'(z):")
+print(pochodna)
+```
+
+---
+
+# 5. Wpływ zaburzeń współczynników na miejsca zerowe
+
+## 5.1. Problem zaburzeń współczynników
+
+W praktycznych obliczeniach współczynniki wielomianów rzadko są znane dokładnie.
+
+Często są wynikiem wcześniejszych obliczeń, więc mogą być obarczone błędami.
+
+To oznacza, że zamiast dokładnych współczynników:
+
+$$  
+a_k  
+$$
+
+znamy wartości przybliżone:
+
+$$  
+\tilde{a}_k = a_k + \delta_k  
+$$
+
+gdzie:
+
+$$  
+|\delta_k| \ll 1  
+$$
+
+czyli zaburzenie współczynnika jest małe.
+
+Pytanie wykładu brzmi:
+
+**jaki jest wpływ błędów współczynników na wartości znalezionych numerycznie miejsc zerowych?**
+
+---
+
+## 5.2. Wielomian zaburzony
+
+Dokładny wielomian ma postać:
+
+$$  
+P_n(z) =  
+a_nz^n + a_{n-1}z^{n-1} + \dots + a_1z + a_0  
+$$
+
+Niech:
+
+$$  
+z_0  
+$$
+
+będzie jego dokładnym pierwiastkiem.
+
+Zamiast dokładnych współczynników znamy:
+
+$$  
+\tilde{a}_k = a_k + \delta_k  
+$$
+
+Wtedy otrzymujemy wielomian zaburzony:
+
+$$  
+\tilde{P}_n(z) =  
+\tilde{a}_nz^n + \tilde{a}_{n-1}z^{n-1} + \dots + \tilde{a}_1z + \tilde{a}_0  
+$$
+
+Zakładamy, że pierwiastek też się zaburza:
+
+$$  
+\tilde{z}_0 = z_0 + \varepsilon  
+$$
+
+gdzie:
+
+$$  
+|\varepsilon| \ll 1  
+$$
+
+---
+
+## 5.3. Przybliżenie dwumianowe
+
+W wyprowadzeniu korzystamy z przybliżenia:
+
+# $$  
+(\tilde{z}_0 - \varepsilon)^k
+
+\sum_{l=0}^{k}  
+\binom{k}{l}  
+\tilde{z}_0^{k-l}  
+(-1)^l  
+\varepsilon^l  
+$$
+
+Dla bardzo małego:
+
+$$  
+\varepsilon  
+$$
+
+zaniedbujemy wyższe potęgi:
+
+$$  
+\varepsilon^2,\varepsilon^3,\dots  
+$$
+
+i dostajemy:
+
+$$  
+(\tilde{z}_0 - \varepsilon)^k  
+\approx  
+\tilde{z}_0^k - k\tilde{z}_0^{k-1}\varepsilon  
+$$
+
+Zaniedbuje się też iloczyny:
+
+$$  
+\delta_k \varepsilon  
+$$
+
+ponieważ są bardzo małe.
+
+---
+
+## 5.4. Oszacowanie zaburzenia miejsca zerowego
+
+Ostatecznie w wykładzie otrzymano oszacowanie wpływu zaburzeń współczynników na zaburzenie miejsca zerowego:
+
+$$  
+|\varepsilon|  
+\approx  
+\frac{  
+\left|  
+\sum_{k=0}^{n}  
+\delta_k \tilde{z}_0^k  
+\right|  
+}  
+{  
+|\tilde{P}_n'(\tilde{z}_0)|  
+}  
+$$
+
+Ten wzór mówi, że zaburzenie pierwiastka zależy od:
+
+- zaburzeń współczynników:
+    
+
+$$  
+\delta_k  
+$$
+
+- wartości pierwiastka:
+    
+
+$$  
+\tilde{z}_0  
+$$
+
+- wartości pochodnej wielomianu w pobliżu pierwiastka:
+    
+
+$$  
+\tilde{P}_n'(\tilde{z}_0)  
+$$
+
+### Ważny wniosek
+
+Jeżeli:
+
+$$  
+|\tilde{P}_n'(\tilde{z}_0)|  
+$$
+
+jest małe, to nawet małe zaburzenia współczynników mogą dać duże zaburzenie pierwiastka.
+
+### Przykład w Pythonie
+
+```python
+# Prosty przykład obliczenia oszacowania:
+# |epsilon| ≈ |delta * z^k| / |P'(z)|
+
+delta = 10 ** (-7)
+z = -20
+k = 19
+
+pochodna = 1.0
+
+licznik = abs(delta * (z ** k))
+epsilon = licznik / abs(pochodna)
+
+print("Oszacowany licznik =", licznik)
+print("Oszacowane epsilon =", epsilon)
+```
+
+---
+
+# 6. Przykład Wilkinsona
+
+## 6.1. Wielomian Wilkinsona
+
+W wykładzie podano przykład Wilkinsona:
+
+$$  
+W(z) = (z+1)(z+2)\dots(z+20)  
+$$
+
+Jego miejsca zerowe to liczby całkowite ujemne:
+
+$$  
+-1,-2,\dots,-20  
+$$
+
+czyli:
+
+$$  
+z_1 = -1  
+$$
+
+$$  
+z_2 = -2  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+z_{20} = -20  
+$$
+
+---
+
+## 6.2. Zaburzenie jednego współczynnika
+
+Zakładamy, że zaburzamy tylko jeden współczynnik:
+
+$$  
+\delta_{19} = 2^{-23} \approx 10^{-7}  
+$$
+
+a pozostałe zaburzenia są równe zero:
+
+$$  
+\delta_{k \neq 19} = 0  
+$$
+
+Pytanie: jak zmieni się położenie miejsca zerowego:
+
+$$  
+z_0 = -20  
+$$
+
+?
+
+W wykładzie obliczono:
+
+$$  
+W'(-20) = -19!  
+$$
+
+Oszacowanie daje:
+
+$$  
+|\varepsilon|  
+\approx  
+10^{-7}  
+\cdot  
+\frac{20^{19}}{19!}  
+\approx  
+4.4  
+$$
+
+### Wniosek
+
+Zaburzenie miejsca zerowego jest o siedem rzędów wielkości większe niż zaburzenie pojedynczego współczynnika.
+
+W rzeczywistości miejsca zerowe tak zaburzonego wielomianu mogą stać się zespolone.
+
+To pokazuje, że zagadnienie znajdowania miejsc zerowych wielomianów może być źle uwarunkowane.
+
+### Przykład w Pythonie
+
+```python
+import math
+
+delta = 10 ** (-7)
+
+licznik = 1.0
+
+for i in range(19):
+    licznik = licznik * 20
+
+mianownik = 1.0
+
+for i in range(1, 20):
+    mianownik = mianownik * i
+
+epsilon = delta * licznik / mianownik
+
+print("Oszacowanie zaburzenia epsilon =", epsilon)
+```
+
+---
+
+# 7. Zaburzenia wielokrotnych miejsc zerowych
+
+Oszacowanie:
+
+$$  
+|\varepsilon|  
+\approx  
+\frac{  
+\left|  
+\sum_{k=0}^{n}  
+\delta_k \tilde{z}_0^k  
+\right|  
+}  
+{  
+|\tilde{P}_n'(\tilde{z}_0)|  
+}  
+$$
+
+załamuje się dla miejsc zerowych o krotności większej od jeden.
+
+Dzieje się tak, ponieważ dla pierwiastka wielokrotnego znikają także pochodne wielomianu.
+
+To oznacza, że wielokrotne miejsce zerowe może zmienić się bardzo mocno po niewielkim zaburzeniu współczynników.
+
+---
+
+## 7.1. Przykład z wykładu
+
+Wykład podaje wielomian:
+
+## $$  
+Q(x) =  
+39205740x^6
+
+## 147747493x^5  
++  
+173235338x^4  
++  
+2869080x^3
+
+## 158495872x^2  
++  
+118949888x
+
+28016640  
+$$
+
+W postaci iloczynowej:
+
+# $$  
+Q(x)
+
+17^3 \cdot 19 \cdot 20 \cdot 21  
+\left(  
+x + \frac{20}{21}  
+\right)  
+\left(  
+x - \frac{16}{17}  
+\right)^3  
+\left(  
+x - \frac{18}{19}  
+\right)  
+\left(  
+x - \frac{19}{20}  
+\right)  
+$$
+
+W postaci iloczynowej miejsca zerowe są łatwe do odczytania.
+
+Mamy między innymi potrójne miejsce zerowe:
+
+$$  
+x = \frac{16}{17}  
+$$
+
+Jednak numeryczne znalezienie miejsc zerowych z postaci ogólnej może być bardzo trudne.
+
+### Ważna uwaga
+
+Mała zmiana wielomianu, np. zwiększenie lub zmniejszenie wyrazu wolnego o `1`, może spowodować przesunięcie potrójnych miejsc zerowych z osi rzeczywistej na płaszczyznę zespoloną.
+
+W praktyce czasami trudno stwierdzić, czy grupa bliskich miejsc zerowych oznacza różne pierwiastki, czy rozszczepione miejsce wielokrotne.
+
+### Przykład w Pythonie
+
+```python
+# Pokazujemy wartości miejsc zerowych z postaci iloczynowej.
+
+x1 = -20 / 21
+x2 = 16 / 17
+x3 = 18 / 19
+x4 = 19 / 20
+
+print("Pierwiastek 1 =", x1)
+print("Pierwiastek potrójny =", x2)
+print("Pierwiastek 3 =", x3)
+print("Pierwiastek 4 =", x4)
+```
+
+---
+
+# 8. Poszukiwanie miejsc zerowych wielomianów
+
+W kontekście poszukiwania miejsc zerowych wielomianów potrzebne są dwie rzeczy:
+
+1. specjalistyczna metoda numeryczna do wyznaczania pierwiastków wielomianów,
+    
+2. skuteczna strategia postępowania.
+    
+
+W wykładzie jako metodę specjalistyczną podano:
+
+**metodę Laguerre’a**.
+
+Strategia obejmuje:
+
+- obniżanie stopnia wielomianu, czyli deflację,
+    
+- wygładzanie znalezionych miejsc zerowych za pomocą pierwotnego wielomianu.
+    
+
+---
+
+# 9. Metoda Laguerre’a
+
+## 9.1. Wzór iteracyjny
+
+Niech:
+
+$$  
+P_n(z)  
+$$
+
+będzie wielomianem stopnia:
+
+$$  
+n  
+$$
+
+Metoda Laguerre’a jest określona iteracją:
+
+# $$  
+z_{i+1}
+
+## z_i
+
+## \frac{  
+nP_n(z_i)  
+}  
+{  
+P_n'(z_i)  
+\pm  
+\sqrt{  
+(n-1)  
+\left(  
+(n-1)(P_n'(z_i))^2
+
+nP_n(z_i)P_n''(z_i)  
+\right)  
+}  
+}  
+$$
+
+Znak w mianowniku wybiera się tak, aby maksymalizować wartość bezwzględną mianownika.
+
+---
+
+## 9.2. Postać algorytmiczna metody Laguerre’a
+
+Po przekształceniach definiujemy:
+
+$$  
+G =  
+\frac{P'(z)}{P(z)}  
+$$
+
+oraz:
+
+## $$  
+H =  
+G^2
+
+\frac{P''(z)}{P(z)}  
+$$
+
+Następnie obliczamy:
+
+$$  
+a =  
+\frac{  
+n  
+}  
+{  
+G  
+\pm  
+\sqrt{  
+(n-1)(nH-G^2)  
+}  
+}  
+$$
+
+Znak wybieramy tak, aby mianownik miał większy moduł.
+
+Nowe przybliżenie:
+
+$$  
+z_{new} = z_{old} - a  
+$$
+
+Iteracje kończymy, gdy:
+
+$$  
+|a| < \varepsilon  
+$$
+
+---
+
+## 9.3. Sens wyboru znaku
+
+W mianowniku są dwie możliwości:
+
+$$  
+G + \sqrt{(n-1)(nH-G^2)}  
+$$
+
+oraz:
+
+$$  
+G - \sqrt{(n-1)(nH-G^2)}  
+$$
+
+Wybieramy tę, która ma większą wartość bezwzględną.
+
+Dzięki temu unikamy dzielenia przez bardzo małą liczbę.
+
+---
+
+## 9.4. Przykład w Pythonie — jedna iteracja Laguerre’a
+
+```python
+import cmath
+
+def horner(wspolczynniki, z):
+    p = wspolczynniki[0]
+
+    for i in range(1, len(wspolczynniki)):
+        p = p * z + wspolczynniki[i]
+
+    return p
+
+
+def pochodna_wspolczynniki(wspolczynniki):
+    n = len(wspolczynniki) - 1
+    wynik = []
+
+    for i in range(len(wspolczynniki) - 1):
+        stopien = n - i
+        wynik.append(wspolczynniki[i] * stopien)
+
+    return wynik
+
+
+# P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10
+P_wsp = [1, 5, 13, 19, 10]
+
+P1_wsp = pochodna_wspolczynniki(P_wsp)
+P2_wsp = pochodna_wspolczynniki(P1_wsp)
+
+z = 0 + 0j
+n = len(P_wsp) - 1
+
+Pz = horner(P_wsp, z)
+P1z = horner(P1_wsp, z)
+P2z = horner(P2_wsp, z)
+
+G = P1z / Pz
+H = G * G - P2z / Pz
+
+pierwiastek = cmath.sqrt((n - 1) * (n * H - G * G))
+
+mianownik1 = G + pierwiastek
+mianownik2 = G - pierwiastek
+
+if abs(mianownik1) > abs(mianownik2):
+    mianownik = mianownik1
+else:
+    mianownik = mianownik2
+
+a = n / mianownik
+z_new = z - a
+
+print("G =", G)
+print("H =", H)
+print("a =", a)
+print("z_new =", z_new)
+```
+
+---
+
+# 10. Zbieżność metody Laguerre’a
+
+Jeżeli wszystkie pierwiastki wielomianu są pojedyncze i rzeczywiste, metoda jest zbieżna sześciennie dla dowolnego rzeczywistego przybliżenia początkowego.
+
+Jeżeli:
+
+$$  
+|z_i - \bar{z}| < \epsilon \ll 1  
+$$
+
+to:
+
+$$  
+|z_{i+1} - \bar{z}| \sim \epsilon^3  
+$$
+
+gdzie:
+
+$$  
+\bar{z}  
+$$
+
+jest poszukiwanym pierwiastkiem.
+
+W ogólności metoda jest zbieżna sześciennie do wszystkich pojedynczych pierwiastków, zarówno rzeczywistych, jak i zespolonych.
+
+### Ograniczenia
+
+Metoda Laguerre’a:
+
+- jest zbieżna liniowo do pierwiastków wielokrotnych,
+    
+- może nie zbiegać w rzadkich przypadkach,
+    
+- w przypadku stagnacji można wykonać jeden albo dwa kroki metody Newtona, a potem wrócić do metody Laguerre’a.
+    
+
+### Zalety
+
+Metoda Laguerre’a jest preferowana do wyszukiwania pierwiastków wielomianów:
+
+- rzeczywistych,
+    
+- zespolonych.
+    
+
+Może prowadzić do zespolonych miejsc zerowych nawet wtedy, gdy startujemy z rzeczywistego punktu początkowego.
+
+---
+
+# 11. Deflacja — obniżanie stopnia wielomianu
+
+## 11.1. Idea deflacji
+
+Podczas szukania pierwiastków może się zdarzyć, że różne próby będą zbiegały do tego samego, już znalezionego pierwiastka.
+
+Aby tego uniknąć, stosuje się **deflację**, czyli obniżanie stopnia wielomianu.
+
+Jeżeli znaleźliśmy pierwiastek:
+
+$$  
+z_1  
+$$
+
+wielomianu:
+
+$$  
+P_n(z)  
+$$
+
+to możemy zapisać:
+
+$$  
+P_n(z) = (z-z_1)P_{n-1}(z)  
+$$
+
+Następnie szukamy kolejnego pierwiastka już dla wielomianu:
+
+$$  
+P_{n-1}(z)  
+$$
+
+---
+
+## 11.2. Wygładzanie miejsc zerowych
+
+Drobne zaburzenia współczynników mogą znacząco wpłynąć na znalezione pierwiastki.
+
+Dlatego stosuje się **wygładzanie**.
+
+Polega ono na tym, że znalezione przybliżone miejsce zerowe wykorzystuje się jako punkt startowy dla metody Laguerre’a, ale stosowanej ponownie do pełnego, pierwotnego wielomianu:
+
+$$  
+P_n(z)  
+$$
+
+Dzięki temu można poprawić dokładność znalezionego pierwiastka.
+
+---
+
+## 11.3. Kontynuacja faktoryzacji
+
+Po znalezieniu i wygładzeniu kolejnego pierwiastka:
+
+$$  
+z_2  
+$$
+
+wykonujemy dalszą deflację:
+
+$$  
+P_{n-1}(z) = (z-z_2)P_{n-2}(z)  
+$$
+
+Wtedy:
+
+$$  
+P_n(z) = (z-z_1)(z-z_2)P_{n-2}(z)  
+$$
+
+Procedurę powtarzamy aż do wielomianu stopnia `2`.
+
+Dla wielomianu stopnia `2` można użyć wzorów dokładnych.
+
+---
+
+# 12. Deflacja wielomianu — wzory
+
+Zakładamy, że:
+
+$$  
+z_0  
+$$
+
+jest pierwiastkiem wielomianu:
+
+$$  
+P_n(z)  
+$$
+
+Wtedy:
+
+$$  
+(z-z_0)P_{n-1}(z) = P_n(z)  
+$$
+
+Niech:
+
+# $$  
+P_{n-1}(z)
+
+b_{n-1}z^{n-1}  
++  
+b_{n-2}z^{n-2}  
++  
+\dots  
++  
+b_1z  
++  
+b_0  
+$$
+
+Wtedy:
+
+# $$  
+(z-z_0)  
+\left(  
+b_{n-1}z^{n-1}  
++  
+b_{n-2}z^{n-2}  
++  
+\dots  
++  
+b_1z  
++  
+b_0  
+\right)
+
+P_n(z)  
+$$
+
+Porównując współczynniki, dostajemy:
+
+$$  
+b_{n-1} = a_n  
+$$
+
+$$  
+-z_0b_{n-1} + b_{n-2} = a_{n-1}  
+$$
+
+$$  
+\dots  
+$$
+
+$$  
+-z_0b_1 + b_0 = a_1  
+$$
+
+$$  
+-z_0b_0 = a_0  
+$$
+
+Układ można rozwiązać podstawieniem w przód.
+
+---
+
+## 12.1. Macierzowy zapis układu deflacji
+
+Układ równań można zapisać macierzowo:
+
+# $$  
+\begin{bmatrix}  
+1 & 0 & 0 & \dots & 0 \  
+-z_0 & 1 & 0 & \dots & 0 \  
+0 & -z_0 & 1 & \dots & 0 \  
+\vdots & \vdots & \vdots & \ddots & \vdots \  
+0 & 0 & \dots & -z_0 & 1  
+\end{bmatrix}  
+\begin{bmatrix}  
+b_{n-1} \  
+b_{n-2} \  
+b_{n-3} \  
+\vdots \  
+b_0  
+\end{bmatrix}
+
+\begin{bmatrix}  
+a_n \  
+a_{n-1} \  
+a_{n-2} \  
+\vdots \  
+a_1  
+\end{bmatrix}  
+$$
+
+### Przykład w Pythonie — deflacja przez pierwiastek
+
+```python
+def deflacja(wspolczynniki, z0):
+    # Współczynniki są w kolejności:
+    # [a_n, a_{n-1}, ..., a_0]
+
+    b = []
+
+    # Pierwszy współczynnik po deflacji
+    b.append(wspolczynniki[0])
+
+    for i in range(1, len(wspolczynniki) - 1):
+        nowy = wspolczynniki[i] + z0 * b[i - 1]
+        b.append(nowy)
+
+    return b
+
+
+# P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10
+wspolczynniki = [1, 5, 13, 19, 10]
+
+# Pierwiastek z1 = -1, więc dzielimy przez z - (-1) = z + 1
+z0 = -1
+
+nowy_wielomian = deflacja(wspolczynniki, z0)
+
+print("Współczynniki po deflacji:")
+print(nowy_wielomian)
+```
+
+Wynik:
+
+```text
+Współczynniki po deflacji:
+[1, 4, 9, 10]
+```
+
+---
+
+# 13. Strategia postępowania przy szukaniu wszystkich pierwiastków
+
+Załóżmy, że znaleźliśmy już miejsca zerowe:
+
+$$  
+z_1,z_2,\dots,z_k  
+$$
+
+wielomianu:
+
+$$  
+P_n(z)  
+$$
+
+Po deflacji mamy wielomian:
+
+$$  
+P_{n-k}(z)  
+$$
+
+Dalsze kroki:
+
+1. Rozpoczynamy z dowolnym przybliżeniem i stosujemy metodę Laguerre’a do znalezienia kolejnego pierwiastka:
+    
+
+$$  
+\tilde{z}_{k+1}  
+$$
+
+wielomianu:
+
+$$  
+P_{n-k}(z)  
+$$
+
+2. W celu wygładzenia miejsca zerowego używamy:
+    
+
+$$  
+\tilde{z}_{k+1}  
+$$
+
+jako punktu początkowego dla metody Laguerre’a na pełnym wielomianie:
+
+$$  
+P_n(z)  
+$$
+
+3. Otrzymujemy dokładniejsze miejsce zerowe:
+    
+
+$$  
+z_{k+1}  
+$$
+
+4. Wykonujemy deflację:
+    
+
+$$  
+P_{n-k}(z) = (z-z_{k+1})P_{n-k-1}(z)  
+$$
+
+5. Powtarzamy procedurę aż do wielomianu stopnia `2`.
+    
+
+---
+
+# 14. Końcowe uwagi o pierwiastkach zespolonych
+
+Jeżeli pierwotny wielomian:
+
+$$  
+P_n(z)  
+$$
+
+ma rzeczywiste współczynniki, to jego pierwiastki są:
+
+- rzeczywiste albo
+    
+- tworzą sprzężone pary zespolone.
+    
+
+Jeżeli znajdziemy pierwiastek zespolony:
+
+$$  
+z_k = x_k + iy_k  
+$$
+
+to pierwiastkiem jest też:
+
+$$  
+z_{k+1} = x_k - iy_k  
+$$
+
+czyli pierwiastek sprzężony.
+
+Jeżeli wielomian ma całkowite współczynniki, warto najpierw sprawdzić, czy posiada pierwiastki wymierne, zanim przejdziemy do metod numerycznych.
+
+### Przykład w Pythonie
+
+```python
+z = complex(-1, 2)
+
+sprzezony = z.conjugate()
+
+print("Pierwiastek z =", z)
+print("Pierwiastek sprzężony =", sprzezony)
+```
+
+---
+
+# 15. Przykład z wykładu
+
+## 15.1. Wielomian
+
+W wykładzie rozważano wielomian:
+
+$$  
+P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10  
+$$
+
+Można go rozłożyć:
+
+$$  
+P(z) = (z+1)(z+2)(z^2+2z+5)  
+$$
+
+Zatem dokładne pierwiastki to:
+
+$$  
+z_1 = -1  
+$$
+
+$$  
+z_2 = -2  
+$$
+
+$$  
+z_3 = -1 + 2i  
+$$
+
+$$  
+z_4 = -1 - 2i  
+$$
+
+W praktyce często znamy tylko postać rozwiniętą:
+
+$$  
+P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10  
+$$
+
+i pierwiastki trzeba wyznaczyć numerycznie.
+
+---
+
+## 15.2. Pochodne wielomianu
+
+Dla:
+
+$$  
+P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10  
+$$
+
+mamy:
+
+$$  
+P'(z) = 4z^3 + 15z^2 + 26z + 19  
+$$
+
+oraz:
+
+$$  
+P''(z) = 12z^2 + 30z + 26  
+$$
+
+Przyjmujemy:
+
+$$  
+z_0 = 0  
+$$
+
+oraz:
+
+$$  
+n = 4  
+$$
+
+Obliczamy:
+
+$$  
+P(0) = 10  
+$$
+
+$$  
+P'(0) = 19  
+$$
+
+$$  
+P''(0) = 26  
+$$
+
+Zatem:
+
+$$  
+G = \frac{19}{10} = 1.9  
+$$
+
+oraz:
+
+$$  
+H = 1.9^2 - \frac{26}{10}  
+$$
+
+czyli:
+
+$$  
+H = 3.61 - 2.6 = 1.01  
+$$
+
+---
+
+## 15.3. Pierwszy krok metody Laguerre’a
+
+Mamy:
+
+$$  
+G = 1.9  
+$$
+
+$$  
+H = 1.01  
+$$
+
+$$  
+n = 4  
+$$
+
+Liczymy wyrażenie pod pierwiastkiem:
+
+# $$  
+(n-1)(nH-G^2)
+
+3(4\cdot 1.01 - 1.9^2)  
+$$
+
+czyli:
+
+$$  
+3(4.04 - 3.61) = 1.29  
+$$
+
+Stąd:
+
+$$  
+\sqrt{(n-1)(nH-G^2)}  
+\approx  
+1.13578  
+$$
+
+Porównujemy dwa mianowniki:
+
+$$  
+G + 1.13578 \approx 3.03578  
+$$
+
+oraz:
+
+$$  
+G - 1.13578 \approx 0.76422  
+$$
+
+Wybieramy większy moduł:
+
+$$  
+G + 1.13578  
+$$
+
+Następnie:
+
+$$  
+a =  
+\frac{4}{3.03578}  
+\approx  
+1.31762  
+$$
+
+Nowe przybliżenie:
+
+$$  
+z_1 = z_0 - a  
+$$
+
+czyli:
+
+$$  
+z_1 = 0 - 1.31762 = -1.31762  
+$$
+
+---
+
+## 15.4. Zbieżność do pierwszego pierwiastka
+
+Kolejne iteracje prowadzą do pierwiastka bliskiego:
+
+$$  
+-1  
+$$
+
+Tabela z wykładu:
+
+|$$k$$|$$z_k$$|$$a_k$$|$$z_{k+1}=z_k-a_k$$|
+|--:|--:|--:|--:|
+|0|0|1.31762|-1.31762|
+|1|-1.31762|-0.30310|-1.01451|
+|2|-1.01451|-0.01451|-1.00000029|
+|3|-1.00000029|$$-2.91 \cdot 10^{-7}$$|-1.00000000|
+
+Dla dokładności:
+
+$$  
+\varepsilon = 10^{-6}  
+$$
+
+otrzymujemy:
+
+$$  
+z_1 \approx -1  
+$$
+
+---
+
+## 15.5. Deflacja po znalezieniu pierwszego pierwiastka
+
+Po znalezieniu:
+
+$$  
+z_1 \approx -1  
+$$
+
+obniżamy stopień wielomianu:
+
+$$  
+P(z) = (z-z_1)P_3(z)  
+$$
+
+Ponieważ:
+
+$$  
+z_1 = -1  
+$$
+
+dzielimy przez:
+
+$$  
+z-z_1 = z+1  
+$$
+
+Dostajemy:
+
+$$  
+P(z) = (z+1)(z^3 + 4z^2 + 9z + 10)  
+$$
+
+czyli:
+
+$$  
+P_3(z) = z^3 + 4z^2 + 9z + 10  
+$$
+
+Teraz metodę Laguerre’a stosujemy do:
+
+$$  
+P_3(z)  
+$$
+
+---
+
+## 15.6. Drugi pierwiastek i liczby zespolone
+
+Dla wielomianu po deflacji:
+
+$$  
+P_3(z) = z^3 + 4z^2 + 9z + 10  
+$$
+
+można ponownie zacząć od:
+
+$$  
+z_0 = 0  
+$$
+
+Metoda Laguerre’a może przejść do przybliżeń zespolonych nawet wtedy, gdy punkt startowy jest rzeczywisty.
+
+Przykładowe iteracje z wykładu:
+
+$$  
+0  
+\to  
+-1.13924 + 1.58101i  
+\to  
+-0.99832 + 1.99860i  
+\to  
+-1 + 2i  
+$$
+
+Otrzymujemy:
+
+$$  
+z_2 \approx -1 + 2i  
+$$
+
+Ponieważ współczynniki wielomianu są rzeczywiste, drugim pierwiastkiem z pary jest:
+
+$$  
+z_3 \approx -1 - 2i  
+$$
+
+---
+
+## 15.7. Deflacja po parze pierwiastków zespolonych
+
+Znaleźliśmy parę:
+
+$$  
+z_2 = -1 + 2i  
+$$
+
+oraz:
+
+$$  
+z_3 = -1 - 2i  
+$$
+
+Odpowiada jej czynnik kwadratowy:
+
+$$  
+(z-z_2)(z-z_3)  
+$$
+
+Podstawiamy:
+
+$$  
+(z+1-2i)(z+1+2i)  
+$$
+
+Korzystamy ze wzoru:
+
+$$  
+(a-bi)(a+bi)=a^2+b^2  
+$$
+
+Dostajemy:
+
+$$  
+(z+1)^2 + 4  
+$$
+
+czyli:
+
+$$  
+z^2 + 2z + 5  
+$$
+
+Po kolejnej deflacji:
+
+$$  
+P_3(z) = (z^2 + 2z + 5)(z+2)  
+$$
+
+Zostaje ostatni pierwiastek:
+
+$$  
+z_4 = -2  
+$$
+
+---
+
+## 15.8. Wynik końcowy
+
+Dla wielomianu:
+
+$$  
+P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10  
+$$
+
+otrzymujemy pierwiastki:
+
+$$  
+z_1 = -1  
+$$
+
+$$  
+z_2 = -2  
+$$
+
+$$  
+z_3 = -1 + 2i  
+$$
+
+$$  
+z_4 = -1 - 2i  
+$$
+
+### Przykład w Pythonie — sprawdzenie pierwiastków
+
+```python
+def P(z):
+    return z ** 4 + 5 * z ** 3 + 13 * z ** 2 + 19 * z + 10
+
+
+pierwiastki = [
+    -1,
+    -2,
+    complex(-1, 2),
+    complex(-1, -2)
+]
+
+for z in pierwiastki:
+    print("z =", z)
+    print("P(z) =", P(z))
+```
+
+---
+
+# 16. Pełniejszy przykład w Pythonie — metoda Laguerre’a
+
+Poniżej jest przykład programu znajdującego jeden pierwiastek metodą Laguerre’a.
+
+```python
+import cmath
+
+def horner(wspolczynniki, z):
+    p = wspolczynniki[0]
+
+    for i in range(1, len(wspolczynniki)):
+        p = p * z + wspolczynniki[i]
+
+    return p
+
+
+def pochodna_wspolczynniki(wspolczynniki):
+    n = len(wspolczynniki) - 1
+    wynik = []
+
+    for i in range(len(wspolczynniki) - 1):
+        stopien = n - i
+        wynik.append(wspolczynniki[i] * stopien)
+
+    return wynik
+
+
+def laguerre_jeden_pierwiastek(wspolczynniki, z, epsilon, maks_iteracji):
+    n = len(wspolczynniki) - 1
+
+    P1 = pochodna_wspolczynniki(wspolczynniki)
+    P2 = pochodna_wspolczynniki(P1)
+
+    for iteracja in range(maks_iteracji):
+        Pz = horner(wspolczynniki, z)
+
+        if abs(Pz) < epsilon:
+            return z
+
+        P1z = horner(P1, z)
+        P2z = horner(P2, z)
+
+        G = P1z / Pz
+        H = G * G - P2z / Pz
+
+        pierwiastek = cmath.sqrt((n - 1) * (n * H - G * G))
+
+        mianownik1 = G + pierwiastek
+        mianownik2 = G - pierwiastek
+
+        if abs(mianownik1) > abs(mianownik2):
+            mianownik = mianownik1
+        else:
+            mianownik = mianownik2
+
+        if mianownik == 0:
+            print("Mianownik równy zero")
+            return z
+
+        a = n / mianownik
+        z = z - a
+
+        if abs(a) < epsilon:
+            return z
+
+    return z
+
+
+# P(z) = z^4 + 5z^3 + 13z^2 + 19z + 10
+wspolczynniki = [1, 5, 13, 19, 10]
+
+z_start = 0 + 0j
+epsilon = 0.000001
+maks_iteracji = 100
+
+pierwiastek = laguerre_jeden_pierwiastek(
+    wspolczynniki,
+    z_start,
+    epsilon,
+    maks_iteracji
+)
+
+print("Znaleziony pierwiastek:", pierwiastek)
+```
+
+---
+
+# 17. Wnioski z wykładu
+
+Aby obliczyć wszystkie pierwiastki wielomianu, warto zastosować następującą strategię:
+
+1. Wczytać współczynniki wielomianu:
+    
+
+$$  
+[a_n,a_{n-1},\dots,a_0]  
+$$
+
+2. Obliczać:
+    
+
+$$  
+P(z)  
+$$
+
+$$  
+P'(z)  
+$$
+
+oraz:
+
+$$  
+P''(z)  
+$$
+
+schematem Hornera.
+
+3. Dla aktualnego wielomianu stosować metodę Laguerre’a:
+    
+
+$$  
+z_{new} = z_{old} - a  
+$$
+
+4. Po znalezieniu pierwiastka wykonać wygładzanie, czyli poprawienie go na pełnym, pierwotnym wielomianie.
+    
+5. Wykonać deflację i powtarzać obliczenia aż do wielomianu stopnia `2`.
+    
+6. Dla wielomianu stopnia `2` można użyć wzorów dokładnych.
+    
+
+---
+
+# 18. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 18.1. Miejsce zerowe wielomianu
+
+Miejsce zerowe to taka wartość:
+
+$$  
+z_0  
+$$
+
+że:
+
+$$  
+P(z_0) = 0  
+$$
+
+---
+
+## 18.2. Podstawowe Twierdzenie Algebry
+
+Wielomian stopnia:
+
+$$  
+n  
+$$
+
+ma na płaszczyźnie zespolonej dokładnie:
+
+$$  
+n  
+$$
+
+pierwiastków, licząc krotności.
+
+---
+
+## 18.3. Schemat Hornera
+
+Wielomian zapisujemy jako:
+
+$$  
+P_n(z) =  
+((((a_nz+a_{n-1})z+a_{n-2})z+\dots+a_1)z+a_0)  
+$$
+
+Algorytm:
+
+$$  
+p \leftarrow a_n  
+$$
+
+$$  
+p \leftarrow pz+a_i  
+$$
+
+---
+
+## 18.4. Zaburzenie współczynników
+
+Jeżeli współczynniki są zaburzone:
+
+$$  
+\tilde{a}_k = a_k + \delta_k  
+$$
+
+to pierwiastek też może się zmienić:
+
+$$  
+\tilde{z}_0 = z_0 + \varepsilon  
+$$
+
+Oszacowanie:
+
+$$  
+|\varepsilon|  
+\approx  
+\frac{  
+\left|  
+\sum_{k=0}^{n}  
+\delta_k \tilde{z}_0^k  
+\right|  
+}  
+{  
+|\tilde{P}_n'(\tilde{z}_0)|  
+}  
+$$
+
+---
+
+## 18.5. Przykład Wilkinsona
+
+Wielomian:
+
+$$  
+W(z) = (z+1)(z+2)\dots(z+20)  
+$$
+
+ma pierwiastki:
+
+$$  
+-1,-2,\dots,-20  
+$$
+
+Małe zaburzenie jednego współczynnika może spowodować dużą zmianę pierwiastków.
+
+---
+
+## 18.6. Pierwiastki wielokrotne
+
+Dla pierwiastków wielokrotnych problem jest szczególnie trudny, bo pochodne wielomianu mogą znikać.
+
+Małe zaburzenie współczynników może rozszczepić pierwiastek wielokrotny.
+
+---
+
+## 18.7. Metoda Laguerre’a
+
+Definiujemy:
+
+$$  
+G =  
+\frac{P'(z)}{P(z)}  
+$$
+
+oraz:
+
+## $$  
+H =  
+G^2
+
+\frac{P''(z)}{P(z)}  
+$$
+
+Następnie:
+
+$$  
+a =  
+\frac{  
+n  
+}  
+{  
+G  
+\pm  
+\sqrt{  
+(n-1)(nH-G^2)  
+}  
+}  
+$$
+
+i:
+
+$$  
+z_{new} = z_{old} - a  
+$$
+
+Kończymy, gdy:
+
+$$  
+|a| < \varepsilon  
+$$
+
+---
+
+## 18.8. Deflacja
+
+Jeżeli znaleźliśmy pierwiastek:
+
+$$  
+z_1  
+$$
+
+to zapisujemy:
+
+$$  
+P_n(z) = (z-z_1)P_{n-1}(z)  
+$$
+
+i dalej szukamy pierwiastków wielomianu niższego stopnia.
+
+---
+
+## 18.9. Wygładzanie
+
+Wygładzanie polega na poprawieniu znalezionego pierwiastka przez ponowne zastosowanie metody Laguerre’a do pełnego, pierwotnego wielomianu.
+
+---
+
+## 18.10. Pierwiastki zespolone
+
+Jeżeli wielomian ma rzeczywiste współczynniki i ma pierwiastek:
+
+$$  
+z = x + iy  
+$$
+
+to ma też pierwiastek sprzężony:
+
+$$  
+\bar{z} = x - iy  
+$$
+
+---
+
+# 19. Krótkie podsumowanie
+
+Wykład 10 dotyczył szukania miejsc zerowych wielomianów.
 
 Najważniejsze wnioski:
 
-1. Całkowanie numeryczne stosuje się wtedy, gdy trudno znaleźć funkcję pierwotną albo obliczyć całkę analitycznie.
+1. Miejsce zerowe wielomianu to punkt, w którym wielomian ma wartość zero.
     
-2. Kwadratura numeryczna polega na przybliżaniu całki za pomocą sum.
+2. Podstawowe Twierdzenie Algebry mówi, że wielomian stopnia `n` ma dokładnie `n` pierwiastków zespolonych, licząc krotności.
     
-3. Błąd całkowania to różnica między wartością dokładną a przybliżoną.
+3. Twierdzenie to nie mówi, jak znaleźć pierwiastki.
     
-4. Nie każda funkcja elementarna ma funkcję pierwotną elementarną.
+4. Schemat Hornera pozwala szybko obliczać wartości wielomianu.
     
-5. Funkcję podcałkową można czasem rozwinąć w szereg potęgowy i całkować wyraz po wyrazie.
+5. Schemat Hornera zmniejsza liczbę mnożeń i dodawań.
     
-6. Metody Newtona-Cotesa opierają się na przybliżaniu funkcji wielomianem interpolacyjnym.
+6. Współczynniki wielomianu mogą być zaburzone przez błędy obliczeń.
     
-7. Wzory Newtona-Cotesa mogą być otwarte albo zamknięte.
+7. Małe zaburzenia współczynników mogą powodować duże zmiany miejsc zerowych.
     
-8. Metoda prostokątów przybliża pole sumą prostokątów.
+8. Przykład Wilkinsona pokazuje, że znajdowanie pierwiastków może być źle uwarunkowane.
     
-9. Metoda trapezów przybliża pole sumą trapezów.
+9. Pierwiastki wielokrotne są szczególnie wrażliwe na zaburzenia.
     
-10. Metoda Simpsona przybliża pole sumą pól pod parabolami.
+10. Metoda Laguerre’a jest iteracyjną metodą znajdowania pierwiastków wielomianów.
     
-11. Metoda Simpsona wymaga parzystej liczby podprzedziałów.
+11. Metoda Laguerre’a wymaga obliczania:
     
-12. Im mniejszy krok `h`, tym zwykle mniejszy błąd przybliżenia, ale trzeba pamiętać o kosztach obliczeń.
+
+$$  
+P(z),\ P'(z),\ P''(z)  
+$$
+
+12. Deflacja pozwala obniżyć stopień wielomianu po znalezieniu pierwiastka.
+    
+13. Wygładzanie poprawia dokładność pierwiastków przez użycie pełnego wielomianu.
+    
+14. Dla wielomianów rzeczywistych pierwiastki zespolone występują parami sprzężonymi.
+    
+15. Po deflacji obliczenia powtarza się aż do wielomianu stopnia `2`, dla którego można użyć wzorów dokładnych.
