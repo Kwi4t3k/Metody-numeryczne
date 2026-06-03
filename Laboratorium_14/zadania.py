@@ -1,4 +1,5 @@
 # Zad 1
+# Metoda Crude Monte Carlo
 
 import random
 import math
@@ -27,7 +28,7 @@ def monte_carlo_2d(f, ax, bx, ay, by, N):
 
     pole_obszaru = (bx - ax) * (by - ay)
 
-    return pole_obszaru * suma / N
+    return pole_obszaru / N * suma
 
 
 def oszacuj_N_1d(f, a, b, dokladnosc=0.005, N_probne=10000):

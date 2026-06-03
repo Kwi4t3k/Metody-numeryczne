@@ -33,19 +33,19 @@ Wykorzystaj metodę Monte Carlo do obliczenia przybliżonej wartości całek:
 a)
 
 $$
-\int_0^1 x^2,dx
+\int_0^1 x^2 \space dx
 $$
 
 b)
 
 $$
-\int_e^{e^2}\frac{1}{x},dx
+\int_e^{e^2}\frac{1}{x} \space dx
 $$
 
 c)
 
 $$
-\iint_D(\cos x+y+1),dxdy,
+\iint_D(\cos x+y+1) \space dxdy
 \qquad
 D=[0,2]\times[-\pi,\pi]
 $$
@@ -59,10 +59,10 @@ Oszacuj liczbę punktów potrzebnych do uzyskania dokładności do 2 cyfr po prz
 Dla całki jednowymiarowej:
 
 $$
-I=\int_a^b f(x),dx
+I=\int_a^b f(x) \space dx
 $$
 
-losujemy (N) punktów:
+losujemy $N$ punktów:
 
 $$
 x_1,x_2,\dots,x_N\in[a,b]
@@ -146,7 +146,7 @@ $$
 D=[0,2]\times[-\pi,\pi]
 $$
 
-Najpierw zauważamy, że składnik (y) znika, ponieważ całkujemy go po symetrycznym przedziale:
+Najpierw zauważamy, że składnik $y$ znika, ponieważ całkujemy go po symetrycznym przedziale:
 
 $$
 \int_{-\pi}^{\pi}y,dy=0
