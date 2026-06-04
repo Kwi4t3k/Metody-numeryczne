@@ -7,7 +7,9 @@ def metoda_prostokatow(f, a, b, n):
     suma = 0.0
 
     for i in range(n):
-        x_srodek = a + (i + 0.5) * h
+        # x_i = a + i * h
+        # x_srodek = x_i + h / 2
+        x_srodek = a + (i + 0.5) * h # to samo co 2 linijki wyżej 
         suma += f(x_srodek)
 
     return h * suma
