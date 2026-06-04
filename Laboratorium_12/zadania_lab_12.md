@@ -284,7 +284,7 @@ $$
 p_{\text{nowe}}(z)=p_{\text{stare}}(z)\cdot z+a_i
 $$
 
-Pochodna stałej (a_i) wynosi 0.
+Pochodna stałej $(a_i)$ wynosi 0.
 
 Z pochodnej iloczynu:
 
