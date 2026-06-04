@@ -23,3 +23,7 @@
 
 ## Miejsca zerowe wielomianów
 - [Laboratorium 12](Laboratorium_12/zadania_lab_12.md)
+
+## Generatory liczb pseudolosowych i metoda Monte Carlo
+ - [Laboratorium 13](Laboratorium_13/zadania_lab_13.md)
+ - [Laboratorium 14](Laboratorium_14/zadania_lab_14.md)
