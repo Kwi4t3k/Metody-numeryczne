@@ -21728,8 +21728,6 @@ $$
 
 ---
 
-Poniżej masz notatkę w Markdown do skopiowania z wykładu 10. Zachowałam wcześniejsze zasady: wzory w `$$...$$`, nowe wiersze w macierzach przez `\\`, przykłady w Pythonie pisane możliwie ręcznie, bez `sum()` i `max()`. Notatka jest oparta na przesłanym wykładzie.
-
 # Wykład 10: Miejsca zerowe wielomianów (lab 12)
 
 ## 1. Wprowadzenie
@@ -22305,6 +22303,8 @@ Pytanie wykładu brzmi:
 
 **jaki jest wpływ błędów współczynników na wartości znalezionych numerycznie miejsc zerowych?**
 
+**Odpowiedź: Błędy współczynników wielomianu mogą powodować błędy w obliczonych miejscach zerowych. Wpływ ten jest szczególnie duży, gdy pierwiastek jest wielokrotny albo gdy wartości $p′(x)$ w pobliżu pierwiastka są małe. Wtedy mała zmiana współczynników może spowodować dużą zmianę miejsc zerowych. Dlatego znajdowanie miejsc zerowych wielomianów, szczególnie wysokiego stopnia, może być zadaniem źle uwarunkowanym numerycznie.**
+
 ---
 
 ## 5.2. Wielomian zaburzony
@@ -22355,9 +22355,9 @@ $$
 
 W wyprowadzeniu korzystamy z przybliżenia:
 
-# $$  
+$$  
 (\tilde{z}_0 - \varepsilon)^k
-
+=
 \sum_{l=0}^{k}  
 \binom{k}{l}  
 \tilde{z}_0^{k-l}  
@@ -22605,28 +22605,28 @@ To oznacza, że wielokrotne miejsce zerowe może zmienić się bardzo mocno po n
 
 Wykład podaje wielomian:
 
-## $$  
+$$  
 Q(x) =  
 39205740x^6
-
-## 147747493x^5  
+-
+147747493x^5  
 +  
 173235338x^4  
 +  
 2869080x^3
-
-## 158495872x^2  
+-
+158495872x^2  
 +  
 118949888x
-
+-
 28016640  
 $$
 
 W postaci iloczynowej:
 
-# $$  
+$$  
 Q(x)
-
+=
 17^3 \cdot 19 \cdot 20 \cdot 21  
 \left(  
 x + \frac{20}{21}  
@@ -22716,12 +22716,12 @@ $$
 
 Metoda Laguerre’a jest określona iteracją:
 
-# $$  
+$$  
 z_{i+1}
-
-## z_i
-
-## \frac{  
+=
+z_i
+=
+\frac{  
 nP_n(z_i)  
 }  
 {  
@@ -22731,7 +22731,7 @@ P_n'(z_i)
 (n-1)  
 \left(  
 (n-1)(P_n'(z_i))^2
-
+-
 nP_n(z_i)P_n''(z_i)  
 \right)  
 }  
@@ -22753,10 +22753,10 @@ $$
 
 oraz:
 
-## $$  
+$$  
 H =  
 G^2
-
+-
 \frac{P''(z)}{P(z)}  
 $$
 
@@ -23017,14 +23017,14 @@ $$
 Wtedy:
 
 $$  
-(z-z_0)P_{n-1}(z) = P_n(z)  
+(z-z_0) \cdot P_{n-1}(z) = P_n(z)  
 $$
 
 Niech:
 
-# $$  
+$$  
 P_{n-1}(z)
-
+=
 b_{n-1}z^{n-1}  
 +  
 b_{n-2}z^{n-2}  
@@ -23038,7 +23038,7 @@ $$
 
 Wtedy:
 
-# $$  
+$$  
 (z-z_0)  
 \left(  
 b_{n-1}z^{n-1}  
@@ -23051,7 +23051,7 @@ b_1z
 +  
 b_0  
 \right)
-
+=
 P_n(z)  
 $$
 
@@ -23085,27 +23085,27 @@ Układ można rozwiązać podstawieniem w przód.
 
 Układ równań można zapisać macierzowo:
 
-# $$  
+$$  
 \begin{bmatrix}  
-1 & 0 & 0 & \dots & 0 \  
--z_0 & 1 & 0 & \dots & 0 \  
-0 & -z_0 & 1 & \dots & 0 \  
-\vdots & \vdots & \vdots & \ddots & \vdots \  
+1 & 0 & 0 & \dots & 0 \\  
+-z_0 & 1 & 0 & \dots & 0 \\  
+0 & -z_0 & 1 & \dots & 0 \\  
+\vdots & \vdots & \vdots & \ddots & \vdots \\  
 0 & 0 & \dots & -z_0 & 1  
 \end{bmatrix}  
 \begin{bmatrix}  
-b_{n-1} \  
-b_{n-2} \  
-b_{n-3} \  
-\vdots \  
+b_{n-1} \\  
+b_{n-2} \\  
+b_{n-3} \\  
+\vdots \\  
 b_0  
 \end{bmatrix}
-
+=
 \begin{bmatrix}  
-a_n \  
-a_{n-1} \  
-a_{n-2} \  
-\vdots \  
+a_n \\  
+a_{n-1} \\  
+a_{n-2} \\  
+\vdots \\  
 a_1  
 \end{bmatrix}  
 $$
@@ -23389,9 +23389,9 @@ $$
 
 Liczymy wyrażenie pod pierwiastkiem:
 
-# $$  
+$$  
 (n-1)(nH-G^2)
-
+=
 3(4\cdot 1.01 - 1.9^2)  
 $$
 
@@ -23933,10 +23933,10 @@ $$
 
 oraz:
 
-## $$  
+$$  
 H =  
 G^2
-
+-
 \frac{P''(z)}{P(z)}  
 $$
 
@@ -24010,43 +24010,2609 @@ $$
 
 ---
 
-# 19. Krótkie podsumowanie
+# Wykład 11: Generatory liczb pseudolosowych (lab13)
 
-Wykład 10 dotyczył szukania miejsc zerowych wielomianów.
+## 1. Losowość
 
-Najważniejsze wnioski:
+W naturze, technice, ekonomii i życiu społecznym często spotykamy zjawiska, które wydają się losowe.
 
-1. Miejsce zerowe wielomianu to punkt, w którym wielomian ma wartość zero.
+Losowość może wynikać z:
+
+- braku pełnych informacji o zjawisku,
+- błędów obserwacji,
+- ograniczeń technicznych w dostępie do danych,
+- złożoności zjawiska,
+- właściwości fizycznych badanego procesu.
+
+Jeżeli zjawisko jest bardzo złożone, to jego dokładne modelowanie deterministyczne może być niemożliwe albo niepraktyczne.
+
+### Przykład
+
+Rzut kostką wydaje się losowy, ponieważ trudno dokładnie przewidzieć wynik. W rzeczywistości wynik zależy od wielu czynników fizycznych, np. siły rzutu, kąta, powierzchni i obrotu kostki.
+
+### Przykład w Pythonie
+
+```python
+# Prosty przykład pokazujący możliwe wyniki rzutu kostką.
+# Nie używamy tutaj generatora losowego, tylko wypisujemy możliwe wartości.
+
+wyniki = [1, 2, 3, 4, 5, 6]
+
+for wynik in wyniki:
+    print("Możliwy wynik rzutu kostką:", wynik)
+```
+
+---
+
+## 2. Losowość w matematyce i kryptografii
+
+Losowość pojawia się także w matematyce.
+
+Przykładem jest rozmieszczenie liczb pierwszych wśród liczb naturalnych. Można badać średnią częstość ich występowania, ale dokładne rozmieszczenie liczb pierwszych jest trudne do przewidzenia.
+
+Liczby losowe są stosowane między innymi w:
+
+- statystycznych badaniach reprezentatywnych,
     
-2. Podstawowe Twierdzenie Algebry mówi, że wielomian stopnia `n` ma dokładnie `n` pierwiastków zespolonych, licząc krotności.
+- kontroli jakości,
     
-3. Twierdzenie to nie mówi, jak znaleźć pierwiastki.
+- badaniach rynkowych,
     
-4. Schemat Hornera pozwala szybko obliczać wartości wielomianu.
+- naukach eksperymentalnych,
     
-5. Schemat Hornera zmniejsza liczbę mnożeń i dodawań.
+- metodach Monte Carlo,
     
-6. Współczynniki wielomianu mogą być zaburzone przez błędy obliczeń.
+- optymalizacji,
     
-7. Małe zaburzenia współczynników mogą powodować duże zmiany miejsc zerowych.
+- kryptografii.
     
-8. Przykład Wilkinsona pokazuje, że znajdowanie pierwiastków może być źle uwarunkowane.
+
+W kryptografii liczby losowe są bardzo ważne, ponieważ mogą służyć jako klucze w szyfrach i zwiększać bezpieczeństwo przesyłanych informacji.
+
+### Przykład
+
+Jeżeli klucz szyfrujący jest przewidywalny, to szyfr może być łatwy do złamania. Dlatego w kryptografii potrzebne są liczby trudne do przewidzenia.
+
+### Przykład w Pythonie
+
+```python
+# Przykład pokazujący prostą listę zastosowań liczb losowych.
+
+zastosowania = [
+    "badania statystyczne",
+    "kontrola jakości",
+    "metody Monte Carlo",
+    "optymalizacja",
+    "kryptografia"
+]
+
+for zastosowanie in zastosowania:
+    print(zastosowanie)
+```
+
+---
+
+## 3. Losowość w symulacjach i systemach komunikacyjnych
+
+Symulacje komputerowe używają liczb losowych do naśladowania rzeczywistych procesów.
+
+Liczby losowe są używane wtedy, gdy w modelu występują czynniki losowe albo gdy zjawisko jest zbyt złożone, aby badać je dokładnie metodami analitycznymi.
+
+Liczby losowe są używane także w:
+
+- grach komputerowych,
     
-9. Pierwiastki wielokrotne są szczególnie wrażliwe na zaburzenia.
+- symulatorach treningowych,
     
-10. Metoda Laguerre’a jest iteracyjną metodą znajdowania pierwiastków wielomianów.
+- grach strategicznych,
     
-11. Metoda Laguerre’a wymaga obliczania:
+- systemach komunikacyjnych,
+    
+- sieciach komputerowych.
+    
+
+W grach komputerowych liczby losowe tworzą złudzenie realizmu, np. przez losowe zachowanie przeciwników albo losowe zdarzenia.
+
+### Przykład w Pythonie
+
+```python
+# Przykład prostego "zdarzenia" w grze.
+# Liczby mogłyby oznaczać różne typy zdarzeń.
+
+zdarzenia = [
+    "brak zdarzenia",
+    "pojawia się przeciwnik",
+    "znaleziono przedmiot",
+    "zmiana pogody"
+]
+
+for i in range(len(zdarzenia)):
+    print(i, "-", zdarzenia[i])
+```
+
+---
+
+# 4. Ciąg losowy
+
+Ciąg liczbowy nazywamy losowym, jeżeli nie istnieje krótszy algorytm opisujący ten ciąg niż sam ciąg.
+
+Oznacza to, że:
+
+- nie można znaleźć reguły pozwalającej odtworzyć ciąg,
+    
+- nie można przewidzieć kolejnego elementu na podstawie poprzednich,
+    
+- nie można opisać ciągu krócej niż przez wypisanie wszystkich jego elementów.
+    
+
+### Sens definicji
+
+Jeżeli ciąg ma prostą regułę, to nie jest naprawdę losowy.
+
+Na przykład ciąg:
+
+$$  
+1,2,3,4,5,6,\dots  
+$$
+
+nie jest losowy, bo łatwo opisać go regułą:
+
+$$  
+a_n = n  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Ciąg, który nie jest losowy, bo ma prostą regułę: a_n = n.
+
+for n in range(1, 11):
+    print(n)
+```
+
+---
+
+# 5. Ciągi pseudolosowe
+
+Ciąg pseudolosowy to ciąg, który jest generowany według określonej reguły, ale wygląda tak, jakby był losowy.
+
+W przeciwieństwie do prawdziwie losowych, liczby pseudolosowe są generowane przez algorytmy deterministyczne.
+
+To znaczy, że jeżeli znamy:
+
+- algorytm,
+    
+- parametry,
+    
+- wartość początkową,
+    
+
+to możemy odtworzyć cały ciąg.
+
+### Ważne cechy ciągów pseudolosowych
+
+Dobry ciąg pseudolosowy powinien:
+
+- wyglądać jak losowy,
+    
+- mieć dobre własności statystyczne,
+    
+- być trudny do przewidzenia,
+    
+- dobrze symulować losowe zachowania.
+    
+
+### Przykład
+
+Jeżeli generator zawsze zaczyna od tego samego ziarna, to za każdym uruchomieniem może wygenerować ten sam ciąg.
+
+### Przykład w Pythonie
+
+```python
+# Prosty deterministyczny ciąg pseudolosowy.
+# Zawsze dla tego samego X0 dostaniemy ten sam wynik.
+
+X = 3
+M = 10
+
+for i in range(10):
+    X = (2 * X + 1) % M
+    print(X)
+```
+
+---
+
+# 6. Przykłady generatorów liczb pseudolosowych
+
+W wykładzie wymieniono przykłady generatorów:
+
+1. **LCG**, czyli liniowy generator kongruencyjny.
+    
+2. **Mersenne Twister**, znany z bardzo długiego okresu i wysokiej jakości ciągów.
+    
+3. **CSPRNG**, czyli kryptograficznie bezpieczne generatory pseudolosowe.
+    
+
+### Krótkie porównanie
+
+|Generator|Cechy|
+|---|---|
+|LCG|prosty, szybki, historycznie ważny|
+|Mersenne Twister|bardzo długi okres, popularny w bibliotekach|
+|CSPRNG|trudny do przewidzenia, stosowany w kryptografii|
+
+### Przykład w Pythonie
+
+```python
+generatory = [
+    "LCG",
+    "Mersenne Twister",
+    "CSPRNG"
+]
+
+for generator in generatory:
+    print(generator)
+```
+
+---
+
+# 7. Historyczne metody otrzymywania liczb losowych
+
+Od dawna istniało zapotrzebowanie na liczby losowe, szczególnie w badaniach statystycznych.
+
+Jednymi z pierwszych źródeł liczb losowych były tablice liczb losowych.
+
+## 7.1. Wczesne tablice liczb losowych
+
+Przykłady historyczne z wykładu:
+
+1. W `1927` roku L.H. Tippett opublikował pierwszą tablicę losowych cyfr, składającą się z `41600` cyfr pochodzących z danych spisu powszechnego w Wielkiej Brytanii.
+    
+2. W `1939` roku R.A. Fisher i F. Yates wydali tablicę `15000` losowych cyfr zaczerpniętych z cyfr od `15` do `19` z tablic logarytmicznych.
+    
+3. Kendall, Babington i Smith w tym samym roku zaprezentowali tablicę `100000` cyfr losowych uzyskanych za pomocą „elektrycznej ruletki”.
+    
+4. W `1951` roku w Polsce GUS opracował własną tablicę liczb losowych.
+    
+5. W `1955` roku RAND Corporation stworzyła tablicę miliona cyfr losowych.
+    
+
+### Wada tablic liczb losowych
+
+Tablice miały ograniczoną długość, dlatego potrzebne stały się algorytmy generujące nowe ciągi liczb.
+
+### Przykład w Pythonie
+
+```python
+# Przykładowa "tablica" cyfr.
+# W praktyce historyczne tablice były dużo większe.
+
+tablica = [4, 1, 9, 0, 2, 8, 7, 3, 5, 6]
+
+for cyfra in tablica:
+    print(cyfra)
+```
+
+---
+
+## 7.2. Generowanie ciągu na podstawie tablicy cyfr
+
+W wykładzie opisano przykładowy sposób korzystania z tablicy cyfr losowych:
+
+1. Wybieramy losową pięciocyfrową liczbę z tablicy.
+    
+2. Modyfikujemy pierwszą cyfrę liczby modulo `2`.
+    
+3. Tak zmieniona liczba pięciocyfrowa wskazuje numer wiersza w tablicy.
+    
+4. Zredukowana dwucyfrowa końcówka liczby modulo `50` wskazuje numer kolumny.
+    
+5. Od wybranej pozycji w tablicy zaczynamy tworzenie losowego ciągu.
+    
+
+### Przykład w Pythonie
+
+```python
+liczba = 53827
+
+# Pierwsza cyfra
+pierwsza = liczba // 10000
+
+# Reszta liczby po usunięciu pierwszej cyfry
+reszta = liczba % 10000
+
+# Modyfikacja pierwszej cyfry modulo 2
+pierwsza_mod = pierwsza % 2
+
+# Nowy numer wiersza
+wiersz = pierwsza_mod * 10000 + reszta
+
+# Dwucyfrowa końcówka
+koncowka = liczba % 100
+
+# Numer kolumny modulo 50
+kolumna = koncowka % 50
+
+print("wiersz =", wiersz)
+print("kolumna =", kolumna)
+```
+
+---
+
+# 8. Współczesne metody otrzymywania liczb losowych
+
+Współczesne metody generacji liczb losowych dzielą się na:
+
+1. **algorytmiczne**,
+    
+2. **fizyczne**.
+    
+
+## 8.1. Generatory algorytmiczne
+
+Generatory algorytmiczne używają wzorów matematycznych.
+
+Ich ważna cecha:
+
+- dla tych samych parametrów i tego samego ziarna dają ten sam ciąg.
+    
+
+Dzięki temu są powtarzalne, co jest przydatne np. w testach i symulacjach.
+
+## 8.2. Generatory fizyczne
+
+Generatory fizyczne opierają się na mierzalnych parametrach procesów fizycznych, które zachodzą losowo.
+
+Przykłady z wykładu:
+
+- moneta,
+    
+- kostka do gry,
+    
+- ruletka,
+    
+- licznik Geigera,
+    
+- elektroniczne liczniki impulsów,
+    
+- urządzenia wykorzystujące szum diodowy.
+    
+
+### Ważna uwaga
+
+Każdy wygenerowany ciąg liczb losowych powinien być testowany przed użyciem.
+
+W przypadku awarii urządzenia fizycznego wygenerowany ciąg może stracić własności losowości.
+
+### Przykład w Pythonie
+
+```python
+generatory_fizyczne = [
+    "moneta",
+    "kostka do gry",
+    "ruletka",
+    "licznik Geigera",
+    "dioda szumowa"
+]
+
+for generator in generatory_fizyczne:
+    print(generator)
+```
+
+---
+
+# 9. Generatory algorytmiczne — rozkład jednostajny
+
+Podstawą algorytmicznego generowania liczb pseudolosowych jest otrzymanie ciągu liczb całkowitych:
+
+$$  
+X_i \in {0,1,\dots,M-1}  
+$$
+
+dla:
+
+$$  
+i = 1,2,\dots  
+$$
+
+Te liczby powinny możliwie dobrze imitować losowanie z rozkładu jednostajnego.
+
+Następnie liczby całkowite przekształca się do przedziału:
+
+$$  
+[0,1)  
+$$
+
+według wzoru:
+
+$$  
+R_i = \frac{X_i}{M}  
+$$
+
+Wtedy:
+
+$$  
+R_i \in [0,1)  
+$$
+
+Otrzymany ciąg traktuje się jako dyskretne przybliżenie rozkładu jednostajnego na przedziale:
+
+$$  
+[0,1)  
+$$
+
+### Przykład
+
+Jeżeli:
+
+$$  
+M = 10  
+$$
+
+oraz:
+
+$$  
+X_i = 7  
+$$
+
+to:
+
+$$  
+R_i = \frac{7}{10} = 0.7  
+$$
+
+### Przykład w Pythonie
+
+```python
+X = [0, 2, 5, 7, 9]
+M = 10
+
+R = []
+
+for i in range(len(X)):
+    R.append(X[i] / M)
+
+for i in range(len(R)):
+    print("X =", X[i], "R =", R[i])
+```
+
+---
+
+# 10. Przeskalowanie wartości generatora
+
+Załóżmy, że generator zwraca liczby całkowite:
+
+$$  
+X \in {0,1,\dots,MAX}  
+$$
+
+## 10.1. Wartość z przedziału $$[0,1)$$
+
+Wartość z przedziału:
+
+$$  
+[0,1)  
+$$
+
+można otrzymać przez:
+
+$$  
+R = \frac{X}{MAX+1}  
+$$
+
+## 10.2. Wartość całkowita z przedziału $${0,1,\dots,max}$$
+
+Jeżeli:
+
+$$  
+max < MAX  
+$$
+
+to wartość całkowitą z przedziału:
+
+$$  
+{0,1,\dots,max}  
+$$
+
+można otrzymać ze wzoru:
+
+$$  
+Y =  
+\left\lfloor  
+\frac{X}{MAX+1}(max+1)  
+\right\rfloor  
+$$
+
+## 10.3. Wartość całkowita z przedziału $${min,min+1,\dots,max}$$
+
+Wartość całkowitą z przedziału:
+
+$$  
+{min,min+1,\dots,max}  
+$$
+
+można otrzymać jako:
+
+$$  
+Y =  
+min +  
+\left\lfloor  
+\frac{X}{MAX+1}(max-min+1)  
+\right\rfloor  
+$$
+
+### Przykład w Pythonie
+
+```python
+X = 37
+MAX = 99
+
+R = X / (MAX + 1)
+
+min_wartosc = 10
+max_wartosc = 20
+
+Y = min_wartosc + int((X / (MAX + 1)) * (max_wartosc - min_wartosc + 1))
+
+print("R =", R)
+print("Y =", Y)
+```
+
+---
+
+# 11. Uwaga praktyczna — operator modulo
+
+W programach często spotyka się zapis:
+
+$$  
+Y = X \bmod (max+1)  
+$$
+
+Taki zapis ma zwracać liczby z przedziału:
+
+$$  
+{0,1,\dots,max}  
+$$
+
+### Problem
+
+Jeżeli liczba możliwych wartości generatora nie jest podzielna przez:
+
+$$  
+max+1  
+$$
+
+to niektóre wyniki mogą pojawiać się częściej niż inne.
+
+To nazywa się obciążeniem modulo.
+
+### Ważny wniosek
+
+Do prostych ćwiczeń taki zapis bywa akceptowalny, ale w zastosowaniach wymagających dobrej jakości losowości lepiej stosować metody unikające obciążenia modulo.
+
+### Przykład w Pythonie
+
+```python
+# Przykład pokazujący, że modulo może rozłożyć wyniki nierówno.
+
+MAX = 9
+max_wartosc = 5
+
+liczniki = []
+
+for i in range(max_wartosc + 1):
+    liczniki.append(0)
+
+for X in range(MAX + 1):
+    Y = X % (max_wartosc + 1)
+    liczniki[Y] = liczniki[Y] + 1
+
+for i in range(len(liczniki)):
+    print("wartość", i, "liczba wystąpień", liczniki[i])
+```
+
+---
+
+# 12. Generatory kongruencyjne LCG
+
+Najbardziej znanym sposobem generowania liczb pseudolosowych jest metoda opracowana przez Lehmera w 1951 roku.
+
+Nazywa się ją liniowym generatorem kongruencyjnym:
+
+$$  
+LCG  
+$$
+
+czyli:
+
+$$  
+Linear\ Congruential\ Generator  
+$$
+
+## 12.1. Addytywny LCG
+
+Addytywny generator LCG ma wzór:
+
+$$  
+X_{n+1} = (aX_n + c) \bmod M  
+$$
+
+gdzie:
+
+- $$X_n$$ — `n`-ta liczba pseudolosowa,
+    
+- $$a$$ — mnożnik,
+    
+- $$c$$ — parametr,
+    
+- $$M$$ — moduł generatora.
+    
+
+## 12.2. Multiplikatywny LCG
+
+Multiplikatywny LCG ma wzór:
+
+$$  
+X_{n+1} = aX_n \bmod M  
+$$
+
+Jest to szczególny przypadek generatora LCG, w którym:
+
+$$  
+c = 0  
+$$
+
+### Przykład w Pythonie — addytywny LCG
+
+```python
+a = 4
+c = 2
+M = 9
+X = 0
+
+ile = 10
+
+for i in range(ile):
+    print("X_", i, "=", X)
+    X = (a * X + c) % M
+```
+
+---
+
+# 13. Okres generatora LCG
+
+Dla generatora:
+
+$$  
+X_{n+1} = (aX_n + c) \bmod M  
+$$
+
+**okres** oznacza liczbę kolejnych wartości, po których ciąg zaczyna się powtarzać.
+
+Maksymalny możliwy okres nie może być większy niż liczba różnych stanów, czyli:
+
+$$  
+M  
+$$
+
+## 13.1. Generator mieszany
+
+Dla generatora mieszanego, czyli gdy:
+
+$$  
+c \neq 0  
+$$
+
+generator może mieć pełny okres równy:
+
+$$  
+M  
+$$
+
+jeżeli parametry spełniają odpowiednie warunki.
+
+Jednym z warunków jest:
+
+$$  
+nwd(c,M)=1  
+$$
+
+Dla:
+
+$$  
+M = 2^m  
+$$
+
+typowym warunkiem jest:
+
+$$  
+a \equiv 1 \pmod 4  
+$$
+
+## 13.2. Generator multiplikatywny
+
+Dla generatora multiplikatywnego:
+
+$$  
+c = 0  
+$$
+
+Jeżeli:
+
+$$  
+M = p  
+$$
+
+gdzie:
+
+$$  
+p  
+$$
+
+jest liczbą pierwszą, to dla niezerowego ziarna maksymalny okres wynosi:
+
+$$  
+p-1  
+$$
+
+Osiąga się go wtedy, gdy:
+
+$$  
+a  
+$$
+
+jest pierwiastkiem pierwotnym modulo:
+
+$$  
+p  
+$$
+
+### Przykład w Pythonie — sprawdzanie okresu
+
+```python
+a = 4
+c = 2
+M = 9
+X0 = 0
+
+X = X0
+okres = 0
+
+while True:
+    X = (a * X + c) % M
+    okres = okres + 1
+
+    if X == X0:
+        break
+
+print("Okres generatora =", okres)
+```
+
+---
+
+# 14. Dobór parametrów LCG — warunki Hulla-Dobella
+
+Dla generatora mieszanego:
+
+$$  
+X_{n+1} = (aX_n + c) \bmod m  
+$$
+
+pełny okres równy:
+
+$$  
+m  
+$$
+
+można uzyskać, gdy spełnione są warunki Hulla-Dobella.
+
+## Warunki pełnego okresu
+
+1. Liczby:
     
 
 $$  
-P(z),\ P'(z),\ P''(z)  
+c  
 $$
 
-12. Deflacja pozwala obniżyć stopień wielomianu po znalezieniu pierwiastka.
+oraz:
+
+$$  
+m  
+$$
+
+są względnie pierwsze:
+
+$$  
+nwd(c,m)=1  
+$$
+
+2. Liczba:
     
-13. Wygładzanie poprawia dokładność pierwiastków przez użycie pełnego wielomianu.
+
+$$  
+a-1  
+$$
+
+jest podzielna przez każdy czynnik pierwszy liczby:
+
+$$  
+m  
+$$
+
+3. Jeżeli:
     
-14. Dla wielomianów rzeczywistych pierwiastki zespolone występują parami sprzężonymi.
+
+$$  
+m  
+$$
+
+jest podzielne przez:
+
+$$  
+4  
+$$
+
+to:
+
+$$  
+a-1  
+$$
+
+również jest podzielne przez:
+
+$$  
+4  
+$$
+
+### Ważna uwaga
+
+Spełnienie tych warunków gwarantuje maksymalną długość cyklu, ale nie oznacza jeszcze, że generator ma bardzo dobre własności statystyczne.
+
+---
+
+## 14.1. Przykład doboru parametrów LCG
+
+Rozważamy generator:
+
+$$  
+X_{n+1} = (aX_n+c) \bmod m  
+$$
+
+Parametry:
+
+$$  
+m = 16  
+$$
+
+$$  
+a = 5  
+$$
+
+$$  
+c = 3  
+$$
+
+Sprawdzamy warunki:
+
+$$  
+nwd(3,16)=1  
+$$
+
+2. Czynnikiem pierwszym liczby `16` jest `2`, a:
     
-15. Po deflacji obliczenia powtarza się aż do wielomianu stopnia `2`, dla którego można użyć wzorów dokładnych.
+
+$$  
+a-1 = 5-1 = 4  
+$$
+
+jest podzielne przez `2`.
+
+3. Ponieważ `16` jest podzielne przez `4`, sprawdzamy, czy:
+    
+
+$$  
+a-1 = 4  
+$$
+
+jest podzielne przez `4`.
+
+Jest.
+
+Generator może więc osiągnąć pełny okres:
+
+$$  
+m = 16  
+$$
+
+### Przykład w Pythonie
+
+```python
+def nwd(a, b):
+    while b != 0:
+        reszta = a % b
+        a = b
+        b = reszta
+
+    return a
+
+
+m = 16
+a = 5
+c = 3
+
+warunek_1 = nwd(c, m) == 1
+warunek_2 = (a - 1) % 2 == 0
+warunek_3 = (a - 1) % 4 == 0
+
+print("Warunek 1:", warunek_1)
+print("Warunek 2:", warunek_2)
+print("Warunek 3:", warunek_3)
+
+if warunek_1 and warunek_2 and warunek_3:
+    print("Generator może mieć pełny okres")
+else:
+    print("Warunki nie są spełnione")
+```
+
+---
+
+# 15. Jak sprawdzić okres generatora?
+
+Aby sprawdzić okres generatora LCG, można zapamiętywać wygenerowane wartości aż do momentu powtórzenia stanu początkowego.
+
+### Idea algorytmu
+
+1. Ustal ziarno:
+    
+
+$$  
+X_0  
+$$
+
+2. Generuj kolejne wartości:
+    
+
+$$  
+X_{n+1} = (aX_n+c) \bmod m  
+$$
+
+3. Zliczaj wygenerowane wartości.
+    
+4. Zakończ, gdy ponownie pojawi się:
+    
+
+$$  
+X_0  
+$$
+
+Jeżeli generator mieszany ma pełny okres, to przed powrotem do:
+
+$$  
+X_0  
+$$
+
+powinien wygenerować:
+
+$$  
+m  
+$$
+
+różnych stanów.
+
+### Przykład w Pythonie
+
+```python
+a = 5
+c = 3
+m = 16
+X0 = 0
+
+X = X0
+okres = 0
+
+while True:
+    X = (a * X + c) % m
+    okres = okres + 1
+
+    if X == X0:
+        break
+
+print("Okres =", okres)
+```
+
+---
+
+# 16. Wady generatorów liniowych
+
+Generator liniowy może mieć krótki cykl, jeżeli parametry są źle dobrane.
+
+Wykład podaje przykład, że dla pewnych wartości można otrzymać sekwencję:
+
+$$  
+0,1,20,0,1,20,\dots  
+$$
+
+czyli bardzo krótki cykl.
+
+### Główna wada LCG
+
+Główną wadą generatorów liniowych jest ich przewidywalność.
+
+Punkty w przestrzeni wielowymiarowej mogą układać się na ograniczonej liczbie:
+
+- prostych,
+    
+- płaszczyzn,
+    
+- hiperpłaszczyzn.
+    
+
+Jest to słabość wykrywana między innymi testem widmowym.
+
+### Przykład w Pythonie
+
+```python
+# Przykład generatora o krótkim cyklu.
+
+a = 1
+c = 1
+M = 3
+X = 0
+
+for i in range(10):
+    print(X)
+    X = (a * X + c) % M
+```
+
+---
+
+# 17. Popularne generatory LCG
+
+W wykładzie podano tabelę wybranych generatorów.
+
+|Nazwa|$$M$$|$$a$$|$$c$$|
+|---|--:|--:|--:|
+|Numerical Recipes|$$2^{32}$$|1664525|1013904223|
+|Borland C/C++|$$2^{32}$$|22695477|1|
+|GNU Compiler Collection|$$2^{32}$$|69069|5|
+|ANSI C|$$2^{32}$$|1103515245|12345|
+|Borland Delphi, Virtual Pascal|$$2^{32}$$|134775813|1|
+|Microsoft Visual/Quick C/C++|$$2^{32}$$|214013|2531011|
+|ANSIC|$$2^{31}$$|1103515245|12345|
+|MINSTD|$$2^{31}-1$$|16807|0|
+
+### Przykład w Pythonie
+
+```python
+# Parametry MINSTD
+
+M = 2 ** 31 - 1
+a = 16807
+c = 0
+
+print("M =", M)
+print("a =", a)
+print("c =", c)
+```
+
+---
+
+# 18. Przykład generatora kongruencyjnego mieszanego
+
+Parametry generatora z wykładu:
+
+$$  
+a = 4  
+$$
+
+$$  
+c = 2  
+$$
+
+$$  
+M = 9  
+$$
+
+$$  
+X_0 = 0  
+$$
+
+Kolejne wartości obliczamy ze wzoru:
+
+$$  
+X_n = (4X_{n-1}+2) \bmod 9  
+$$
+
+dla:
+
+$$  
+n = 1,2,\dots  
+$$
+
+Kolejne wartości:
+
+$$  
+X_0 = 0  
+$$
+
+$$  
+X_1 = (4\cdot 0+2) \bmod 9 = 2  
+$$
+
+$$  
+X_2 = (4\cdot 2+2) \bmod 9 = 1  
+$$
+
+$$  
+X_3 = (4\cdot 1+2) \bmod 9 = 6  
+$$
+
+$$  
+X_4 = (4\cdot 6+2) \bmod 9 = 8  
+$$
+
+$$  
+X_5 = (4\cdot 8+2) \bmod 9 = 7  
+$$
+
+$$  
+X_6 = (4\cdot 7+2) \bmod 9 = 3  
+$$
+
+$$  
+X_7 = (4\cdot 3+2) \bmod 9 = 5  
+$$
+
+$$  
+X_8 = (4\cdot 5+2) \bmod 9 = 4  
+$$
+
+$$  
+X_9 = (4\cdot 4+2) \bmod 9 = 0  
+$$
+
+Po wartości:
+
+$$  
+X_9 = 0  
+$$
+
+ciąg zaczyna się powtarzać.
+
+Okres generatora wynosi:
+
+$$  
+9  
+$$
+
+### Przykład w Pythonie
+
+```python
+a = 4
+c = 2
+M = 9
+X = 0
+
+for n in range(19):
+    print("X_", n, "=", X)
+    X = (a * X + c) % M
+```
+
+---
+
+# 19. Wizualizacja jakości generatora
+
+Jednym z prostych sposobów oceny generatora jest tworzenie punktów z kolejnych wartości ciągu.
+
+Można tworzyć pary:
+
+$$  
+(X_0,X_1),(X_2,X_3),(X_4,X_5),\dots  
+$$
+
+albo pary sąsiednie:
+
+$$  
+(X_0,X_1),(X_1,X_2),(X_2,X_3),\dots  
+$$
+
+Aby narysować punkty w kwadracie jednostkowym, skalujemy wartości:
+
+$$  
+R_n = \frac{X_n}{m}  
+$$
+
+Następnie rysujemy punkty:
+
+$$  
+(R_0,R_1),(R_2,R_3),(R_4,R_5),\dots  
+$$
+
+### Interpretacja
+
+Jeżeli punkty tworzą wyraźne linie, pasy albo regularne wzory, generator może mieć słabe własności statystyczne.
+
+### Przykład w Pythonie
+
+```python
+# Przykład tworzenia punktów z kolejnych wartości generatora.
+
+a = 4
+c = 2
+m = 9
+X = 0
+
+liczby = []
+
+for i in range(20):
+    liczby.append(X)
+    X = (a * X + c) % m
+
+punkty = []
+
+for i in range(0, len(liczby) - 1, 2):
+    R1 = liczby[i] / m
+    R2 = liczby[i + 1] / m
+    punkty.append([R1, R2])
+
+for punkt in punkty:
+    print(punkt)
+```
+
+---
+
+# 20. Generator Lehmera
+
+Generator Lehmera jest odmianą generatora LCG.
+
+Jest to generator multiplikatywny:
+
+$$  
+X_{k+1} = aX_k \bmod M  
+$$
+
+gdzie:
+
+- $$M$$ — liczba pierwsza albo potęga liczby pierwszej,
+    
+- $$a$$ — element mający wysoki rząd modulo `M`,
+    
+- $$X_0$$ — ziarno względnie pierwsze z `M`.
+    
+
+Generator Lehmera jest też nazywany generatorem Parka-Millera.
+
+## 20.1. MINSTD
+
+W 1988 roku Park i Miller zaproponowali parametry:
+
+$$  
+M = 2^{31}-1  
+$$
+
+oraz:
+
+$$  
+a = 7^5 = 16807  
+$$
+
+Ten generator znany jest jako:
+
+$$  
+MINSTD  
+$$
+
+Później zaproponowano również mnożnik:
+
+$$  
+a = 48271  
+$$
+
+### Maksymalny okres
+
+Jeżeli:
+
+$$  
+M  
+$$
+
+jest liczbą pierwszą i:
+
+$$  
+a  
+$$
+
+jest pierwiastkiem pierwotnym, to maksymalny okres generatora Lehmera wynosi:
+
+$$  
+M-1  
+$$
+
+### Przykład w Pythonie
+
+```python
+M = 2 ** 31 - 1
+a = 16807
+X = 1
+
+for i in range(10):
+    X = (a * X) % M
+    print(X)
+```
+
+---
+
+# 21. Uogólniony generator liniowy
+
+Uogólnienie generatora liniowego polega na wykorzystaniu kilku poprzednich wartości ciągu.
+
+Wzór:
+
+$$  
+X_n =  
+(a_1X_{n-1} + a_2X_{n-2} + \dots + a_kX_{n-k} + b)  
+\bmod M  
+$$
+
+Przy odpowiednim doborze stałych:
+
+$$  
+a_1,\dots,a_k,b < M  
+$$
+
+generator może osiągnąć maksymalny okres:
+
+$$  
+M  
+$$
+
+### Ważna uwaga
+
+Uogólniony generator liniowy mimo większej złożoności nadal nie nadaje się do zastosowań kryptograficznych.
+
+### Przykład w Pythonie
+
+```python
+M = 17
+a1 = 2
+a2 = 3
+b = 1
+
+X = [4, 7]
+
+for n in range(2, 10):
+    nowy = (a1 * X[n - 1] + a2 * X[n - 2] + b) % M
+    X.append(nowy)
+
+for i in range(len(X)):
+    print("X_", i, "=", X[i])
+```
+
+---
+
+# 22. Generator Fibonacciego
+
+Generator Fibonacciego jest odmianą uogólnionych generatorów liniowych.
+
+Opiera się na ciągu Fibonacciego, ale obliczenia wykonuje się modulo:
+
+$$  
+m  
+$$
+
+Wzór:
+
+$$  
+X_n = (X_{n-1}+X_{n-2}) \bmod m  
+$$
+
+dla:
+
+$$  
+n \geq 2  
+$$
+
+Do działania potrzebne są dwie wartości początkowe:
+
+$$  
+X_0  
+$$
+
+oraz:
+
+$$  
+X_1  
+$$
+
+### Wada
+
+Generator Fibonacciego może mieć korelacje między kolejnymi wyrazami ciągu.
+
+To oznacza, że wartości mogą mieć poprawny rozkład, ale nie muszą być wystarczająco niezależne.
+
+### Przykład w Pythonie
+
+```python
+m = 17
+
+X = [7, 16]
+
+for n in range(2, 12):
+    nowy = (X[n - 1] + X[n - 2]) % m
+    X.append(nowy)
+
+for i in range(len(X)):
+    print("X_", i, "=", X[i])
+```
+
+---
+
+# 23. Lagged Fibonacci Generator — LFG
+
+Aby zmniejszyć proste zależności między kolejnymi wyrazami, generator Fibonacciego można uogólnić do postaci:
+
+$$  
+X_n = (X_{n-p}+X_{n-q}) \bmod m  
+$$
+
+gdzie:
+
+$$  
+n \geq p  
+$$
+
+oraz:
+
+$$  
+p > q \geq 1  
+$$
+
+Liczby:
+
+$$  
+p  
+$$
+
+oraz:
+
+$$  
+q  
+$$
+
+oznaczają opóźnienia generatora.
+
+Do rozpoczęcia generowania potrzebne są wartości początkowe:
+
+$$  
+X_0,X_1,\dots,X_{p-1}  
+$$
+
+Generator można modyfikować przez zastąpienie dodawania inną operacją, np.:
+
+- odejmowaniem,
+    
+- mnożeniem,
+    
+- operacją XOR.
+    
+
+Ogólniej:
+
+$$  
+X_n = (X_{n-p} \diamond X_{n-q}) \bmod m  
+$$
+
+gdzie:
+
+$$  
+\diamond  
+$$
+
+oznacza wybraną operację.
+
+### Przykład z wykładu
+
+Rozważamy generator:
+
+$$  
+X_n = (X_{n-p}+X_{n-q}) \bmod m  
+$$
+
+gdzie:
+
+$$  
+m = 17  
+$$
+
+$$  
+p = 3  
+$$
+
+$$  
+q = 1  
+$$
+
+Wartości początkowe:
+
+$$  
+X_0 = 7  
+$$
+
+$$  
+X_1 = 16  
+$$
+
+$$  
+X_2 = 5  
+$$
+
+Kolejne wartości:
+
+$$  
+X_3 = (X_0+X_2) \bmod 17 = (7+5) \bmod 17 = 12  
+$$
+
+$$  
+X_4 = (X_1+X_3) \bmod 17 = (16+12) \bmod 17 = 11  
+$$
+
+$$  
+X_5 = (X_2+X_4) \bmod 17 = (5+11) \bmod 17 = 16  
+$$
+
+Kolejny ciąg zaczyna się:
+
+$$  
+7,16,5,12,11,16,11,5,4,15,3,7,\dots  
+$$
+
+### Przykład w Pythonie
+
+```python
+m = 17
+p = 3
+q = 1
+
+X = [7, 16, 5]
+
+ile = 12
+
+for n in range(p, ile):
+    nowy = (X[n - p] + X[n - q]) % m
+    X.append(nowy)
+
+for i in range(len(X)):
+    print("X_", i, "=", X[i])
+```
+
+---
+
+# 24. Zaawansowane uogólnienia generatora Fibonacciego
+
+Generator Fibonacciego można rozbudować, używając większej liczby poprzednich wartości.
+
+Wzór:
+
+$$  
+X_n =  
+(X_{n-p_1} \diamond X_{n-p_2} \diamond \dots \diamond X_{n-p_k})  
+\bmod m  
+$$
+
+gdzie:
+
+$$  
+n \geq p_k  
+$$
+
+oraz:
+
+$$  
+p_k > p_{k-1} > \dots > p_1 \geq 1  
+$$
+
+Symbole:
+
+$$  
+p_1,p_2,\dots,p_k  
+$$
+
+oznaczają opóźnienia.
+
+Symbol:
+
+$$  
+\diamond  
+$$
+
+oznacza wybraną operację, np.:
+
+- dodawanie,
+    
+- odejmowanie,
+    
+- mnożenie,
+    
+- XOR.
+    
+
+Przykładami generatorów tego typu są generatory Marsagli, np. `Marsa-LFIB4`, oraz generator Ziffa.
+
+### Przykład w Pythonie
+
+```python
+# Przykład z trzema opóźnieniami i dodawaniem.
+
+m = 31
+
+X = [3, 7, 11, 19]
+
+for n in range(4, 12):
+    nowy = (X[n - 1] + X[n - 2] + X[n - 4]) % m
+    X.append(nowy)
+
+for i in range(len(X)):
+    print("X_", i, "=", X[i])
+```
+
+---
+
+# 25. Kwadratowy generator kongruencyjny
+
+Aby uniknąć prostej zależności liniowej między kolejnymi wartościami ciągu, można użyć zależności kwadratowej.
+
+Wzór:
+
+$$  
+X_{n+1} =  
+(aX_n^2 + bX_n + c) \bmod m  
+$$
+
+Parametry:
+
+$$  
+a,b,c,m  
+$$
+
+oraz wartość początkowa:
+
+$$  
+X_0  
+$$
+
+muszą być dobrane tak, aby generator miał możliwie długi okres i dobre własności statystyczne.
+
+Dla odpowiednich parametrów maksymalny okres może być równy:
+
+$$  
+m  
+$$
+
+### Przykład w Pythonie
+
+```python
+a = 2
+b = 3
+c = 1
+m = 17
+
+X = 5
+
+for n in range(10):
+    print("X_", n, "=", X)
+    X = (a * X * X + b * X + c) % m
+```
+
+---
+
+# 26. Generator wykorzystujący wielomiany permutacyjne
+
+Generator może wykorzystywać wielomian:
+
+$$  
+g(x) =  
+\sum_{k=0}^{r}  
+a_kx^k  
+$$
+
+gdzie:
+
+$$  
+a_k \in {0,1,\dots,m-1}  
+$$
+
+Wielomian:
+
+$$  
+g(x)  
+$$
+
+jest wielomianem permutacyjnym modulo:
+
+$$  
+m  
+$$
+
+jeżeli funkcja:
+
+$$  
+x \mapsto g(x) \bmod m  
+$$
+
+przestawia elementy zbioru:
+
+$$  
+{0,1,\dots,m-1}  
+$$
+
+To oznacza, że każdy element zbioru pojawia się dokładnie raz jako wynik działania funkcji.
+
+### Ważna uwaga
+
+Generator tego typu może ograniczać proste zależności liniowe z klasycznych generatorów kongruencyjnych, ale nadal jest algorytmem deterministycznym.
+
+Nie należy automatycznie traktować go jako generatora kryptograficznie bezpiecznego.
+
+### Przykład w Pythonie
+
+```python
+# Sprawdzamy wartości przykładowej funkcji g(x) = x + 1 modulo m.
+
+m = 5
+
+wartosci = []
+
+for x in range(m):
+    g = (x + 1) % m
+    wartosci.append(g)
+
+print("Wartości funkcji modulo m:")
+
+for wartosc in wartosci:
+    print(wartosc)
+```
+
+---
+
+# 27. Generator inwersyjny
+
+Generator inwersyjny wykorzystuje odwrotność modulo liczby pierwszej.
+
+Wzór:
+
+# $$  
+X_{n+1}
+
+\begin{cases}  
+(aX_n^{-1}+b)\bmod p, & X_n \neq 0 \  
+b, & X_n = 0  
+\end{cases}  
+$$
+
+gdzie:
+
+$$  
+p  
+$$
+
+jest liczbą pierwszą.
+
+Maksymalny okres generatora, przy odpowiednich wartościach:
+
+$$  
+a  
+$$
+
+oraz:
+
+$$  
+b  
+$$
+
+może wynosić:
+
+$$  
+p-1  
+$$
+
+### Przykład w Pythonie
+
+```python
+def odwrotnosc_modulo(x, p):
+    # Szukamy takiego y, że (x*y) mod p = 1.
+    for y in range(1, p):
+        if (x * y) % p == 1:
+            return y
+
+    return None
+
+
+p = 17
+a = 3
+b = 5
+
+X = 4
+
+for n in range(10):
+    print("X_", n, "=", X)
+
+    if X != 0:
+        odw = odwrotnosc_modulo(X, p)
+        X = (a * odw + b) % p
+    else:
+        X = b
+```
+
+---
+
+# 28. Nowoczesne generatory do symulacji numerycznych
+
+Współczesne generatory stosowane w symulacjach nie są zwykle prostymi generatorami LCG.
+
+Celem jest uzyskanie:
+
+- długiego okresu,
+    
+- dobrych własności statystycznych,
+    
+- wydajnej implementacji.
+    
+
+Przykładowe rodziny generatorów:
+
+1. **Mersenne Twister** — bardzo długi okres, popularny w bibliotekach, ale ma duży stan i nie jest bezpieczny kryptograficznie.
+    
+2. **PCG** — łączy prosty mechanizm kongruencyjny z permutacją bitów wyjściowych.
+    
+3. **xoshiro/xoroshiro** — szybkie generatory oparte na operacjach XOR, przesunięciach i rotacjach bitowych.
+    
+
+### Ważna uwaga
+
+Trzeba odróżniać generator do symulacji od generatora do kryptografii.
+
+### Przykład w Pythonie
+
+```python
+generatory = [
+    "Mersenne Twister",
+    "PCG",
+    "xoshiro",
+    "xoroshiro"
+]
+
+for generator in generatory:
+    print(generator)
+```
+
+---
+
+# 29. Generator PCG — idea
+
+Generator PCG łączy dwie idee:
+
+1. prostą rekurencję kongruencyjną dla stanu wewnętrznego,
+    
+2. dodatkową permutację bitów przed zwróceniem wyniku.
+    
+
+Schemat działania:
+
+$$  
+X_{n+1} = (aX_n+c) \bmod 2^m  
+$$
+
+a następnie:
+
+$$  
+R_n = permute(X_n)  
+$$
+
+### Dlaczego to pomaga?
+
+Sama rekurencja kongruencyjna może mieć widoczne zależności liniowe.
+
+Permutacja bitów wyjściowych utrudnia pojawianie się prostych wzorców w obserwowanym ciągu.
+
+### Ważna uwaga
+
+PCG jest dobrym przykładem generatora do symulacji, ale nie jest standardowym generatorem kryptograficznym.
+
+### Przykład w Pythonie
+
+```python
+# Bardzo uproszczony przykład idei:
+# najpierw LCG, potem prosta "permutacja" przez przesunięcie i XOR.
+
+m = 16
+modul = 2 ** m
+
+a = 1103515245
+c = 12345
+
+X = 7
+
+for n in range(5):
+    X = (a * X + c) % modul
+
+    # Uproszczona permutacja bitów
+    R = X ^ (X >> 5)
+
+    print("stan =", X, "wynik =", R)
+```
+
+---
+
+# 30. Generatory kryptograficznie bezpieczne
+
+W kryptografii nie wystarcza dobry rozkład statystyczny.
+
+Generator powinien być odporny na przewidywanie kolejnych bitów nawet wtedy, gdy przeciwnik zna część wcześniejszych wyników.
+
+W praktyce stosuje się generatory typu:
+
+- `CSPRNG`,
+    
+- `DRBG`.
+    
+
+Przykłady:
+
+- `Hash DRBG`,
+    
+- `HMAC DRBG`,
+    
+- `CTR DRBG`.
+    
+
+### Ważna zasada praktyczna
+
+Do symulacji numerycznych można używać szybkich generatorów statystycznych.
+
+Do kluczy, soli, tokenów i haseł należy używać generatorów kryptograficznych dostarczanych przez system operacyjny albo sprawdzone biblioteki kryptograficzne.
+
+### Przykład w Pythonie
+
+```python
+# Przykład pokazujący rozróżnienie zastosowań.
+
+zastosowanie = "kryptografia"
+
+if zastosowanie == "symulacja":
+    print("Można użyć generatora statystycznego")
+elif zastosowanie == "kryptografia":
+    print("Należy użyć generatora kryptograficznego")
+else:
+    print("Trzeba dobrać generator do zastosowania")
+```
+
+---
+
+# 31. Metody testowania generatorów
+
+Aby ocenić generator albo wygenerowany ciąg bitów, stosuje się testy statystyczne.
+
+Testy powinny potwierdzać:
+
+- równomierny rozkład ciągu bitów,
+    
+- losowość rozkładu,
+    
+- niezależność kolejnych bitów.
+    
+
+W literaturze występują różne testy:
+
+- ogólne, dotyczące rozkładów liczb całkowitych,
+    
+- specyficzne, dotyczące ciągów binarnych.
+    
+
+### Przykład w Pythonie
+
+```python
+bity = [1, 0, 1, 1, 0, 0, 1, 0]
+
+liczba_jedynek = 0
+
+for bit in bity:
+    if bit == 1:
+        liczba_jedynek = liczba_jedynek + 1
+
+print("Liczba jedynek =", liczba_jedynek)
+```
+
+---
+
+# 32. Historyczne testy FIPS dla ciągów bitowych
+
+W praktycznej weryfikacji generatorów stosowano proste testy statystyczne dla próbek długości:
+
+$$  
+20000  
+$$
+
+bitów.
+
+Przykładowe testy:
+
+1. test monobitowy,
+    
+2. test pokerowy,
+    
+3. test serii,
+    
+4. test długich serii.
+    
+
+Obecnie w zastosowaniach kryptograficznych większe znaczenie mają standardy dotyczące konstrukcji generatorów, źródeł entropii i monitorowania działania generatora.
+
+---
+
+# 33. Test monobitowy
+
+Test monobitowy sprawdza, czy liczba jedynek w ciągu bitów mieści się w granicach statystycznie prawdopodobnych dla losowego ciągu.
+
+Dla ciągu długości:
+
+$$  
+20000  
+$$
+
+liczymy:
+
+$$  
+X = \text{liczba jedynek w ciągu 20000 bitów}  
+$$
+
+Kryterium akceptacji z wykładu:
+
+$$  
+9725 < X < 10275  
+$$
+
+Jeżeli liczba jedynek spełnia ten warunek, ciąg jest uznawany za zgodny z oczekiwaniami dla rozkładu równomiernego.
+
+### Przykład w Pythonie
+
+```python
+# Przykład dla krótszego ciągu, żeby pokazać ideę.
+
+bity = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+
+X = 0
+
+for bit in bity:
+    if bit == 1:
+        X = X + 1
+
+print("Liczba jedynek =", X)
+```
+
+---
+
+# 34. Test pokerowy
+
+Test pokerowy analizuje segmenty czterobitowe w ciągu bitów.
+
+Procedura dla ciągu `20000` bitów:
+
+1. Dzielimy ciąg na `5000` segmentów czterobitowych.
+    
+2. Liczymy częstość wystąpienia każdego z `16` możliwych segmentów:
+    
+
+$$  
+0000,0001,\dots,1111  
+$$
+
+3. Obliczamy statystykę:
+    
+
+## $$  
+X =  
+\frac{16}{5000}  
+\left(  
+\sum_{i=0}^{15}  
+f(i)^2  
+\right)
+
+5000  
+$$
+
+gdzie:
+
+$$  
+f(i)  
+$$
+
+to liczba wystąpień `i`-tego segmentu czterobitowego.
+
+4. Akceptowalny zakres z wykładu:
+    
+
+$$  
+2.16 < X < 46.17  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Przykład dla krótkiego ciągu bitów.
+# Dzielimy go na bloki 4-bitowe i zliczamy wystąpienia.
+
+bity = "00010010111100011111"
+
+liczniki = []
+
+for i in range(16):
+    liczniki.append(0)
+
+for i in range(0, len(bity), 4):
+    blok = bity[i:i + 4]
+
+    if len(blok) == 4:
+        wartosc = int(blok, 2)
+        liczniki[wartosc] = liczniki[wartosc] + 1
+
+for i in range(16):
+    print(i, liczniki[i])
+```
+
+---
+
+# 35. Test serii
+
+Serią nazywamy ciąg kolejnych bitów o tej samej wartości.
+
+Przykład:
+
+$$  
+111  
+$$
+
+jest serią jedynek długości `3`.
+
+Test serii sprawdza, czy liczba serii różnej długości jest zgodna z oczekiwaniami dla losowego ciągu bitów.
+
+W teście analizuje się długości serii:
+
+- `1`,
+    
+- `2`,
+    
+- `3`,
+    
+- `4`,
+    
+- `5`,
+    
+- `6` i więcej.
+    
+
+Akceptowalne zakresy z wykładu:
+
+|Długość serii|Zakres|
+|--:|--:|
+|1|2343 do 2657|
+|2|1135 do 1365|
+|3|542 do 708|
+|4|251 do 373|
+|5|111 do 201|
+|6 i więcej|111 do 201|
+
+### Przykład w Pythonie
+
+```python
+bity = "111001000111100"
+
+serie = []
+
+aktualny_bit = bity[0]
+dlugosc = 1
+
+for i in range(1, len(bity)):
+    if bity[i] == aktualny_bit:
+        dlugosc = dlugosc + 1
+    else:
+        serie.append([aktualny_bit, dlugosc])
+        aktualny_bit = bity[i]
+        dlugosc = 1
+
+serie.append([aktualny_bit, dlugosc])
+
+for seria in serie:
+    print("bit =", seria[0], "długość serii =", seria[1])
+```
+
+---
+
+# 36. Różne rodzaje testów statystycznych
+
+W literaturze można znaleźć różne grupy testów:
+
+1. **Testy losowości** — sprawdzają, czy ciąg wyników może być traktowany jako ciąg zmiennych losowych.
+    
+2. **Testy zgodności** — sprawdzają, czy obserwacje mają ten sam rozkład prawdopodobieństwa.
+    
+3. **Testy normalności** — sprawdzają, czy dane pochodzą z rozkładu normalnego.
+    
+4. **Testy dotyczące parametrów rozkładu** — potwierdzają wiarygodność estymowanych parametrów.
+    
+5. **Testy niezależności** — sprawdzają, czy zmienne są niezależne.
+    
+
+### Przykład w Pythonie
+
+```python
+testy = [
+    "testy losowości",
+    "testy zgodności",
+    "testy normalności",
+    "testy parametrów rozkładu",
+    "testy niezależności"
+]
+
+for test in testy:
+    print(test)
+```
+
+---
+
+# 37. Kryteria dobrego generatora
+
+Dobry generator powinien spełniać kilka kryteriów.
+
+## 37.1. Okres
+
+Okres powinien być długi.
+
+Idealny generator miałby okres równy albo zbliżony do maksymalnej możliwej liczby unikatowych stanów.
+
+Długi okres oznacza, że ciąg wartości nie powtarza się przez bardzo długi czas.
+
+## 37.2. Równomierność
+
+Równomierność oznacza, że każda możliwa wartość w zakresie generatora powinna pojawiać się z podobnym prawdopodobieństwem.
+
+Równomierność można oceniać testami statystycznymi, np. testem chi-kwadrat.
+
+## 37.3. Nieprzewidywalność
+
+Nieprzewidywalność oznacza, że nie można efektywnie przewidzieć kolejnych wartości na podstawie skończonej liczby wcześniejszych wartości.
+
+Można ją oceniać przez analizę korelacji i wzorców w ciągu.
+
+Przykładem testu nieprzewidywalności jest test następnego bitu.
+
+### Przykład w Pythonie
+
+```python
+okres_dlugi = True
+rozklad_rowny = True
+nieprzewidywalny = False
+
+if okres_dlugi and rozklad_rowny and nieprzewidywalny:
+    print("Generator spełnia główne kryteria")
+else:
+    print("Generator wymaga dalszej oceny")
+```
+
+---
+
+# 38. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 38.1. Ciąg losowy
+
+Ciąg losowy to taki ciąg, którego nie da się opisać krótszym algorytmem niż sam ciąg.
+
+---
+
+## 38.2. Ciąg pseudolosowy
+
+Ciąg pseudolosowy jest generowany deterministycznie, ale wygląda jak losowy.
+
+---
+
+## 38.3. Ziarno
+
+Ziarno, czyli `seed`, to wartość początkowa generatora:
+
+$$  
+X_0  
+$$
+
+Dla tego samego ziarna generator algorytmiczny daje ten sam ciąg.
+
+---
+
+## 38.4. Skalowanie do przedziału $$[0,1)$$
+
+Jeżeli:
+
+$$  
+X_i \in {0,1,\dots,M-1}  
+$$
+
+to:
+
+$$  
+R_i = \frac{X_i}{M}  
+$$
+
+---
+
+## 38.5. Skalowanie do przedziału całkowitego
+
+Dla:
+
+$$  
+X \in {0,1,\dots,MAX}  
+$$
+
+oraz wartości od `min` do `max`:
+
+$$  
+Y =  
+min +  
+\left\lfloor  
+\frac{X}{MAX+1}(max-min+1)  
+\right\rfloor  
+$$
+
+---
+
+## 38.6. Problem modulo
+
+Zapis:
+
+$$  
+Y = X \bmod (max+1)  
+$$
+
+może powodować nierównomierny rozkład, jeżeli liczba stanów generatora nie dzieli się przez:
+
+$$  
+max+1  
+$$
+
+---
+
+## 38.7. Addytywny LCG
+
+$$  
+X_{n+1} = (aX_n+c) \bmod M  
+$$
+
+---
+
+## 38.8. Multiplikatywny LCG
+
+$$  
+X_{n+1} = aX_n \bmod M  
+$$
+
+czyli przypadek:
+
+$$  
+c = 0  
+$$
+
+---
+
+## 38.9. Okres generatora
+
+Okres to liczba kolejnych wartości, po których ciąg zaczyna się powtarzać.
+
+---
+
+## 38.10. Warunki Hulla-Dobella
+
+Dla generatora mieszanego pełny okres można uzyskać, gdy:
+
+$$  
+nwd(c,m)=1  
+$$
+
+$$  
+a-1  
+$$
+
+jest podzielne przez każdy czynnik pierwszy:
+
+$$  
+m  
+$$
+
+oraz jeżeli:
+
+$$  
+4 \mid m  
+$$
+
+to:
+
+$$  
+4 \mid (a-1)  
+$$
+
+---
+
+## 38.11. Generator Lehmera
+
+$$  
+X_{k+1}=aX_k \bmod M  
+$$
+
+Dla liczby pierwszej:
+
+$$  
+M  
+$$
+
+i pierwiastka pierwotnego:
+
+$$  
+a  
+$$
+
+maksymalny okres wynosi:
+
+$$  
+M-1  
+$$
+
+---
+
+## 38.12. Generator Fibonacciego
+
+$$  
+X_n = (X_{n-1}+X_{n-2}) \bmod m  
+$$
+
+---
+
+## 38.13. Lagged Fibonacci Generator
+
+$$  
+X_n = (X_{n-p}+X_{n-q}) \bmod m  
+$$
+
+gdzie:
+
+$$  
+p > q \geq 1  
+$$
+
+---
+
+## 38.14. Kwadratowy generator kongruencyjny
+
+$$  
+X_{n+1} = (aX_n^2+bX_n+c) \bmod m  
+$$
+
+---
+
+## 38.15. Generator inwersyjny
+
+# $$  
+X_{n+1}
+
+\begin{cases}  
+(aX_n^{-1}+b)\bmod p, & X_n \neq 0 \  
+b, & X_n = 0  
+\end{cases}  
+$$
+
+---
+
+## 38.16. Test monobitowy
+
+Dla `20000` bitów liczymy liczbę jedynek:
+
+$$  
+X  
+$$
+
+Warunek akceptacji:
+
+$$  
+9725 < X < 10275  
+$$
+
+---
+
+## 38.17. Test pokerowy
+
+Dzielimy `20000` bitów na `5000` bloków czterobitowych i liczymy statystykę:
+
+## $$  
+X =  
+\frac{16}{5000}  
+\left(  
+\sum_{i=0}^{15}  
+f(i)^2  
+\right)
+
+5000  
+$$
+
+Zakres akceptacji:
+
+$$  
+2.16 < X < 46.17  
+$$
+
+---
+
+## 38.18. Test serii
+
+Test serii analizuje długości kolejnych ciągów takich samych bitów.
+
+---
+
+## 38.19. Kryteria dobrego generatora
+
+Dobry generator powinien mieć:
+
+- długi okres,
+    
+- równomierny rozkład,
+    
+- nieprzewidywalność,
+    
+- możliwie małe korelacje między wartościami.
+    
+
+---
+
+# 39. Krótkie podsumowanie
+
+Wykład 11 dotyczył generatorów liczb pseudolosowych.
+
+Najważniejsze wnioski:
+
+1. Liczby losowe są potrzebne w statystyce, symulacjach, metodach Monte Carlo i kryptografii.
+    
+2. Ciąg losowy nie ma krótszego opisu niż sam ciąg.
+    
+3. Ciąg pseudolosowy jest tworzony algorytmicznie, ale ma wyglądać jak losowy.
+    
+4. Generatory algorytmiczne są deterministyczne i zależą od ziarna.
+    
+5. Generatory fizyczne korzystają z losowych procesów fizycznych.
+    
+6. Wartości generatora często skaluje się do przedziału:
+    
+
+$$  
+[0,1)  
+$$
+
+7. LCG to jedna z najprostszych i najstarszych metod generowania liczb pseudolosowych.
+    
+8. Okres generatora oznacza długość cyklu przed powtórzeniem wartości.
+    
+9. Warunki Hulla-Dobella pomagają dobrać parametry LCG o pełnym okresie.
+    
+10. Sam pełny okres nie oznacza jeszcze dobrej jakości statystycznej.
+    
+11. Operator modulo może powodować obciążenie wyników.
+    
+12. Generatory liniowe mogą mieć widoczne wzory i korelacje.
+    
+13. Generator Lehmera jest multiplikatywnym przypadkiem LCG.
+    
+14. Generatory Fibonacciego i LFG używają wcześniejszych wartości ciągu.
+    
+15. Nowoczesne generatory do symulacji to między innymi Mersenne Twister, PCG oraz xoshiro/xoroshiro.
+    
+16. Do kryptografii należy używać generatorów kryptograficznie bezpiecznych.
+    
+17. Generatory trzeba testować statystycznie.
+    
+18. Przykładowe testy to test monobitowy, pokerowy i test serii.
+    
+19. Dobry generator powinien mieć długi okres, równomierność i nieprzewidywalność.

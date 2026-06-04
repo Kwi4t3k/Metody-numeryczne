@@ -28,7 +28,7 @@
               "type": "markdown",
               "state": {
                 "file": "Ultimate notatka.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
@@ -48,9 +48,23 @@
               "icon": "lucide-file",
               "title": "Wszystkie_zadania_z_notatkami"
             }
+          },
+          {
+            "id": "45be10b04905aadc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Laboratorium_12/zadania_lab_12.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "zadania_lab_12"
+            }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -212,14 +226,14 @@
       "bases:Stwórz nową bazę danych": false
     }
   },
-  "active": "84bb4f3ab33e9f0a",
+  "active": "9bbe75a3ffa525fe",
   "lastOpenFiles": [
-    "Laboratorium_11/zadania_lab_11.md",
-    "Ultimate notatka.md",
-    "README.md",
-    "Laboratorium_12/zadania_lab_12.md",
-    "Wszystkie_zadania_z_notatkami.md",
     "Spis wykładów.md",
+    "Ultimate notatka.md",
+    "Wszystkie_zadania_z_notatkami.md",
+    "Laboratorium_12/zadania_lab_12.md",
+    "Laboratorium_11/zadania_lab_11.md",
+    "README.md",
     "Laboratorium_10/zadania_lab_10.md",
     "Laboratorium_9/zadania_lab_9.md",
     "Laboratorium_8/zadania_lab_8.md",

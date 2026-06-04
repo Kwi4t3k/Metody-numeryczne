@@ -209,3 +209,41 @@
 - Metoda prostokątów
 - Metoda trapezów
 - Metoda Simpsona
+
+## 10 - Miejsca zerowe wielomianów
+- Algorytm Hornera
+- Wpływ zaburzeń współczynników
+- Metoda Laguerre’a
+- Obniżanie stopnia wielomianu i wygładzanie
+- Podstawowe Twierdzenie Algebry
+- Schemat Hornera (koncepcja, algorytm, przykład)
+- Wpływ zaburzeń współczynników na miejsca zerowe wielomianów
+- Przykład Wilkinsona
+- Zaburzenia wielokrotnych miejsc zerowych
+- Poszukiwanie miejsc zerowych wielomianów
+- Co robić przy poszukiwaniu miejsc zerowych?
+- Wprowadzenie do metody Laguerre’a
+- Algorytm Laguerre’a znajdowania pierwiastka wielomianu
+- Zbieżność metody Laguerre’a
+- Ograniczenia i zalety metody Laguerre’a
+- Zastosowania i porównania
+- Specyfika metody
+- Deflacja - obniżanie stopnia wielomianu
+- Wygładzanie miejsc zerowych
+- Zastosowanie metody Laguerre’a
+- Kontynuacja faktoryzacji
+- Deflacja wielomianu
+- Układ równań do deflacji
+- Strategia postępowania
+- Przykład
+- Metoda Laguerre’a - przypomnienie
+- Pierwszy pierwiastek: przygotowanie obliczeń
+- Pierwszy krok metody Laguerre’a
+- Zbieżność do pierwszego pierwiastka
+- Deflacja po znalezieniu pierwszego pierwiastka
+- Drugi pierwiastek: pojawia się liczba zespolona
+- Deflacja po parze pierwiastków zespolonych
+- Wynik końcowy
+- Wnioski
+
+## 11 -  
