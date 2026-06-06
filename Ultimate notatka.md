@@ -24073,23 +24073,6 @@ W kryptografii liczby losowe są bardzo ważne, ponieważ mogą służyć jako k
 
 Jeżeli klucz szyfrujący jest przewidywalny, to szyfr może być łatwy do złamania. Dlatego w kryptografii potrzebne są liczby trudne do przewidzenia.
 
-### Przykład w Pythonie
-
-```python
-# Przykład pokazujący prostą listę zastosowań liczb losowych.
-
-zastosowania = [
-    "badania statystyczne",
-    "kontrola jakości",
-    "metody Monte Carlo",
-    "optymalizacja",
-    "kryptografia"
-]
-
-for zastosowanie in zastosowania:
-    print(zastosowanie)
-```
-
 ---
 
 ## 3. Losowość w symulacjach i systemach komunikacyjnych
@@ -24112,23 +24095,6 @@ Liczby losowe są używane także w:
     
 
 W grach komputerowych liczby losowe tworzą złudzenie realizmu, np. przez losowe zachowanie przeciwników albo losowe zdarzenia.
-
-### Przykład w Pythonie
-
-```python
-# Przykład prostego "zdarzenia" w grze.
-# Liczby mogłyby oznaczać różne typy zdarzeń.
-
-zdarzenia = [
-    "brak zdarzenia",
-    "pojawia się przeciwnik",
-    "znaleziono przedmiot",
-    "zmiana pogody"
-]
-
-for i in range(len(zdarzenia)):
-    print(i, "-", zdarzenia[i])
-```
 
 ---
 
@@ -24241,18 +24207,6 @@ W wykładzie wymieniono przykłady generatorów:
 |Mersenne Twister|bardzo długi okres, popularny w bibliotekach|
 |CSPRNG|trudny do przewidzenia, stosowany w kryptografii|
 
-### Przykład w Pythonie
-
-```python
-generatory = [
-    "LCG",
-    "Mersenne Twister",
-    "CSPRNG"
-]
-
-for generator in generatory:
-    print(generator)
-```
 
 ---
 
@@ -24312,6 +24266,82 @@ W wykładzie opisano przykładowy sposób korzystania z tablicy cyfr losowych:
 
 ### Przykład w Pythonie
 
+Losowanie z tablicy jednej liczby:
+
+```python
+import random
+
+tablica = [53827, 12345, 98765, 24680, 13579]
+
+# Losujemy jedną liczbę z tablicy
+liczba = random.choice(tablica)
+
+print("Wylosowana liczba =", liczba)
+
+# Pierwsza cyfra
+pierwsza = liczba // 10000
+
+# Reszta liczby po usunięciu pierwszej cyfry
+reszta = liczba % 10000
+
+# Modyfikacja pierwszej cyfry modulo 2
+pierwsza_mod = pierwsza % 2
+
+# Nowy numer wiersza
+wiersz = pierwsza_mod * 10000 + reszta
+
+# Dwucyfrowa końcówka
+koncowka = liczba % 100
+
+# Numer kolumny modulo 50
+kolumna = koncowka % 50
+
+print("wiersz =", wiersz)
+print("kolumna =", kolumna)
+```
+
+Losowanie z tablicy wszystkich indeksów:
+
+```python
+import random
+
+tablica = [53827, 12345, 98765, 24680, 13579]
+
+# tworzymy listę indeksów: [0, 1, 2, 3, 4]
+indeksy = list(range(len(tablica)))
+
+# mieszamy indeksy losowo
+random.shuffle(indeksy)
+
+for indeks in indeksy:
+    liczba = tablica[indeks]
+
+    print("indeks =", indeks)
+    print("liczba =", liczba)
+
+    # Pierwsza cyfra
+    pierwsza = liczba // 10000
+
+    # Reszta liczby po usunięciu pierwszej cyfry
+    reszta = liczba % 10000
+
+    # Modyfikacja pierwszej cyfry modulo 2
+    pierwsza_mod = pierwsza % 2
+
+    # Nowy numer wiersza
+    wiersz = pierwsza_mod * 10000 + reszta
+
+    # Dwucyfrowa końcówka
+    koncowka = liczba % 100
+
+    # Numer kolumny modulo 50
+    kolumna = koncowka % 50
+
+    print("wiersz =", wiersz)
+    print("kolumna =", kolumna)
+    print()
+```
+
 ```python
 liczba = 53827
 
@@ -24336,6 +24366,7 @@ kolumna = koncowka % 50
 print("wiersz =", wiersz)
 print("kolumna =", kolumna)
 ```
+
 
 ---
 
@@ -24383,21 +24414,6 @@ Przykłady z wykładu:
 Każdy wygenerowany ciąg liczb losowych powinien być testowany przed użyciem.
 
 W przypadku awarii urządzenia fizycznego wygenerowany ciąg może stracić własności losowości.
-
-### Przykład w Pythonie
-
-```python
-generatory_fizyczne = [
-    "moneta",
-    "kostka do gry",
-    "ruletka",
-    "licznik Geigera",
-    "dioda szumowa"
-]
-
-for generator in generatory_fizyczne:
-    print(generator)
-```
 
 ---
 
@@ -24486,7 +24502,7 @@ $$
 X \in {0,1,\dots,MAX}  
 $$
 
-## 10.1. Wartość z przedziału $$[0,1)$$
+## 10.1. Wartość z przedziału $[0,1)$
 
 Wartość z przedziału:
 
@@ -24500,7 +24516,7 @@ $$
 R = \frac{X}{MAX+1}  
 $$
 
-## 10.2. Wartość całkowita z przedziału $${0,1,\dots,max}$$
+## 10.2. Wartość całkowita z przedziału ${0,1,\dots,max}$
 
 Jeżeli:
 
@@ -24523,7 +24539,7 @@ Y =
 \right\rfloor  
 $$
 
-## 10.3. Wartość całkowita z przedziału $${min,min+1,\dots,max}$$
+## 10.3. Wartość całkowita z przedziału ${min,min+1,\dots,max}$
 
 Wartość całkowitą z przedziału:
 
@@ -24634,7 +24650,7 @@ $$
 Addytywny generator LCG ma wzór:
 
 $$  
-X_{n+1} = (aX_n + c) \bmod M  
+X_{n+1} = (a \cdot X_n + c) \bmod M  
 $$
 
 gdzie:
@@ -24653,7 +24669,7 @@ gdzie:
 Multiplikatywny LCG ma wzór:
 
 $$  
-X_{n+1} = aX_n \bmod M  
+X_{n+1} = a \cdot X_n \bmod M  
 $$
 
 Jest to szczególny przypadek generatora LCG, w którym:
@@ -25121,7 +25137,7 @@ $$
 Kolejne wartości obliczamy ze wzoru:
 
 $$  
-X_n = (4X_{n-1}+2) \bmod 9  
+X_n = (4 \cdot X_{n-1}+2) \bmod 9  
 $$
 
 dla:
@@ -25187,6 +25203,32 @@ $$
 $$
 
 ### Przykład w Pythonie
+
+```python
+a = 4
+c = 2
+M = 9
+X0 = 0
+
+X_poprzednie = X0
+
+print("X_0 =", X0)
+
+n = 1
+
+while True:
+    X_n = (a * X_poprzednie + c) % M
+
+    print(f"X_{n} = ({a} * {X_poprzednie} + {c}) mod {M} = {X_n}")
+
+    if X_n == X0:
+        print("Ciąg wrócił do wartości początkowej.")
+        print("Okres generatora wynosi:", n)
+        break
+
+    X_poprzednie = X_n
+    n += 1
+```
 
 ```python
 a = 4
@@ -25269,7 +25311,7 @@ Generator Lehmera jest odmianą generatora LCG.
 Jest to generator multiplikatywny:
 
 $$  
-X_{k+1} = aX_k \bmod M  
+X_{k+1} = a \cdot X_k \bmod M  
 $$
 
 gdzie:
@@ -25576,6 +25618,38 @@ q = 1
 
 X = [7, 16, 5]
 
+stan_poczatkowy = X.copy()
+
+print("X_0 =", X[0])
+print("X_1 =", X[1])
+print("X_2 =", X[2])
+
+n = p
+
+while True:
+    nowy = (X[n - p] + X[n - q]) % m
+    X.append(nowy)
+
+    print("X_", n, "=", nowy)
+
+    # sprawdzamy, czy ostatnie p wartości są takie jak początkowe
+    if X[-p:] == stan_poczatkowy:
+        print("Ciąg wrócił do stanu początkowego.")
+        print("Okres generatora wynosi:", n - p + 1)
+        break
+
+    n += 1
+```
+
+W generatorze opóźnionym stan generatora tworzy kilka ostatnich wartości, a nie tylko jedna wartość. Dlatego okres należy wykrywać przez powrót całego stanu początkowego, np. `[X0, X1, X2]`, a nie tylko przez pojawienie się samego `X0`.
+
+```python
+m = 17
+p = 3
+q = 1
+
+X = [7, 16, 5]
+
 ile = 12
 
 for n in range(p, ile):
@@ -25757,6 +25831,38 @@ Nie należy automatycznie traktować go jako generatora kryptograficznie bezpiec
 ### Przykład w Pythonie
 
 ```python
+m = 5
+
+# współczynniki wielomianu:
+# g(x) = a0*x^0 + a1*x^1
+# g(x) = 1 + 1*x
+a = [1, 1]
+
+wartosci = []
+
+for x in range(m):
+    suma = 0
+
+    for k in range(len(a)):
+        suma += a[k] * (x ** k)
+
+    g = suma % m
+    wartosci.append(g)
+
+print("Wartości funkcji modulo m:")
+
+for wartosc in wartosci:
+    print(wartosc)
+
+if len(set(wartosci)) == m:
+    print("g(x) jest wielomianem permutacyjnym modulo", m)
+else:
+    print("g(x) nie jest wielomianem permutacyjnym modulo", m)
+```
+
+Prostrzy przykład:
+
+```python
 # Sprawdzamy wartości przykładowej funkcji g(x) = x + 1 modulo m.
 
 m = 5
@@ -25781,11 +25887,11 @@ Generator inwersyjny wykorzystuje odwrotność modulo liczby pierwszej.
 
 Wzór:
 
-# $$  
+$$  
 X_{n+1}
-
+=
 \begin{cases}  
-(aX_n^{-1}+b)\bmod p, & X_n \neq 0 \  
+(aX_n^{-1}+b)\bmod p, & X_n \neq 0 \\  
 b, & X_n = 0  
 \end{cases}  
 $$
@@ -25832,9 +25938,12 @@ p = 17
 a = 3
 b = 5
 
-X = 4
+X0 = 4
+X = X0
 
-for n in range(10):
+n = 0
+
+while True:
     print("X_", n, "=", X)
 
     if X != 0:
@@ -25842,6 +25951,13 @@ for n in range(10):
         X = (a * odw + b) % p
     else:
         X = b
+
+    n += 1
+
+    if X == X0:
+        print("Ciąg wrócił do wartości początkowej.")
+        print("Okres generatora wynosi:", n)
+        break
 ```
 
 ---
@@ -25871,20 +25987,6 @@ Przykładowe rodziny generatorów:
 ### Ważna uwaga
 
 Trzeba odróżniać generator do symulacji od generatora do kryptografii.
-
-### Przykład w Pythonie
-
-```python
-generatory = [
-    "Mersenne Twister",
-    "PCG",
-    "xoshiro",
-    "xoroshiro"
-]
-
-for generator in generatory:
-    print(generator)
-```
 
 ---
 
@@ -25922,8 +26024,9 @@ PCG jest dobrym przykładem generatora do symulacji, ale nie jest standardowym g
 ### Przykład w Pythonie
 
 ```python
-# Bardzo uproszczony przykład idei:
-# najpierw LCG, potem prosta "permutacja" przez przesunięcie i XOR.
+# Bardzo uproszczony przykład idei generatora PCG:
+# 1. najpierw aktualizujemy stan za pomocą generatora kongruencyjnego,
+# 2. potem wykonujemy prostą permutację bitów przed zwróceniem wyniku.
 
 m = 16
 modul = 2 ** m
@@ -25934,13 +26037,115 @@ c = 12345
 X = 7
 
 for n in range(5):
+    # Rekurencja kongruencyjna:
+    # X_{n+1} = (a * X_n + c) mod 2^m
     X = (a * X + c) % modul
 
-    # Uproszczona permutacja bitów
+    # Uproszczona permutacja bitów:
+    # przesunięcie bitowe w prawo i operacja XOR
     R = X ^ (X >> 5)
 
     print("stan =", X, "wynik =", R)
 ```
+
+### Dodatkowe
+**mniej uproszczony przykład PCG**, bliższy prawdziwej wersji `PCG32`.
+
+Tutaj są dwa etapy:
+
+1. aktualizacja stanu przez LCG:
+    
+
+$$  
+X_{n+1} = (aX_n + c) \bmod 2^{64}  
+$$
+
+2. permutacja bitów, czyli przekształcenie stanu na wynik 32-bitowy.
+    
+
+```python
+# Mniej uproszczony przykład generatora PCG32.
+# Generator ma 64-bitowy stan wewnętrzny,
+# a zwraca 32-bitową liczbę pseudolosową.
+
+MASK_64 = (1 << 64) - 1
+MASK_32 = (1 << 32) - 1
+
+
+def rotacja_w_prawo(x, r):
+    # Funkcja wykonuje rotację bitów w prawo dla liczby 32-bitowej.
+    # To znaczy, że bity "wypchnięte" z prawej strony wracają z lewej strony.
+    return ((x >> r) | (x << ((-r) & 31))) & MASK_32
+
+
+class PCG32:
+    def __init__(self, seed=42, seq=54):
+        # seed to wartość początkowa generatora.
+        # seq pozwala tworzyć różne niezależne ciągi.
+        self.state = 0
+
+        # Stała mnożnika używana w PCG.
+        self.multiplier = 6364136223846793005
+
+        # Wartość increment musi być nieparzysta.
+        # Dlatego bierzemy seq << 1 i dodajemy 1.
+        self.increment = ((seq << 1) | 1) & MASK_64
+
+        # Inicjalizacja zgodna z ideą PCG.
+        self.random()
+        self.state = (self.state + seed) & MASK_64
+        self.random()
+
+    def random(self):
+        # Zapamiętujemy stary stan.
+        oldstate = self.state
+
+        # Aktualizacja stanu:
+        # X_{n+1} = (a * X_n + c) mod 2^64
+        self.state = (oldstate * self.multiplier + self.increment) & MASK_64
+
+        # Permutacja bitów.
+        # Najpierw mieszamy bity starego stanu przez XOR i przesunięcie.
+        xorshifted = (((oldstate >> 18) ^ oldstate) >> 27) & MASK_32
+
+        # Liczymy wartość rotacji na podstawie starszych bitów stanu.
+        rot = oldstate >> 59
+
+        # Zwracamy wynik po rotacji bitów.
+        return rotacja_w_prawo(xorshifted, rot)
+
+
+# Przykład użycia
+generator = PCG32(seed=7, seq=3)
+
+for i in range(10):
+    liczba = generator.random()
+    print("R_", i, "=", liczba)
+```
+
+Najważniejsze linie odpowiadają slajdowi:
+
+```python
+self.state = (oldstate * self.multiplier + self.increment) & MASK_64
+```
+
+To jest rekurencja kongruencyjna:
+
+$$  
+X_{n+1} = (aX_n+c)\bmod 2^{64}  
+$$
+
+A to jest permutacja bitów:
+
+```python
+xorshifted = (((oldstate >> 18) ^ oldstate) >> 27) & MASK_32
+rot = oldstate >> 59
+return rotacja_w_prawo(xorshifted, rot)
+```
+
+Czyli generator nie zwraca bezpośrednio `state`, tylko najpierw miesza jego bity. Dzięki temu wynik ma lepsze własności niż zwykły generator kongruencyjny.
+
+> W generatorze PCG stan wewnętrzny jest aktualizowany prostą rekurencją kongruencyjną, ale wynik nie jest zwracany bezpośrednio. Przed zwróceniem wykonywana jest permutacja bitów, np. przesunięcia, XOR oraz rotacja. Dzięki temu ogranicza się widoczne zależności liniowe typowe dla klasycznych generatorów LCG. nadal nie jest to standardowy generator kryptograficzny.
 
 ---
 
@@ -26110,14 +26315,14 @@ $$
 3. Obliczamy statystykę:
     
 
-## $$  
+$$  
 X =  
 \frac{16}{5000}  
 \left(  
 \sum_{i=0}^{15}  
-f(i)^2  
+[f(i)]^2  
 \right)
-
+-
 5000  
 $$
 
@@ -26156,8 +26361,71 @@ for i in range(0, len(bity), 4):
         wartosc = int(blok, 2)
         liczniki[wartosc] = liczniki[wartosc] + 1
 
+print("Liczności bloków:")
+
 for i in range(16):
-    print(i, liczniki[i])
+    print(format(i, "04b"), "=", liczniki[i])
+
+# liczba pełnych bloków 4-bitowych
+N = len(bity) // 4
+
+suma_kwadratow = 0
+
+for i in range(16):
+    suma_kwadratow += liczniki[i] ** 2
+
+X = (16 / N) * suma_kwadratow - N
+
+print("Statystyka X =", X)
+```
+**uwaga**: dla tego krótkiego ciągu **nie powinno się stosować zakresu**:
+
+$$2.16<X<46.17$$
+
+pełniejszy przykład zgodny ze slajdem wygląda tak:
+
+```python
+import random
+
+# Generujemy ciąg 20000 bitów
+bity = ""
+
+for i in range(20000):
+    bity += str(random.randint(0, 1))
+
+liczniki = []
+
+for i in range(16):
+    liczniki.append(0)
+
+# Dzielimy ciąg na bloki 4-bitowe
+for i in range(0, len(bity), 4):
+    blok = bity[i:i + 4]
+
+    wartosc = int(blok, 2)
+    liczniki[wartosc] = liczniki[wartosc] + 1
+
+print("Liczności bloków:")
+
+for i in range(16):
+    print(format(i, "04b"), "=", liczniki[i])
+
+# Liczba bloków
+N = 5000
+
+suma_kwadratow = 0
+
+for i in range(16):
+    suma_kwadratow += liczniki[i] ** 2
+
+X = (16 / N) * suma_kwadratow - N
+
+print("Statystyka X =", X)
+
+if 2.16 < X < 46.17:
+    print("Test pokerowy zaliczony")
+else:
+    print("Test pokerowy niezaliczony")
 ```
 
 ---

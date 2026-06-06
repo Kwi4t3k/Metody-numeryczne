@@ -246,4 +246,48 @@
 - Wynik końcowy
 - Wnioski
 
-## 11 -  
+## 11 -  Generatory liczb pseudolosowych
+- Losowość, liczby losowe i pseudolosowe oraz ich wykorzystanie
+- Losowość
+- Losowość w matematyce i kryptografii
+- Losowość w symulacjach i systemach komunikacyjnych
+- Ciąg losowy
+- Ciągi pseudolosowe
+- Przykłady generatorów ciągów liczb pseudolosowych (LCG (Linear Congruential Generator), Mersenne Twister, Cryptographically Secure Pseudorandom Number Generators (CSPRNG))
+- Historyczne metody otrzymywania liczb losowych
+- Wprowadzenie do historycznych metod liczb losowych
+- Wczesne tablice liczb losowych
+- Tablice liczb losowych w Polsce i RAND Corporation
+- Generowanie ciągów liczb losowych na podstawie tablicy cyfr losowych
+- Współczesne metody otrzymywania liczb losowych
+- Generatory fizyczne liczb losowych
+- Przykłady generatorów fizycznych
+- Ważność testowania generatorów fizycznych
+- Generatory algorytmiczne (Generowanie liczb z rozkładu jednostajnego)
+- Przeskalowanie wartości generatora (Przejście do zadanego przedziału)
+- Uwaga praktyczna: operator modulo
+- Generatory kongruencyjne (LCG), Właściwości i okres generatora
+- Konfiguracja generatora liczb losowych
+- Dobór parametrów LCG (Warunki pełnego okresu)
+- Przykład doboru parametrów LCG
+- Jak sprawdzić okres generatora?
+- Przykład generatora kongruencyjnego mieszanego
+- Wizualizacja jakości generatora (Punkty tworzone z kolejnych wartości)
+- Generator Lehmera
+- Uogólniony generator liniowy
+- Generator Fibonacciego
+- Lagged Fibonacci Generator (LFG) (Uogólnienie generatora Fibonacciego)
+- Implementacja generatora LFG
+- Przykład zastosowania generatora (LFG)
+- Zaawansowane uogólnienia (Generator Fibonacciego)
+- Kwadratowy generator kongruencyjny
+- Generator wykorzystujący wielomiany permutacyjne
+- Generator inwersyjny
+- Nowoczesne generatory do symulacji numerycznych (Mersenne Twister, PCG, xoshiro/xoroshiro)
+- Generator PCG – idea
+- Generatory kryptograficznie bezpieczne (Hash DRBG, HMAC DRBG, CTR DRBG)
+- Metody testowania generatorów 
+- Historyczne testy FIPS dla ciągów bitowych
+- Test monobitowy
+- Test pokerowy
+- 
