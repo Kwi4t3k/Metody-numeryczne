@@ -26511,21 +26511,6 @@ W literaturze można znaleźć różne grupy testów:
 5. **Testy niezależności** — sprawdzają, czy zmienne są niezależne.
     
 
-### Przykład w Pythonie
-
-```python
-testy = [
-    "testy losowości",
-    "testy zgodności",
-    "testy normalności",
-    "testy parametrów rozkładu",
-    "testy niezależności"
-]
-
-for test in testy:
-    print(test)
-```
-
 ---
 
 # 37. Kryteria dobrego generatora
@@ -26595,7 +26580,7 @@ Dla tego samego ziarna generator algorytmiczny daje ten sam ciąg.
 
 ---
 
-## 38.4. Skalowanie do przedziału $$[0,1)$$
+## 38.4. Skalowanie do przedziału $[0,1)$
 
 Jeżeli:
 
@@ -26765,11 +26750,11 @@ $$
 
 ## 38.15. Generator inwersyjny
 
-# $$  
+$$  
 X_{n+1}
-
+=
 \begin{cases}  
-(aX_n^{-1}+b)\bmod p, & X_n \neq 0 \  
+(aX_n^{-1}+b)\bmod p, & X_n \neq 0 \\  
 b, & X_n = 0  
 \end{cases}  
 $$
@@ -26796,14 +26781,14 @@ $$
 
 Dzielimy `20000` bitów na `5000` bloków czterobitowych i liczymy statystykę:
 
-## $$  
+$$  
 X =  
 \frac{16}{5000}  
 \left(  
 \sum_{i=0}^{15}  
 f(i)^2  
 \right)
-
+-
 5000  
 $$
 
@@ -26836,51 +26821,41 @@ Dobry generator powinien mieć:
 
 ---
 
-# 39. Krótkie podsumowanie
+# Wykład 12: Metody Monte Carlo (lab 14)
 
-Wykład 11 dotyczył generatorów liczb pseudolosowych.
+## 1. Wprowadzenie do metody Monte Carlo
 
-Najważniejsze wnioski:
+**Metoda Monte Carlo** jest metodą numeryczną opartą na losowym próbkowaniu przestrzeni rozwiązań.
 
-1. Liczby losowe są potrzebne w statystyce, symulacjach, metodach Monte Carlo i kryptografii.
-    
-2. Ciąg losowy nie ma krótszego opisu niż sam ciąg.
-    
-3. Ciąg pseudolosowy jest tworzony algorytmicznie, ale ma wyglądać jak losowy.
-    
-4. Generatory algorytmiczne są deterministyczne i zależą od ziarna.
-    
-5. Generatory fizyczne korzystają z losowych procesów fizycznych.
-    
-6. Wartości generatora często skaluje się do przedziału:
-    
+Stosuje się ją do rozwiązywania problemów, które są zbyt złożone, aby rozwiązać je klasycznymi metodami analitycznymi.
 
-$$  
-[0,1)  
-$$
+Metoda Monte Carlo polega na tym, że zamiast liczyć dokładne rozwiązanie, wykonujemy wiele losowych prób, a następnie uśredniamy lub analizujemy otrzymane wyniki.
 
-7. LCG to jedna z najprostszych i najstarszych metod generowania liczb pseudolosowych.
-    
-8. Okres generatora oznacza długość cyklu przed powtórzeniem wartości.
-    
-9. Warunki Hulla-Dobella pomagają dobrać parametry LCG o pełnym okresie.
-    
-10. Sam pełny okres nie oznacza jeszcze dobrej jakości statystycznej.
-    
-11. Operator modulo może powodować obciążenie wyników.
-    
-12. Generatory liniowe mogą mieć widoczne wzory i korelacje.
-    
-13. Generator Lehmera jest multiplikatywnym przypadkiem LCG.
-    
-14. Generatory Fibonacciego i LFG używają wcześniejszych wartości ciągu.
-    
-15. Nowoczesne generatory do symulacji to między innymi Mersenne Twister, PCG oraz xoshiro/xoroshiro.
-    
-16. Do kryptografii należy używać generatorów kryptograficznie bezpiecznych.
-    
-17. Generatory trzeba testować statystycznie.
-    
-18. Przykładowe testy to test monobitowy, pokerowy i test serii.
-    
-19. Dobry generator powinien mieć długi okres, równomierność i nieprzewidywalność.
+### Geneza metody
+
+Nazwa **Monte Carlo** została użyta w latach 40. XX wieku przez naukowców z Instytutu Los Alamos.
+
+Metoda była wtedy wykorzystywana przy projektach jądrowych, między innymi do symulacji losowego zachowania neutronów w substancjach rozszczepialnych.
+
+Z metodą Monte Carlo związani byli między innymi:
+
+- Stanisław Ulam,
+- John von Neumann,
+- Enrico Fermi.
+
+### Przykład intuicyjny
+
+Jeżeli trudno dokładnie obliczyć pole skomplikowanego obszaru, można losować punkty w prostokącie obejmującym ten obszar i sprawdzać, ile z nich trafiło do środka badanego obszaru.
+
+Im więcej punktów wylosujemy, tym zwykle lepsze będzie przybliżenie.
+
+### Przykład w Pythonie
+
+```python
+# Prosty przykład idei Monte Carlo:
+# zamiast dokładnie analizować cały obszar, wykonujemy wiele prób.
+
+liczba_prob = 10
+
+for i in range(liczba_prob):
+    print("Wykonujemy próbę numer:", i + 1)

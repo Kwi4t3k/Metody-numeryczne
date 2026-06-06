@@ -290,4 +290,6 @@
 - Historyczne testy FIPS dla ciągów bitowych
 - Test monobitowy
 - Test pokerowy
-- 
+- Test serii
+- Różne rodzaje testów statystycznych
+- Podsumowanie - kryteria dobrego generatora

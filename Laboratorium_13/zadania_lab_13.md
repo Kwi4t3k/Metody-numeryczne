@@ -53,7 +53,7 @@ Naszym zadaniem jest przeskalowanie tej liczby tak, żeby dostać wynik z innego
 
 ---
 
-## Podpunkt a) — przedział (\langle 0,MAX\rangle)
+## Podpunkt a) — przedział $(int) \langle 0,MAX\rangle$
 
 W tym przypadku nie trzeba nic przeliczać, ponieważ funkcja `rand()` już zwraca liczbę z przedziału:
 
@@ -71,7 +71,7 @@ W kodzie wystarczy zwrócić wynik funkcji `rand()`.
 
 ---
 
-## Podpunkt b) — przedział (\langle 0,max\rangle)
+## Podpunkt b) — przedział $(int)\langle 0,max\rangle$
 
 Chcemy dostać liczbę całkowitą z przedziału:
 
@@ -91,7 +91,7 @@ $$
 Y=\left\lfloor \frac{X}{MAX+1}(max+1)\right\rfloor  
 $$
 
-Dlaczego jest (MAX+1)?
+Dlaczego jest $MAX+1$?
 
 Ponieważ jeśli generator zwraca liczby:
 
@@ -107,7 +107,7 @@ $$
 
 ---
 
-## Podpunkt c) — przedział (\langle min,max\rangle)
+## Podpunkt c) — przedział $(int) \langle min,max\rangle$
 
 Chcemy dostać liczbę całkowitą z przedziału:
 
@@ -121,11 +121,11 @@ $$
 Y=min+\left\lfloor \frac{X}{MAX+1}(max-min+1)\right\rfloor  
 $$
 
-Najpierw losujemy wartość z przedziału od (0) do (max-min), a potem przesuwamy ją o (min).
+Najpierw losujemy wartość z przedziału od $0$ do $max-min$, a potem przesuwamy ją o $min$.
 
 ---
 
-## Podpunkt d) — przedział ([0,1))
+## Podpunkt d) — przedział $(double) [0,1]$
 
 W treści zadania pojawia się zapis:
 
@@ -133,7 +133,7 @@ $$
 \langle 0,1\rangle  
 $$
 
-ale na wykładzie przeskalowanie do rozkładu jednostajnego jest podane jako:
+na wykładzie przeskalowanie do rozkładu jednostajnego jest podane jako:
 
 $$  
 R=\frac{X}{MAX+1}  
@@ -145,7 +145,7 @@ $$
 R\in[0,1)  
 $$
 
-Czyli wynik może być równy (0), ale nie będzie równy dokładnie (1).
+Czyli wynik może być równy $0$, ale nie będzie równy dokładnie $1$.
 
 Jeżeli generator zwróci największą możliwą wartość:
 
@@ -165,6 +165,16 @@ Dlatego w kodzie zgodnym z wykładem używamy:
 return X / (MAX + 1)
 ```
 
+Jeśli zakres ma być faktycznie $[0,1]$ to:
+
+$$  
+R=\frac{MAX}{MAX}=1  
+$$
+
+```python
+return X / (MAX)
+```
+
 ---
 
 # Kod programu
@@ -182,27 +192,30 @@ MAX = sys.maxsize  # ustalamy MAX jako największą dużą liczbę całkowitą d
 def rand():  # definiujemy funkcję podobną do rand()
     return random.randint(0, MAX)  # zwracamy liczbę całkowitą z przedziału <0, MAX>
 
-
+# a)
 def losuj_0_MAX():  # funkcja realizuje podpunkt a)
     return rand()  # zwracamy wartość z generatora, bo rand() już daje przedział <0, MAX>
 
-
+# b)
 def losuj_0_max(max_wartosc):  # funkcja realizuje podpunkt b)
     X = rand()  # losujemy liczbę X z przedziału <0, MAX>
 
     return (X * (max_wartosc + 1)) // (MAX + 1)  # stosujemy wzór floor(X/(MAX+1)*(max+1))
 
-
+# c)
 def losuj_min_max(min_wartosc, max_wartosc):  # funkcja realizuje podpunkt c)
     X = rand()  # losujemy liczbę X z przedziału <0, MAX>
 
     return min_wartosc + (X * (max_wartosc - min_wartosc + 1)) // (MAX + 1)  # stosujemy wzór ze slajdu
 
-
+# d)
 def losuj_0_1():  # funkcja realizuje podpunkt d)
     X = rand()  # losujemy liczbę X z przedziału <0, MAX>
 
-    return X / (MAX + 1)  # zgodnie z wykładem otrzymujemy liczbę z przedziału [0,1)
+    return X / (MAX)  # otrzymujemy liczbę z przedziału [0,1]
+    
+    # ALTERNATYWNIE
+    # return X / (MAX + 1) # otrzymujemy liczbę z przedziału [0,1)
 ```
 
 ---
@@ -215,14 +228,14 @@ print("--------------------ZADANIE 1--------------------")  # wypisujemy nagłó
 print("a) <0, MAX>:", losuj_0_MAX())  # testujemy losowanie z przedziału <0, MAX>
 print("b) <0, max>:", losuj_0_max(10))  # testujemy losowanie z przedziału <0, 10>
 print("c) <min, max>:", losuj_min_max(5, 15))  # testujemy losowanie z przedziału <5, 15>
-print("d) [0, 1):", losuj_0_1())  # testujemy losowanie liczby rzeczywistej z przedziału [0,1)
+print("d) <0, 1>:", losuj_0_1())  # testujemy losowanie liczby rzeczywistej z przedziału [0,1]
 ```
 
 ---
 
 ## Wnioski
 
-W zadaniu 1 najważniejsze jest poprawne przeskalowanie liczby (X), którą zwraca generator.
+W zadaniu 1 najważniejsze jest poprawne przeskalowanie liczby $X$, którą zwraca generator.
 
 Dla przedziałów całkowitych używamy wzorów:
 
@@ -254,7 +267,7 @@ Nie używamy prostego:
 X % (max + 1)
 ```
 
-ponieważ może ono powodować nierównomierny rozkład wyników, jeśli liczba możliwych wartości generatora nie dzieli się przez (max+1).
+ponieważ może ono powodować nierównomierny rozkład wyników, jeśli liczba możliwych wartości generatora nie dzieli się przez $max+1$.
 
 ---
 
@@ -276,7 +289,7 @@ $$
 (X_0,X_1),(X_2,X_3),\dots,(X_i,X_{i+1}),(X_{i+2},X_{i+3}),\dots  
 $$
 
-- zwizualizuj tak utworzony zbiór punktów, np. jako plik SVG.
+- zwizualizuj tak utworzony zbiór punktów, np. jako plik SVG za pomocą: https://www.w3schools.com/graphics/svg_circle.asp.
     
 
 ---
@@ -293,24 +306,24 @@ $$
 
 gdzie:
 
-- (X_n) — aktualna wartość ciągu,
+- $X_n$ — aktualna wartość ciągu,
     
-- (X_{n+1}) — następna wartość ciągu,
+- $X_{n+1}$ — następna wartość ciągu,
     
-- (a) — mnożnik,
+- $a$ — mnożnik,
     
-- (c) — przyrost,
+- $c$ — przyrost,
     
-- (M) — moduł,
+- $M$ — moduł,
     
-- (X_0) — ziarno, czyli wartość początkowa.
+- $X_0$ — ziarno, czyli wartość początkowa. (najlepiej wybrać $0≤X0​<M$)
     
 
 ---
 
-## Dlaczego trzeba poprawić parametry?
+## Dlaczego trzeba ustawić konkretne parametry?
 
-Parametry (a), (c), (M) i (X_0) nie powinny być wybrane całkiem przypadkowo.
+Parametry $a$, $c$, $M$ i $X_0$ nie powinny być wybrane całkiem przypadkowo.
 
 Jeśli wybierzemy je źle, generator może mieć bardzo krótki okres, czyli ciąg szybko zacznie się powtarzać.
 
@@ -326,16 +339,16 @@ $$
 nwd(c,M)=1  
 $$
 
-2. (a-1) jest podzielne przez każdy czynnik pierwszy liczby (M),
+2. $a-1$ jest podzielne przez każdy czynnik pierwszy liczby $M$,
     
-3. jeśli (M) jest podzielne przez (4), to (a-1) też jest podzielne przez (4).
+3. jeśli $M$ jest podzielne przez $4$, to $a-1$ też jest podzielne przez $4$.
     
 
 ---
 
 ## Parametry użyte w programie
 
-W programie używamy typowych parametrów generatora ANSI C:
+W programie używamy typowych parametrów generatora ANSIC:
 
 $$  
 a=1103515245  
@@ -361,7 +374,7 @@ c = 12345
 M = 1515151
 ```
 
-bo parametry z ANSI C są znanym zestawem dla generatora LCG.
+bo parametry z ANSIC są znanym zestawem dla generatora LCG.
 
 ---
 
@@ -398,10 +411,7 @@ Dlatego współrzędne przeliczamy na rozmiar obrazka.
 ```python
 # zad 2
 
-import math  # importujemy math, żeby móc sprawdzić nwd(c, M)
-
-
-def generator_LCG(a, c, X0, M, ile):  # definiujemy funkcję generatora LCG
+def generator_LCG(a, c, X0, M, ile):  # definiujemy funkcję generatora LCG | (ile to jest ile liczb ma wygenerować)
     liczby = []  # tworzymy pustą listę na wygenerowane liczby
     X = X0  # ustawiamy wartość początkową generatora, czyli ziarno
 
@@ -411,6 +421,16 @@ def generator_LCG(a, c, X0, M, ile):  # definiujemy funkcję generatora LCG
 
     return liczby  # zwracamy listę wygenerowanych liczb
 
+def nwd(a, b): # funkcja oblicza największy wspólny dzielnik liczb a i b  
+	a = abs(a) # zamieniamy a na wartość dodatnią  
+	b = abs(b) # zamieniamy b na wartość dodatnią  
+  
+	while b != 0: # wykonujemy pętlę, dopóki b nie jest równe 0 
+		reszta = a % b # obliczamy resztę z dzielenia a przez b
+		a = b # przesuwamy b na miejsce a  
+		b = reszta # reszta z dzielenia staje się nowym b  
+  
+return a # gdy b = 0, aktualne a jest największym wspólnym dzielnikiem
 
 def utworz_punkty(liczby):  # definiujemy funkcję tworzącą punkty z kolejnych wartości ciągu
     punkty = []  # tworzymy pustą listę punktów
@@ -447,7 +467,7 @@ def zapisz_svg(punkty, M, nazwa_pliku):  # definiujemy funkcję zapisującą pun
 ## Test programu
 
 ```python
-print("--------------------ZADANIE 2--------------------")  # wypisujemy nagłówek zadania 2
+print("--------------------ZADANIE 2--------------------")
 
 a = 1103515245  # mnożnik generatora LCG
 c = 12345  # przyrost generatora LCG
@@ -461,7 +481,8 @@ print("M =", M)  # wypisujemy M
 print("X0 =", X0)  # wypisujemy ziarno
 
 print("\nSprawdzenie podstawowego warunku:")  # wypisujemy nagłówek sprawdzenia
-print("nwd(c, M) =", math.gcd(c, M))  # sprawdzamy, czy c i M są względnie pierwsze
+print("moja funkcja z wyżej: nwd(c, M) =", nwd(c, M)) # sprawdzamy, czy c i M są względnie pierwsze  
+# print("nwd(c, M) =", math.gcd(c, M)) # funkcja z biblioteki - wymaga import math
 
 liczby = generator_LCG(a, c, X0, M, 1000)  # generujemy 1000 liczb pseudolosowych
 punkty = utworz_punkty(liczby)  # tworzymy punkty z kolejnych wartości ciągu
@@ -469,8 +490,18 @@ punkty = utworz_punkty(liczby)  # tworzymy punkty z kolejnych wartości ciągu
 print("\nPierwsze 20 liczb:")  # wypisujemy nagłówek
 print(liczby[:20])  # wypisujemy pierwsze 20 liczb
 
+# Wypisanie wszystkich liczb  
+# print("Wygenerowane liczby:")  
+# for i in range(len(liczby)):  
+# print("X_", i, "=", liczby[i])
+
 print("\nPierwsze 10 punktów:")  # wypisujemy nagłówek
 print(punkty[:10])  # wypisujemy pierwsze 10 punktów
+
+# Wypisanie wszystkich punktów  
+# print("\nWygenerowane punkty:")  
+# for i in range(len(punkty)):  
+# print("P_", i, "=", punkty[i])
 
 zapisz_svg(punkty, M, "punkty_LCG.svg")  # zapisujemy punkty do pliku SVG
 
@@ -492,6 +523,8 @@ zawiera wizualizację punktów:
 $$  
 (X_0,X_1),(X_2,X_3),(X_4,X_5),\dots  
 $$
+
+![[punkty_LCG.svg]]
 
 Jeżeli punkty układają się w wyraźne linie albo regularne pasy, generator może mieć słabe własności statystyczne.
 
@@ -578,13 +611,53 @@ $$
 p>q\ge 1  
 $$
 
-Liczby (p) i (q) oznaczają opóźnienia.
+Liczby $p$ i $q$ oznaczają opóźnienia.
+
+Generator opóźniony można zmodyfikować, zmieniając operację wykonywaną na poprzednich wyrazach ciągu:
+
+$$
+X_n = (X_{n-p} \diamond X_{n-q}) \bmod m
+$$
+
+gdzie symbol $\diamond$ oznacza wybraną operację, np.:
+
+$$
+\diamond \in \{+, -, \cdot, \oplus\}
+$$
+
+czyli dodawanie, odejmowanie, mnożenie albo XOR.
+
+Przykładowe wersje:
+
+Dodawanie:
+
+$$
+X_n = (X_{n-p} + X_{n-q}) \bmod m
+$$
+
+Odejmowanie:
+
+$$
+X_n = (X_{n-p} - X_{n-q}) \bmod m
+$$
+
+Mnożenie:
+
+$$
+X_n = (X_{n-p} \cdot X_{n-q}) \bmod m
+$$
+
+XOR:
+
+$$
+X_n = (X_{n-p} \oplus X_{n-q}) \bmod m
+$$
 
 ---
 
 ## Wartości początkowe
 
-Do uruchomienia generatora LFG trzeba podać (p) wartości początkowych:
+Do uruchomienia generatora LFG trzeba podać $p$ wartości początkowych:
 
 $$  
 X_0,X_1,\dots,X_{p-1}  
@@ -635,6 +708,10 @@ $$
 $$  
 X_2=5  
 $$
+
+ - Wartości początkowe muszą należeć do zakresu:
+
+$$0≤Xi<M$$
 
 Sprawdzamy warunek:
 
@@ -717,24 +794,63 @@ $$
 ```python
 # zad 3
 
-def generator_LFG(p, q, M, poczatkowe, ile):  # definiujemy funkcję generatora LFG
+def generator_LFG_dodawanie(p, q, M, poczatkowe, ile):  # generator LFG z dodawaniem
     if not (p > q >= 1):  # sprawdzamy warunek p > q >= 1
-        raise ValueError("Musi być spełniony warunek p > q >= 1.")  # jeśli warunek jest zły, zgłaszamy błąd
+        raise ValueError("Musi być spełniony warunek p > q >= 1.")
 
-    if p > M:  # sprawdzamy warunek p <= M
-        raise ValueError("Musi być spełniony warunek p <= M.")  # jeśli p jest większe od M, zgłaszamy błąd
+    if p > M:  # sprawdzamy dodatkowy warunek z wykładu
+        raise ValueError("Musi być spełniony warunek p <= M.")
 
     if len(poczatkowe) < p:  # sprawdzamy, czy podano co najmniej p wartości początkowych
-        raise ValueError("Trzeba podać co najmniej p wartości początkowych.")  # jeśli wartości jest za mało, zgłaszamy błąd
+        raise ValueError("Trzeba podać co najmniej p wartości początkowych.")
 
     if all(wartosc == 0 for wartosc in poczatkowe):  # sprawdzamy, czy wartości początkowe nie są samymi zerami
-        raise ValueError("Wartości początkowe nie mogą być samymi zerami.")  # jeśli są same zera, ciąg byłby trywialny
+        raise ValueError("Wartości początkowe nie mogą być samymi zerami.")
 
-    liczby = poczatkowe.copy()  # kopiujemy wartości początkowe do listy wynikowej
+    liczby = poczatkowe.copy()  # kopiujemy wartości początkowe
 
-    for n in range(p, ile):  # generujemy kolejne wartości od indeksu p
-        Xn = (liczby[n - p] + liczby[n - q]) % M  # obliczamy X_n według wzoru LFG
-        liczby.append(Xn)  # dopisujemy nową wartość do listy
+    for n in range(p, ile):  # generujemy kolejne wartości ciągu
+        Xn = (liczby[n - p] + liczby[n - q]) % M  # wzór: X_n = (X_{n-p} + X_{n-q}) mod M
+        liczby.append(Xn)  # dodajemy nową wartość
+
+    return liczby  # zwracamy cały ciąg
+
+
+def generator_LFG_wybor_operacji(p, q, M, X_poczatkowe, ile, operacja):  # generator LFG z wyborem operacji
+    if not (p > q >= 1):  # sprawdzamy warunek p > q >= 1
+        raise ValueError("Musi być spełniony warunek p > q >= 1.")
+
+    if p > M:  # sprawdzamy dodatkowy warunek p <= M
+        raise ValueError("Musi być spełniony warunek p <= M.")
+    
+    if len(X_poczatkowe) < p:  # sprawdzamy, czy podano co najmniej p wartości początkowych
+        raise ValueError("Trzeba podać co najmniej p wartości początkowych.")
+
+    if all(wartosc == 0 for wartosc in X_poczatkowe):  # sprawdzamy, czy wartości początkowe nie są samymi zerami
+        raise ValueError("Wartości początkowe nie mogą być samymi zerami.")
+    
+    liczby = X_poczatkowe.copy()  # kopiujemy wartości początkowe
+    
+    for n in range(p, ile):  # generujemy kolejne wartości ciągu
+        a = liczby[n - p]  # pobieramy X_{n-p}
+        b = liczby[n - q]  # pobieramy X_{n-q}
+
+        if operacja == "dodawanie":  # wersja z dodawaniem
+            nowy = (a + b) % M
+
+        elif operacja == "odejmowanie":  # wersja z odejmowaniem
+            nowy = (a - b) % M
+
+        elif operacja == "mnozenie":  # wersja z mnożeniem
+            nowy = (a * b) % M
+
+        elif operacja == "xor":  # wersja z operacją XOR
+            nowy = (a ^ b) % M
+
+        else:  # jeśli wpisano nieznaną operację
+            raise ValueError("Nieznana operacja.")
+
+        liczby.append(nowy)  # dopisujemy nową wartość do ciągu
 
     return liczby  # zwracamy wygenerowany ciąg
 ```
@@ -753,6 +869,7 @@ q = 1  # drugie opóźnienie
 poczatkowe = [7, 16, 5]  # wartości początkowe X0, X1, X2
 
 liczby = generator_LFG(p, q, M, poczatkowe, 12)  # generujemy 12 wartości ciągu
+liczby2 = generator_LFG_wybor_operacji(p, q, M, poczatkowe, 12, "dodawanie") # wersja z wyborem operacji
 
 print("Parametry generatora LFG:")  # wypisujemy opis parametrów
 print("M =", M)  # wypisujemy moduł
@@ -762,6 +879,7 @@ print("Wartości początkowe:", poczatkowe)  # wypisujemy wartości początkowe
 
 print("\nWygenerowany ciąg:")  # wypisujemy nagłówek wyniku
 print(liczby)  # wypisujemy wygenerowany ciąg
+print(liczby2) # wypisujemy drugi wygenerowany ciąg
 ```
 
 ---
@@ -840,154 +958,3 @@ $$
 $$
 
 Generator LFG zmniejsza proste zależności między kolejnymi wyrazami w porównaniu z podstawowym generatorem Fibonacciego, ale nadal jest generatorem deterministycznym.
-
----
-
-# Cały program
-
-```python
-import random  # importujemy moduł random
-import sys  # importujemy moduł sys
-import math  # importujemy moduł math
-
-
-# -------------------- ZADANIE 1 --------------------
-
-MAX = sys.maxsize  # ustalamy MAX
-
-
-def rand():  # funkcja podobna do rand()
-    return random.randint(0, MAX)  # zwraca liczbę z przedziału <0, MAX>
-
-
-def losuj_0_MAX():  # podpunkt a)
-    return rand()  # zwraca wynik bez przeskalowania
-
-
-def losuj_0_max(max_wartosc):  # podpunkt b)
-    X = rand()  # losujemy X
-
-    return (X * (max_wartosc + 1)) // (MAX + 1)  # przeskalowanie do <0, max>
-
-
-def losuj_min_max(min_wartosc, max_wartosc):  # podpunkt c)
-    X = rand()  # losujemy X
-
-    return min_wartosc + (X * (max_wartosc - min_wartosc + 1)) // (MAX + 1)  # przeskalowanie do <min, max>
-
-
-def losuj_0_1():  # podpunkt d)
-    X = rand()  # losujemy X
-
-    return X / (MAX + 1)  # przeskalowanie do [0,1)
-
-
-print("--------------------ZADANIE 1--------------------")  # nagłówek zadania 1
-
-print("a) <0, MAX>:", losuj_0_MAX())  # wynik podpunktu a)
-print("b) <0, max>:", losuj_0_max(10))  # wynik podpunktu b)
-print("c) <min, max>:", losuj_min_max(5, 15))  # wynik podpunktu c)
-print("d) [0, 1):", losuj_0_1())  # wynik podpunktu d)
-
-
-# -------------------- ZADANIE 2 --------------------
-
-def generator_LCG(a, c, X0, M, ile):  # generator LCG
-    liczby = []  # lista wynikowa
-    X = X0  # ziarno
-
-    for i in range(ile):  # generujemy ile liczb
-        liczby.append(X)  # zapisujemy aktualną wartość
-        X = (a * X + c) % M  # wzór LCG
-
-    return liczby  # zwracamy liczby
-
-
-def utworz_punkty(liczby):  # tworzenie punktów
-    punkty = []  # lista punktów
-
-    for i in range(0, len(liczby) - 1, 2):  # bierzemy wartości parami
-        punkty.append((liczby[i], liczby[i + 1]))  # dodajemy punkt
-
-    return punkty  # zwracamy punkty
-
-
-def zapisz_svg(punkty, M, nazwa_pliku):  # zapis do SVG
-    szerokosc = 500  # szerokość obrazka
-    wysokosc = 500  # wysokość obrazka
-    margines = 20  # margines
-
-    svg = f'<svg width="{szerokosc}" height="{wysokosc}" viewBox="0 0 {szerokosc} {wysokosc}" xmlns="http://www.w3.org/2000/svg">\n'  # początek SVG
-    svg += '<rect width="100%" height="100%" fill="white"/>\n'  # białe tło
-    svg += f'<rect x="{margines}" y="{margines}" width="{szerokosc - 2*margines}" height="{wysokosc - 2*margines}" fill="none" stroke="black"/>\n'  # ramka
-
-    for x, y in punkty:  # przechodzimy po punktach
-        x_svg = margines + (x / M) * (szerokosc - 2 * margines)  # skalowanie x
-        y_svg = wysokosc - margines - (y / M) * (wysokosc - 2 * margines)  # skalowanie y
-
-        svg += f'<circle cx="{x_svg}" cy="{y_svg}" r="3" fill="blue"/>\n'  # punkt
-
-    svg += '</svg>'  # koniec SVG
-
-    with open(nazwa_pliku, "w", encoding="utf-8") as plik:  # otwieramy plik
-        plik.write(svg)  # zapisujemy SVG
-
-
-print("\n--------------------ZADANIE 2--------------------")  # nagłówek zadania 2
-
-a = 1103515245  # mnożnik LCG
-c = 12345  # przyrost LCG
-M = 2**31  # moduł LCG
-X0 = 7  # ziarno
-
-liczby = generator_LCG(a, c, X0, M, 1000)  # generujemy liczby
-punkty = utworz_punkty(liczby)  # tworzymy punkty
-
-print("Pierwsze 20 liczb:")  # nagłówek
-print(liczby[:20])  # pierwsze liczby
-
-print("\nPierwsze 10 punktów:")  # nagłówek
-print(punkty[:10])  # pierwsze punkty
-
-zapisz_svg(punkty, M, "punkty_LCG.svg")  # zapisujemy SVG
-
-print("\nZapisano plik punkty_LCG.svg")  # komunikat
-
-
-# -------------------- ZADANIE 3 --------------------
-
-def generator_LFG(p, q, M, poczatkowe, ile):  # generator LFG
-    if not (p > q >= 1):  # sprawdzamy warunek p > q >= 1
-        raise ValueError("Musi być spełniony warunek p > q >= 1.")  # błąd dla złych opóźnień
-
-    if p > M:  # sprawdzamy warunek p <= M
-        raise ValueError("Musi być spełniony warunek p <= M.")  # błąd dla p > M
-
-    if len(poczatkowe) < p:  # sprawdzamy liczbę wartości początkowych
-        raise ValueError("Trzeba podać co najmniej p wartości początkowych.")  # błąd, gdy wartości jest za mało
-
-    if all(wartosc == 0 for wartosc in poczatkowe):  # sprawdzamy, czy nie ma samych zer
-        raise ValueError("Wartości początkowe nie mogą być samymi zerami.")  # błąd dla ciągu trywialnego
-
-    liczby = poczatkowe.copy()  # kopiujemy wartości początkowe
-
-    for n in range(p, ile):  # generujemy kolejne wartości
-        Xn = (liczby[n - p] + liczby[n - q]) % M  # wzór LFG
-        liczby.append(Xn)  # dopisujemy wynik
-
-    return liczby  # zwracamy ciąg
-
-
-print("\n--------------------ZADANIE 3--------------------")  # nagłówek zadania 3
-
-M = 17  # moduł
-p = 3  # opóźnienie p
-q = 1  # opóźnienie q
-
-poczatkowe = [7, 16, 5]  # wartości początkowe
-
-liczby = generator_LFG(p, q, M, poczatkowe, 12)  # generujemy ciąg
-
-print("Wygenerowany ciąg:")  # nagłówek
-print(liczby)  # wypisujemy wynik
-```
