@@ -15,7 +15,8 @@ def monte_carlo_1d(f, a, b, N):
         x = random.uniform(a, b)
         suma += f(x)
 
-    return (b - a) * suma / N
+    return ((b - a) / N) * suma
+    # return (b - a) * suma / N
 
 
 def monte_carlo_2d(f, ax, bx, ay, by, N):
@@ -28,9 +29,10 @@ def monte_carlo_2d(f, ax, bx, ay, by, N):
 
     pole_obszaru = (bx - ax) * (by - ay)
 
-    return pole_obszaru / N * suma
+    return (pole_obszaru / N) * suma
+    # return (((bx - ax) * (by - ay)) / N) * suma
 
-
+# szacowanie liczby punktów
 def oszacuj_N_1d(f, a, b, dokladnosc=0.005, N_probne=10000):
     wartosci = []
 
@@ -134,7 +136,7 @@ import math
 
 print("-------------------- ZADANIE 2 --------------------")
 
-
+# a)
 def objetosc_kuli_jednostkowej(N):
     zaakceptowane = 0
 
@@ -150,7 +152,7 @@ def objetosc_kuli_jednostkowej(N):
 
     return objetosc_szescianu * zaakceptowane / N
 
-
+# b)
 def objetosc_wspolna_szescianu_i_kuli(N):
     r = 2
     bok = 3

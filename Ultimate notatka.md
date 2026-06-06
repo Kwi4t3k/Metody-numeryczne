@@ -26859,3 +26859,2976 @@ liczba_prob = 10
 
 for i in range(liczba_prob):
     print("Wykonujemy próbę numer:", i + 1)
+```
+
+---
+
+## 2. Zastosowania metody Monte Carlo
+
+Metoda Monte Carlo znalazła zastosowanie w wielu dziedzinach nauki i techniki.
+
+Z wykładu:
+
+- fizyka,
+    
+- finanse,
+    
+- zarządzanie projektami,
+    
+- zarządzanie ryzykiem,
+    
+- nauki społeczne,
+    
+- symulacje procesów fizycznych,
+    
+- symulacje procesów matematycznych,
+    
+- symulacje procesów ekonomicznych,
+    
+- symulacje procesów inżynierskich.
+    
+
+W finansach metoda Monte Carlo może pomagać ocenić, przy jakim czasie trwania projektu lub przy jakiej wysokości budżetu osiąga się określony poziom ryzyka.
+
+---
+
+## 3. Ogólny algorytm metody Monte Carlo
+
+Metoda Monte Carlo opiera się na czterech podstawowych krokach.
+
+1. Definicja przestrzeni możliwych danych wejściowych.
+    
+2. Losowe generowanie danych wejściowych z tej przestrzeni.
+    
+3. Wykonanie obliczeń probabilistycznych na podstawie wylosowanych danych.
+    
+4. Agregacja wyników, aby uzyskać ostateczne rozwiązanie.
+    
+
+### Schemat
+
+Można to zapisać ogólnie:
+
+$$  
+wynik \approx \frac{1}{N}\sum_{i=1}^{N} wynik_i  
+$$
+
+gdzie:
+
+- $$N$$ — liczba prób,
+    
+- $$wynik_i$$ — wynik pojedynczej próby.
+    
+
+### Przykład w Pythonie
+
+```python
+# Przykład agregacji wyników bez używania sum().
+
+wyniki = [2, 4, 3, 5, 6]
+
+suma = 0
+
+for i in range(len(wyniki)):
+    suma = suma + wyniki[i]
+
+srednia = suma / len(wyniki)
+
+print("Średnia z wyników =", srednia)
+```
+
+---
+
+# 4. Zmienna losowa
+
+**Zmienna losowa** to wynik obserwacji procesu losowego, który można przedstawić za pomocą wartości.
+
+Wynik może być:
+
+- liczbowy, np. wynik rzutu kostką,
+    
+- binarny, np. wynik rzutu monetą,
+    
+- symboliczny, np. karta z talii.
+    
+
+Zdarzenia losowe mogą generować ciągi zmiennych losowych:
+
+$$  
+{X_1, X_2, X_3, \dots}  
+$$
+
+Każdej wartości można przypisać prawdopodobieństwo:
+
+$$  
+{p_1, p_2, p_3, \dots}  
+$$
+
+Prawdopodobieństwo można rozumieć jako granicę częstości wystąpień danej wartości w bardzo długiej serii prób:
+
+$$  
+\lim_{N\to\infty}\frac{n_i}{N}=p_i  
+$$
+
+gdzie:
+
+- $$n_i$$ — liczba wystąpień danego wyniku,
+    
+- $$N$$ — liczba wszystkich prób,
+    
+- $$p_i$$ — prawdopodobieństwo danego wyniku.
+    
+
+### Przykład
+
+Jeżeli rzucamy uczciwą kostką bardzo wiele razy, to częstość wypadania jedynki powinna zbliżać się do:
+
+$$  
+\frac{1}{6}  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Przykład obliczania częstości wystąpienia wartości 1.
+
+wyniki = [1, 2, 1, 4, 5, 1, 3, 6, 1, 2]
+
+liczba_jedynek = 0
+
+for i in range(len(wyniki)):
+    if wyniki[i] == 1:
+        liczba_jedynek = liczba_jedynek + 1
+
+czestosc = liczba_jedynek / len(wyniki)
+
+print("Liczba jedynek =", liczba_jedynek)
+print("Częstość jedynek =", czestosc)
+```
+
+```python
+# Przykład obliczania częstości występowania orła w rzutach monetą.
+
+wyniki = ["orzeł", "reszka", "orzeł", "orzeł", "reszka", "orzeł", "reszka", "reszka"]
+
+liczba_orlow = 0
+
+for i in range(len(wyniki)):
+    if wyniki[i] == "orzeł":
+        liczba_orlow = liczba_orlow + 1
+
+czestosc = liczba_orlow / len(wyniki)
+
+print("Liczba orłów =", liczba_orlow)
+print("Liczba wszystkich rzutów =", len(wyniki))
+print("Częstość orłów =", czestosc)
+```
+
+Dla uczciwej monety przy bardzo dużej liczbie rzutów częstość orła powinna zbliżać się do:
+
+```
+1/2 = 0.5
+```
+
+```python
+# Przykład obliczania częstości występowania asa w losowaniach kart z talii.
+
+wyniki = ["as", "król", "dama", "as", "10", "walet", "as", "9", "król", "2"]
+
+liczba_asow = 0
+
+for i in range(len(wyniki)):
+    if wyniki[i] == "as":
+        liczba_asow = liczba_asow + 1
+
+czestosc = liczba_asow / len(wyniki)
+
+print("Liczba asów =", liczba_asow)
+print("Liczba wszystkich losowań =", len(wyniki))
+print("Częstość asów =", czestosc)
+```
+
+W talii 52 kart są 4 asy, więc prawdopodobieństwo wylosowania asa wynosi:
+
+```
+4/52 = 1/13 ≈ 0.0769
+```
+
+---
+
+# 5. Rozkład zmiennej losowej dyskretnej
+
+**Zmienna losowa dyskretna** przyjmuje skończoną lub przeliczalną liczbę wartości.
+
+Każdej wartości można przypisać określone prawdopodobieństwo.
+
+**Rozkład prawdopodobieństwa** to lista możliwych wartości zmiennej losowej i odpowiadających im prawdopodobieństw.
+
+### Przykład — rzut uczciwą kostką
+
+Dla rzutu uczciwą kostką:
+
+$$  
+P(X=x)=\frac{1}{6}  
+$$
+
+dla:
+
+$$  
+x=1,2,3,4,5,6  
+$$
+
+### Własności rozkładu prawdopodobieństwa
+
+Prawdopodobieństwa są nieujemne:
+
+$$  
+P(X=x)\geq 0  
+$$
+
+Suma prawdopodobieństw wszystkich wartości wynosi:
+
+$$  
+\sum_x P(X=x)=1  
+$$
+
+### Przykład w Pythonie
+
+```python
+wartosci = [1, 2, 3, 4, 5, 6]
+prawdopodobienstwa = [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6]
+
+suma_p = 0
+
+for i in range(len(prawdopodobienstwa)):
+    suma_p = suma_p + prawdopodobienstwa[i]
+
+for i in range(len(wartosci)):
+    print("P(X =", wartosci[i], ") =", prawdopodobienstwa[i])
+
+print("Suma prawdopodobieństw =", suma_p)
+```
+
+---
+
+# 6. Moment zmiennej losowej
+
+**Moment n-tego rzędu** zmiennej losowej jest średnią wartością jej `n`-tej potęgi.
+
+Dla zmiennej dyskretnej:
+
+$$  
+E(X^n)=\sum_{i=1}^{n}x_i^n p(x_i)  
+$$
+
+W tym wzorze:
+
+- $$x_i$$ — możliwa wartość zmiennej,
+    
+- $$p(x_i)$$ — prawdopodobieństwo tej wartości.
+    
+
+### Przykład
+
+Dla rzutu kostką moment drugiego rzędu to:
+
+$$  
+E(X^2)=1^2\cdot\frac{1}{6}+2^2\cdot\frac{1}{6}+\dots+6^2\cdot\frac{1}{6}  
+$$
+
+### Przykład w Pythonie
+
+```python
+wartosci = [1, 2, 3, 4, 5, 6]
+prawdopodobienstwa = [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6]
+
+r = 2
+
+moment = 0
+
+for i in range(len(wartosci)):
+    potega = 1
+
+    for j in range(r):
+        potega = potega * wartosci[i]
+
+    moment = moment + potega * prawdopodobienstwa[i]
+
+print("Moment rzędu", r, "=", moment)
+```
+
+---
+
+# 7. Wartość oczekiwana
+
+**Wartość oczekiwana** jest pierwszym momentem rozkładu.
+
+Oznacza się ją jako:
+
+$$  
+E(X)=\mu  
+$$
+
+Dla zmiennej losowej dyskretnej:
+
+$$  
+E(X)=\sum_{i=1}^{n}x_i p(x_i)  
+$$
+
+Wartość oczekiwana jest średnią teoretyczną zmiennej losowej.
+
+### Przykład — rzut kostką
+
+Dla uczciwej kostki:
+
+$$  
+E(X)=1\cdot\frac{1}{6}+2\cdot\frac{1}{6}+3\cdot\frac{1}{6}+4\cdot\frac{1}{6}+5\cdot\frac{1}{6}+6\cdot\frac{1}{6}  
+$$
+
+czyli:
+
+$$  
+E(X)=3.5  
+$$
+
+### Przykład w Pythonie
+
+```python
+wartosci = [1, 2, 3, 4, 5, 6]
+prawdopodobienstwa = [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6]
+
+wartosc_oczekiwana = 0
+
+for i in range(len(wartosci)):
+    wartosc_oczekiwana = wartosc_oczekiwana + wartosci[i] * prawdopodobienstwa[i]
+
+print("E(X) =", wartosc_oczekiwana)
+```
+
+---
+
+# 8. Wariancja i odchylenie standardowe
+
+**Wariancja** mierzy rozproszenie zmiennej losowej wokół średniej.
+
+Dla zmiennej losowej:
+
+$$  
+Var(X)=E[(X-E(X))^2]  
+$$
+
+Można też zapisać:
+
+$$  
+Var(X)=E(X^2)-[E(X)]^2  
+$$
+
+Dla zmiennej dyskretnej:
+
+$$  
+Var(X)=\sum_{i=1}^{n}(x_i-\mu)^2p(x_i)  
+$$
+
+Odchylenie standardowe:
+
+$$  
+\sigma=\sqrt{Var(X)}  
+$$
+
+### Przykład w Pythonie
+
+```python
+wartosci = [1, 2, 3, 4, 5, 6]
+prawdopodobienstwa = [1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6, 1 / 6]
+
+mu = 0
+
+for i in range(len(wartosci)):
+    mu = mu + wartosci[i] * prawdopodobienstwa[i]
+
+wariancja = 0
+
+for i in range(len(wartosci)):
+    roznica = wartosci[i] - mu
+    wariancja = wariancja + roznica * roznica * prawdopodobienstwa[i]
+
+sigma = wariancja ** 0.5
+
+print("Wartość oczekiwana =", mu)
+print("Wariancja =", wariancja)
+print("Odchylenie standardowe =", sigma)
+```
+
+---
+
+# 9. Dystrybuanta
+
+**Dystrybuanta** zmiennej losowej:
+
+$$  
+X  
+$$
+
+oznaczana jako:
+
+$$  
+F(x)  
+$$
+
+określa prawdopodobieństwo, że zmienna losowa przyjmie wartość nie większą niż:
+
+$$  
+x  
+$$
+
+czyli:
+
+$$  
+F(x)=P(X\leq x)  
+$$
+
+Dla zmiennej dyskretnej:
+
+$$  
+F(x)=\sum_{x_i\leq x}p(x_i)  
+$$
+
+### Przykład — rozkład Bernoulliego
+
+W rozkładzie Bernoulliego zmienna losowa przyjmuje:
+
+- wartość `1` z prawdopodobieństwem:
+    
+
+$$  
+p  
+$$
+
+- wartość `0` z prawdopodobieństwem:
+    
+
+$$  
+1-p  
+$$
+
+Wartość oczekiwana wynosi:
+
+$$  
+p  
+$$
+
+Wariancja wynosi:
+
+$$  
+p(1-p)  
+$$
+
+### Przykład w Pythonie
+
+```python
+wartosci = [0, 1]
+p = 0.3
+prawdopodobienstwa = [1 - p, p]
+
+x = 0
+
+F = 0
+
+for i in range(len(wartosci)):
+    if wartosci[i] <= x:
+        F = F + prawdopodobienstwa[i]
+
+print("F(", x, ") =", F)
+```
+
+---
+
+# 10. Prawa wielkich liczb
+
+**Prawa wielkich liczb** opisują, jak wyniki prób losowych zbliżają się do wartości teoretycznych, gdy liczba prób staje się bardzo duża.
+
+Wspólna cecha tych praw dotyczy asymptotycznego zachowania wyrażeń typu:
+
+$$  
+\frac{X_1+X_2+\dots+X_n-a_n}{b_n}  
+$$
+
+W wykładzie przypomniano:
+
+1. Prawo Wielkich Liczb Bernoulliego.
+    
+2. Mocne Prawo Wielkich Liczb Kołmogorowa.
+    
+
+### Sens
+
+Im więcej prób wykonujemy, tym średni wynik powinien być bliższy wartości oczekiwanej.
+
+### Przykład w Pythonie
+
+```python
+# Prosta symulacja średniej z wyników.
+# Używamy przygotowanego ciągu wyników zamiast gotowego generatora.
+
+wyniki = [1, 0, 1, 1, 0, 1, 0, 0, 1, 1]
+
+suma = 0
+
+for i in range(len(wyniki)):
+    suma = suma + wyniki[i]
+
+srednia = suma / len(wyniki)
+
+print("Średnia =", srednia)
+```
+
+---
+
+## 10.1. Prawo Wielkich Liczb Bernoulliego
+
+Jeżeli:
+
+$$  
+S_n  
+$$
+
+jest liczbą sukcesów w schemacie Bernoulliego z prawdopodobieństwem sukcesu:
+
+$$  
+p  
+$$
+
+to dla każdego:
+
+$$  
+\epsilon > 0  
+$$
+
+zachodzi:
+
+$$  
+P\left(\left|\frac{S_n}{n}-p\right|\leq \epsilon\right)\to 1  
+$$
+
+gdy:
+
+$$  
+n\to\infty  
+$$
+
+### Przykłady z wykładu
+
+Dla dużej liczby rzutów uczciwą monetą liczba orłów stabilizuje się wokół:
+
+$$  
+0.5  
+$$
+
+Dla dużej liczby rzutów uczciwą kostką liczba jedynek powinna wynosić około:
+
+$$  
+\frac{1}{6}  
+$$
+
+wszystkich rzutów.
+
+### Przykład w Pythonie
+
+```python
+# Przykład dla ciągu wyników 0/1.
+# 1 oznacza sukces, 0 oznacza porażkę.
+
+wyniki = [1, 0, 1, 1, 0, 1, 0, 1, 1, 0]
+
+sukcesy = 0
+
+for i in range(len(wyniki)):
+    if wyniki[i] == 1:
+        sukcesy = sukcesy + 1
+
+czestosc = sukcesy / len(wyniki)
+
+print("Liczba sukcesów =", sukcesy)
+print("Częstość sukcesów =", czestosc)
+```
+
+---
+
+## 10.2. Mocne Prawo Wielkich Liczb Kołmogorowa
+
+Jeżeli:
+
+$$  
+X_1,X_2,\dots,X_n  
+$$
+
+są niezależnymi zmiennymi losowymi o jednakowym rozkładzie i wartości oczekiwanej:
+
+$$  
+\mu  
+$$
+
+to średnia wyników z coraz większej liczby prób będzie coraz bliższa wartości oczekiwanej.
+
+Intuicyjnie:
+
+$$  
+\frac{X_1+X_2+\dots+X_n}{n}\to \mu  
+$$
+
+dla:
+
+$$  
+n\to\infty  
+$$
+
+### Znaczenie dla Monte Carlo
+
+Prawa wielkich liczb uzasadniają metodę Monte Carlo, ponieważ pokazują, że średnia z wielu losowych prób zbiega do wartości teoretycznej.
+
+### Przykład w Pythonie
+
+```python
+wyniki = [2, 4, 3, 5, 6, 4, 3, 5]
+
+suma = 0
+
+for i in range(len(wyniki)):
+    suma = suma + wyniki[i]
+    srednia_czesciowa = suma / (i + 1)
+    print("Po", i + 1, "próbach średnia =", srednia_czesciowa)
+```
+
+---
+
+# 11. Znaczenie praw wielkich liczb w metodach Monte Carlo
+
+Prawa wielkich liczb są teoretycznym uzasadnieniem metod Monte Carlo.
+
+Pokazują, że średnia z wielu prób będzie zbiegać do oczekiwanej wartości teoretycznej.
+
+Dzięki nim można:
+
+- przewidywać błąd,
+    
+- kontrolować błąd w symulacjach,
+    
+- stosować symulacje do problemów trudnych analitycznie.
+    
+
+### Przykład
+
+Jeżeli w metodzie Monte Carlo obliczamy całkę jako średnią wartości funkcji w losowych punktach, to prawa wielkich liczb mówią, że przy dużej liczbie punktów ta średnia powinna zbliżać się do właściwej wartości.
+
+### Przykład w Pythonie
+
+```python
+wartosci_funkcji = [1.0, 1.2, 1.5, 1.7, 2.0]
+
+suma = 0
+
+for i in range(len(wartosci_funkcji)):
+    suma = suma + wartosci_funkcji[i]
+
+srednia = suma / len(wartosci_funkcji)
+
+print("Średnia z próbek =", srednia)
+```
+
+---
+
+# 12. Tradycyjne metody obliczania pola powierzchni
+
+Tradycyjne metody obliczania pola opierają się na całkach.
+
+Dla funkcji:
+
+$$  
+f(x)  
+$$
+
+pole pod wykresem na przedziale:
+
+$$  
+[a,b]  
+$$
+
+można zapisać jako:
+
+$$  
+I=\int_a^b f(x),dx  
+$$
+
+Problem pojawia się wtedy, gdy funkcja jest skomplikowana i obliczenie całki jest trudne lub niewykonalne w rozsądnym czasie.
+
+### Pytanie z wykładu
+
+Czy istnieje sposób umożliwiający stosunkowo dokładne określenie pola dowolnego obszaru na płaszczyźnie w rozsądnym czasie, z minimalnym błędem?
+
+Odpowiedzią jest metoda Monte Carlo.
+
+### Przykład w Pythonie
+
+```python
+# Przykład funkcji, której pole pod wykresem chcemy obliczyć tradycyjnie, czyli przez całkę.
+
+def f(x):
+    return x * x + 1
+
+
+# Przedział całkowania
+a = 1
+b = 2
+
+print("Funkcja: f(x) = x^2 + 1")
+print("Przedział: [", a, ",", b, "]")
+
+# Dla funkcji f(x) = x^2 + 1 funkcja pierwotna ma postać:
+# F(x) = x^3 / 3 + x
+
+def F(x):
+    return x**3 / 3 + x
+
+
+# Pole pod wykresem liczymy ze wzoru:
+# I = F(b) - F(a)
+
+pole = F(b) - F(a)
+
+print("Pole pod wykresem:")
+print("I =", pole)
+```
+
+Wynik:
+
+```
+Funkcja: f(x) = x^2 + 1
+Przedział: [ 1 , 2 ]
+Pole pod wykresem: I = 3.3333333333333335
+```
+
+---
+
+# 13. Algorytm Monte Carlo do obliczania pola
+
+Algorytm obliczania pola metodą Monte Carlo:
+
+1. Ograniczamy badany obszar do obszaru o znanym polu.
+    
+2. Losujemy niezależne próbki z ograniczonego obszaru.
+    
+3. Zliczamy próbki znajdujące się wewnątrz nieznanego obszaru.
+    
+4. Obliczamy stosunek liczby próbek wewnątrz obszaru do liczby wszystkich próbek.
+    
+5. Mnożymy ten stosunek przez pole obszaru ograniczającego.
+    
+
+Jeżeli:
+
+$$  
+k  
+$$
+
+oznacza liczbę punktów trafionych w badany obszar, a:
+
+$$  
+N  
+$$
+
+liczbę wszystkich punktów, to:
+
+$$  
+P_{obszaru}\approx \frac{k}{N}P_{ograniczający}  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Prosty przykład:
+# mamy 10 prób, z czego 4 punkty trafiły do obszaru.
+# Pole prostokąta ograniczającego wynosi 20.
+
+N = 10
+k = 4
+pole_ograniczajace = 20
+
+pole = (k / N) * pole_ograniczajace
+
+print("Przybliżone pole =", pole)
+```
+
+---
+
+# 14. Przykład — obliczanie liczby $\pi$
+
+Rozważamy koło o promieniu:
+
+$$  
+r=1  
+$$
+
+wpisane w kwadrat o boku długości:
+
+$$  
+2  
+$$
+
+Pole koła:
+
+$$  
+P_{koła}=\pi r^2=\pi  
+$$
+
+Pole kwadratu:
+
+$$  
+P_{kwadratu}=2\cdot 2=4  
+$$
+
+Stosunek pól:
+
+$$  
+\frac{P_{koła}}{P_{kwadratu}}=\frac{\pi}{4}  
+$$
+
+Jeżeli losujemy punkty równomiernie w kwadracie, to:
+
+$$  
+\frac{\text{liczba punktów w kole}}{\text{liczba wszystkich punktów}}  
+\approx  
+\frac{\pi}{4}  
+$$
+
+Stąd:
+
+$$  
+\pi\approx 4\cdot  
+\frac{\text{liczba punktów w kole}}{\text{liczba wszystkich punktów}}  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Obliczanie pi metodą Monte Carlo.
+# Używamy prostego LCG zamiast gotowego random.random().
+
+def nastepna_liczba(X):  # funkcja generuje kolejną liczbę pseudolosową na podstawie poprzedniej wartości X
+    a = 1103515245  # mnożnik generatora LCG
+    c = 12345  # przyrost generatora LCG
+    m = 2 ** 31  # moduł generatora LCG
+    return (a * X + c) % m  # zwracamy kolejną wartość według wzoru X_n+1 = (a*X_n + c) mod m
+
+
+def losuj_0_1(X):  # funkcja zwraca nowy stan generatora oraz liczbę z przedziału [0, 1)
+    X = nastepna_liczba(X)  # generujemy kolejną liczbę pseudolosową
+    r = X / (2 ** 31)  # skalujemy liczbę do przedziału [0, 1)
+    return X, r  # zwracamy nowy stan generatora oraz przeskalowaną liczbę
+
+
+N = 10000  # liczba losowanych punktów
+X = 7  # wartość początkowa generatora, czyli ziarno
+
+trafienia = 0  # licznik punktów, które trafiły do koła jednostkowego
+
+for i in range(N):  # wykonujemy N prób losowania punktów
+    X, rx = losuj_0_1(X)  # losujemy pierwszą współrzędną z przedziału [0, 1)
+    X, ry = losuj_0_1(X)  # losujemy drugą współrzędną z przedziału [0, 1)
+
+    # Przeskalowanie z [0,1) do [-1,1)
+    x = -1 + 2 * rx  # przekształcamy rx na współrzędną x z przedziału [-1, 1)
+    y = -1 + 2 * ry  # przekształcamy ry na współrzędną y z przedziału [-1, 1)
+
+    if x * x + y * y <= 1:  # sprawdzamy, czy punkt (x, y) leży wewnątrz koła jednostkowego
+        trafienia = trafienia + 1  # jeśli punkt leży w kole, zwiększamy licznik trafień
+
+pi_przyblizone = 4 * trafienia / N  # obliczamy przybliżenie pi ze stosunku pól koła i kwadratu
+
+print("Liczba trafień =", trafienia)  # wypisujemy liczbę punktów, które trafiły do koła
+print("Przybliżenie pi =", pi_przyblizone)  # wypisujemy otrzymane przybliżenie liczby pi
+```
+
+---
+
+# 15. Metoda Crude Monte Carlo
+
+**Crude Monte Carlo** to najprostsza wersja całkowania metodą Monte Carlo.
+
+Chcemy obliczyć całkę:
+
+$$  
+I=\int_a^b f(x) \space dx  
+$$
+
+Losujemy:
+
+$$  
+N  
+$$
+
+punktów:
+
+$$  
+x_1,x_2,\dots,x_N \sim U(a,b)  
+$$
+
+Przybliżenie całki:
+
+$$  
+I\approx \frac{b-a}{N}\sum_{i=1}^{N}f(x_i)  
+$$
+
+### Idea
+
+Średnia z losowych próbek przybliża wartość oczekiwaną.
+
+Im więcej punktów, tym zwykle lepsze przybliżenie.
+
+Metoda działa również dla dużej liczby wymiarów.
+
+### Przykład w Pythonie
+
+```python
+# Crude Monte Carlo dla całki z f(x)=x^2 na przedziale [1,2].
+# Dokładna wartość z wykładu to 7/3 = 2.333333...
+
+def nastepna_liczba(X):  # funkcja generuje następną liczbę pseudolosową metodą LCG
+    a = 1103515245  # mnożnik generatora LCG
+    c = 12345  # przyrost generatora LCG
+    m = 2 ** 31  # moduł generatora LCG
+    return (a * X + c) % m  # zwracamy następną wartość ze wzoru X_n+1 = (a*X_n + c) mod m
+
+
+def losuj_0_1(X):  # funkcja zwraca nowy stan generatora oraz liczbę z przedziału [0,1)
+    X = nastepna_liczba(X)  # generujemy kolejną liczbę pseudolosową
+    r = X / (2 ** 31)  # skalujemy wynik do przedziału [0,1)
+    return X, r  # zwracamy nowy stan generatora oraz wylosowaną wartość r
+
+
+def f(x):  # definiujemy funkcję podcałkową
+    return x * x  # zwracamy wartość f(x)=x^2
+
+
+a = 1.0  # początek przedziału całkowania
+b = 2.0  # koniec przedziału całkowania
+N = 300  # liczba losowanych punktów
+
+X = 5  # wartość początkowa generatora, czyli ziarno
+
+suma = 0.0  # zmienna przechowująca sumę wartości funkcji w losowych punktach
+
+for i in range(N):  # wykonujemy N losowań
+    X, r = losuj_0_1(X)  # losujemy liczbę r z przedziału [0,1)
+
+    x = a + (b - a) * r  # przeskalowujemy r z [0,1) na punkt x z przedziału [a,b]
+    suma = suma + f(x)  # dodajemy wartość funkcji w wylosowanym punkcie do sumy
+
+I = ((b - a) / N) * suma  # obliczamy przybliżenie całki metodą Crude Monte Carlo
+
+print("Przybliżona całka =", I)  # wypisujemy wartość przybliżoną
+print("Wartość dokładna =", 7 / 3)  # wypisujemy wartość dokładną całki z x^2 na [1,2]
+print("Błąd =", abs(I - 7 / 3))  # wypisujemy błąd bezwzględny
+```
+
+---
+
+# 16. Dlaczego metoda Crude Monte Carlo działa?
+
+Dla zmiennej losowej:
+
+$$  
+X\sim U(a,b)  
+$$
+
+wartość oczekiwana funkcji:
+
+$$  
+f(X)  
+$$
+
+wynosi:
+
+$$  
+E[f(X)]=\frac{1}{b-a}\int_a^b f(x) \space dx  
+$$
+
+Stąd:
+
+$$  
+\int_a^b f(x) \space dx=(b-a)E[f(X)]  
+$$
+
+Z prawa wielkich liczb:
+
+$$  
+\frac{1}{N}\sum_{i=1}^{N}f(x_i)\to E[f(X)]  
+$$
+
+gdy:
+
+$$  
+N\to\infty  
+$$
+
+Dlatego Monte Carlo sprowadza całkowanie do obliczania średniej.
+
+### Przykład w Pythonie
+
+```python
+# Pokazujemy samą ideę:
+# najpierw liczymy średnią z wartości f(x_i),
+# potem mnożymy przez długość przedziału.
+
+wartosci_f = [1.2, 1.5, 2.0, 3.1]
+
+suma = 0.0
+
+for i in range(len(wartosci_f)):
+    suma = suma + wartosci_f[i]
+
+srednia = suma / len(wartosci_f)
+
+a = 1
+b = 2
+
+calka = (b - a) * srednia
+
+print("Średnia =", srednia)
+print("Przybliżona całka =", calka)
+```
+
+---
+
+# 17. Dokładność metody Monte Carlo
+
+Błąd średni metody Monte Carlo maleje jak:
+
+$$  
+O\left(\frac{1}{\sqrt{N}}\right)  
+$$
+
+gdzie:
+
+$$  
+N  
+$$
+
+jest liczbą próbek.
+
+### Wniosek
+
+Aby zmniejszyć błąd `10` razy, trzeba zwiększyć liczbę próbek `100` razy.
+
+Metoda Monte Carlo jest prosta, ale jej zbieżność jest stosunkowo powolna.
+
+Mimo to metoda jest popularna dla problemów wielowymiarowych.
+
+### Przykład w Pythonie
+
+```python
+# Porównanie liczby próbek potrzebnej do zmniejszenia błędu.
+
+N1 = 100
+N2 = 10000
+
+blad1 = 1 / (N1 ** 0.5)
+blad2 = 1 / (N2 ** 0.5)
+
+print("Dla N =", N1, "błąd proporcjonalny do", blad1)
+print("Dla N =", N2, "błąd proporcjonalny do", blad2)
+print("Stosunek błędów =", blad1 / blad2)
+```
+
+---
+
+# 18. Monte Carlo a metody klasyczne
+
+W wykładzie porównano metody klasyczne i Monte Carlo.
+
+|Cecha|Metody klasyczne|Monte Carlo|
+|---|---|---|
+|1 wymiar|bardzo dokładne|słabsze|
+|wiele wymiarów|bardzo kosztowne|działa dobrze|
+|deterministyczność|tak|nie|
+|łatwość implementacji|średnia|bardzo duża|
+|równoległość|ograniczona|bardzo dobra|
+
+Monte Carlo jest szczególnie użyteczne w:
+
+- grafice komputerowej,
+    
+- AI,
+    
+- uczeniu maszynowym,
+    
+- symulacjach fizycznych,
+    
+- analizie ryzyka.
+    
+
+---
+
+# 19. Metoda akceptacji–odrzucenia
+
+**Metoda akceptacji–odrzucenia** jest jedną z podstawowych metod Monte Carlo.
+
+Idea:
+
+1. Losujemy punkty z prostego obszaru.
+    
+2. Sprawdzamy, które punkty spełniają warunek.
+    
+3. Na podstawie proporcji punktów szacujemy pole lub całkę.
+    
+
+Dla całki:
+
+$$  
+I=\int_a^b f(x) \space dx  
+$$
+
+losujemy punkty z prostokąta:
+
+$$  
+[a,b]\times[0,M]  
+$$
+
+gdzie:
+
+$$  
+f(x)\leq M  
+$$
+
+dla każdego:
+
+$$  
+x\in[a,b]  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Metoda akceptacji-odrzucenia dla całki z funkcji f(x)=x^2 na przedziale [0,1].
+# Losujemy punkty z prostokąta [a,b] x [0,M].
+# Jeżeli punkt leży pod wykresem funkcji, to go akceptujemy.
+
+def nastepna_liczba(X):  # funkcja generuje następną liczbę pseudolosową metodą LCG
+    a = 1103515245  # mnożnik generatora LCG
+    c = 12345  # przyrost generatora LCG
+    m = 2 ** 31  # moduł generatora LCG
+    return (a * X + c) % m  # zwracamy kolejną wartość ze wzoru X_n+1 = (a*X_n + c) mod m
+
+
+def losuj_0_1(X):  # funkcja zwraca nowy stan generatora oraz liczbę z przedziału [0,1)
+    X = nastepna_liczba(X)  # generujemy kolejną liczbę pseudolosową
+    r = X / (2 ** 31)  # skalujemy liczbę do przedziału [0,1)
+    return X, r  # zwracamy nowy stan generatora i wylosowaną liczbę
+
+
+def f(x):  # definiujemy funkcję podcałkową
+    return x * x  # zwracamy wartość f(x)=x^2
+
+
+a = 0.0  # początek przedziału całkowania
+b = 1.0  # koniec przedziału całkowania
+M = 1.0  # górne ograniczenie funkcji na przedziale [0,1]
+N = 10000  # liczba losowanych punktów
+
+X = 7  # ziarno generatora pseudolosowego
+
+trafienia = 0  # licznik punktów zaakceptowanych, czyli leżących pod wykresem funkcji
+
+for i in range(N):  # wykonujemy N losowań punktów
+    X, rx = losuj_0_1(X)  # losujemy liczbę do współrzędnej x
+    X, ry = losuj_0_1(X)  # losujemy liczbę do współrzędnej y
+
+    x = a + (b - a) * rx  # przeskalowujemy rx z [0,1) na przedział [a,b]
+    y = M * ry  # przeskalowujemy ry z [0,1) na przedział [0,M]
+
+    if y <= f(x):  # sprawdzamy, czy punkt (x,y) leży pod wykresem funkcji
+        trafienia = trafienia + 1  # jeśli tak, zwiększamy liczbę zaakceptowanych punktów
+
+pole_prostokata = (b - a) * M  # pole prostokąta, z którego losujemy punkty
+
+calka = pole_prostokata * trafienia / N  # przybliżenie całki jako proporcja trafień razy pole prostokąta
+
+print("Liczba wszystkich punktów =", N)  # wypisujemy liczbę wszystkich prób
+print("Liczba zaakceptowanych punktów =", trafienia)  # wypisujemy liczbę punktów pod wykresem
+print("Przybliżona całka =", calka)  # wypisujemy przybliżoną wartość całki
+print("Wartość dokładna =", 1 / 3)  # wypisujemy dokładną wartość całki
+print("Błąd =", abs(calka - 1 / 3))  # wypisujemy błąd bezwzględny
+```
+
+---
+
+## 19.1. Idea geometryczna metody akceptacji–odrzucenia
+
+Pole prostokąta:
+
+$$  
+P_{prost}=(b-a)M  
+$$
+
+Losujemy:
+
+$$  
+N  
+$$
+
+punktów równomiernie w prostokącie.
+
+Niech:
+
+$$  
+k  
+$$
+
+oznacza liczbę punktów pod wykresem funkcji:
+
+$$  
+y=f(x)  
+$$
+
+Wtedy:
+
+$$  
+\frac{k}{N}  
+\approx  
+\frac{\text{pole pod wykresem}}{\text{pole prostokąta}}  
+$$
+
+czyli:
+
+$$  
+I\approx \frac{k}{N}(b-a)M  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Przykład geometrycznej idei metody akceptacji-odrzucenia.
+# Zakładamy, że wylosowano N punktów w prostokącie
+# i że k z nich znalazło się pod wykresem funkcji.
+
+N = 100  # liczba wszystkich wylosowanych punktów
+k = 23   # liczba punktów, które znalazły się pod wykresem funkcji
+
+a = 0  # początek przedziału całkowania
+b = 1  # koniec przedziału całkowania
+M = 1  # wysokość prostokąta, czyli górne ograniczenie funkcji
+
+pole_prostokata = (b - a) * M  # obliczamy pole prostokąta, z którego losowano punkty
+
+proporcja = k / N  # obliczamy, jaka część punktów trafiła pod wykres funkcji
+
+I = proporcja * pole_prostokata  # przybliżamy pole pod wykresem, czyli wartość całki
+
+print("Pole prostokąta =", pole_prostokata)  # wypisujemy pole całego prostokąta
+print("Proporcja trafień =", proporcja)  # wypisujemy stosunek punktów pod wykresem do wszystkich punktów
+print("Przybliżona całka =", I)  # wypisujemy przybliżoną wartość całki
+```
+
+---
+
+## 19.2. Algorytm akceptacji–odrzucenia
+
+1. Losujemy:
+    
+
+$$  
+x\sim U(a,b)  
+$$
+
+2. Losujemy:
+    
+
+$$  
+y\sim U(0,M)  
+$$
+
+3. Jeżeli:
+    
+
+$$  
+y\leq f(x)  
+$$
+
+to punkt akceptujemy.
+
+4. W przeciwnym przypadku punkt odrzucamy.
+    
+
+Po wykonaniu:
+
+$$  
+N  
+$$
+
+losowań:
+
+$$  
+I\approx \frac{k}{N}(b-a)M  
+$$
+
+gdzie:
+
+- $$k$$ — liczba zaakceptowanych punktów,
+    
+- $$N$$ — liczba wszystkich punktów.
+    
+
+### Przykład w Pythonie
+
+```python
+# Metoda akceptacji-odrzucenia dla całki z x^5 na [0,1].
+
+def nastepna_liczba(X):  # funkcja generuje następną liczbę pseudolosową metodą LCG
+    a = 1103515245  # mnożnik generatora LCG
+    c = 12345  # przyrost generatora LCG
+    m = 2 ** 31  # moduł generatora LCG
+    return (a * X + c) % m  # zwracamy nową wartość ze wzoru X_{n+1} = (a * X_n + c) mod m
+
+
+def losuj_0_1(X):  # funkcja zwraca nowy stan generatora oraz liczbę z przedziału [0,1)
+    X = nastepna_liczba(X)  # generujemy następną liczbę pseudolosową
+    r = X / (2 ** 31)  # skalujemy wynik do przedziału [0,1)
+    return X, r  # zwracamy nowy stan generatora i wylosowaną liczbę
+
+
+def f(x):  # definiujemy funkcję podcałkową
+    return x * x * x * x * x  # zwracamy wartość f(x)=x^5
+
+
+a = 0.0  # początek przedziału całkowania
+b = 1.0  # koniec przedziału całkowania
+M = 1.0  # maksymalna wysokość prostokąta, bo x^5 <= 1 na [0,1]
+N = 10000  # liczba losowanych punktów
+
+X = 11  # wartość początkowa generatora, czyli ziarno
+k = 0  # licznik punktów zaakceptowanych, czyli leżących pod wykresem funkcji
+
+for i in range(N):  # wykonujemy N prób losowania punktów
+    X, rx = losuj_0_1(X)  # losujemy liczbę do wyznaczenia współrzędnej x
+    X, ry = losuj_0_1(X)  # losujemy liczbę do wyznaczenia współrzędnej y
+
+    x = a + (b - a) * rx  # skalujemy rx z [0,1) na przedział [a,b]
+    y = M * ry  # skalujemy ry z [0,1) na przedział [0,M]
+
+    if y <= f(x):  # sprawdzamy, czy punkt (x,y) znajduje się pod wykresem funkcji
+        k = k + 1  # jeśli punkt jest pod wykresem, zwiększamy licznik zaakceptowanych punktów
+
+I = (k / N) * (b - a) * M  # przybliżamy całkę jako proporcję trafień pomnożoną przez pole prostokąta
+
+print("Liczba zaakceptowanych punktów =", k)  # wypisujemy liczbę punktów pod wykresem
+print("Przybliżona całka =", I)  # wypisujemy przybliżoną wartość całki
+print("Wartość dokładna =", 1 / 6)  # wypisujemy dokładną wartość całki
+print("Błąd =", abs(I - 1 / 6)) # wypisanie błędu
+```
+
+---
+
+# 20. Przykład metody akceptacji–odrzucenia
+
+Rozważamy całkę:
+
+$$  
+I=\int_0^1 x^5 \space dx  
+$$
+
+Wartość dokładna:
+
+$$  
+I=\frac{1}{6}\approx 0.1667  
+$$
+
+Losujemy punkty z kwadratu:
+
+$$  
+[0,1]\times[0,1]  
+$$
+
+Punkt akceptujemy, gdy:
+
+$$  
+y\leq x^5  
+$$
+
+Ponieważ:
+
+$$  
+(b-a)M=1  
+$$
+
+to przybliżenie wynosi:
+
+$$  
+I\approx \frac{k}{N}  
+$$
+
+W przykładzie z wykładu dla:
+
+$$  
+N=10000  
+$$
+
+otrzymano:
+
+$$  
+I_{approx}=0.1669  
+$$
+
+a wartość dokładna to:
+
+$$  
+I_{exact}=\frac{1}{6}\approx 0.1667  
+$$
+
+### Przykład w Pythonie
+
+```python
+# Ten sam przykład, ale z mniejszą liczbą próbek dla krótszego działania.
+
+def f(x):  # definiujemy funkcję podcałkową
+    return x * x * x * x * x  # zwracamy wartość f(x)=x^5
+
+
+punkty = [  # lista ręcznie wybranych punktów w prostokącie [0,1] x [0,1]
+    [0.1, 0.2],  # pierwszy punkt: x=0.1, y=0.2
+    [0.5, 0.01],  # drugi punkt: x=0.5, y=0.01
+    [0.8, 0.3],  # trzeci punkt: x=0.8, y=0.3
+    [0.9, 0.7]  # czwarty punkt: x=0.9, y=0.7
+]
+
+zaakceptowane = 0  # licznik punktów, które znajdują się pod wykresem funkcji
+
+for punkt in punkty:  # przechodzimy po wszystkich punktach z listy
+    x = punkt[0]  # pobieramy współrzędną x punktu
+    y = punkt[1]  # pobieramy współrzędną y punktu
+
+    if y <= f(x):  # sprawdzamy, czy punkt leży pod wykresem funkcji y=f(x)
+        zaakceptowane = zaakceptowane + 1  # jeśli tak, zwiększamy licznik zaakceptowanych punktów
+        print("Punkt", punkt, "zaakceptowany")  # wypisujemy informację, że punkt został zaakceptowany
+    else:  # jeśli punkt leży nad wykresem funkcji
+        print("Punkt", punkt, "odrzucony")  # wypisujemy informację, że punkt został odrzucony
+
+I = zaakceptowane / len(punkty)  # przybliżamy całkę jako stosunek punktów zaakceptowanych do wszystkich punktów
+
+print("Przybliżenie całki =", I)  # wypisujemy przybliżoną wartość całki
+```
+
+---
+
+# 21. Efektywność metody akceptacji–odrzucenia
+
+Metoda działa najlepiej, gdy prostokąt dobrze dopasowuje się do wykresu funkcji.
+
+Jeżeli prostokąt jest znacznie większy od pola pod wykresem, większość punktów będzie odrzucana.
+
+Wtedy:
+
+- metoda staje się wolniejsza,
+    
+- potrzeba więcej losowań,
+    
+- efektywność spada.
+    
+
+Dlatego ważne jest:
+
+- dobranie możliwie małego:
+    
+
+$$  
+M  
+$$
+
+- ograniczenie liczby odrzucanych punktów.
+    
+
+### Przykład w Pythonie
+
+```python
+N = 10000  # liczba wszystkich wylosowanych punktów
+
+zaakceptowane = 2000  # liczba punktów, które znalazły się pod wykresem funkcji
+
+udzial = zaakceptowane / N  # obliczamy udział zaakceptowanych punktów
+
+procent = udzial * 100  # zamieniamy udział na procenty
+
+print("Udział zaakceptowanych punktów =", udzial)  # wypisujemy udział, np. 0.2
+print("Procent zaakceptowanych punktów =", procent, "%")  # wypisujemy procent, np. 20%
+
+if udzial < 0.2:  # sprawdzamy, czy zaakceptowano mniej niż 20% punktów
+    print("Metoda może być mało efektywna")  # dużo punktów zostało odrzuconych
+else:
+    print("Efektywność jest lepsza")  # zaakceptowano wystarczająco dużo punktów
+```
+
+---
+
+# 22. Model Isinga
+
+**Model Isinga** to matematyczny model statystyczny stosowany w fizyce, szczególnie w teorii faz magnetycznych.
+
+Model opisuje zachowanie spinów w sieci krystalicznej.
+
+Każdy spin może przyjąć jedną z dwóch wartości:
+
+$$  
++1  
+$$
+
+albo:
+
+$$  
+-1  
+$$
+
+Model Isinga jest prosty, ale pozwala badać bogate zachowanie fazowe.
+
+### Przykład w Pythonie
+
+```python
+# Przykładowa sieć spinów jednowymiarowa.
+
+spiny = [1, -1, 1, 1, -1]
+
+for i in range(len(spiny)):
+    print("Spin", i, "=", spiny[i])
+```
+
+---
+
+## 22.1. Definicja modelu Isinga
+
+Rozważamy sieć o:
+
+$$  
+N  
+$$
+
+spinach.
+
+Każdy spin:
+
+$$  
+s_i  
+$$
+
+dla:
+
+$$  
+i=1,2,\dots,N  
+$$
+
+przyjmuje wartości:
+
+$$  
+\pm 1  
+$$
+
+Energia układu jest opisana przez Hamiltonian:
+
+$$  
+H=-J\sum_{\langle i,j\rangle}s_is_j-h\sum_i s_i  
+$$
+
+gdzie:
+
+- $$J$$ — stała sprzężenia między najbliższymi sąsiadami,
+    
+- $$h$$ — zewnętrzne pole magnetyczne,
+    
+- $$\langle i,j\rangle$$ — sumowanie po najbliższych sąsiadach.
+    
+
+### Przykład w Pythonie
+
+```python
+# Energia prostego jednowymiarowego modelu Isinga bez pola magnetycznego.
+
+spiny = [1, -1, 1, 1]
+J = 1
+h = 0
+
+energia = 0
+
+for i in range(len(spiny) - 1):
+    energia = energia - J * spiny[i] * spiny[i + 1]
+
+suma_spinow = 0
+
+for i in range(len(spiny)):
+    suma_spinow = suma_spinow + spiny[i]
+
+energia = energia - h * suma_spinow
+
+print("Energia =", energia)
+```
+
+---
+
+## 22.2. Symulacje Monte Carlo w modelu Isinga
+
+Metoda Monte Carlo jest stosowana do badania modelu Isinga, szczególnie przy analizie przejść fazowych.
+
+Wykorzystuje się między innymi algorytm Metropolisa.
+
+### Algorytm Metropolisa
+
+1. Losowo wybierz spin.
+    
+2. Oblicz zmianę energii:
+    
+
+$$  
+\Delta E  
+$$
+
+po odwróceniu spinu.
+
+3. Jeżeli:
+    
+
+$$  
+\Delta E\leq 0  
+$$
+
+odwróć spin.
+
+4. W przeciwnym razie odwróć spin z prawdopodobieństwem:
+    
+
+$$  
+e^{-\Delta E/kT}  
+$$
+
+gdzie:
+
+- $$k$$ — stała Boltzmanna,
+    
+- $$T$$ — temperatura.
+    
+
+### Przykład w Pythonie
+
+```python
+import math
+import random
+
+# Uproszczony przykład decyzji w algorytmie Metropolisa.
+# Zakładamy, że znamy zmianę energii DeltaE.
+
+DeltaE = 2.0  # zmiana energii po proponowanym odwróceniu spinu
+k = 1.0       # dla uproszczenia przyjmujemy k = 1
+T = 3.0       # temperatura układu
+
+if DeltaE <= 0:
+    # Jeśli energia maleje albo się nie zmienia,
+    # to zmianę zawsze akceptujemy.
+    print("Akceptujemy zmianę, bo energia nie rośnie")
+
+else:
+    # Jeśli energia rośnie, obliczamy prawdopodobieństwo akceptacji.
+    P = math.exp(-DeltaE / (k * T))
+
+    # Losujemy liczbę z przedziału [0,1).
+    r = random.random()
+
+    print("Prawdopodobieństwo akceptacji =", P)
+    print("Wylosowana liczba =", r)
+
+    if r < P:
+        print("Akceptujemy zmianę mimo wzrostu energii")
+    else:
+        print("Odrzucamy zmianę")
+```
+
+### Najważniejszy warunek
+
+W kodzie decyzja sprowadza się do dwóch przypadków:
+
+```python
+if DeltaE <= 0:
+    akceptujemy zmianę
+else:
+    akceptujemy zmianę tylko z prawdopodobieństwem exp(-DeltaE / (k*T))
+```
+
+Czyli algorytm Metropolisa pozwala czasem przyjmować gorsze stany, aby symulacja mogła lepiej badać przestrzeń możliwych konfiguracji.
+
+---
+
+# 23. Zastosowania modelu Isinga
+
+Model Isinga może być używany do:
+
+- analizy magnetyzmu w materiałach,
+    
+- badania zjawisk krytycznych,
+    
+- badania przejść fazowych.
+    
+
+Ze względu na prostotę i możliwość skalowania znajduje zastosowanie także w:
+
+- informatyce,
+    
+- biologii,
+    
+- ekonomii,
+    
+- analizie systemów decyzyjnych,
+    
+- sieciach neuronowych.
+    
+
+---
+
+# 24. Symulowane wyżarzanie
+
+**Symulowane wyżarzanie** to technika optymalizacji, która naśladuje proces wyżarzania w metalurgii.
+
+Metoda jest użyteczna do znajdowania minimum globalnego funkcji kosztu, szczególnie wtedy, gdy przestrzeń rozwiązań jest duża lub skomplikowana.
+
+### Idea
+
+Algorytm zaczyna od wysokiej temperatury.
+
+Potem temperatura stopniowo maleje.
+
+Wysoka temperatura pozwala akceptować czasem gorsze rozwiązania, co pomaga uniknąć utknięcia w minimum lokalnym.
+
+### Przykład w Pythonie
+
+```python
+temperatura = 1000
+
+for i in range(5):
+    print("Iteracja:", i, "temperatura =", temperatura)
+    temperatura = temperatura * 0.5
+```
+
+---
+
+## 24.1. Podstawy symulowanego wyżarzania
+
+W każdym kroku algorytm próbuje zastąpić aktualne rozwiązanie nowym rozwiązaniem z sąsiedztwa.
+
+Nowe rozwiązanie może być nawet gorsze.
+
+Prawdopodobieństwo akceptacji gorszego rozwiązania zależy od różnicy kosztów i temperatury:
+
+$$  
+P(\Delta E)=e^{-\Delta E/T}  
+$$
+
+gdzie:
+
+- $$\Delta E$$ — różnica kosztów,
+    
+- $$T$$ — aktualna temperatura.
+    
+
+### Przykład w Pythonie
+
+```python
+# Uproszczona logika:
+# jeśli nowe rozwiązanie jest lepsze, akceptujemy je od razu.
+
+koszt_stary = 10
+koszt_nowy = 7
+
+DeltaE = koszt_nowy - koszt_stary
+
+if DeltaE < 0:
+    print("Nowe rozwiązanie jest lepsze, akceptujemy")
+else:
+    print("Nowe rozwiązanie jest gorsze, akceptacja zależy od temperatury")
+```
+
+---
+
+## 24.2. Algorytm symulowanego wyżarzania
+
+1. Ustal początkowe rozwiązanie i początkową temperaturę.
+    
+2. Losowo wybierz nowe rozwiązanie z sąsiedztwa aktualnego rozwiązania.
+    
+3. Oblicz zmianę funkcji kosztu:
+    
+
+$$  
+\Delta E  
+$$
+
+4. Jeżeli:
+    
+
+$$  
+\Delta E < 0  
+$$
+
+zaakceptuj nowe rozwiązanie.
+
+5. Jeżeli:
+    
+
+$$  
+\Delta E \geq 0  
+$$
+
+zaakceptuj nowe rozwiązanie z prawdopodobieństwem:
+
+$$  
+e^{-\Delta E/T}  
+$$
+
+6. Zmniejsz temperaturę i powtórz proces.
+    
+7. Zakończ, gdy temperatura osiągnie minimalny poziom albo gdy wykonano określoną liczbę iteracji.
+    
+
+### Przykład w Pythonie
+
+```python
+# Prosty schemat bez losowania prawdopodobieństwa.
+# Pokazuje najważniejsze zmienne algorytmu.
+
+x = 10
+T = 1000
+T_min = 1
+
+def f(x):
+    return x * x - 4 * x + 4
+
+while T > T_min:
+    x_nowy = x - 1
+
+    DeltaE = f(x_nowy) - f(x)
+
+    if DeltaE < 0:
+        x = x_nowy
+
+    print("x =", x, "f(x) =", f(x), "T =", T)
+
+    T = T * 0.5
+```
+
+
+---
+
+## 24.3. Przykład symulowanego wyżarzania
+
+Z wykładu:
+
+Minimalizujemy funkcję:
+
+$$  
+f(x)=x^2-4x+4  
+$$
+
+Zaczynamy od punktu:
+
+$$  
+x=10  
+$$
+
+oraz temperatury:
+
+$$  
+T=1000  
+$$
+
+Po kolejnych iteracjach i obniżaniu temperatury algorytm powinien osiągnąć minimum funkcji blisko:
+
+$$  
+x=2  
+$$
+
+Jest to minimum globalne, ponieważ:
+
+$$  
+f(x)=x^2-4x+4=(x-2)^2  
+$$
+
+### Przykład w Pythonie
+
+
+```python
+import math  # importujemy math, żeby użyć funkcji exp()
+import random  # importujemy random, żeby losować nowe rozwiązania i decyzję akceptacji
+
+# Szukamy minimum funkcji f(x) = x^2 - 4x + 4
+# Ta funkcja ma minimum dla x = 2
+
+def f(x):  # definiujemy funkcję kosztu
+    return x * x - 4 * x + 4  # zwracamy wartość funkcji f(x)
+
+
+x = 10  # początkowe rozwiązanie
+T = 1000.0  # początkowa temperatura
+T_min = 1.0  # minimalna temperatura, przy której kończymy algorytm
+alfa = 0.5  # współczynnik chłodzenia, czyli tempo zmniejszania temperatury
+
+najlepsze_x = x  # zapamiętujemy najlepsze znalezione rozwiązanie
+najlepsza_wartosc = f(x)  # zapamiętujemy wartość funkcji dla najlepszego rozwiązania
+
+while T > T_min:  # wykonujemy algorytm, dopóki temperatura jest większa od minimalnej
+    krok = random.choice([-1, 1])  # losujemy kierunek zmiany: w lewo albo w prawo
+
+    x_nowy = x + krok  # tworzymy nowe rozwiązanie z sąsiedztwa aktualnego rozwiązania
+
+    DeltaE = f(x_nowy) - f(x)  # obliczamy zmianę funkcji kosztu
+
+    if DeltaE < 0:  # jeśli nowe rozwiązanie jest lepsze
+        x = x_nowy  # akceptujemy nowe rozwiązanie
+
+    else:  # jeśli nowe rozwiązanie jest gorsze albo takie samo
+        prawdopodobienstwo = math.exp(-DeltaE / T)  # obliczamy prawdopodobieństwo akceptacji
+
+        r = random.random()  # losujemy liczbę z przedziału [0, 1)
+
+        if r < prawdopodobienstwo:  # jeśli wylosowana liczba jest mniejsza od prawdopodobieństwa
+            x = x_nowy  # akceptujemy gorsze rozwiązanie
+
+    if f(x) < najlepsza_wartosc:  # sprawdzamy, czy aktualne rozwiązanie jest najlepsze do tej pory
+        najlepsze_x = x  # zapisujemy najlepsze x
+        najlepsza_wartosc = f(x)  # zapisujemy najlepszą wartość funkcji
+
+    print("x =", x, "f(x) =", f(x), "T =", T)  # wypisujemy aktualny stan algorytmu
+
+    T = T * alfa  # zmniejszamy temperaturę
+
+
+print("Najlepsze znalezione rozwiązanie:")
+print("x =", najlepsze_x)
+print("f(x) =", najlepsza_wartosc)
+```
+
+inny przykład:
+
+```python
+def f(x):
+    return x * x - 4 * x + 4
+
+punkty = [10, 8, 6, 4, 2]
+
+for x in punkty:
+    print("x =", x, "f(x) =", f(x))
+```
+
+---
+
+# 25. Powiązania między symulowanym wyżarzaniem a metodami Monte Carlo
+
+Symulowane wyżarzanie jest powiązane z metodami Monte Carlo, ponieważ także korzysta z losowości.
+
+Z wykładu najważniejsze powiązania:
+
+1. Obie metody bazują na losowym doborze próbek lub rozwiązań.
+    
+2. Symulowane wyżarzanie akceptuje czasem gorsze rozwiązania z pewnym prawdopodobieństwem.
+    
+3. Proces chłodzenia przypomina dostosowywanie parametrów w niektórych algorytmach Monte Carlo.
+    
+4. Obie metody opierają się na prawdopodobieństwie i statystyce.
+    
+5. Obie metody szukają równowagi między eksploracją a eksploatacją.
+    
+
+### Przykład w Pythonie
+
+```python
+# Eksploracja: sprawdzamy nowe rozwiązania.
+# Eksploatacja: zostajemy przy dobrym rozwiązaniu.
+
+rozwiazania = [10, 8, 5, 3, 2]
+
+def koszt(x):
+    return x * x - 4 * x + 4
+
+najlepsze = rozwiazania[0]
+
+for i in range(1, len(rozwiazania)):
+    if koszt(rozwiazania[i]) < koszt(najlepsze):
+        najlepsze = rozwiazania[i]
+
+print("Najlepsze znalezione rozwiązanie =", najlepsze)
+print("Koszt =", koszt(najlepsze))
+```
+
+---
+
+# 26. Monte Carlo i sztuczna inteligencja
+
+Współczesna sztuczna inteligencja często operuje na:
+
+- prawdopodobieństwach,
+    
+- niepewności,
+    
+- wielu możliwych scenariuszach.
+    
+
+Metody Monte Carlo są używane między innymi w:
+
+- Bayesian Machine Learning,
+    
+- probabilistycznych modelach AI,
+    
+- uczeniu przez wzmacnianie,
+    
+- algorytmach MCMC.
+    
+
+Monte Carlo pozwala zastąpić trudne obliczenia losowym próbkowaniem i uśrednianiem wyników.
+
+---
+
+# 27. Monte Carlo w statystyce bayesowskiej
+
+W statystyce bayesowskiej interesuje nas rozkład:
+
+$$  
+P(\theta|D)  
+$$
+
+czyli rozkład parametrów:
+
+$$  
+\theta  
+$$
+
+po zaobserwowaniu danych:
+
+$$  
+D  
+$$
+
+Z twierdzenia Bayesa:
+
+$$  
+P(\theta|D)=\frac{P(D|\theta)P(\theta)}{P(D)}  
+$$
+
+Problem polega na tym, że:
+
+$$  
+P(D)  
+$$
+
+często jest bardzo trudne do obliczenia.
+
+Monte Carlo może wtedy:
+
+- losować wiele możliwych parametrów,
+    
+- sprawdzać zgodność z danymi,
+    
+- przybliżać rozkład posterior.
+    
+
+### Przykład w Pythonie
+
+```python
+# Uproszczony przykład:
+# sprawdzamy kilka kandydatów parametru theta.
+
+theta = [0.1, 0.3, 0.5, 0.7]
+zgodnosc = [0.2, 0.6, 0.9, 0.4]
+
+najlepszy_indeks = 0
+
+for i in range(1, len(theta)):
+    if zgodnosc[i] > zgodnosc[najlepszy_indeks]:
+        najlepszy_indeks = i
+
+print("Najlepszy kandydat theta =", theta[najlepszy_indeks])
+```
+
+inny przykład:
+
+```python
+# Monte Carlo w statystyce bayesowskiej.
+# Szacujemy prawdopodobieństwo wyrzucenia orła dla monety.
+
+import random  # importujemy random, żeby losować kandydatów parametru theta
+
+
+orly = 7  # liczba zaobserwowanych orłów
+reszki = 3  # liczba zaobserwowanych reszek
+
+N = 10000  # liczba losowanych kandydatów theta
+
+suma_wag = 0.0  # suma wag, czyli suma zgodności kandydatów z danymi
+suma_theta_wazona = 0.0  # suma theta pomnożonych przez ich wagi
+
+najlepsze_theta = 0.0  # zmienna przechowująca najlepszego kandydata theta
+najlepsza_waga = 0.0  # zmienna przechowująca największą znalezioną wagę
+
+for i in range(N):  # wykonujemy N losowań możliwych wartości theta
+    theta = random.random()  # losujemy theta z przedziału [0,1)
+
+    # Liczymy zgodność theta z danymi.
+    # Jeśli mamy 7 orłów i 3 reszki, to prawdopodobieństwo danych wynosi:
+    # theta^7 * (1-theta)^3
+    waga = (theta ** orly) * ((1 - theta) ** reszki)
+
+    suma_wag = suma_wag + waga  # dodajemy wagę do sumy wszystkich wag
+
+    suma_theta_wazona = suma_theta_wazona + theta * waga  # dodajemy theta pomnożone przez wagę
+
+    if waga > najlepsza_waga:  # sprawdzamy, czy aktualna waga jest największa
+        najlepsza_waga = waga  # zapamiętujemy największą wagę
+        najlepsze_theta = theta  # zapamiętujemy theta najlepiej pasujące do danych
+
+theta_srednie = suma_theta_wazona / suma_wag  # obliczamy przybliżoną średnią rozkładu posterior
+
+print("Dane:")  # wypisujemy nagłówek
+print("orły =", orly)  # wypisujemy liczbę orłów
+print("reszki =", reszki)  # wypisujemy liczbę reszek
+
+print("Najlepszy kandydat theta =", najlepsze_theta)  # wypisujemy theta o największej zgodności z danymi
+print("Średnie theta z rozkładu posterior ≈", theta_srednie)  # wypisujemy przybliżoną średnią posterior
+```
+
+---
+
+# 28. MCMC — Markov Chain Monte Carlo
+
+**MCMC** to rodzina algorytmów służących do generowania próbek z trudnych rozkładów prawdopodobieństwa.
+
+MCMC łączy dwie idee:
+
+## Markov Chain
+
+Kolejna próbka zależy od poprzedniej.
+
+Tworzy się tak zwany łańcuch Markowa.
+
+## Monte Carlo
+
+Wykorzystujemy:
+
+- losowanie,
+    
+- decyzje probabilistyczne,
+    
+- dużą liczbę próbek.
+    
+
+### Idea
+
+Algorytm wykonuje losowy spacer po przestrzeni rozwiązań i częściej odwiedza obszary bardziej prawdopodobne.
+
+### Przykład w Pythonie
+
+```python
+# Prosty przykład MCMC metodą Metropolisa.
+# Chcemy generować próbki z rozkładu podobnego do normalnego:
+# p(x) ~ exp(-x^2 / 2)
+
+import math  # importujemy math, żeby użyć funkcji exp()
+import random  # importujemy random, żeby wykonywać losowania
+
+
+def gestosc(x):  # funkcja opisuje rozkład, z którego chcemy próbkować
+    return math.exp(-x * x / 2)  # zwracamy wartość exp(-x^2/2)
+
+
+stan = 0.0  # początkowy stan łańcucha Markowa
+
+krok = 1.0  # maksymalna wielkość losowej zmiany stanu
+
+liczba_iteracji = 1000  # liczba kroków algorytmu MCMC
+
+probki = []  # lista, w której będziemy zapisywać wygenerowane próbki
+
+
+for i in range(liczba_iteracji):  # wykonujemy kolejne kroki algorytmu
+    propozycja = stan + random.uniform(-krok, krok)  # losujemy nowy kandydat w pobliżu aktualnego stanu
+
+    prawdopodobienstwo_akceptacji = gestosc(propozycja) / gestosc(stan)  # porównujemy, jak dobry jest nowy stan względem starego
+
+    if prawdopodobienstwo_akceptacji >= 1:  # jeśli nowy stan jest bardziej prawdopodobny
+        stan = propozycja  # akceptujemy nowy stan
+
+    else:  # jeśli nowy stan jest mniej prawdopodobny
+        r = random.random()  # losujemy liczbę z przedziału [0,1)
+
+        if r < prawdopodobienstwo_akceptacji:  # czasem akceptujemy gorszy stan
+            stan = propozycja  # akceptujemy propozycję mimo mniejszego prawdopodobieństwa
+
+    probki.append(stan)  # zapisujemy aktualny stan jako próbkę
+
+
+print("Pierwsze 20 próbek:")  # wypisujemy opis wyniku
+print(probki[:20])  # wypisujemy pierwsze 20 wygenerowanych próbek
+
+srednia = sum(probki) / len(probki)  # liczymy średnią z próbek
+
+print("Średnia z próbek =", srednia)  # wypisujemy średnią
+```
+
+---
+
+## 28.1. Przykłady algorytmów MCMC
+
+Wykład wymienia:
+
+1. **Metropolis–Hastings**
+    
+    - proponujemy nowy losowy punkt,
+        
+    - akceptujemy go z pewnym prawdopodobieństwem,
+        
+    - algorytm eksploruje przestrzeń parametrów.
+        
+2. **Gibbs Sampling**
+    
+    - losujemy parametry pojedynczo,
+        
+    - upraszcza obliczenia w modelach wielowymiarowych.
+        
+3. **Particle Filters**
+    
+    - przechowują wiele możliwych hipotez,
+        
+    - stosowane są np. w robotyce i pojazdach autonomicznych.
+        
+
+---
+
+# 29. Monte Carlo i Reinforcement Learning
+
+**RL**, czyli **Reinforcement Learning**, oznacza uczenie przez wzmacnianie.
+
+Agent:
+
+- wykonuje akcje,
+    
+- obserwuje skutki,
+    
+- otrzymuje nagrody lub kary,
+    
+- uczy się najlepszej strategii.
+    
+
+Monte Carlo w RL:
+
+- symuluje wiele losowych epizodów,
+    
+- oblicza średnią nagrodę,
+    
+- pomaga ocenić jakość strategii.
+    
+
+Zastosowania:
+
+- gry komputerowe,
+    
+- robotyka,
+    
+- autonomiczne systemy AI.
+    
+
+### Przykład w Pythonie
+
+```python
+# Monte Carlo w Reinforcement Learning.
+# Symulujemy kilka epizodów prostego agenta.
+# Agent startuje w punkcie 0 i chce dojść do punktu 5.
+# Za dojście do celu dostaje nagrodę +10.
+# Za każdy zwykły krok dostaje karę -1.
+
+import random  # importujemy random, żeby agent mógł losowo wybierać akcje
+
+
+def wykonaj_epizod():  # funkcja symuluje jeden epizod
+    pozycja = 0  # agent zaczyna w pozycji 0
+    cel = 5  # celem agenta jest dojście do pozycji 5
+    suma_nagrod = 0  # tutaj zapisujemy łączną nagrodę z epizodu
+    maks_krokow = 20  # ograniczamy długość epizodu, żeby nie trwał nieskończenie
+
+    for krok in range(maks_krokow):  # wykonujemy kolejne kroki epizodu
+        akcja = random.choice([-1, 1])  # agent losuje akcję: -1 oznacza ruch w lewo, 1 oznacza ruch w prawo
+
+        pozycja = pozycja + akcja  # aktualizujemy pozycję agenta
+
+        if pozycja < 0:  # sprawdzamy, czy agent wyszedł poza lewą granicę
+            pozycja = 0  # jeśli tak, zatrzymujemy go na pozycji 0
+
+        suma_nagrod = suma_nagrod - 1  # za każdy krok agent dostaje karę -1
+
+        if pozycja == cel:  # sprawdzamy, czy agent dotarł do celu
+            suma_nagrod = suma_nagrod + 10  # za dojście do celu agent dostaje nagrodę +10
+            break  # kończymy epizod, bo cel został osiągnięty
+
+    return suma_nagrod  # zwracamy łączną nagrodę z jednego epizodu
+
+
+liczba_epizodow = 10  # liczba symulowanych epizodów
+
+nagrody = []  # lista na wyniki kolejnych epizodów
+
+for i in range(liczba_epizodow):  # uruchamiamy wiele epizodów
+    wynik = wykonaj_epizod()  # wykonujemy jeden epizod i zapisujemy jego wynik
+    nagrody.append(wynik)  # dodajemy wynik epizodu do listy
+
+suma = 0  # zmienna na sumę nagród ze wszystkich epizodów
+
+for i in range(len(nagrody)):  # przechodzimy po wszystkich wynikach
+    suma = suma + nagrody[i]  # dodajemy wynik epizodu do sumy
+
+srednia_nagroda = suma / len(nagrody)  # liczymy średnią nagrodę z epizodów
+
+print("Nagrody z epizodów:", nagrody)  # wypisujemy wyniki pojedynczych epizodów
+print("Średnia nagroda =", srednia_nagroda)  # wypisujemy średnią nagrodę
+```
+
+---
+
+# 30. Problemy praktyczne Monte Carlo
+
+Najczęstsze problemy metody Monte Carlo:
+
+- słaby generator liczb pseudolosowych,
+    
+- zbyt mała liczba próbek,
+    
+- wysoka wariancja,
+    
+- bardzo wolna zbieżność,
+    
+- błędna interpretacja wyników.
+    
+
+W praktyce należy:
+
+- wykonywać wiele niezależnych eksperymentów,
+    
+- analizować odchylenie standardowe,
+    
+- kontrolować jakość generatora.
+    
+
+### Przykład w Pythonie
+
+```python
+# Przykład analizy kilku wyników eksperymentów Monte Carlo.
+# Nie patrzymy tylko na jeden wynik, ale sprawdzamy średnią i odchylenie standardowe.
+
+wyniki_eksperymentow = [2.1, 2.4, 2.3, 2.2, 2.5]  # wyniki kilku niezależnych eksperymentów Monte Carlo
+
+suma = 0  # zmienna na sumę wyników
+
+for i in range(len(wyniki_eksperymentow)):  # przechodzimy po wszystkich wynikach eksperymentów
+    suma = suma + wyniki_eksperymentow[i]  # dodajemy aktualny wynik do sumy
+
+srednia = suma / len(wyniki_eksperymentow)  # obliczamy średnią wartość wyników
+
+suma_kwadratow = 0  # zmienna na sumę kwadratów odchyleń od średniej
+
+for i in range(len(wyniki_eksperymentow)):  # ponownie przechodzimy po wszystkich wynikach
+    roznica = wyniki_eksperymentow[i] - srednia  # liczymy różnicę między wynikiem a średnią
+    suma_kwadratow = suma_kwadratow + roznica * roznica  # dodajemy kwadrat tej różnicy
+
+wariancja = suma_kwadratow / len(wyniki_eksperymentow)  # obliczamy wariancję wyników
+
+odchylenie = wariancja ** 0.5  # pierwiastkujemy wariancję, żeby dostać odchylenie standardowe
+
+print("Wyniki eksperymentów =", wyniki_eksperymentow)  # wypisujemy wszystkie wyniki
+print("Średnia =", srednia)  # wypisujemy średni wynik
+print("Odchylenie standardowe =", odchylenie)  # wypisujemy rozrzut wyników
+```
+
+---
+
+# 31. Monte Carlo na GPU
+
+Metoda Monte Carlo bardzo dobrze nadaje się do równoległości.
+
+Każda próbka:
+
+- może być liczona niezależnie,
+    
+- nie wymaga komunikacji z innymi próbkami.
+    
+
+Dlatego Monte Carlo często wykorzystuje:
+
+- GPU,
+    
+- CUDA,
+    
+- OpenCL,
+    
+- obliczenia rozproszone.
+    
+
+To jest jedna z przyczyn popularności tej metody.
+
+### Przykład w Pythonie
+
+```python
+# Przykład pokazujący, dlaczego Monte Carlo dobrze nadaje się na GPU.
+# Każda próbka jest niezależna od pozostałych.
+# Tutaj przybliżamy liczbę pi metodą Monte Carlo.
+
+import random  # importujemy random, żeby losować punkty
+
+
+def jedna_probka():  # funkcja wykonuje jedną niezależną próbkę Monte Carlo
+    x = random.uniform(-1, 1)  # losujemy współrzędną x z przedziału [-1, 1]
+    y = random.uniform(-1, 1)  # losujemy współrzędną y z przedziału [-1, 1]
+
+    if x * x + y * y <= 1:  # sprawdzamy, czy punkt leży w kole jednostkowym
+        return 1  # zwracamy 1, jeśli punkt trafił do koła
+    else:  # jeśli punkt nie leży w kole
+        return 0  # zwracamy 0
+
+
+N = 10000  # liczba wszystkich próbek
+
+trafienia = 0  # licznik punktów, które trafiły do koła
+
+for i in range(N):  # wykonujemy N niezależnych próbek
+    trafienia = trafienia + jedna_probka()  # dodajemy wynik jednej próbki do liczby trafień
+
+pi_przyblizone = 4 * trafienia / N  # obliczamy przybliżenie pi
+
+print("Liczba próbek =", N)  # wypisujemy liczbę próbek
+print("Liczba trafień =", trafienia)  # wypisujemy liczbę trafień w koło
+print("Przybliżenie pi =", pi_przyblizone)  # wypisujemy przybliżenie liczby pi
+```
+
+---
+
+# 32. Dokładność i poprawność wyników Monte Carlo
+
+Dokładność metod Monte Carlo zależy od liczby symulacji.
+
+Większa liczba prób zwykle prowadzi do bardziej precyzyjnych wyników.
+
+Błąd statystyczny jest związany z odchyleniem standardowym i zwykle zmniejsza się jak:
+
+$$  
+\frac{1}{\sqrt{N}}  
+$$
+
+gdzie:
+
+$$  
+N  
+$$
+
+to liczba prób.
+
+Dokładność można poprawić technikami redukcji wariancji, takimi jak:
+
+- próbkowanie ważone,
+    
+- stratyfikacja,
+    
+- zmienne kontrolne.
+    
+
+W praktyce dokładność jest ograniczona także przez jakość generatora liczb pseudolosowych.
+
+### Przykład w Pythonie
+
+```python
+# Pokazujemy, jak teoretyczny błąd Monte Carlo zmniejsza się wraz z liczbą prób.
+# Błąd jest proporcjonalny do 1 / sqrt(N).
+
+liczby_prob = [100, 1000, 10000, 100000]  # różne liczby prób N
+
+for N in liczby_prob:  # przechodzimy po kolejnych wartościach N
+    blad = 1 / (N ** 0.5)  # obliczamy wartość proporcjonalną do błędu: 1/sqrt(N)
+
+    print("Dla N =", N)  # wypisujemy liczbę prób
+    print("Błąd proporcjonalny do =", blad)  # wypisujemy oszacowanie zależności błędu
+    print()
+```
+
+---
+
+## 32.1. Poprawność wyników
+
+Poprawność wyników zależy od:
+
+- założeń modelu,
+    
+- dobrania parametrów symulacji,
+    
+- poprawnej implementacji,
+    
+- zgodności modelu z rzeczywistym problemem.
+    
+
+Trzeba uważać na błędy systematyczne wynikające z niewłaściwego modelowania lub błędów w implementacji.
+
+Poprawność można sprawdzać przez porównanie wyników z:
+
+- innymi metodami numerycznymi,
+    
+- danymi eksperymentalnymi.
+    
+
+### Przykład w Pythonie
+
+```python
+# Przykład sprawdzenia poprawności wyniku Monte Carlo.
+# Porównujemy wynik Monte Carlo z wynikiem otrzymanym inną metodą.
+
+wynik_monte_carlo = 2.34  # wynik uzyskany metodą Monte Carlo
+
+wynik_innej_metody = 2.33  # wynik uzyskany inną metodą, np. metodą numeryczną albo analityczną
+
+roznica = abs(wynik_monte_carlo - wynik_innej_metody)  # obliczamy różnicę bezwzględną między wynikami
+
+print("Wynik Monte Carlo =", wynik_monte_carlo)  # wypisujemy wynik Monte Carlo
+print("Wynik innej metody =", wynik_innej_metody)  # wypisujemy wynik porównawczy
+print("Różnica wyników =", roznica)  # wypisujemy różnicę między wynikami
+
+if roznica < 0.05:  # sprawdzamy, czy różnica mieści się w przyjętej tolerancji
+    print("Wyniki są podobne")  # jeśli różnica jest mała, wynik można uznać za zgodny
+else:  # jeśli różnica jest zbyt duża
+    print("Trzeba sprawdzić model lub implementację")  # duża różnica może oznaczać błąd w modelu albo kodzie
+```
+
+---
+
+# 33. Zalety metody Monte Carlo
+
+Zalety metody Monte Carlo z wykładu:
+
+1. Umożliwia rozwiązywanie skomplikowanych problemów.
+    
+2. Jest prostą alternatywą dla skomplikowanych rozwiązań analitycznych.
+    
+3. Wzrost mocy obliczeniowej sprzętu komputerowego zwiększa jej efektywność.
+    
+4. Uwalnia użytkownika od konieczności zrozumienia bardzo skomplikowanej teorii matematycznej.
+    
+5. Jest elastyczna i można ją dopasować do różnych problemów.
+    
+
+---
+
+# 34. Wady metody Monte Carlo
+
+Wady metody Monte Carlo z wykładu:
+
+1. Eksperymenty są ograniczone do skończonej liczby prób.
+    
+2. Wyniki zawsze są przybliżeniami.
+    
+3. Jakość wyników zależy od jakości generatora liczb pseudolosowych.
+    
+4. Rozwiązania mogą być obarczone niepewnością statystyczną.
+    
+
+---
+
+# 35. Najważniejsze rzeczy do zapamiętania na kolosa
+
+## 35.1. Definicja Monte Carlo
+
+Metoda Monte Carlo polega na użyciu losowego próbkowania do przybliżonego rozwiązania problemu.
+
+---
+
+## 35.2. Ogólny algorytm Monte Carlo
+
+1. Definiujemy przestrzeń danych wejściowych.
+    
+2. Losujemy dane wejściowe.
+    
+3. Wykonujemy obliczenia probabilistyczne.
+    
+4. Agregujemy wyniki.
+    
+
+---
+
+## 35.3. Zmienna losowa
+
+Zmienna losowa to wynik procesu losowego reprezentowany wartością liczbową, binarną lub symboliczną.
+
+---
+
+## 35.4. Rozkład prawdopodobieństwa
+
+Dla zmiennej dyskretnej rozkład prawdopodobieństwa przypisuje każdej możliwej wartości jej prawdopodobieństwo.
+
+---
+
+## 35.5. Wartość oczekiwana
+
+$$  
+E(X)=\sum_{i=1}^{n}x_i p(x_i)  
+$$
+
+---
+
+## 35.6. Wariancja
+
+$$  
+Var(X)=E[(X-E(X))^2]  
+$$
+
+oraz:
+
+$$  
+Var(X)=E(X^2)-[E(X)]^2  
+$$
+
+---
+
+## 35.7. Dystrybuanta
+
+$$  
+F(x)=P(X\leq x)  
+$$
+
+---
+
+## 35.8. Prawo Wielkich Liczb Bernoulliego
+
+$$  
+P\left(\left|\frac{S_n}{n}-p\right|\leq \epsilon\right)\to 1  
+$$
+
+gdy:
+
+$$  
+n\to\infty  
+$$
+
+---
+
+## 35.9. Znaczenie praw wielkich liczb
+
+Prawa wielkich liczb uzasadniają Monte Carlo, ponieważ średnia z wielu prób zbiega do wartości oczekiwanej.
+
+---
+
+## 35.10. Pole metodą Monte Carlo
+
+$$  
+P_{obszaru}\approx \frac{k}{N}P_{ograniczający}  
+$$
+
+---
+
+## 35.11. Obliczanie liczby $\pi$
+
+$$  
+\pi\approx 4\cdot  
+\frac{\text{liczba punktów w kole}}{\text{liczba wszystkich punktów}}  
+$$
+
+---
+
+## 35.12. Crude Monte Carlo
+
+$$  
+I=\int_a^b f(x) \space dx  
+$$
+
+oraz:
+
+$$  
+I\approx \frac{b-a}{N}\sum_{i=1}^{N}f(x_i)  
+$$
+
+---
+
+## 35.13. Dlaczego Crude MC działa?
+
+Dla:
+
+$$  
+X\sim U(a,b)  
+$$
+
+mamy:
+
+$$  
+E[f(X)]=\frac{1}{b-a}\int_a^b f(x) \space dx  
+$$
+
+czyli:
+
+$$  
+\int_a^b f(x),dx=(b-a)E[f(X)]  
+$$
+
+---
+
+## 35.14. Błąd Monte Carlo
+
+Błąd średni maleje jak:
+
+$$  
+O\left(\frac{1}{\sqrt{N}}\right)  
+$$
+
+---
+
+## 35.15. Metoda akceptacji–odrzucenia
+
+Losujemy punkty z prostokąta:
+
+$$  
+[a,b]\times[0,M]  
+$$
+
+Akceptujemy punkt, gdy:
+
+$$  
+y\leq f(x)  
+$$
+
+Wtedy:
+
+$$  
+I\approx \frac{k}{N}(b-a)M  
+$$
+
+---
+
+## 35.16. Model Isinga
+
+Hamiltonian modelu Isinga:
+
+$$  
+H=-J\sum_{\langle i,j\rangle}s_is_j-h\sum_i s_i  
+$$
+
+---
+
+## 35.17. Algorytm Metropolisa
+
+Jeżeli:
+
+$$  
+\Delta E\leq 0  
+$$
+
+zmianę akceptujemy.
+
+Jeżeli:
+
+$$  
+\Delta E>0  
+$$
+
+zmianę akceptujemy z prawdopodobieństwem:
+
+$$  
+e^{-\Delta E/kT}  
+$$
+
+---
+
+## 35.18. Symulowane wyżarzanie
+
+Symulowane wyżarzanie naśladuje proces chłodzenia materiału i służy do optymalizacji.
+
+Prawdopodobieństwo akceptacji gorszego rozwiązania:
+
+$$  
+P(\Delta E)=e^{-\Delta E/T}  
+$$
+
+---
+
+## 35.19. Monte Carlo w AI
+
+Metody Monte Carlo są używane w:
+
+- statystyce bayesowskiej,
+    
+- MCMC,
+    
+- uczeniu przez wzmacnianie,
+    
+- modelach probabilistycznych.
+    
+
+---
+
+## 35.20. MCMC
+
+MCMC generuje próbki z trudnych rozkładów prawdopodobieństwa za pomocą łańcucha Markowa i losowania.
+
+---
+
+## 35.21. Problemy praktyczne Monte Carlo
+
+Najczęstsze problemy:
+
+- zbyt mała liczba próbek,
+    
+- wysoka wariancja,
+    
+- słaby generator liczb pseudolosowych,
+    
+- wolna zbieżność,
+    
+- błędna interpretacja wyników.
+    
+
+---
+
+## 35.22. Zalety Monte Carlo
+
+Metoda jest:
+
+- prosta,
+    
+- elastyczna,
+    
+- dobra dla problemów złożonych,
+    
+- dobrze równoległa.
+    
+
+---
+
+## 35.23. Wady Monte Carlo
+
+Metoda daje wyniki przybliżone i wymaga dużej liczby prób.
+
+---
+
+# Całki - obliczanie
+
+Domyślna funkcja do liczenia całki **numerycznie metodą prostokątów ze środkiem przedziału**:
+
+```python
+def calka(f, a, b, n=1000):
+    h = (b - a) / n
+
+    suma = 0.0
+
+    for i in range(n):
+        x_srodek = a + (i + 0.5) * h
+        suma += f(x_srodek)
+
+    return h * suma
+```
+
+Przykład użycia:
+
+```python
+def f(x):
+    return x * x
+
+wynik = calka(f, 1, 2)
+
+print("Przybliżona całka =", wynik)
+print("Wartość dokładna =", 7 / 3)
+```
+
+Wersja z komentarzami:
+
+```python
+def calka(f, a, b, n=1000):  # funkcja przybliża całkę z f na przedziale [a,b]
+    h = (b - a) / n  # szerokość jednego małego przedziału
+
+    suma = 0.0  # suma wartości funkcji w środkach przedziałów
+
+    for i in range(n):  # wykonujemy obliczenia dla n prostokątów
+        x_srodek = a + (i + 0.5) * h  # środek i-tego przedziału
+        suma += f(x_srodek)  # dodajemy wartość funkcji w środku przedziału
+
+    return h * suma  # zwracamy przybliżone pole pod wykresem
+```
+
+
+Jeśli masz **całkę bez zakresów**, czyli całkę nieoznaczoną:
+
+$$  
+\int f(x) \space dx  
+$$
+
+to nie liczysz liczby, tylko szukasz **funkcji pierwotnej**.
+
+Przykład:
+
+$$  
+\int x^2 \space dx = \frac{x^3}{3}+C  
+$$
+
+W Pythonie bez bibliotek symbolicznych nie da się tego ogólnie policzyć dla dowolnej funkcji tak jak na kartce. Możesz tylko ręcznie zapisać funkcję pierwotną:
+
+```python
+def F(x):
+    return x**3 / 3
+```
+
+A jeśli potem dostaniesz przedział, np. $1,2$, to liczysz:
+
+```python
+a = 1
+b = 2
+
+wynik = F(b) - F(a)
+
+print(wynik)
+```
+
+Czyli:
+
+```text
+całka bez zakresów → funkcja pierwotna + C
+całka z zakresami → konkretna liczba
+```
+
+
+Dla całki nieoznaczonej:
+
+$$
+\int f(x)\,dx
+$$
+
+wynikiem jest funkcja pierwotna:
+
+$$
+F(x)+C
+$$
+
+gdzie:
+
+$$
+F'(x)=f(x)
+$$
+
+Przykład:
+
+$$
+\int x^2\,dx=\frac{x^3}{3}+C
+$$
+
+Jeżeli chcesz liczyć takie całki symbolicznie w Pythonie, można użyć `sympy`:
+
+```python
+import sympy as sp
+
+x = sp.Symbol("x")
+
+wynik = sp.integrate(x**2, x)
+
+print(wynik)
+```
+
+Wynik:
+
+```text
+x**3/3
+```

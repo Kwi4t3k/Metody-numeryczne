@@ -194,7 +194,72 @@ W programie robimy to praktycznie:
 
 1. losujemy próbnie pewną liczbę punktów,
 2. liczymy odchylenie standardowe wartości funkcji,
-3. szacujemy potrzebne (N).
+3. szacujemy potrzebne $N$.
+
+$N$ bierze się z zależności:
+
+$$  
+\text{błąd} \approx \frac{(b-a)\sigma}{\sqrt{N}}  
+$$
+
+gdzie:
+
+$$  
+\sigma  
+$$
+
+to odchylenie standardowe wartości $f(x)$, a $N$ to liczba próbek.
+
+Jeżeli chcesz, żeby błąd był mniejszy niż zadana dokładność:
+
+$$  
+\varepsilon  
+$$
+
+to zapisujesz:
+
+$$  
+\frac{(b-a)\sigma}{\sqrt{N}} \leq \varepsilon  
+$$
+
+Przekształcamy:
+
+$$  
+\sqrt{N} \geq \frac{(b-a)\sigma}{\varepsilon}  
+$$
+
+Podnosimy do kwadratu:
+
+$$  
+N \geq \left(\frac{(b-a)\sigma}{\varepsilon}\right)^2  
+$$
+
+I to jest dokładnie w kodzie:
+
+```python
+N = ((b - a) * odchylenie / dokladnosc) ** 2
+```
+
+Czyli ten wzór może nie być w wykładzie zapisany dosłownie jako gotowa funkcja do `N`, ale powinien wynikać z fragmentu o tym, że błąd Monte Carlo maleje jak:
+
+$$  
+\frac{1}{\sqrt{N}}  
+$$
+
+albo z odchylenia standardowego średniej:
+
+$$  
+\frac{\sigma}{\sqrt{N}}  
+$$
+
+
+Wzór na liczbę próbek wynika z oszacowania błędu metody Monte Carlo. Ponieważ błąd jest proporcjonalny do $\frac{1}{\sqrt{N}}$, to dla zadanej dokładności $\varepsilon$ można oszacować liczbę próbek jako:
+
+$$  
+N \approx \left(\frac{(b-a)\sigma}{\varepsilon}\right)^2  
+$$
+ 
+ gdzie $\sigma$ jest odchyleniem standardowym wartości funkcji $f(x)$ w losowanych punktach.
 
 ---
 
@@ -215,7 +280,7 @@ def monte_carlo_1d(f, a, b, N):  # funkcja oblicza całkę jednowymiarową metod
         x = random.uniform(a, b)  # losujemy punkt x z przedziału [a,b]
         suma += f(x)  # dodajemy wartość funkcji w wylosowanym punkcie
 
-    return (b - a) * suma / N  # zwracamy przybliżenie całki według wzoru z wykładu
+    return ((b - a) / N) * suma  # zwracamy przybliżenie całki według wzoru z wykładu
 
 
 def monte_carlo_2d(f, ax, bx, ay, by, N):  # funkcja oblicza całkę podwójną metodą Monte Carlo
@@ -228,7 +293,7 @@ def monte_carlo_2d(f, ax, bx, ay, by, N):  # funkcja oblicza całkę podwójną 
 
     pole_obszaru = (bx - ax) * (by - ay)  # obliczamy pole prostokąta, po którym całkujemy
 
-    return pole_obszaru * suma / N  # zwracamy przybliżenie całki podwójnej
+    return (pole_obszaru * suma) / N  # zwracamy przybliżenie całki podwójnej
 
 
 def oszacuj_N_1d(f, a, b, dokladnosc=0.005, N_probne=10000):  # funkcja szacuje potrzebną liczbę punktów dla całki 1D
@@ -364,6 +429,7 @@ Stosując metodę akceptacji i odrzuceń oblicz:
 a) objętość kuli jednostkowej,
 
 b) objętość części wspólnej sześcianu i kuli, przy czym stosunek promienia kuli do długości boku sześcianu wynosi $2:3$.
+![[czesc-wspolna-szescianu-i-kuli.png]]
 
 ---
 
@@ -385,8 +451,20 @@ $$
 
 To jest odpowiednik wzoru ze slajdów:
 
+$$  
+I \approx \frac{k}{N} P_{\text{prostokąta}}  
 $$
-I\approx \frac{k}{N}(b-a)M
+
+Ponieważ:  
+  
+$$  
+P_{\text{prostokąta}} = (b-a)M  
+$$  
+  
+otrzymujemy:  
+  
+$$  
+I \approx \frac{k}{N}(b-a)M  
 $$
 
 tylko zamiast pola prostokąta mamy objętość sześcianu.
@@ -407,11 +485,47 @@ $$
 [-1,1]\times[-1,1]\times[-1,1]
 $$
 
+Bo ma środek w punkcie:
+
+$$
+(0,0,0)
+$$
+
+Czyli kula obejmuje punkty oddalone od środka maksymalnie o `1`.
+
+W każdej osi wygląda to tak:
+
+```
+x od -1 do 1y od -1 do 1z od -1 do 1
+```
+
+Gdyby kula miała promień `r = 2`, wtedy losowalibyśmy z:
+
+$$
+[−2,2]×[−2,2]×[−2,2]
+$$
+
 Objętość tego sześcianu wynosi:
 
 $$
 V_{\text{sześcianu}}=2\cdot2\cdot2=8
 $$
+
+**Uniwersalna metoda na liczenie objętości sześcianu o $r=1$**
+```python
+x_min = -1
+x_max = 1
+
+y_min = -1
+y_max = 1
+
+z_min = -1
+z_max = 1
+
+objetosc = (x_max - x_min) * (y_max - y_min) * (z_max - z_min)
+
+print("Objętość =", objetosc)
+```
 
 Punkt należy do kuli, jeżeli spełnia warunek:
 
@@ -455,7 +569,7 @@ $$
 bok=3
 $$
 
-Sześcian ustawiamy symetrycznie względem początku układu współrzędnych, dlatego losujemy punkty z przedziałów:
+Sześcian ustawiamy symetrycznie względem początku układu współrzędnych, dlatego losujemy punkty z przedziałów (w kodzie to zmienna $polowa\_boku$):
 
 $$
 [-1.5,1.5]\times[-1.5,1.5]\times[-1.5,1.5]
@@ -498,7 +612,7 @@ import math  # importujemy math, ponieważ potrzebujemy liczby pi
 
 print("-------------------- ZADANIE 2 --------------------")  # wypisujemy nagłówek zadania
 
-
+# a)
 def objetosc_kuli_jednostkowej(N):  # funkcja oblicza objętość kuli jednostkowej metodą akceptacji i odrzuceń
     zaakceptowane = 0  # licznik punktów, które trafiły do kuli
 
@@ -514,7 +628,7 @@ def objetosc_kuli_jednostkowej(N):  # funkcja oblicza objętość kuli jednostko
 
     return objetosc_szescianu * zaakceptowane / N  # zwracamy przybliżoną objętość kuli
 
-
+# b)
 def objetosc_wspolna_szescianu_i_kuli(N):  # funkcja oblicza objętość części wspólnej sześcianu i kuli
     r = 2  # promień kuli zgodnie ze stosunkiem 2:3
     bok = 3  # bok sześcianu zgodnie ze stosunkiem 2:3

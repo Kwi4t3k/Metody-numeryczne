@@ -293,3 +293,51 @@
 - Test serii
 - Różne rodzaje testów statystycznych
 - Podsumowanie - kryteria dobrego generatora
+
+## 12 - Metody Monte Carlo
+- Geneza i ewolucja metody Monte Carlo
+- Zastosowania metody Monte Carlo
+- Ogólny algorytm metody Monte Carlo
+- Podstawy rachunku prawdopodobieństwa
+- Rozkład zmiennej losowej dyskretnej
+- Charakterystyki rozkładów zmiennej losowej dyskretnej
+- Dystrybuanta
+- Prawa wielkich liczb
+- Prawo Wielkich Liczb Bernoulliego
+- Mocne Prawo Wielkich Liczb Kołmogorowa
+- Znaczenie prawa wielkich liczb w metodach Monte Carlo
+- Tradycyjne metody obliczania pola powierzchni
+- Algorytm Monte Carlo do obliczania pola
+- Przykład – obliczanie liczby π
+- Metoda Crude Monte Carlo
+- Dlaczego metoda działa?
+- Dokładność metody Monte Carlo
+- Monte Carlo vs metody klasyczne
+- Crude Monte Carlo - przykład dla N=10
+- Crude Monte Carlo - przykład dla N=300
+- Metoda akceptacji–odrzucenia
+- Idea geometryczna
+- Algorytm akceptacji–odrzucenia
+- Przykład zastosowania (metody akceptacji–odrzucenia)
+- Metoda Akceptacji - Odrzuceń - przykład dla N = 10000
+- Efektywność metody
+- Model Isinga
+- Definicja Modelu Isinga
+- Symulacje Monte Carlo w Modelu Isinga
+- Przykłady i Zastosowania
+- Symulowane wyżarzanie
+- Podstawy symulowanego wyżarzania
+- Algorytm symulowanego wyżarzania
+- Przykład zastosowania
+- Powiązania między symulowanym wyżarzaniem a metodami Monte Carlo
+- Monte Carlo i sztuczna inteligencja
+- Monte Carlo w statystyce bayesowskiej
+- MCMC – Markov Chain Monte Carlo
+- Przykłady algorytmów MCMC
+- Monte Carlo i Reinforcement Learning (RL)
+- Problemy praktyczne Monte Carlo
+- Monte Carlo na GPU
+- Kwestie dokładności i poprawności wyników w metodach Monte Carlo
+- Zalety metody Monte Carlo
+- Wady metody Monte Carlo
+- Podsumowanie
