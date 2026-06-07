@@ -2508,7 +2508,7 @@ w wykładzie podano kilka metryk.
 
 ---
 
-## 4.1. Odległość euklidesowa
+## 4.1. Odległość euklidesowa (Metryka euklidesowa)
 
 $$  
 d_2(p,q) = \sqrt{(x_1-y_1)^2 + (x_2-y_2)^2}  
@@ -2555,7 +2555,7 @@ Wynik:
 
 ---
 
-## 4.2. Odległość Manhattan
+## 4.2. Odległość Manhattan (Metryka Manhattan)
 
 $$  
 d_1(p,q) = |x_1-y_1| + |x_2-y_2|  
@@ -2660,7 +2660,7 @@ Wynik:
 
 ---
 
-## 4.4. Metryka kolejowa / centrum
+## 4.4. Metryka kolejowa / Metryka centrum
 
 W wykładzie podano też metrykę kolejową, gdzie w razie potrzeby jedzie się przez punkt:
 
