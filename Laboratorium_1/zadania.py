@@ -77,9 +77,11 @@ print("wynik2: ", wynik2)
 print("Zadanie 6")
 
 # wynik1 = 1.0 / 0.0
-wynik2 = 0.0 / 0.0
+wynik1 = np.divide(1.0, 0.0)
+# wynik2 = 0.0 / 0.0
+wynik2 = np.divide(0.0, 0.0)
 
-# print("wynik dzielenia pierwszego: ", wynik1)
+print("wynik dzielenia pierwszego: ", wynik1)
 print("wynik dzielenia drugiego: ", wynik2)
 
 # -------------------- ZADANIE 7 ----------------------
@@ -108,7 +110,7 @@ print("Epsilon float64:", eps64)
 
 # -------------------- ZADANIE 8 ----------------------
 
-print("Zadanie 7")
+print("Zadanie 8")
 
 # liczba iteracji
 n = 1_000_000
