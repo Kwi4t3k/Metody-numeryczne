@@ -168,7 +168,9 @@ To różnica **31 rzędów wielkości**.
 
 Mała liczba jest tak niewyobrażalnie mała względem dużej, że:
 
-> jej wpływ mieści się poza zakresem precyzji mantysy
+> jej wpływ mieści się poza zakresem precyzji **mantysy**
+
+>**Mantysa** to część liczby zmiennoprzecinkowej, która przechowuje jej **cyfry znaczące**, czyli właściwą „treść” liczby.
 
 W efekcie:
 
