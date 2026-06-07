@@ -1,18 +1,24 @@
 # zad1
 import numpy as np
 
+def czy_potega_dwojki(x):
+    return x > 0 and x & (x - 1) == 0
+
 def generuj_tablice(n, m):
-    tablica = []
+    if czy_potega_dwojki(n) and czy_potega_dwojki(m) and n > m:
+        tablica = []
 
-    for k in range(n):
-        licznik = 1
-        mianownik = ((k % m) + 1) * ((k % m) + 2)
+        for k in range(n):
+            licznik = 1
+            mianownik = ((k % m) + 1) * ((k % m) + 2)
 
-        element = licznik / mianownik
+            element = licznik / mianownik
 
-        tablica.append(np.float32(element))
+            tablica.append(np.float32(element))
 
-    return tablica
+        return tablica
+    else:
+        raise ValueError("n i m muszą być potęgami liczby 2 oraz musi być spełnione n > m")
 
 n = 64
 m = 16
@@ -58,6 +64,7 @@ for i, wartosc in enumerate(tablica):
     print("a_", i, "=", wartosc)
 
 print("\nSuma elementów:", suma)
+print("\nSprawdzenie sumy: ", n / (m + 1))
 
 #zad3
 import numpy as np
@@ -80,7 +87,7 @@ def sumuj_tablice(tablica):
 
     for element in tablica:
         t = np.float32(suma + element)
-        poprawka = np.float32(poprawka + (element - (t-suma)))
+        poprawka = np.float32(poprawka + (element - (t - suma)))
         suma = t
 
     return np.float32(suma + poprawka)
@@ -92,7 +99,8 @@ tablica = generuj_tablice(n, m)
 
 suma = sumuj_tablice(tablica)
 
-print("Suma:", suma)
+print("\nSuma:", suma)
+print("Sprawdzenie sumy:", n / (m + 1))
 
 #zad4
 import numpy as np
@@ -149,11 +157,11 @@ suma = sumuj_tablice(tablica)
 suma_m = sumuj_tablice_Møller(tablica)
 suma_k = sumuj_tablice_Kahan(tablica)
 
-print("Suma zwykła:", suma)
+print("\nSuma zwykła:", suma)
 print("Suma Møller:", suma_m)
 print("Suma Kahan:", suma_k)
 
-print("Sprawdznie dokładności:", n/(m+1))
+print("\nSprawdznie dokładności:", n/(m+1))
 
 #zad5
 def generuj_tablice(n, m):
