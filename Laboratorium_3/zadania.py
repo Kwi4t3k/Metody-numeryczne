@@ -69,10 +69,10 @@ punktQ = (5, 7)
 
 euklidesowa, manhattan, rzeka, kolejowa = odleglosci(punktP, punktQ)
 
-print("Norma euklidesowa:", euklidesowa)
-print("Norma Manhattan:", manhattan)
-print("Norma rzeka:", rzeka)
-print("Norma kolejowa/centrum:", kolejowa)
+print("Metryka euklidesowa:", euklidesowa)
+print("Metryka Manhattan:", manhattan)
+print("Metryka rzeka:", rzeka)
+print("Metryka kolejowa/centrum:", kolejowa)
 
 #zad3
 
@@ -155,6 +155,26 @@ print("Wynik mnożenia:")
 for wiersz in wynik:
     print(wiersz)
 
+
+macierzAB = mnozenie_macierzy(macierz1, macierz2)
+macierzBA = mnozenie_macierzy(macierz2, macierz1)
+# czy przemienne => nie jest
+print("Czy AB == BA", macierzAB == macierzBA) 
+
+C = [
+    [2, 0],
+    [0, 2]
+]
+
+macierzAB = mnozenie_macierzy(macierz1, macierz2)
+lewa = mnozenie_macierzy(macierzAB, C)
+
+macierzBC = mnozenie_macierzy(macierz2, C)
+prawa = mnozenie_macierzy(macierz1, macierzBC)
+
+# czy łączne => jest łączne
+print("Czy (AB)C == A(BC)", lewa == prawa) 
+
 #zad5
 
 class Macierz:
@@ -203,6 +223,143 @@ class Macierz:
 
 
 A = Macierz([[1, 2], [3, 4]])
+B = Macierz([[5, 6], [7, 8]])
+
+print("Macierz A:")
+A.wypisz()
+
+print("Macierz B:")
+B.wypisz()
+
+print("A + B:")
+A.dodawanie(B).wypisz()
+
+print("A * 2:")
+A.mnozenie_przez_stala(2).wypisz()
+
+print("A * B:")
+A.mnozenie(B).wypisz()
+
+
+# Klasa 2 (inna wersja)
+# definicja klasy Macierz
+class Macierz:
+    # funkcja uruchamiana przy tworzeniu nowego obiektu klasy
+    def __init__(self, dane):
+        # sprawdzamy, czy macierz nie jest pusta
+        if len(dane) == 0:
+            raise ValueError("Macierz nie może być pusta")
+
+        # sprawdzamy, czy pierwszy wiersz nie jest pusty
+        if len(dane[0]) == 0:
+            raise ValueError("Macierz musi mieć co najmniej jedną kolumnę")
+
+        # zapamiętujemy liczbę kolumn z pierwszego wiersza
+        liczba_kolumn = len(dane[0])
+
+        # sprawdzamy, czy wszystkie wiersze mają tyle samo kolumn
+        for wiersz in dane:
+            if len(wiersz) != liczba_kolumn:
+                raise ValueError("Wszystkie wiersze macierzy muszą mieć tę samą długość")
+
+        # zapisanie danych macierzy wewnątrz obiektu
+        self.dane = dane
+
+    # funkcja do wypisywania macierzy
+    def wypisz(self):
+        # przejście po wszystkich wierszach macierzy
+        for wiersz in self.dane:
+            # wypisanie jednego wiersza
+            print(wiersz)
+
+    # funkcja mnożąca macierz przez liczbę
+    def mnozenie_przez_stala(self, stala):
+        # pusta lista na wynik
+        wynik = []
+
+        # przejście po wszystkich wierszach macierzy
+        for wiersz in self.dane:
+            # nowy wiersz wynikowy
+            nowy_wiersz = []
+
+            # przejście po wszystkich elementach w danym wierszu
+            for element in wiersz:
+                # dodanie do nowego wiersza elementu pomnożonego przez stałą
+                nowy_wiersz.append(element * stala)
+
+            # dodanie gotowego wiersza do macierzy wynikowej
+            wynik.append(nowy_wiersz)
+
+        # zwrócenie nowej macierzy jako obiektu klasy Macierz
+        return Macierz(wynik)
+
+    # funkcja dodająca dwie macierze
+    def dodawanie(self, inna):
+        # sprawdzamy, czy macierze mają taką samą liczbę wierszy
+        if len(self.dane) != len(inna.dane):
+            raise ValueError("Macierze muszą mieć taką samą liczbę wierszy")
+
+        # sprawdzamy, czy macierze mają taką samą liczbę kolumn
+        if len(self.dane[0]) != len(inna.dane[0]):
+            raise ValueError("Macierze muszą mieć taką samą liczbę kolumn")
+
+        # pusta lista na wynik
+        wynik = []
+
+        # przejście po numerach wierszy
+        for i in range(len(self.dane)):
+            # nowy wiersz wynikowy
+            wiersz = []
+
+            # przejście po numerach kolumn
+            for j in range(len(self.dane[0])):
+                # dodanie do siebie elementów z obu macierzy o tych samych indeksach
+                wiersz.append(self.dane[i][j] + inna.dane[i][j])
+
+            # dodanie gotowego wiersza do macierzy wynikowej
+            wynik.append(wiersz)
+
+        # zwrócenie nowej macierzy jako obiektu klasy Macierz
+        return Macierz(wynik)
+
+    # funkcja mnożąca dwie macierze
+    def mnozenie(self, inna):
+        # sprawdzamy warunek mnożenia macierzy
+        if len(self.dane[0]) != len(inna.dane):
+            raise ValueError("Liczba kolumn pierwszej macierzy musi być równa liczbie wierszy drugiej macierzy")
+
+        # pusta lista na wynik
+        wynik = []
+
+        # przejście po wierszach pierwszej macierzy
+        for i in range(len(self.dane)):
+            # nowy wiersz wynikowy
+            wiersz = []
+
+            # przejście po kolumnach drugiej macierzy
+            for j in range(len(inna.dane[0])):
+                # zmienna przechowująca sumę iloczynów
+                suma = 0
+
+                # przejście po elementach wiersza i kolumny
+                for k in range(len(self.dane[0])):
+                    # dodawanie kolejnych iloczynów do sumy
+                    suma += self.dane[i][k] * inna.dane[k][j]
+
+                # dodanie obliczonego elementu do wiersza wynikowego
+                wiersz.append(suma)
+
+            # dodanie gotowego wiersza do macierzy wynikowej
+            wynik.append(wiersz)
+
+        # zwrócenie nowej macierzy jako obiektu klasy Macierz
+        return Macierz(wynik)
+
+
+# utworzenie pierwszej macierzy A
+A = Macierz([[1, 2], [3, 4]])
+
+# utworzenie drugiej macierzy B
 B = Macierz([[5, 6], [7, 8]])
 
 print("Macierz A:")
