@@ -1,16 +1,27 @@
 #zad1
 import math
 
-def minor(macierz, usun_wiersz, usun_kolumne):
+def czy_kwadratowa(A):
+    if len(A) == 0:
+        return False
+    
+    liczba_wierszy = len(A)
+
+    for i in range(liczba_wierszy):
+            if len(A[i]) != liczba_wierszy:
+                return False
+    return True
+
+def minor(macierz, usuniety_wiersz, usunieta_kolumne):
     wynik = []
 
     for i in range(len(macierz)):
-        if i == usun_wiersz:
+        if i == usuniety_wiersz:
             continue
 
         nowy_wiersz = []
         for j in range(len(macierz[i])):
-            if j == usun_kolumne:
+            if j == usunieta_kolumne:
                 continue
             nowy_wiersz.append(macierz[i][j])
 
@@ -21,9 +32,13 @@ def minor(macierz, usun_wiersz, usun_kolumne):
 def wyznacznik_macierzy(macierz):
     n = len(macierz)
     
-    for wiersz in macierz:
-        if len(wiersz) != n:
-            raise ValueError("Nie da się policzyc wyznacznika macierzy, która nie jest kwadratowa")
+    # sprawdzenie czy jest kwadratowa macierz
+    # for wiersz in macierz:
+    #     if len(wiersz) != n:
+    #         raise ValueError("Nie da się policzyc wyznacznika macierzy, która nie jest kwadratowa")
+
+    if not czy_kwadratowa(macierz):
+        raise ValueError("Nie da się policzyc wyznacznika macierzy, która nie jest kwadratowa")
         
     if n == 1:
         return macierz[0][0]
@@ -31,12 +46,14 @@ def wyznacznik_macierzy(macierz):
     if n == 2:
         return macierz[0][0] * macierz[1][1] - macierz[0][1] * macierz[1][0]
     
-    det = 0
+    wyznacznik = 0
+
     for j in range(n):
         podmacierz = minor(macierz, 0, j)
-        det += math.pow((-1), 0+j) * macierz[0][j] * wyznacznik_macierzy(podmacierz)
+        wyznacznik += math.pow((-1), 0+j) * macierz[0][j] * wyznacznik_macierzy(podmacierz)
+        # wyznacznik += ((-1) ** j) * macierz[0][j] * wyznacznik_macierzy(podmacierz) # to żeby nie było float
 
-    return det
+    return wyznacznik
 
 macierz = [
     [2, 4, 6],
@@ -150,6 +167,9 @@ def macierz_odwrotna_Laplace(macierz): # punkt a
 
     if d == 0:
         raise ValueError("Macierz jest osobliwa, nie ma odwrotności")
+    
+    if n == 1:
+        return [[1 / d]]
     
     C = zeros(n, n)
 
