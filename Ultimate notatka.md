@@ -4019,6 +4019,252 @@ $$
 IA = A  
 $$
 
+### Przykłady do każdej własności
+
+```python
+def mnozenie_macierzy(macierz1, macierz2):
+    ilosc_wierszy_macierz1 = len(macierz1)
+    ilosc_wierszy_macierz2 = len(macierz2)
+    ilosc_kolumn_macierz1 = len(macierz1[0])
+    ilosc_kolumn_macierz2 = len(macierz2[0])
+
+    if ilosc_kolumn_macierz1 != ilosc_wierszy_macierz2:
+        raise ValueError("Nie da się pomnożyć tych macierzy")
+    
+    wynik = []
+
+    for i in range(ilosc_wierszy_macierz1):
+        wiersz = []
+
+        for j in range(ilosc_kolumn_macierz2):
+            suma = 0
+
+            for k in range(ilosc_kolumn_macierz1):
+                suma += macierz1[i][k] * macierz2[k][j]
+
+            wiersz.append(suma)
+
+        wynik.append(wiersz)
+
+    return wynik
+
+
+def dodawanie_macierzy(macierz1, macierz2):
+    ilosc_wierszy_macierz1 = len(macierz1)
+    ilosc_wierszy_macierz2 = len(macierz2)
+    ilosc_kolumn_macierz1 = len(macierz1[0])
+    ilosc_kolumn_macierz2 = len(macierz2[0])
+
+    if ilosc_wierszy_macierz1 != ilosc_wierszy_macierz2 or ilosc_kolumn_macierz1 != ilosc_kolumn_macierz2:
+        raise ValueError("Nie da się dodać tych macierzy")
+
+    wynik = []
+
+    for i in range(ilosc_wierszy_macierz1):
+        wiersz = []
+
+        for j in range(ilosc_kolumn_macierz1):
+            wiersz.append(macierz1[i][j] + macierz2[i][j])
+
+        wynik.append(wiersz)
+
+    return wynik
+
+
+def macierz_jednostkowa(n):
+    I = []
+
+    for i in range(n):
+        wiersz = []
+
+        for j in range(n):
+            if i == j:
+                wiersz.append(1)
+            else:
+                wiersz.append(0)
+
+        I.append(wiersz)
+
+    return I
+
+
+def wypisz_macierz(nazwa, macierz):
+    print(nazwa)
+
+    for wiersz in macierz:
+        print(wiersz)
+
+    print()
+```
+
+#### 1. Mnożenie macierzy nie jest przemienne
+
+```python
+A = [
+    [1, 2],
+    [0, 1]
+]
+
+B = [
+    [1, 0],
+    [3, 1]
+]
+
+AB = mnozenie_macierzy(A, B)
+BA = mnozenie_macierzy(B, A)
+
+wypisz_macierz("AB =", AB)
+wypisz_macierz("BA =", BA)
+
+print("Czy AB == BA?", AB == BA)
+```
+
+Tutaj powinno wyjść:
+
+```text
+Czy AB == BA? False
+```
+
+czyli:
+
+$$  
+AB \neq BA  
+$$
+
+---
+
+#### 2. Mnożenie macierzy jest łączne
+
+```python
+A = [
+    [1, 2],
+    [3, 4]
+]
+
+B = [
+    [0, 1],
+    [1, 0]
+]
+
+C = [
+    [2, 0],
+    [0, 2]
+]
+
+AB = mnozenie_macierzy(A, B)
+lewa_strona = mnozenie_macierzy(AB, C)
+
+BC = mnozenie_macierzy(B, C)
+prawa_strona = mnozenie_macierzy(A, BC)
+
+wypisz_macierz("(AB)C =", lewa_strona)
+wypisz_macierz("A(BC) =", prawa_strona)
+
+print("Czy (AB)C == A(BC)?", lewa_strona == prawa_strona)
+```
+
+Tutaj powinno wyjść:
+
+```text
+Czy (AB)C == A(BC)? True
+```
+
+czyli:
+
+$$  
+(AB)C = A(BC)  
+$$
+
+---
+
+#### 3. Mnożenie jest rozdzielne względem dodawania
+
+```python
+A = [
+    [1, 2],
+    [3, 4]
+]
+
+B = [
+    [5, 6],
+    [7, 8]
+]
+
+C = [
+    [1, 1],
+    [1, 1]
+]
+
+B_plus_C = dodawanie_macierzy(B, C)
+
+lewa_strona = mnozenie_macierzy(A, B_plus_C)
+
+AB = mnozenie_macierzy(A, B)
+AC = mnozenie_macierzy(A, C)
+
+prawa_strona = dodawanie_macierzy(AB, AC)
+
+wypisz_macierz("A(B+C) =", lewa_strona)
+wypisz_macierz("AB + AC =", prawa_strona)
+
+print("Czy A(B+C) == AB+AC?", lewa_strona == prawa_strona)
+```
+
+Tutaj powinno wyjść:
+
+```text
+Czy A(B+C) == AB+AC? True
+```
+
+czyli:
+
+$$  
+A(B+C)=AB+AC  
+$$
+
+---
+
+#### 4. Macierz jednostkowa jest elementem neutralnym
+
+```python
+A = [
+    [1, 2],
+    [3, 4]
+]
+
+I = macierz_jednostkowa(2)
+
+AI = mnozenie_macierzy(A, I)
+IA = mnozenie_macierzy(I, A)
+
+wypisz_macierz("A =", A)
+wypisz_macierz("I =", I)
+wypisz_macierz("AI =", AI)
+wypisz_macierz("IA =", IA)
+
+print("Czy AI == A?", AI == A)
+print("Czy IA == A?", IA == A)
+```
+
+Tutaj powinno wyjść:
+
+```text
+Czy AI == A? True
+Czy IA == A? True
+```
+
+czyli:
+
+$$  
+AI=A  
+$$
+
+oraz:
+
+$$  
+IA=A  
+$$
+
 ### Przykład z wykładu: $AB \neq BA$
 
 Dane są macierze:
