@@ -1990,7 +1990,7 @@ $$
 
 # Co oznaczają symbole?
 
-## \(a_{ij}\)
+## $a_{ij}$
 
 To element macierzy znajdujący się:
 - w `i`-tym wierszu,
@@ -2005,13 +2005,13 @@ $$
 \end{bmatrix}
 $$
 
-- \(a_{11} = 1\)
-- \(a_{12} = -2\)
-- \(a_{23} = -6\)
+- $a_{11} = 1$
+- $a_{12} = -2$
+- $a_{23} = -6$
 
 ---
 
-## \(\sum \sum\)
+## $\sum \sum$
 
 Podwójna suma znaczy:
 - przejdź po wszystkich wierszach,
@@ -2554,8 +2554,8 @@ a_{ij}
 $$
 
 gdzie:
-- \(i\) oznacza numer wiersza,
-- \(j\) oznacza numer kolumny.
+- $i$ oznacza numer wiersza,
+- $j$ oznacza numer kolumny.
 
 Na przykład w macierzy:
 
@@ -2568,10 +2568,10 @@ A =
 $$
 
 mamy:
-- \(a_{11} = 1\)
-- \(a_{12} = 2\)
-- \(a_{21} = 3\)
-- \(a_{22} = 4\)
+- $a_{11} = 1$
+- $a_{12} = 2$
+- $a_{21} = 3$
+- $a_{22} = 4$
 
 ---
 
@@ -2611,7 +2611,7 @@ A =
 \end{bmatrix}
 $$
 
-mnożenie przez \(2\) daje:
+mnożenie przez $2$ daje:
 
 $$
 2A =
@@ -2700,8 +2700,8 @@ $$
 ### Kiedy nie można dodawać?
 
 Nie można dodać macierzy o różnych wymiarach, na przykład:
-- \(2 \times 2\) i \(2 \times 3\),
-- \(3 \times 2\) i \(2 \times 2\).
+- $2 \times 2$ i $2 \times 3$,
+- $3 \times 2$ i $2 \times 2$.
 
 ---
 
@@ -2754,8 +2754,8 @@ $$
 
 To znaczy:
 
-- bierzemy \(i\)-ty wiersz macierzy \(A\),
-- bierzemy \(j\)-tą kolumnę macierzy \(B\),
+- bierzemy $i$-ty wiersz macierzy $A$,
+- bierzemy $j$-tą kolumnę macierzy $B$,
 - mnożymy odpowiadające sobie elementy,
 - dodajemy wyniki.
 
@@ -2785,15 +2785,15 @@ $$
 AB
 $$
 
-### Element \(c_{11}\)
+### Element $c_{11}$
 
-Pierwszy wiersz macierzy \(A\):
+Pierwszy wiersz macierzy $A$:
 
 $$
 (1,2)
 $$
 
-Pierwsza kolumna macierzy \(B\):
+Pierwsza kolumna macierzy $B$:
 
 $$
 \begin{bmatrix}
@@ -2808,15 +2808,15 @@ $$
 c_{11} = 1 \cdot 5 + 2 \cdot 7 = 5 + 14 = 19
 $$
 
-### Element \(c_{12}\)
+### Element $c_{12}$
 
-Pierwszy wiersz macierzy \(A\):
+Pierwszy wiersz macierzy $A$:
 
 $$
 (1,2)
 $$
 
-Druga kolumna macierzy \(B\):
+Druga kolumna macierzy $B$:
 
 $$
 \begin{bmatrix}
@@ -2831,15 +2831,15 @@ $$
 c_{12} = 1 \cdot 6 + 2 \cdot 8 = 6 + 16 = 22
 $$
 
-### Element \(c_{21}\)
+### Element $c_{21}$
 
-Drugi wiersz macierzy \(A\):
+Drugi wiersz macierzy $A$:
 
 $$
 (3,4)
 $$
 
-Pierwsza kolumna macierzy \(B\):
+Pierwsza kolumna macierzy $B$:
 
 $$
 \begin{bmatrix}
@@ -2854,15 +2854,15 @@ $$
 c_{21} = 3 \cdot 5 + 4 \cdot 7 = 15 + 28 = 43
 $$
 
-### Element \(c_{22}\)
+### Element $c_{22}$
 
-Drugi wiersz macierzy \(A\):
+Drugi wiersz macierzy $A$:
 
 $$
 (3,4)
 $$
 
-Druga kolumna macierzy \(B\):
+Druga kolumna macierzy $B$:
 
 $$
 \begin{bmatrix}
@@ -2908,7 +2908,7 @@ $$
 ---
 
 ### Mnożenie przez stałą
-Jeśli \(c\) jest liczbą, to:
+Jeśli $c$ jest liczbą, to:
 
 $$
 c(A+B)=cA+cB

@@ -93,8 +93,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "672a3d974b0d1385",
@@ -200,15 +199,15 @@
     }
   },
   "floating": {
-    "id": "aed014e91b294244",
+    "id": "e4fb23b4712baa70",
     "type": "floating",
     "children": [
       {
-        "id": "c56f5dc72f649af3",
+        "id": "ab5bc37affe8b708",
         "type": "window",
         "children": [
           {
-            "id": "aeb69eb829bd5726",
+            "id": "941dd359c7a19ca8",
             "type": "tabs",
             "children": [
               {
@@ -229,9 +228,9 @@
           }
         ],
         "direction": "vertical",
-        "x": 1068,
+        "x": 1049,
         "y": 0,
-        "width": 852,
+        "width": 870,
         "height": 1032,
         "maximize": false,
         "zoom": 1
@@ -242,11 +241,11 @@
   "lastOpenFiles": [
     "Wszystkie_zadania_z_notatkami.md",
     "Wszystkie_zadania_bez_notatek.md",
+    "Ultimate notatka.md",
     "Wszystkie_zadania_z_notatkami.pdf",
     "Laboratorium_14/zadania_lab_14.md",
     "Laboratorium_14/zadania_lab_14.pdf",
     "Laboratorium_14/czesc-wspolna-szescianu-i-kuli.png",
-    "Ultimate notatka.md",
     "Spis wykładów.md",
     "Spis wykładów.pdf",
     "Laboratorium_14/mn_inf_14.pdf",
