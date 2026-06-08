@@ -37,6 +37,42 @@ for x, y in punkty:
 print("\nSuma kwadratów błędów:")
 print(h)
 
+print("--------------------")
+
+def aproksymacja_sredniokwadratowa(punkty):
+    n = len(punkty)
+
+    A = 0.0
+    B = 0.0
+    C = 0.0
+    D = 0.0
+
+    for x, y in punkty:
+        A += x * y
+        B += x
+        C += y
+        D += x * x
+
+    a = (n * A - B * C) / (n * D - B * B)
+    b = (C * D - A * B) / (n * D - B * B)
+
+    h = 0.0
+    for x, y in punkty:
+        h += (a * x + b - y) ** 2
+
+    return a, b, h
+
+punkty = [(1.1, 2.1), (1.4, 2.3), (1.8, 2.9), (2.5, 3.2),(2.8, 3.6), (3.0, 4.2)]
+
+a, b, h = aproksymacja_sredniokwadratowa(punkty)
+
+print("a: ", a, " ,b: ", b)
+print("Suma kwadratów błędów:", h)
+print("Funkcja aproksymująca: ")
+print("F(x) = ", a, "* x +", b)
+
+print("--------------------")
+
 #zad 2
 print("-------------------- ZADANIE 2 --------------------")
 
@@ -118,6 +154,144 @@ print(f"y = {a} * x^2 + {b} * x + {c}")
 h = 0.0
 for x, y in punkty:
     h += (a * x**2 + b * x + c - y) ** 2
+
+print("\nSuma kwadratów błędów:")
+print(h)
+
+# zad 2 v2
+print("-------------------- ZADANIE 2 v2 --------------------")
+def rozwiaz_uklad_gaussa(macierz, wyrazy_wolne):
+    n = len(wyrazy_wolne)
+
+    for i in range(n):
+        max_wiersz = i
+
+        for k in range(i + 1, n):
+            if abs(macierz[k][i]) > abs(macierz[max_wiersz][i]):
+                max_wiersz = k
+
+        if abs(macierz[max_wiersz][i]) < 1e-12:
+            raise ValueError("Układ nie ma jednoznacznego rozwiązania")
+
+        if max_wiersz != i:
+            macierz[i], macierz[max_wiersz] = macierz[max_wiersz], macierz[i]
+            wyrazy_wolne[i], wyrazy_wolne[max_wiersz] = wyrazy_wolne[max_wiersz], wyrazy_wolne[i]
+
+        for j in range(i + 1, n):
+            wspolczynnik = macierz[j][i] / macierz[i][i]
+
+            for k in range(i, n):
+                macierz[j][k] = macierz[j][k] - wspolczynnik * macierz[i][k]
+
+            wyrazy_wolne[j] = wyrazy_wolne[j] - wspolczynnik * wyrazy_wolne[i]
+
+    rozwiazanie = [0.0] * n
+
+    for i in range(n - 1, -1, -1):
+        suma = 0.0
+
+        for j in range(i + 1, n):
+            suma += macierz[i][j] * rozwiazanie[j]
+
+        rozwiazanie[i] = (wyrazy_wolne[i] - suma) / macierz[i][i]
+
+    return rozwiazanie
+
+
+def wartosc_wielomianu(wspolczynniki, x):
+    wynik = 0.0
+
+    for i in range(len(wspolczynniki)):
+        wynik += wspolczynniki[i] * (x ** i)
+
+    return wynik
+
+
+def aproksymacja_wielomianowa(punkty, stopien):
+    n = len(punkty)
+
+    if stopien < 0:
+        raise ValueError("Stopień wielomianu nie może być ujemny")
+
+    if n < stopien + 1:
+        raise ValueError("Liczba punktów musi być większa od stopnia wielomianu")
+
+    rozmiar = stopien + 1
+
+    macierz_ukladu = []
+    wyrazy_wolne = []
+
+    for i in range(rozmiar):
+        wiersz = []
+
+        for j in range(rozmiar):
+            suma = 0.0
+
+            for x, y in punkty:
+                suma += x ** (i + j)
+
+            wiersz.append(suma)
+
+        macierz_ukladu.append(wiersz)
+
+        suma_prawa = 0.0
+        for x, y in punkty:
+            suma_prawa += y * (x ** i)
+
+        wyrazy_wolne.append(suma_prawa)
+
+    macierz_kopia = []
+    for wiersz in macierz_ukladu:
+        nowy_wiersz = []
+        for element in wiersz:
+            nowy_wiersz.append(element)
+        macierz_kopia.append(nowy_wiersz)
+
+    wyrazy_wolne_kopia = []
+    for element in wyrazy_wolne:
+        wyrazy_wolne_kopia.append(element)
+
+    wspolczynniki = rozwiaz_uklad_gaussa(macierz_kopia, wyrazy_wolne_kopia)
+
+    h = 0.0
+    for x, y in punkty:
+        h += (wartosc_wielomianu(wspolczynniki, x) - y) ** 2
+
+    return wspolczynniki, h
+
+
+def wypisz_wielomian(wspolczynniki):
+    tekst = "F(x) = "
+
+    for i in range(len(wspolczynniki)):
+        if i == 0:
+            tekst += str(wspolczynniki[i])
+        elif i == 1:
+            tekst += " + " + str(wspolczynniki[i]) + " * x"
+        else:
+            tekst += " + " + str(wspolczynniki[i]) + " * x^" + str(i)
+
+    print(tekst)
+
+
+punkty = [
+    (0.0, 2.0),
+    (0.5, 2.48),
+    (1.0, 2.84),
+    (1.5, 3.0),
+    (2.0, 2.91)
+]
+
+stopien = 2
+
+wspolczynniki, h = aproksymacja_wielomianowa(punkty, stopien)
+
+print("Współczynniki:")
+for i in range(len(wspolczynniki)):
+    print("a" + str(i), "=", wspolczynniki[i])
+
+print("\nWielomian aproksymacyjny:")
+wypisz_wielomian(wspolczynniki)
 
 print("\nSuma kwadratów błędów:")
 print(h)
