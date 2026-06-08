@@ -2,15 +2,17 @@ import math
 # ==================== ZADANIE 1 ====================
 
 def metoda_prostokatow(f, a, b, n):
-    h = (b - a) / n
+    h = (b - a) / n # podstawa prostokąta
+    # f(x_srodek) -> wysokość prostokąta
 
     suma = 0.0
 
     for i in range(n):
-        # x_i = a + i * h
-        # x_srodek = x_i + h / 2
-        x_srodek = a + (i + 0.5) * h # to samo co 2 linijki wyżej 
-        suma += f(x_srodek)
+        x_i = a + i * h # początek przedziału
+        x_srodek = x_i + h / 2 # środek przedziału
+        # x_srodek = a + (i + 0.5) * h # to samo co 2 linijki wyżej
+         
+        suma += f(x_srodek) # dodawanie wysokości wszystkich prostokątów
 
     return h * suma
 
