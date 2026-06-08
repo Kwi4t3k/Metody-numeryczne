@@ -5098,3 +5098,985 @@ plt.show()
 
 # Lab 9
 ## Zadanie 1
+Napisz program implementujący aproksymację średniokwadratową liniową dla zbioru punktów
+
+$$
+\{(1.1, 2.1),\ (1.4, 2.3),\ (1.8, 2.9),\ (2.5, 3.2),\ (2.8, 3.6),\ (3.0, 4.2)\}.
+$$
+
+```python
+def aproksymacja_sredniokwadratowa(punkty):
+    n = len(punkty)
+
+    A = 0.0
+    B = 0.0
+    C = 0.0
+    D = 0.0
+
+    for x, y in punkty:
+        A += x * y
+        B += x
+        C += y
+        D += x * x
+
+    a = (n * A - B * C) / (n * D - B * B)
+    b = (C * D - A * B) / (n * D - B * B)
+
+    h = 0.0
+    for x, y in punkty:
+        h += (a * x + b - y) ** 2
+
+    return a, b, h
+
+punkty = [(1.1, 2.1), (1.4, 2.3), (1.8, 2.9), (2.5, 3.2),(2.8, 3.6), (3.0, 4.2)]
+
+a, b, h = aproksymacja_sredniokwadratowa(punkty)
+
+print("a: ", a, " ,b: ", b)
+print("Suma kwadratów błędów:", h)
+print("Funkcja aproksymująca: ")
+print("F(x) = ", a, "* x +", b)
+```
+
+```
+a:  0.9868421052631559  ,b:  0.9776315789473676
+Suma kwadratów błędów: 0.17447368421052628
+Funkcja aproksymująca:
+F(x) =  0.9868421052631559 * x + 0.9776315789473676
+```
+
+## Zadanie 2
+Napisz program implementujący aproksymację średniokwadratową wielomianem drugiego stopnia dla zbioru punktów
+$$
+\{(0,2),\ (0.5,2.48),\ (1,2.84),\ (1.5,3),\ (2,2.91)\}.
+$$
+
+**Wersja uniwersalna i z pivotem**
+```python
+def rozwiaz_uklad_gaussa(macierz, wyrazy_wolne):
+    n = len(wyrazy_wolne)
+
+    for i in range(n):
+        max_wiersz = i
+
+        for k in range(i + 1, n):
+            if abs(macierz[k][i]) > abs(macierz[max_wiersz][i]):
+                max_wiersz = k
+
+        if abs(macierz[max_wiersz][i]) < 1e-12:
+            raise ValueError("Układ nie ma jednoznacznego rozwiązania")
+
+        if max_wiersz != i:
+            macierz[i], macierz[max_wiersz] = macierz[max_wiersz], macierz[i]
+            wyrazy_wolne[i], wyrazy_wolne[max_wiersz] = wyrazy_wolne[max_wiersz], wyrazy_wolne[i]
+
+        for j in range(i + 1, n):
+            wspolczynnik = macierz[j][i] / macierz[i][i]
+
+            for k in range(i, n):
+                macierz[j][k] = macierz[j][k] - wspolczynnik * macierz[i][k]
+
+            wyrazy_wolne[j] = wyrazy_wolne[j] - wspolczynnik * wyrazy_wolne[i]
+
+    rozwiazanie = [0.0] * n
+
+    for i in range(n - 1, -1, -1):
+        suma = 0.0
+
+        for j in range(i + 1, n):
+            suma += macierz[i][j] * rozwiazanie[j]
+
+        rozwiazanie[i] = (wyrazy_wolne[i] - suma) / macierz[i][i]
+
+    return rozwiazanie
+
+
+def wartosc_wielomianu(wspolczynniki, x):
+    wynik = 0.0
+
+    for i in range(len(wspolczynniki)):
+        wynik += wspolczynniki[i] * (x ** i)
+
+    return wynik
+
+
+def aproksymacja_wielomianowa(punkty, stopien):
+    n = len(punkty)
+
+    if stopien < 0:
+        raise ValueError("Stopień wielomianu nie może być ujemny")
+
+    if n < stopien + 1:
+        raise ValueError("Liczba punktów musi być większa od stopnia wielomianu")
+
+    rozmiar = stopien + 1
+
+    macierz_ukladu = []
+    wyrazy_wolne = []
+
+    for i in range(rozmiar):
+        wiersz = []
+
+        for j in range(rozmiar):
+            suma = 0.0
+
+            for x, y in punkty:
+                suma += x ** (i + j)
+
+            wiersz.append(suma)
+
+        macierz_ukladu.append(wiersz)
+
+        suma_prawa = 0.0
+        for x, y in punkty:
+            suma_prawa += y * (x ** i)
+
+        wyrazy_wolne.append(suma_prawa)
+
+    macierz_kopia = []
+    for wiersz in macierz_ukladu:
+        nowy_wiersz = []
+        for element in wiersz:
+            nowy_wiersz.append(element)
+        macierz_kopia.append(nowy_wiersz)
+
+    wyrazy_wolne_kopia = []
+    for element in wyrazy_wolne:
+        wyrazy_wolne_kopia.append(element)
+
+    wspolczynniki = rozwiaz_uklad_gaussa(macierz_kopia, wyrazy_wolne_kopia)
+
+    h = 0.0
+    for x, y in punkty:
+        h += (wartosc_wielomianu(wspolczynniki, x) - y) ** 2
+
+    return wspolczynniki, h
+
+
+def wypisz_wielomian(wspolczynniki):
+    tekst = "F(x) = "
+
+    for i in range(len(wspolczynniki)):
+        if i == 0:
+            tekst += str(wspolczynniki[i])
+        elif i == 1:
+            tekst += " + " + str(wspolczynniki[i]) + " * x"
+        else:
+            tekst += " + " + str(wspolczynniki[i]) + " * x^" + str(i)
+
+    print(tekst)
+
+
+punkty = [
+    (0.0, 2.0),
+    (0.5, 2.48),
+    (1.0, 2.84),
+    (1.5, 3.0),
+    (2.0, 2.91)
+]
+
+stopien = 2
+
+wspolczynniki, h = aproksymacja_wielomianowa(punkty, stopien)
+
+print("Współczynniki:")
+for i in range(len(wspolczynniki)):
+    print("a" + str(i), "=", wspolczynniki[i])
+
+print("\nWielomian aproksymacyjny:")
+wypisz_wielomian(wspolczynniki)
+
+print("\nSuma kwadratów błędów:")
+print(h)
+```
+
+```
+Współczynniki:
+a0 = 1.9865714285714295
+a1 = 1.2337142857142822
+a2 = -0.3828571428571412
+
+Wielomian aproksymacyjny:
+F(x) = 1.9865714285714295 + 1.2337142857142822 * x + -0.3828571428571412 * x^2
+
+Suma kwadratów błędów:
+0.0017028571428571394
+```
+
+**Wersja prostrza**
+```python
+punkty = [(0.0, 2.0), (0.5, 2.48), (1.0, 2.84), (1.5, 3.0), (2.0, 2.91)]
+
+def rozwiaz_uklad_gaussa(macierz, wyrazy_wolne):
+    n = len(wyrazy_wolne)
+
+    for i in range(n):
+        if macierz[i][i] == 0:
+            raise ValueError("Na przekątnej pojawiło się zero - nie można wykonać eliminacji Gaussa.")
+
+        for j in range(i + 1, n):
+            wspolczynnik = macierz[j][i] / macierz[i][i]
+
+            for k in range(i, n):
+                macierz[j][k] = macierz[j][k] - wspolczynnik * macierz[i][k]
+
+            wyrazy_wolne[j] = wyrazy_wolne[j] - wspolczynnik * wyrazy_wolne[i]
+
+    rozwiazanie = [0.0] * n
+
+    for i in range(n - 1, -1, -1):
+        suma = 0.0
+        for j in range(i + 1, n):
+            suma += macierz[i][j] * rozwiazanie[j]
+
+        rozwiazanie[i] = (wyrazy_wolne[i] - suma) / macierz[i][i]
+
+    return rozwiazanie
+
+n = len(punkty)
+
+suma_x = 0.0
+suma_x2 = 0.0
+suma_x3 = 0.0
+suma_x4 = 0.0
+suma_y = 0.0
+suma_xy = 0.0
+suma_x2y = 0.0
+
+for x, y in punkty:
+    suma_x += x
+    suma_x2 += x ** 2
+    suma_x3 += x ** 3
+    suma_x4 += x ** 4
+    suma_y += y
+    suma_xy += x * y
+    suma_x2y += x ** 2 * y
+
+macierz_ukladu = [
+    [suma_x4, suma_x3, suma_x2],
+    [suma_x3, suma_x2, suma_x],
+    [suma_x2, suma_x, n]
+]
+
+wyrazy_wolne = [suma_x2y, suma_xy, suma_y]
+
+macierz_kopia = []
+for wiersz in macierz_ukladu:
+    macierz_kopia.append(wiersz.copy())
+
+wyrazy_wolne_kopia = wyrazy_wolne.copy()
+
+rozwiazanie = rozwiaz_uklad_gaussa(macierz_kopia, wyrazy_wolne_kopia)
+
+a = rozwiazanie[0]
+b = rozwiazanie[1]
+c = rozwiazanie[2]
+
+print("Współczynniki wielomianu aproksymacyjnego:")
+print("a =", a)
+print("b =", b)
+print("c =", c)
+
+print("\nWielomian aproksymacyjny:")
+print(f"y = {a} * x^2 + {b} * x + {c}")
+
+h = 0.0
+for x, y in punkty:
+    h += (a * x**2 + b * x + c - y) ** 2
+
+print("\nSuma kwadratów błędów:")
+print(h)
+```
+
+## Zadanie 3
+Napisz funkcję, która dla zadanego zbioru punktów oraz stopnia wielomianu optymalnego, wyznaczy współczynniki wielomianu oraz błąd aproksymacji metodą najmniejszych kwadratów.
+
+**Można wziąć Gaussa z poprzedniego zadania jak trzeba dokładniejszy**
+
+```python
+def rozwiaz_uklad_gaussa(A, b):
+    n = len(b)
+
+    for i in range(n):
+        if A[i][i] == 0:
+            raise ValueError("Na przekątnej pojawiło się zero - nie można wykonać eliminacji Gaussa.")
+
+        for j in range(i + 1, n):
+            wspolczynnik = A[j][i] / A[i][i]
+
+            for k in range(i, n):
+                A[j][k] = A[j][k] - wspolczynnik * A[i][k]
+
+            b[j] = b[j] - wspolczynnik * b[i]
+
+    x = [0.0] * n
+
+    for i in range(n - 1, -1, -1):
+        suma = 0.0
+        for j in range(i + 1, n):
+            suma += A[i][j] * x[j]
+
+        x[i] = (b[i] - suma) / A[i][i]
+
+    return x
+
+def aproksymacja_najmniejszych_kwadratow(punkty, stopien):
+    n = stopien + 1 # liczba współczynników
+
+    A = [] # macierz układu
+    B = [] # wyrazy wolne
+
+    for i in range(n):
+        wiersz = []
+
+        for j in range(n):
+            suma = 0.0
+
+            for x, y in punkty:
+                suma += x ** (i + j)
+
+            wiersz.append(suma)
+
+        A.append(wiersz)
+
+        suma = 0.0
+
+        for x, y in punkty:
+            suma += y * (x ** i)
+
+        B.append(suma)
+
+    A_kopia = []
+    for wiersz in A:
+        A_kopia.append(wiersz.copy())
+
+    B_kopia = B.copy()
+
+    wspolczynniki = rozwiaz_uklad_gaussa(A_kopia, B_kopia)
+
+    h = 0.0 # błąd
+
+    for x, y in punkty:
+        y_aprox = 0.0
+
+        for i in range(len(wspolczynniki)):
+            y_aprox += wspolczynniki[i] * (x ** i)
+
+        h += (y_aprox - y) ** 2
+
+    return wspolczynniki, h
+
+punkty = [(0.0, 2.0), (0.5, 2.48), (1.0, 2.84), (1.5, 3.0), (2.0, 2.91)]
+stopien = 2
+
+wspolczynniki, blad = aproksymacja_najmniejszych_kwadratow(punkty, stopien)
+
+print("Współczynniki wielomianu:")
+for i in range(len(wspolczynniki)):
+    print(f"a{i} = {wspolczynniki[i]}")
+
+print("\nSuma kwadratów błędów:")
+print(blad)
+```
+
+```
+Współczynniki wielomianu:
+a0 = 1.98657142857143
+a1 = 1.2337142857142795
+a2 = -0.3828571428571398
+
+Suma kwadratów błędów:
+0.0017028571428571648
+```
+
+## Zadanie 4
+Rozwiązania dwóch pierwszych zadań przedstaw na wykresie, zaznaczając również zaobserwowane wartości funkcji.
+
+```python
+import matplotlib.pyplot as plt
+
+print("-------------------- ZADANIE 4 --------------------")
+
+# ===== Zadanie 1: aproksymacja liniowa =====
+punkty1 = [(1.1, 2.1), (1.4, 2.3), (1.8, 2.9), (2.5, 3.2), (2.8, 3.6), (3.0, 4.2)]
+
+n1 = len(punkty1)
+Sx = 0.0
+Sy = 0.0
+Sxx = 0.0
+Sxy = 0.0
+
+for x, y in punkty1:
+    Sx += x
+    Sy += y
+    Sxx += x * x
+    Sxy += x * y
+
+a1 = (n1 * Sxy - Sx * Sy) / (n1 * Sxx - Sx * Sx)
+b1 = (Sy - a1 * Sx) / n1
+
+x1 = [p[0] for p in punkty1]
+y1 = [p[1] for p in punkty1]
+
+x1_wykres = []
+y1_wykres = []
+
+xmin1 = min(x1)
+xmax1 = max(x1)
+
+for i in range(200):
+    X = xmin1 + (xmax1 - xmin1) * i / 199
+    Y = a1 * X + b1
+    x1_wykres.append(X)
+    y1_wykres.append(Y)
+
+plt.figure(figsize=(8, 5))
+plt.scatter(x1, y1, label="Punkty wejściowe")
+plt.plot(x1_wykres, y1_wykres, label="Aproksymacja liniowa")
+plt.title("Zadanie 1 - aproksymacja liniowa")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+# ===== Zadanie 2: aproksymacja wielomianem 2 stopnia =====
+punkty2 = [(0.0, 2.0), (0.5, 2.48), (1.0, 2.84), (1.5, 3.0), (2.0, 2.91)]
+
+def rozwiaz_uklad_gaussa(A, b):
+    n = len(b)
+
+    for i in range(n):
+        max_wiersz = i
+        for j in range(i + 1, n):
+            if abs(A[j][i]) > abs(A[max_wiersz][i]):
+                max_wiersz = j
+
+        A[i], A[max_wiersz] = A[max_wiersz], A[i]
+        b[i], b[max_wiersz] = b[max_wiersz], b[i]
+
+        for j in range(i + 1, n):
+            wsp = A[j][i] / A[i][i]
+            for k in range(i, n):
+                A[j][k] -= wsp * A[i][k]
+            b[j] -= wsp * b[i]
+
+    x = [0.0] * n
+    for i in range(n - 1, -1, -1):
+        suma = 0.0
+        for j in range(i + 1, n):
+            suma += A[i][j] * x[j]
+        x[i] = (b[i] - suma) / A[i][i]
+
+    return x
+
+Sx = 0.0
+Sx2 = 0.0
+Sx3 = 0.0
+Sx4 = 0.0
+Sy = 0.0
+Sxy = 0.0
+Sx2y = 0.0
+
+for x, y in punkty2:
+    Sx += x
+    Sx2 += x**2
+    Sx3 += x**3
+    Sx4 += x**4
+    Sy += y
+    Sxy += x * y
+    Sx2y += x**2 * y
+
+n2 = len(punkty2)
+
+A = [
+    [Sx4, Sx3, Sx2],
+    [Sx3, Sx2, Sx],
+    [Sx2, Sx, n2]
+]
+
+B = [Sx2y, Sxy, Sy]
+
+a2, b2, c2 = rozwiaz_uklad_gaussa(A, B)
+
+x2 = [p[0] for p in punkty2]
+y2 = [p[1] for p in punkty2]
+
+x2_wykres = []
+y2_wykres = []
+
+xmin2 = min(x2)
+xmax2 = max(x2)
+
+for i in range(200):
+    X = xmin2 + (xmax2 - xmin2) * i / 199
+    Y = a2 * X**2 + b2 * X + c2
+    x2_wykres.append(X)
+    y2_wykres.append(Y)
+
+plt.figure(figsize=(8, 5))
+plt.scatter(x2, y2, label="Punkty wejściowe")
+plt.plot(x2_wykres, y2_wykres, label="Aproksymacja wielomianem 2 stopnia")
+plt.title("Zadanie 2 - aproksymacja wielomianem 2 stopnia")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+# Lab 10
+## Zadanie 1
+Napisz program implementujący różniczkowanie numeryczne za pomocą metody Newtona dla następujących funkcji:
+
+a) $f(x)=2x^2+2$
+
+b) $f(x)=2x^4-x^2+3x-7$
+
+c) $f(x)=x^2e^x$
+
+Oblicz błąd względny otrzymanego rozwiązania dla: $h=10^{-2}$ oraz $h=10^{-4}$.
+
+```python
+def roznica_w_przod(f, x, h):
+    return (f(x + h) - f(x)) / h
+
+def blad_wzgledny(wartosc_dokladna, wartosc_przyblizona):
+    if wartosc_dokladna != 0:
+        return abs(wartosc_dokladna - wartosc_przyblizona) / abs(wartosc_dokladna)
+    else:
+        raise ValueError("Nie można policzyć błędu względnego, gdy wartość dokładna jest równa 0.")
+
+def porownaj_pochodna(nazwa, f, df, x, h_lista):
+    print("\n" + nazwa)
+    print("x =", x)
+    print("h              pochodna numeryczna        pochodna dokładna          błąd względny")
+
+    for h in h_lista:
+        pochodna_numeryczna = roznica_w_przod(f, x, h)
+        pochodna_dokladna = df(x)
+        blad = blad_wzgledny(pochodna_dokladna, pochodna_numeryczna)
+
+        print(f"{h:<14} {pochodna_numeryczna:<25} {pochodna_dokladna:<25} {blad}")
+        
+x0 = 1.0
+
+h_lista = [10**(-2), 10**(-4)]
+```
+
+**punkt a)**
+```python
+def f1(x):
+    return 2 * x**2 + 2
+
+def df1(x):
+    return 4 * x
+    
+porownaj_pochodna("a) f(x) = 2x^2 + 2", f1, df1, x0, h_lista)
+```
+
+```
+a) f(x) = 2x^2 + 2
+x = 1.0
+h              pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           4.020000000000046         4.0                       0.00500000000001144
+0.0001         4.000199999998344         4.0                       4.999999958599233e-05
+```
+
+**punkt b)**
+```python
+def f2(x):
+    return 2 * x**4 - x**2 + 3*x - 7
+
+def df2(x):
+    return 8 * x**3 - 2 * x + 3
+    
+porownaj_pochodna("b) f(x) = 2x^4 - x^2 + 3x - 7", f2, df2, x0, h_lista)
+```
+
+```
+b) f(x) = 2x^4 - x^2 + 3x - 7
+x = 1.0
+h              pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           9.110802000000007         9.0                       0.012311333333334082
+0.0001         9.001100080006097         9.0                       0.00012223111178855106
+```
+
+**punkt c)**
+```python
+def f3(x):
+    return x**2 * math.exp(x)
+
+def df3(x):
+    return math.exp(x) * (x**2 + 2 * x)
+    
+porownaj_pochodna("c) f(x) = x^2e^x", f3, df3, x0, h_lista)
+```
+
+```
+c) f(x) = x^2e^x
+x = 1.0
+h              pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           8.250576695971112         8.154845485377136         0.01173918141865927
+0.0001         8.155796942914684         8.154845485377136         0.00011667388907050434
+```
+
+## Zadanie 2
+Przeprowadź obliczenia analogiczne jak w zadaniu 1 dla metod różnic skończonych: wstecznej i centralnej dwupunktowej.
+
+a) $f(x)=2x^2+2$
+
+b) $f(x)=2x^4-x^2+3x-7$
+
+c) $f(x)=x^2e^x$
+
+Obliczenia wykonujemy dla: $h=10^{-2}$ oraz: $h=10^{-4}$.
+
+```python
+def roznica_wsteczna(f, x, h):
+    return (f(x) - f(x - h)) / h
+    
+def roznica_centralna_dwupunktowa(f, x, h):
+    return (f(x + h) - f(x - h)) / (2 * h)
+
+def blad_wzgledny(wartosc_dokladna, wartosc_przyblizona):
+    if wartosc_dokladna != 0:
+        return abs(wartosc_dokladna - wartosc_przyblizona) / abs(wartosc_dokladna)
+    else:
+        raise ValueError("Nie można policzyć błędu względnego, gdy wartość dokładna jest równa 0.")
+
+def f1(x):
+    return 2 * x**2 + 2
+
+def df1(x):
+    return 4 * x
+
+def f2(x):
+    return 2 * x**4 - x**2 + 3*x - 7
+
+def df2(x):
+    return 8 * x**3 - 2 * x + 3
+
+def f3(x):
+    return x**2 * math.exp(x)
+
+def df3(x):
+    return math.exp(x) * (x**2 + 2 * x)
+
+def porownaj_metody(nazwa, f, df, x, h_lista):
+    print("\n" + nazwa)
+    print("x =", x)
+    print("h              metoda          pochodna numeryczna        pochodna dokładna          błąd względny")
+
+    for h in h_lista:
+        pochodna_dokladna = df(x)
+
+        pochodna_wsteczna = roznica_wsteczna(f, x, h)
+        blad_wsteczny = blad_wzgledny(pochodna_dokladna, pochodna_wsteczna)
+
+        print(f"{h:<14} {'wsteczna':<15} {pochodna_wsteczna:<25} {pochodna_dokladna:<25} {blad_wsteczny}")
+
+        pochodna_centralna = roznica_centralna_dwupunktowa(f, x, h)
+        blad_centralny = blad_wzgledny(pochodna_dokladna, pochodna_centralna)
+
+        print(f"{h:<14} {'centralna':<15} {pochodna_centralna:<25} {pochodna_dokladna:<25} {blad_centralny}")
+
+x0 = 1.0
+
+h_lista = [10**(-2), 10**(-4)]
+
+porownaj_metody("a) f(x) = 2x^2 + 2", f1, df1, x0, h_lista)
+porownaj_metody("b) f(x) = 2x^4 - x^2 + 3x - 7", f2, df2, x0, h_lista)
+porownaj_metody("c) f(x) = x^2e^x", f3, df3, x0, h_lista)
+```
+
+```
+a) f(x) = 2x^2 + 2
+x = 1.0
+h              metoda          pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           wsteczna        3.9800000000000058        4.0                       0.004999999999998561
+0.01           centralna       4.000000000000026         4.0                       6.439293542825908e-15
+0.0001         wsteczna        3.999800000000775         4.0                       4.9999999806260575e-05
+0.0001         centralna       3.9999999999995595        4.0                       1.1013412404281553e-13
+
+b) f(x) = 2x^4 - x^2 + 3x - 7
+x = 1.0
+h              metoda          pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           wsteczna        8.89079800000001          9.0                       0.01213355555555435
+0.01           centralna       9.000800000000009         9.0                       8.888888888986596e-05
+0.0001         wsteczna        8.998900080001704         9.0                       0.00012221333314401918
+0.0001         centralna       9.0000000800039           9.0                       8.889322265935739e-09
+
+c) f(x) = x^2e^x
+x = 1.0
+h              metoda          pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           wsteczna        8.060292210953346         8.154845485377136         0.011594735251984607
+0.01           centralna       8.15543445346223          8.154845485377136         7.222308333733161e-05
+0.0001         wsteczna        8.153894145626062         8.154845485377136         0.00011665944532977143
+0.0001         centralna       8.154845544270373         8.154845485377136         7.2218703664531924e-09
+```
+
+## Zadanie 3
+Przeprowadź obliczenia analogiczne jak w zadaniu 1. dla metod różnic skończonych: wprzód i wstecznej trzypunktowej oraz centralnej czteropunktowej.
+a) $f(x)=2x^2+2$
+
+b) $f(x)=2x^4-x^2+3x-7$
+
+c) $f(x)=x^2e^x$
+
+Obliczenia wykonujemy dla: $h=10^{-2}$ oraz: $h=10^{-4}$.
+
+```python
+def roznica_w_przod_trzypunktowa(f, x, h):
+    return (-3 * f(x) + 4 * f(x + h) - f(x + 2 * h)) / (2 * h)
+
+def roznica_wsteczna_trzypunktowa(f, x, h):
+    return (3 * f(x) - 4 * f(x - h) + f(x - 2 * h)) / (2 * h)
+    
+def roznica_centralna_czteropunktowa(f, x, h):
+    return (f(x - 2 * h) - 8 * f(x - h) + 8 * f(x + h) - f(x + 2 * h)) / (12 * h)
+
+def blad_wzgledny(wartosc_dokladna, wartosc_przyblizona):
+    if wartosc_dokladna != 0:
+        return abs(wartosc_dokladna - wartosc_przyblizona) / abs(wartosc_dokladna)
+    else:
+        raise ValueError("Nie można policzyć błędu względnego, gdy wartość dokładna jest równa 0.")
+
+def f1(x):
+    return 2 * x**2 + 2
+
+def df1(x):
+    return 4 * x
+
+def f2(x):
+    return 2 * x**4 - x**2 + 3*x - 7
+
+def df2(x):
+    return 8 * x**3 - 2 * x + 3
+
+def f3(x):
+    return x**2 * math.exp(x)
+
+def df3(x):
+    return math.exp(x) * (x**2 + 2 * x)
+
+def porownaj_metody(nazwa, f, df, x, h_lista):
+    print("\n" + nazwa)
+    print("x =", x)
+    print("h              metoda                    pochodna numeryczna        pochodna dokładna          błąd względny")
+
+    for h in h_lista:
+        pochodna_dokladna = df(x)
+
+        pochodna_przod = roznica_w_przod_trzypunktowa(f, x, h)
+        blad_przod = blad_wzgledny(pochodna_dokladna, pochodna_przod)
+
+        print(f"{h:<14} {'w przód 3-punktowa':<25} {pochodna_przod:<25} {pochodna_dokladna:<25} {blad_przod}")
+
+        pochodna_wsteczna = roznica_wsteczna_trzypunktowa(f, x, h)
+        blad_wsteczny = blad_wzgledny(pochodna_dokladna, pochodna_wsteczna)
+
+        print(f"{h:<14} {'wsteczna 3-punktowa':<25} {pochodna_wsteczna:<25} {pochodna_dokladna:<25} {blad_wsteczny}")
+
+        pochodna_centralna = roznica_centralna_czteropunktowa(f, x, h)
+        blad_centralny = blad_wzgledny(pochodna_dokladna, pochodna_centralna)
+
+        print(f"{h:<14} {'centralna 4-punktowa':<25} {pochodna_centralna:<25} {pochodna_dokladna:<25} {blad_centralny}")
+
+x0 = 1.0
+
+h_lista = [10**(-2), 10**(-4)]
+
+porownaj_metody("a) f(x) = 2x^2 + 2", f1, df1, x0, h_lista)
+porownaj_metody("b) f(x) = 2x^4 - x^2 + 3x - 7", f2, df2, x0, h_lista)
+porownaj_metody("c) f(x) = x^2e^x", f3, df3, x0, h_lista)
+```
+
+```
+a) f(x) = 2x^2 + 2
+x = 1.0
+h              metoda                    pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           w przód 3-punktowa        4.000000000000092         4.0                 
+      2.3092638912203256e-14
+0.01           wsteczna 3-punktowa       4.0000000000000036        4.0                 
+      8.881784197001252e-16
+0.01           centralna 4-punktowa      4.000000000000034         4.0                 
+      8.43769498715119e-15
+0.0001         w przód 3-punktowa        3.9999999999995595        4.0                 
+      1.1013412404281553e-13
+0.0001         wsteczna 3-punktowa       4.00000000000178          4.0                 
+      4.4497738826976274e-13
+0.0001         centralna 4-punktowa      4.000000000001039         4.0                 
+      2.5979218776228663e-13
+
+b) f(x) = 2x^4 - x^2 + 3x - 7
+x = 1.0
+h              metoda                    pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           w przód 3-punktowa        8.998388000000013         9.0                 
+      0.00017911111110969892
+0.01           wsteczna 3-punktowa       8.998412                  9.0                 
+      0.00017644444444443586
+0.01           centralna 4-punktowa      9.000000000000016         9.0                 
+      1.7763568394002505e-15
+0.0001         w przód 3-punktowa        8.999999839995887         9.0                 
+      1.777823478556052e-08
+0.0001         wsteczna 3-punktowa       8.999999840020312         9.0                 
+      1.777552090705588e-08
+0.0001         centralna 4-punktowa      9.00000000000493          9.0                 
+      5.477100254817439e-13
+
+c) f(x) = x^2e^x
+x = 1.0
+h              metoda                    pochodna numeryczna        pochodna dokładna          błąd względny
+0.01           w przód 3-punktowa        8.1536531934717           8.154845485377136         0.0001462065599617194
+0.01           wsteczna 3-punktowa       8.15368173640505          8.154845485377136         0.0001427064405049649
+0.01           centralna 4-punktowa      8.154845457287603         8.154845485377136         3.4445205035658563e-09
+0.0001         w przód 3-punktowa        8.154845367567276         8.154845485377136         1.4446608443622994e-08
+0.0001         wsteczna 3-punktowa       8.154845367591701         8.154845485377136         1.4443613303299912e-08
+0.0001         centralna 4-punktowa      8.15484548537378          8.154845485377136         4.11477823294636e-13
+```
+
+## Zadanie 4
+Zaimplementuj różniczkowanie za pomocą wielomianów Lagrange’a. Wyznacz pochodną w punkcie $x=3.5$ przy następujących węzłach interpolacji: $\{ (1,4),\ (2,10),\ (3,20),\ (4,34),\ (5,52) \}$.
+
+**Interpolacja Lagrange’a**
+
+```python
+print("-------------------- ZADANIE 4 --------------------")
+
+def baza_lagrange(punkty, i, x):
+    xi =  punkty[i][0]
+
+    wynik = 1.0
+
+    for j in range(len(punkty)):
+        if j != i:
+            xj = punkty[j][0]
+            wynik *= (x - xj) / (xi - xj)
+
+    return wynik
+
+def wielomian_lagrange(punkty, x):
+    suma = 0.0
+
+    for i in range(len(punkty)):
+        yi = punkty[i][1]
+        suma += yi * baza_lagrange(punkty, i, x)
+
+    return suma
+
+def pochodna_lagrange_centralna(punkty, x, h):
+    return (wielomian_lagrange(punkty, x + h) - wielomian_lagrange(punkty, x - h)) / (2 * h)
+
+punkty = [(1, 4), (2, 10), (3, 20), (4, 34), (5, 52)]
+
+X = 3.5
+h = 10**(-4)
+
+wynik = pochodna_lagrange_centralna(punkty, X, h)
+
+print("Węzły interpolacji:")
+print(punkty)
+
+print("\nPunkt, w którym liczymy pochodną:")
+print("x =", X)
+
+print("\nKrok:")
+print("h =", h)
+
+print("\nPrzybliżona wartość pochodnej:")
+print("f'(", X, ") =", wynik)
+```
+
+```
+Węzły interpolacji:
+[(1, 4), (2, 10), (3, 20), (4, 34), (5, 52)]
+
+Punkt, w którym liczymy pochodną:
+x = 3.5
+
+Krok:
+h = 0.0001
+
+Przybliżona wartość pochodnej:
+f'( 3.5 ) = 14.000000000020663
+```
+
+**uniwersalna dla różniczkowania wielomianem Lagrange’a**
+```python
+def pochodna_bazy_lagrange(punkty, i, x):
+    xi = punkty[i][0]
+
+    suma = 0.0
+
+    # Liczymy pochodną i-tej funkcji bazowej Lagrange'a
+    for m in range(len(punkty)):
+        if m != i:
+            xm = punkty[m][0]
+
+            iloczyn = 1.0
+
+            for j in range(len(punkty)):
+                if j != i and j != m:
+                    xj = punkty[j][0]
+                    iloczyn *= (x - xj) / (xi - xj)
+
+            iloczyn = iloczyn / (xi - xm)
+
+            suma += iloczyn
+
+    return suma
+
+
+def pochodna_lagrange(punkty, x):
+    suma = 0.0
+
+    # f'(x) ≈ suma y_i * l_i'(x)
+    for i in range(len(punkty)):
+        yi = punkty[i][1]
+        suma += yi * pochodna_bazy_lagrange(punkty, i, x)
+
+    return suma
+
+
+def sprawdz_punkty(punkty):
+    if len(punkty) < 2:
+        raise ValueError("Potrzeba co najmniej dwóch punktów.")
+
+    for i in range(len(punkty)):
+        for j in range(i + 1, len(punkty)):
+            if punkty[i][0] == punkty[j][0]:
+                raise ValueError("Wartości x w punktach nie mogą się powtarzać.")
+
+
+def pochodna_lagrange_bezpiecznie(punkty, x):
+    sprawdz_punkty(punkty)
+    return pochodna_lagrange(punkty, x)
+
+
+punkty = [
+    (1, 4),
+    (2, 10),
+    (3, 20),
+    (4, 34),
+    (5, 52)
+]
+
+X = 3.5
+
+wynik = pochodna_lagrange_bezpiecznie(punkty, X)
+
+print("Węzły interpolacji:")
+print(punkty)
+
+print("\nPunkt, w którym liczymy pochodną:")
+print("x =", X)
+
+print("\nPrzybliżona wartość pochodnej:")
+print("f'(", X, ") =", wynik)
+```
+
+# Lab 11
+## Zadanie 1
+Zaimplementuj całkowanie numeryczne za pomocą metody prostokątów.
