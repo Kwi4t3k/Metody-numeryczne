@@ -11,8 +11,20 @@ def sgn(x):
         return 0
 
 def bisekcja(f, a, b, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje"):
-    if f(b) * f(a) >= 0:
+    fa = f(a)
+    fb = f(b)
+
+    # Jeżeli pierwiastek jest dokładnie na końcu przedziału
+    if fa == 0:
+        return a, [[1, a, b, a, fa, 0.0]]
+
+    if fb == 0:
+        return b, [[1, a, b, b, fb, 0.0]]
+    
+    if sgn(fa) == sgn(fb):
         raise ValueError("Na krańcach przedziału funkcja musi mieć przeciwne znaki.")
+    # if f(b) * f(a) >= 0:
+    #     raise ValueError("Na krańcach przedziału funkcja musi mieć przeciwne znaki.")
 
     a0 = a
     b0 = b
@@ -44,11 +56,11 @@ def bisekcja(f, a, b, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje"):
                 return miejsce_zerowe, historia
 
         elif warunek_stopu == "blad":
-            if blad < epsilon: # alternatywnie |b-a| < epsilon
+            if blad < epsilon: # alternatywnie |b-a| < epsilon | jak będzie źle to zrobić <= zamiast <
                 return miejsce_zerowe, historia
 
         elif warunek_stopu == "wartosc":
-            if abs(fc) < epsilon:
+            if abs(fc) < epsilon: # jak będzie źle to zrobić <= zamiast <
                 return miejsce_zerowe, historia
 
         else:
@@ -57,7 +69,7 @@ def bisekcja(f, a, b, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje"):
         if fc == 0:
             return miejsce_zerowe, historia
 
-        # if fa * fc < 0: # można też tak
+        # if fa * fc < 0: # można też tak ale gorsze
         if sgn(fa) != sgn(fc):
             b = miejsce_zerowe
         else:
@@ -159,10 +171,19 @@ import math
 def newton(f, a, b, df, ddf, max_iter=100, epsilon=1e-3):
     lista_iteracji = []
 
-    if f(a) * f(b) >= 0:
+    fa = f(a)
+    fb = f(b)
+
+    if fa == 0:
+        return a, a, [[0, a, fa, df(a), 0.0, a]]
+
+    if fb == 0:
+        return b, b, [[0, b, fb, df(b), 0.0, b]]
+
+    if fa * fb >= 0:
         raise ValueError("Na krańcach przedziału funkcja musi mieć przeciwne znaki.")
     
-    c = (a+b) / 2.0 
+    c = a + (b - a) / 2.0 
     iloczyn_pochodnych = df(c) * ddf(c)
 
     x = 0.0
@@ -180,15 +201,18 @@ def newton(f, a, b, df, ddf, max_iter=100, epsilon=1e-3):
         fx = f(x)
         dfx = df(x)
 
-        if dfx == 0:
+        if dfx == 0: # lub abs(dfx) < 1e-12
             raise ValueError("Pochodna f'(x) = 0, metoda Newtona nie może wykonać kolejnego kroku.")
         
+        # h = f(x) / f'(x)
         h = fx / dfx
+
+        # wzór Newtona: x_nowe = x - f(x) / f'(x)
         x_nowe = x - h
 
         lista_iteracji.append([i, x, fx, dfx, h, x_nowe])
 
-        if abs(h) < epsilon:
+        if abs(h) < epsilon: # lub zamiast < zrobić <=
             return punkt_startowy, x_nowe, lista_iteracji
         
         x = x_nowe
@@ -276,15 +300,15 @@ def sieczne(f, a, b, df, ddf, max_iter=100, epsilon=1e-3):
         fx0 = f(x0)
         fx1 = f(x1)
 
-        if fx1 - fx0 == 0:
+        if fx1 - fx0 == 0: # lub if abs(fx1 - fx0) < 1e-12:
             raise ValueError("Mianownik jest równy zero, metoda siecznych nie może wykonać kolejnego kroku.")
         
         x_nowe = x1 - fx1 * ((x1 - x0) / (fx1 - fx0))
 
         lista_iteracji.append([i, x0, x1, fx0, fx1, x_nowe])
 
-        if abs(x_nowe - x1) < epsilon:
-            return x0_startowy, x1_startowy, x0, x1, lista_iteracji
+        if abs(x_nowe - x1) < epsilon: # lub if abs(x_nowe - x1) <= epsilon:
+            return x0_startowy, x1_startowy, x0, x_nowe, lista_iteracji
         
         x0 = x1
         x1 = x_nowe
