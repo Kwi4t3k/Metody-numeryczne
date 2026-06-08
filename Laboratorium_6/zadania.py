@@ -24,13 +24,42 @@ def wypisz_wektor(wektor, nazwa="x"):
 
 def jacobi(A, b, x0, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje", rozwiazanie_dokladne=None):
     n = len(A)
+
+    # Sprawdzamy, czy macierz A nie jest pusta
+    if n == 0:
+        raise ValueError("Macierz A nie może być pusta")
+
+    # Sprawdzamy, czy macierz A jest kwadratowa
+    for wiersz in A:
+        if len(wiersz) != n:
+            raise ValueError("Macierz A musi być kwadratowa")
+
+    # Sprawdzamy, czy wektor b ma dobry rozmiar
+    if len(b) != n:
+        raise ValueError("Wektor b musi mieć tyle elementów, ile macierz A ma wierszy")
+
+    # Sprawdzamy, czy przybliżenie początkowe x0 ma dobry rozmiar
+    if len(x0) != n:
+        raise ValueError("Wektor x0 musi mieć tyle elementów, ile jest niewiadomych")
+
     x_stare = x0[:]
     #     /\
-    # dla macierzy lepiej:
+    # normalna wersja tego dla wektora
     # B = []
+    #
+    # for i in range(len(x0)):
+    #     B.append(x0[i])
 
+    # wersja dla macierzy
+    # B = []
+    #
     # for i in range(len(A)):
-    #     B.append(A[i][:])
+    #     nowy_wiersz = []
+    #
+    #     for j in range(len(A[i])):
+    #         nowy_wiersz.append(A[i][j])
+    #
+    #     B.append(nowy_wiersz)
     #---------------------------------------
 
     for i in range(n):
@@ -67,9 +96,16 @@ def jacobi(A, b, x0, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje", rozwi
         elif warunek_stopu == "blad":
             if rozwiazanie_dokladne is None:
                 raise ValueError("Dla warunku 'blad' trzeba podać dokładne rozwiązanie")
+            
+            if len(rozwiazanie_dokladne) != n:
+                raise ValueError("Rozwiązanie dokładne musi mieć tyle elementów, ile jest niewiadomych")
+            
             blad = odejmij_wektory(x_nowe, rozwiazanie_dokladne)
-            if norma_max(blad) < epsilon:
+            if norma_max(blad) <= epsilon:
                 return x_nowe, krok
+
+        else:
+            raise ValueError("Nieznany warunek stopu")
 
         x_stare = x_nowe[:]
 
@@ -167,7 +203,32 @@ def wypisz_wektor(wektor, nazwa="x"):
 
 def gauss_seidel(A, b, x0, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje", rozwiazanie_dokladne=None):
     n = len(A)
-    x = x0[:]
+
+    if n == 0:
+        raise ValueError("Macierz A nie może być pusta")
+
+    for wiersz in A:
+        if len(wiersz) != n:
+            raise ValueError("Macierz A musi być kwadratowa")
+
+    if len(b) != n:
+        raise ValueError("Wektor b musi mieć tyle elementów, ile macierz A ma wierszy")
+
+    if len(x0) != n:
+        raise ValueError("Wektor x0 musi mieć tyle elementów, ile jest niewiadomych")
+
+    if epsilon <= 0:
+        raise ValueError("Dokładność epsilon musi być dodatnia")
+
+    if max_iter <= 0:
+        raise ValueError("Liczba iteracji musi być dodatnia")
+
+    # x = x0[:]
+
+    x = []
+
+    for i in range(len(x0)):
+        x.append(x0[i])
 
     for i in range(n):
         if A[i][i] == 0:
@@ -206,8 +267,13 @@ def gauss_seidel(A, b, x0, max_iter=100, epsilon=1e-3, warunek_stopu="iteracje",
         elif warunek_stopu == "blad":
             if rozwiazanie_dokladne is None:
                 raise ValueError("Dla warunku 'blad' trzeba podać dokładne rozwiązanie")
+            
+            if len(rozwiazanie_dokladne) != n:
+                raise ValueError("Rozwiązanie dokładne musi mieć tyle elementów, ile jest niewiadomych")
+    
             blad = odejmij_wektory(x, rozwiazanie_dokladne)
-            if norma_max(blad) < epsilon:
+
+            if norma_max(blad) <= epsilon:
                 return x, krok
 
         else:
@@ -289,6 +355,20 @@ print("Norma błędu względem rozwiązania dokładnego:", norma_max(blad_c))
 
 print("--------------------ZADANIE 3--------------------")
 
+def sprawdz_macierz(A):
+    n = len(A)
+
+    if n == 0:
+        raise ValueError("Macierz A nie może być pusta")
+
+    for wiersz in A:
+        if len(wiersz) != n:
+            raise ValueError("Macierz A musi być kwadratowa")
+
+    for i in range(n):
+        if A[i][i] == 0:
+            raise ValueError("Na przekątnej macierzy A nie może być zera")
+
 def zeros(n, m):
     macierz = []
     for i in range(n):
@@ -313,6 +393,7 @@ def norma_wierszowa_macierzy(macierz):
     return maksimum
 
 def macierz_iteracji_jacobiego(A):
+    sprawdz_macierz(A)
     n = len(A)
     W = zeros(n, n)
 
@@ -333,11 +414,16 @@ def rozwiaz_uklad_dolnotrojkatny(LD, b):
         suma = 0.0
         for j in range(i):
             suma += LD[i][j] * x[j]
+
+        if LD[i][i] == 0:
+            raise ValueError("Dzielenie przez zero w układzie dolnotrójkątnym")
+
         x[i] = (b[i] - suma) / LD[i][i]
 
     return x
 
 def macierz_iteracji_gaussa_seidla(A):
+    sprawdz_macierz(A)
     n = len(A)
 
     LD = zeros(n, n)
