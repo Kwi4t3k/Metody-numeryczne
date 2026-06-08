@@ -22,7 +22,7 @@
             }
           },
           {
-            "id": "ee556cab613d9641",
+            "id": "9d294ae982015d30",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -35,8 +35,7 @@
               "title": "Wszystkie_zadania_z_notatkami"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -199,15 +198,15 @@
     }
   },
   "floating": {
-    "id": "e4fb23b4712baa70",
+    "id": "9184da5e2c1b54f2",
     "type": "floating",
     "children": [
       {
-        "id": "ab5bc37affe8b708",
+        "id": "96a1e92f57020661",
         "type": "window",
         "children": [
           {
-            "id": "941dd359c7a19ca8",
+            "id": "e16bda2859fc9dee",
             "type": "tabs",
             "children": [
               {
@@ -228,20 +227,21 @@
           }
         ],
         "direction": "vertical",
-        "x": 1049,
+        "x": 1116,
         "y": 0,
-        "width": 870,
+        "width": 804,
         "height": 1032,
         "maximize": false,
         "zoom": 1
       }
     ]
   },
-  "active": "10c338706adab173",
+  "active": "9bbe75a3ffa525fe",
   "lastOpenFiles": [
     "Wszystkie_zadania_z_notatkami.md",
     "Wszystkie_zadania_bez_notatek.md",
     "Ultimate notatka.md",
+    "Laboratorium_11/dadas.py",
     "Wszystkie_zadania_z_notatkami.pdf",
     "Laboratorium_14/zadania_lab_14.md",
     "Laboratorium_14/zadania_lab_14.pdf",
@@ -270,7 +270,6 @@
     "Laboratorium_1/Dokładność-zadania.md",
     "Laboratorium_3/zadania_lab3_old.pdf",
     "Laboratorium_3/zadania_lab_3.pdf",
-    "Laboratorium_3/mn_inf_03.pdf",
     "Laboratorium_2/p.md",
     "Laboratorium_5/zadania lab 5.md",
     "Laboratorium_4/zadania lab 4.md",

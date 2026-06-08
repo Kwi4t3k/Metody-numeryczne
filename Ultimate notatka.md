@@ -6209,7 +6209,7 @@ print(A)
 
 ---
 
-# Wykład 3: Układy równań liniowych — metody bezpośrednie (lab 4)
+# Wykład 3: Układy równań liniowych — metody bezpośrednie (lab 4, 5)
 
 ## 1. Układ równań liniowych
 
@@ -30078,3 +30078,396 @@ Wynik:
 ```text
 x**3/3
 ```
+
+# Sumy - jak pisać w pythonie
+Najprostsza zasada jest taka:
+
+ $$ 
+\sum  
+$$
+
+czyli „duża suma” w matematyce prawie zawsze oznacza w Pythonie:
+
+```python
+suma = 0
+
+for ...:
+    suma = suma + ...
+```
+
+albo krócej:
+
+```python
+suma += ...
+```
+
+## 1. Najprostszy przykład
+
+Matematycznie:
+
+$$  
+\sum_{i=1}^{n} i  
+$$
+
+czyli:
+
+$$  
+1+2+3+\dots+n  
+$$
+
+W Pythonie:
+
+```python
+n = 5
+
+suma = 0
+
+for i in range(1, n + 1):
+    suma += i
+
+print(suma)
+```
+
+Dlaczego `n + 1`? Bo `range(1, n + 1)` daje liczby od `1` do `n`, ale bez `n + 1`.
+
+---
+
+## 2. Suma wartości funkcji
+
+Matematycznie:
+
+$$  
+\sum_{i=0}^{n-1} f(x_i)  
+$$
+
+W Pythonie:
+
+```python
+suma = 0.0
+
+for i in range(n):
+    suma += f(x_i)
+```
+
+Jeśli $x_i$ trzeba dopiero policzyć, np.:
+
+$$  
+x_i = a + ih  
+$$
+
+to:
+
+```python
+suma = 0.0
+
+for i in range(n):
+    x_i = a + i * h
+    suma += f(x_i)
+```
+
+---
+
+## 3. Metoda prostokątów
+
+Wzór:
+
+$$  
+\int_a^b f(x)dx \approx h\sum_{i=0}^{n-1} f\left(a+\left(i+\frac12\right)h\right)  
+$$
+
+Kod:
+
+```python
+h = (b - a) / n
+
+suma = 0.0
+
+for i in range(n):
+    x_srodek = a + (i + 0.5) * h
+    suma += f(x_srodek)
+
+wynik = h * suma
+```
+
+Czyli tłumaczenie:
+
+```text
+suma od i=0 do n-1  →  for i in range(n)
+a + (i + 0.5)h      →  a + (i + 0.5) * h
+f(...)              →  f(...)
+h * suma            →  h * suma
+```
+
+---
+
+## 4. Suma od 1 do n
+
+Wzór:
+
+$$  
+\sum_{i=1}^{n} y_i  
+$$
+
+Kod:
+
+```python
+suma = 0.0
+
+for i in range(1, n + 1):
+    suma += y[i]
+```
+
+Ale uwaga: w Pythonie listy zaczynają się od indeksu `0`, więc jeśli masz listę:
+
+```python
+y = [2, 4, 6, 8]
+```
+
+to:
+
+```python
+y[0] = 2
+y[1] = 4
+y[2] = 6
+y[3] = 8
+```
+
+Dlatego często w kodzie używasz:
+
+```python
+for i in range(n):
+    suma += y[i]
+```
+
+To odpowiada matematycznie:
+
+$$  
+\sum_{i=0}^{n-1} y_i  
+$$
+
+---
+
+## 5. Suma po punktach
+
+Jeśli masz punkty:
+
+```python
+punkty = [(1.1, 2.1), (1.4, 2.3), (1.8, 2.9)]
+```
+
+i wzór:
+
+$$  
+\sum_{i=1}^{n} x_i y_i  
+$$
+
+to możesz pisać tak:
+
+```python
+suma = 0.0
+
+for x, y in punkty:
+    suma += x * y
+```
+
+To jest bardzo wygodne, bo nie musisz pisać indeksów.
+
+Na przykład z aproksymacji:
+
+$$  
+A=\sum_{i=1}^{n}x_i y_i  
+$$
+
+Kod:
+
+```python
+A = 0.0
+
+for x, y in punkty:
+    A += x * y
+```
+
+---
+
+## 6. Suma z potęgami
+
+Wzór:
+
+$$  
+\sum_{i=1}^{n} x_i^2  
+$$
+
+Kod:
+
+```python
+suma = 0.0
+
+for x, y in punkty:
+    suma += x ** 2
+```
+
+Wzór:
+
+$$  
+\sum_{i=1}^{n} x_i^2 y_i  
+$$
+
+Kod:
+
+```python
+suma = 0.0
+
+for x, y in punkty:
+    suma += (x ** 2) * y
+```
+
+---
+
+## 7. Podwójna suma
+
+Wzór:
+
+$$  
+\sum_{i=0}^{n-1}\sum_{j=0}^{m-1} a_{ij}  
+$$
+
+Kod:
+
+```python
+suma = 0.0
+
+for i in range(n):
+    for j in range(m):
+        suma += A[i][j]
+```
+
+Czyli każda dodatkowa suma to dodatkowa pętla `for`.
+
+---
+
+## 8. Najważniejszy schemat
+
+Jeśli widzisz:
+
+$$  
+S=\sum_{i=p}^{q} \text{coś z } i  
+$$
+
+to piszesz:
+
+```python
+S = 0.0
+
+for i in range(p, q + 1):
+    S += coś_z_i
+```
+
+Przykład:
+
+$$  
+S=\sum_{i=2}^{5} i^2  
+$$
+
+Kod:
+
+```python
+S = 0
+
+for i in range(2, 5 + 1):
+    S += i ** 2
+
+print(S)
+```
+
+---
+
+## 9. Jak czytać granice sumy
+
+| Matematyka         | Python                      |
+| ------------------ | --------------------------- |
+| $\sum_{i=0}^{n-1}$ | `for i in range(n):`        |
+| $\sum_{i=1}^{n}$   | `for i in range(1, n + 1):` |
+| $\sum_{i=2}^{n-1}$ | `for i in range(2, n):`     |
+| $\sum_{i=1}^{n-1}$ | `for i in range(1, n):`     |
+| $\sum_{i=0}^{n}$   | `for i in range(0, n + 1):` |
+
+Najważniejsze: `range(koniec)` nie zawiera końca.
+
+Czyli:
+
+```python
+range(5)
+```
+
+daje:
+
+```python
+0, 1, 2, 3, 4
+```
+
+a nie `5`.
+
+---
+
+## 10. Miniściąga
+
+Matematycznie:
+
+$$  
+\sum_{i=0}^{n-1} f(a+ih)  
+$$
+
+Python:
+
+```python
+suma = 0.0
+
+for i in range(n):
+    x = a + i * h
+    suma += f(x)
+```
+
+Matematycznie:
+
+$$  
+\sum_{i=1}^{n} (ax_i+b-y_i)^2  
+$$
+
+Python:
+
+```python
+suma = 0.0
+
+for x, y in punkty:
+    suma += (a * x + b - y) ** 2
+```
+
+Matematycznie:
+
+$$  
+\sum_{j=0, j\neq i}^{n} \frac{x-x_j}{x_i-x_j}  
+$$
+
+Python:
+
+```python
+wynik = 1.0
+
+for j in range(n + 1):
+    if j != i:
+        wynik *= (x - x[j]) / (x[i] - x[j])
+```
+
+Tu jest iloczyn, więc zaczynasz od:
+
+```python
+wynik = 1.0
+```
+
+a nie od `0.0`.
+
+Bo:
+
+- suma zaczyna się od `0`,
+    
+- iloczyn zaczyna się od `1`.
