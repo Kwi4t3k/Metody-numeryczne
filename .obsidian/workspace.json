@@ -107,8 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "672a3d974b0d1385",
@@ -216,9 +215,9 @@
   "active": "10c338706adab173",
   "lastOpenFiles": [
     "Wszystkie_zadania_z_notatkami.md",
+    "Ultimate notatka.md",
     "Wszystkie_zadania_bez_notatek.md",
     "Wszystkie_zadania_bez_notatek.pdf",
-    "Ultimate notatka.md",
     "Laboratorium_11/dadas.py",
     "Wszystkie_zadania_z_notatkami.pdf",
     "Laboratorium_14/zadania_lab_14.md",

@@ -6813,3 +6813,790 @@ testuj_wielomian(
 
 # Lab 13
 ## Zadanie 1
+Wykorzystaj znane generatory, np. `rand()`, do zwrócenia wartości z określonych przedziałów, przy założeniu, że `MAX` to największa wartość zwracana przez generator:
+
+a)
+
+$$  
+(int)\ \langle 0,MAX\rangle  
+$$
+
+b)
+
+$$  
+(int)\ \langle 0,max\rangle,\quad max<MAX  
+$$
+
+c)
+
+$$  
+(int)\ \langle min,max\rangle,\quad min<max<MAX  
+$$
+
+d)
+
+$$  
+(double)\ \langle 0,1\rangle  
+$$
+
+```python
+import random, sys
+
+MAX = sys.maxsize
+
+def rand():
+    return random.randint(0, MAX)
+
+# a)
+def losuj_0_MAX():
+    return rand()
+
+# b)
+def losuj_0_max(max_wartosc):
+    X = rand()
+    return int((X / (MAX + 1) * (max_wartosc + 1)))
+
+# c)
+def losuj_min_max(min_wartosc, max_wartosc):
+    X = rand()
+    return min_wartosc + int((X / (MAX + 1)) * (max_wartosc - min_wartosc + 1))
+
+# d)
+def losuj_0_1():
+    X = rand()
+    return X / (MAX) # przedział [0,1]
+    # return X / (MAX + 1) # przedział [0,1)
+
+print("--------------------ZADANIE 1--------------------")
+
+print("a) <0, MAX>:", losuj_0_MAX())
+print("b) <0, max>:", losuj_0_max(10))
+print("c) <min, max>:", losuj_min_max(5, 15))
+print("d) <0, 1>:", losuj_0_1())
+```
+
+## Zadanie 2
+Zaimplementuj własny generator liczb pseudolosowych addytywny LCG oparty na wzorze:
+
+$$  
+X_{n+1}=aX_n+c\mod M  
+$$
+
+Przetestuj uzyskany generator następująco:
+
+- utwórz zbiór punktów postaci:
+    
+
+$$  
+(X_0,X_1),(X_2,X_3),\dots,(X_i,X_{i+1}),(X_{i+2},X_{i+3}),\dots  
+$$
+
+- zwizualizuj tak utworzony zbiór punktów, np. jako plik SVG za pomocą: https://www.w3schools.com/graphics/svg_circle.asp.
+
+**liczby $M$, $a$, $c$ wzięte z wykładu 11 strona 32**
+
+```python
+def generator_LCG(a, c, X0, M, ile):
+    liczby = []
+    X = X0
+
+    for i in range(ile):
+        liczby.append(X)
+        X = (a * X + c) % M
+
+    return liczby
+
+def nwd(a, b):
+    a = abs(a)
+    b = abs(b)
+
+    while b != 0:
+        reszta = a % b
+        a = b
+        b = reszta
+
+    return a
+
+def utworz_punkty(liczby):
+    punkty = []
+
+    for i in range(0, len(liczby) - 1, 2):
+        punkty.append((liczby[i], liczby[i + 1]))
+
+    return punkty
+
+def zapisz_svg(punkty, M, nazwa_pliku):
+    szerokosc = 500
+    wysokosc = 500
+    margines = 20
+
+    svg = f'<svg width="{szerokosc}" height="{wysokosc}" viewBox="0 0 {szerokosc} {wysokosc}" xmlns="http://www.w3.org/2000/svg">\n'
+    svg += '<rect width="100%" height="100%" fill="white"/>\n'
+    svg += f'<rect x="{margines}" y="{margines}" width="{szerokosc - 2*margines}" height="{wysokosc - 2*margines}" fill="none" stroke="black"/>\n'
+
+    for x, y in punkty:
+        x_svg = margines + (x / (M - 1)) * (szerokosc - 2 * margines)
+        y_svg = wysokosc - margines - (y / (M - 1)) * (wysokosc - 2 * margines)
+
+        svg += f'<circle cx="{x_svg}" cy="{y_svg}" r="3" fill="blue"/>\n'
+
+    svg += '</svg>'
+
+    with open(nazwa_pliku, "w", encoding="utf-8") as plik:
+        plik.write(svg)
+
+# print("--------------------ZADANIE 2--------------------")
+
+a = 1103515245
+c = 12345
+M = 2**31
+X0 = 7
+
+print("Parametry generatora LCG:")
+print("a =", a)
+print("c =", c)
+print("M =", M)
+print("X0 =", X0)
+
+print("\nSprawdzenie podstawowego warunku:")
+print("mojde: nwd(c, M) =", nwd(c, M))
+# print("nwd(c, M) =", math.gcd(c, M)) # funkcja z biblioteki - wymaga import math
+
+liczby = generator_LCG(a, c, X0, M, 1000)
+punkty = utworz_punkty(liczby)
+
+print("Pierwsze 20 liczb:")
+print(liczby[:20])
+
+# Wypisanie wszystkich liczb
+# print("Wygenerowane liczby:")
+# for i in range(len(liczby)):
+#     print("X_", i, "=", liczby[i])
+
+print("Pierwsze 10 punktów:")
+print(punkty[:10])
+
+# Wypisanie wszystkich punktów
+# print("\nWygenerowane punkty:")
+# for i in range(len(punkty)):
+#     print("P_", i, "=", punkty[i])
+
+zapisz_svg(punkty, M, "punkty_LCG.svg")
+
+print("\nZapisano plik punkty_LCG.svg")
+```
+
+## Zadanie 3
+Zaimplementuj własny generator liczby pseudolosowych LFG oparty na wzorze:
+
+$$  
+X_n=X_{n-q}+X_{n-p}\mod M  
+$$
+
+gdzie:
+
+$$  
+1\le q\le p\le M  
+$$
+
+```python
+def generator_LFG_dodawanie(p, q, M, poczatkowe, ile):
+    if not (p > q >= 1):
+        raise ValueError("Musi być spełniony warunek p > q >= 1.")
+    
+    if p > M:
+        raise ValueError("Musi być spełniony warunek p <= M.")
+
+    if len(poczatkowe) < p:
+        raise ValueError("Trzeba podać co najmniej p wartości początkowych.")
+
+    if all(wartosc == 0 for wartosc in poczatkowe):
+        raise ValueError("Wartości początkowe nie mogą być samymi zerami.")
+
+    liczby = poczatkowe.copy()
+
+    for n in range(p, ile):
+        Xn = (liczby[n - p] + liczby[n - q]) % M
+        liczby.append(Xn)
+
+    return liczby
+
+def generator_LFG_wybor_operacji(p, q, M, X_poczatkowe, ile, operacja):
+    if not (p > q >= 1):
+        raise ValueError("Musi być spełniony warunek p > q >= 1.")
+    
+    if p > M:
+        raise ValueError("Musi być spełniony warunek p <= M.")
+    
+    if len(X_poczatkowe) < p:
+        raise ValueError("Trzeba podać co najmniej p wartości początkowych.")
+    
+    if all(wartosc == 0 for wartosc in X_poczatkowe):
+        raise ValueError("Wartości początkowe nie mogą być samymi zerami.")
+    
+    liczby = X_poczatkowe.copy()
+    
+    for n in range(p, ile):
+        a = liczby[n - p]
+        b = liczby[n - q]
+
+        if operacja == "dodawanie":
+            nowy = (a + b) % M
+
+        elif operacja == "odejmowanie":
+            nowy = (a - b) % M
+
+        elif operacja == "mnozenie":
+            nowy = (a * b) % M
+
+        elif operacja == "xor":
+            nowy = (a ^ b) % M
+
+        else:
+            raise ValueError("Nieznana operacja.")
+
+        liczby.append(nowy)
+
+    return liczby
+
+
+print("--------------------ZADANIE 3--------------------")
+
+M = 17
+p = 3
+q = 1
+
+poczatkowe = [7, 16, 5]
+
+liczby = generator_LFG_dodawanie(p, q, M, poczatkowe, 12)
+liczby2 = generator_LFG_wybor_operacji(p, q, M, poczatkowe, 12, "dodawanie")
+
+print("Wygenerowany ciąg:")
+print(liczby)
+print(liczby2)
+```
+
+# Lab 14
+## Zadanie 1
+Wykorzystaj metodę Monte Carlo do obliczenia przybliżonej wartości całek:
+
+a)
+
+$$
+\int_0^1 x^2 \space dx
+$$
+
+b)
+
+$$
+\int_e^{e^2}\frac{1}{x} \space dx
+$$
+
+c)
+
+$$
+\iint_D(\cos x+y+1) \space dxdy
+\qquad
+D=[0,2]\times[-\pi,\pi]
+$$
+
+Oszacuj liczbę punktów potrzebnych do uzyskania dokładności do 2 cyfr po przecinku.
+
+**Metoda Crude Monte Carlo**
+
+```python
+def monte_carlo_1d(f, a, b, N):
+    suma = 0.0
+
+    for i in range(N):
+        x = random.uniform(a, b)
+        suma += f(x)
+
+    return ((b - a) / N) * suma
+    # return (b - a) * suma / N
+
+
+def monte_carlo_2d(f, ax, bx, ay, by, N):
+    suma = 0.0
+
+    for i in range(N):
+        x = random.uniform(ax, bx)
+        y = random.uniform(ay, by)
+        suma += f(x, y)
+
+    pole_obszaru = (bx - ax) * (by - ay)
+
+    return (pole_obszaru / N) * suma
+    # return (((bx - ax) * (by - ay)) / N) * suma
+
+# szacowanie liczby punktów
+def oszacuj_N_1d(f, a, b, dokladnosc=0.005, N_probne=10000):
+    wartosci = []
+
+    for i in range(N_probne):
+        x = random.uniform(a, b)
+        wartosci.append(f(x))
+
+    srednia = sum(wartosci) / N_probne
+
+    wariancja = 0.0
+    for wartosc in wartosci:
+        wariancja += (wartosc - srednia) ** 2
+
+    wariancja = wariancja / (N_probne - 1)
+    odchylenie = math.sqrt(wariancja)
+
+    N = ((b - a) * odchylenie / dokladnosc) ** 2
+
+    return math.ceil(N)
+
+
+def oszacuj_N_2d(f, ax, bx, ay, by, dokladnosc=0.005, N_probne=10000):
+    wartosci = []
+
+    for i in range(N_probne):
+        x = random.uniform(ax, bx)
+        y = random.uniform(ay, by)
+        wartosci.append(f(x, y))
+
+    srednia = sum(wartosci) / N_probne
+
+    wariancja = 0.0
+    for wartosc in wartosci:
+        wariancja += (wartosc - srednia) ** 2
+
+    wariancja = wariancja / (N_probne - 1)
+    odchylenie = math.sqrt(wariancja)
+
+    pole_obszaru = (bx - ax) * (by - ay)
+
+    N = (pole_obszaru * odchylenie / dokladnosc) ** 2
+
+    return math.ceil(N)
+
+
+def f1(x):
+    return x ** 2
+
+
+def f2(x):
+    return 1 / x
+
+
+def f3(x, y):
+    return math.cos(x) + y + 1
+
+
+N = 100000
+
+wynik_a = monte_carlo_1d(f1, 0, 1, N)
+dokladny_a = 1 / 3
+
+wynik_b = monte_carlo_1d(f2, math.e, math.e ** 2, N)
+dokladny_b = 1
+
+wynik_c = monte_carlo_2d(f3, 0, 2, -math.pi, math.pi, N)
+dokladny_c = 2 * math.pi * (math.sin(2) + 2)
+
+
+print("\na) całka od 0 do 1 z x^2 dx")
+print("Wynik Monte Carlo:", wynik_a)
+print("Wartość dokładna:", dokladny_a)
+print("Błąd bezwzględny:", abs(dokladny_a - wynik_a))
+
+print("\nb) całka od e do e^2 z 1/x dx")
+print("Wynik Monte Carlo:", wynik_b)
+print("Wartość dokładna:", dokladny_b)
+print("Błąd bezwzględny:", abs(dokladny_b - wynik_b))
+
+print("\nc) całka podwójna po D = [0,2] x [-pi,pi]")
+print("Wynik Monte Carlo:", wynik_c)
+print("Wartość dokładna:", dokladny_c)
+print("Błąd bezwzględny:", abs(dokladny_c - wynik_c))
+
+
+print("\nOszacowanie liczby punktów dla dokładności do 2 cyfr po przecinku:")
+
+N_a = oszacuj_N_1d(f1, 0, 1)
+N_b = oszacuj_N_1d(f2, math.e, math.e ** 2)
+N_c = oszacuj_N_2d(f3, 0, 2, -math.pi, math.pi)
+
+print("a) potrzebne N ≈", N_a)
+print("b) potrzebne N ≈", N_b)
+print("c) potrzebne N ≈", N_c)
+```
+
+## Zadanie 2
+Stosując metodę akceptacji i odrzuceń oblicz:
+
+a) objętość kuli jednostkowej,
+
+b) objętość części wspólnej sześcianu i kuli, przy czym stosunek promienia kuli do długości boku sześcianu wynosi $2:3$.
+![[czesc-wspolna-szescianu-i-kuli.png]]
+
+```python
+import random
+import math
+
+
+print("-------------------- ZADANIE 2 --------------------")
+
+# a)
+def objetosc_kuli_jednostkowej(N):
+    zaakceptowane = 0
+
+    for i in range(N):
+        x = random.uniform(-1, 1)
+        y = random.uniform(-1, 1)
+        z = random.uniform(-1, 1)
+
+        if x ** 2 + y ** 2 + z ** 2 <= 1:
+            zaakceptowane += 1
+
+    objetosc_szescianu = 2 ** 3
+
+    return objetosc_szescianu * zaakceptowane / N
+
+# b)
+def objetosc_wspolna_szescianu_i_kuli(N):
+    r = 2
+    bok = 3
+
+    polowa_boku = bok / 2
+
+    zaakceptowane = 0
+
+    for i in range(N):
+        x = random.uniform(-polowa_boku, polowa_boku)
+        y = random.uniform(-polowa_boku, polowa_boku)
+        z = random.uniform(-polowa_boku, polowa_boku)
+
+        if x ** 2 + y ** 2 + z ** 2 <= r ** 2:
+            zaakceptowane += 1
+
+    objetosc_szescianu = bok ** 3
+
+    return objetosc_szescianu * zaakceptowane / N
+
+
+N = 200000
+
+wynik_kula = objetosc_kuli_jednostkowej(N)
+dokladna_kula = 4 / 3 * math.pi
+
+wynik_wspolna = objetosc_wspolna_szescianu_i_kuli(N)
+
+
+print("\na) Objętość kuli jednostkowej")
+print("Wynik Monte Carlo:", wynik_kula)
+print("Wartość dokładna:", dokladna_kula)
+print("Błąd bezwzględny:", abs(dokladna_kula - wynik_kula))
+
+print("\nb) Objętość części wspólnej sześcianu i kuli")
+print("Stosunek promienia kuli do boku sześcianu: 2:3")
+print("Przyjmujemy r = 2 oraz bok = 3")
+print("Wynik Monte Carlo:", wynik_wspolna)
+```
+
+**wersja zadania uniwersalna**
+
+```python
+import random
+import math
+
+
+# ============================================================
+# FUNKCJE POMOCNICZE
+# ============================================================
+
+def objetosc_obszaru(zakresy):
+    """
+    Liczy objętość prostokąta / prostopadłościanu / hipersześcianu,
+    z którego losujemy punkty.
+
+    zakresy np.:
+    [(0, 1)]                      -> odcinek
+    [(0, 2), (-math.pi, math.pi)]  -> prostokąt 2D
+    [(-1, 1), (-1, 1), (-1, 1)]   -> sześcian 3D
+    """
+    objetosc = 1.0
+
+    for a, b in zakresy:
+        if a >= b:
+            raise ValueError("Każdy zakres musi mieć postać a < b")
+
+        objetosc *= (b - a)
+
+    return objetosc
+
+
+def losuj_punkt(zakresy):
+    """
+    Losuje punkt z podanych zakresów.
+    """
+    punkt = []
+
+    for a, b in zakresy:
+        punkt.append(random.uniform(a, b))
+
+    return punkt
+
+
+def srednia(wartosci):
+    suma = 0.0
+
+    for wartosc in wartosci:
+        suma += wartosc
+
+    return suma / len(wartosci)
+
+
+def odchylenie_standardowe(wartosci):
+    sr = srednia(wartosci)
+
+    suma_kwadratow = 0.0
+
+    for wartosc in wartosci:
+        suma_kwadratow += (wartosc - sr) ** 2
+
+    wariancja = suma_kwadratow / (len(wartosci) - 1)
+
+    return math.sqrt(wariancja)
+
+
+# ============================================================
+# ZADANIE 1 — UNIWERSALNE CAŁKOWANIE MONTE CARLO
+# ============================================================
+
+def monte_carlo_nd(f, zakresy, N):
+    """
+    Uniwersalna wersja Monte Carlo dla całek 1D, 2D, 3D itd.
+
+    f przyjmuje punkt jako listę, np.
+    punkt = [x]
+    punkt = [x, y]
+    punkt = [x, y, z]
+    """
+    if N <= 0:
+        raise ValueError("N musi być dodatnie")
+
+    suma = 0.0
+
+    for i in range(N):
+        punkt = losuj_punkt(zakresy)
+        suma += f(punkt)
+
+    objetosc = objetosc_obszaru(zakresy)
+
+    return (objetosc / N) * suma
+
+
+def oszacuj_N_monte_carlo(f, zakresy, dokladnosc=0.005, N_probne=10000):
+    """
+    Szacuje liczbę próbek potrzebną do osiągnięcia podanej dokładności.
+
+    Dla dokładności do 2 miejsc po przecinku przyjmujemy:
+    dokladnosc = 0.005
+
+    To jest oszacowanie statystyczne, a nie gwarancja.
+    """
+    if dokladnosc <= 0:
+        raise ValueError("Dokładność musi być dodatnia")
+
+    if N_probne <= 1:
+        raise ValueError("N_probne musi być większe od 1")
+
+    wartosci = []
+
+    for i in range(N_probne):
+        punkt = losuj_punkt(zakresy)
+        wartosci.append(f(punkt))
+
+    odchylenie = odchylenie_standardowe(wartosci)
+    objetosc = objetosc_obszaru(zakresy)
+
+    N = ((objetosc * odchylenie) / dokladnosc) ** 2
+
+    return math.ceil(N)
+
+
+# ============================================================
+# ZADANIE 2 — UNIWERSALNA METODA AKCEPTACJI I ODRZUCEŃ
+# ============================================================
+
+def objetosc_przez_akceptacje(warunek, zakresy, N):
+    """
+    Uniwersalna metoda akceptacji i odrzuceń.
+
+    warunek(punkt) zwraca True, jeżeli punkt należy do badanego obszaru.
+    zakresy określają obszar, z którego losujemy punkty.
+    """
+    if N <= 0:
+        raise ValueError("N musi być dodatnie")
+
+    zaakceptowane = 0
+
+    for i in range(N):
+        punkt = losuj_punkt(zakresy)
+
+        if warunek(punkt):
+            zaakceptowane += 1
+
+    objetosc = objetosc_obszaru(zakresy)
+
+    return objetosc * zaakceptowane / N
+
+
+def objetosc_kuli(N, r=1.0):
+    """
+    Objętość kuli o promieniu r metodą akceptacji i odrzuceń.
+    Kula ma środek w punkcie (0, 0, 0).
+    """
+    if r <= 0:
+        raise ValueError("Promień kuli musi być dodatni")
+
+    zakresy = [
+        (-r, r),
+        (-r, r),
+        (-r, r)
+    ]
+
+    def warunek_kuli(punkt):
+        x = punkt[0]
+        y = punkt[1]
+        z = punkt[2]
+
+        return x ** 2 + y ** 2 + z ** 2 <= r ** 2
+
+    return objetosc_przez_akceptacje(warunek_kuli, zakresy, N)
+
+
+def objetosc_wspolna_szescianu_i_kuli(N, r, bok):
+    """
+    Objętość części wspólnej sześcianu i kuli.
+
+    Zakładamy, że:
+    - środek kuli jest w punkcie (0, 0, 0),
+    - środek sześcianu też jest w punkcie (0, 0, 0),
+    - sześcian ma bok długości 'bok',
+    - kula ma promień 'r'.
+    """
+    if r <= 0:
+        raise ValueError("Promień kuli musi być dodatni")
+
+    if bok <= 0:
+        raise ValueError("Bok sześcianu musi być dodatni")
+
+    polowa_boku = bok / 2.0
+
+    zakresy = [
+        (-polowa_boku, polowa_boku),
+        (-polowa_boku, polowa_boku),
+        (-polowa_boku, polowa_boku)
+    ]
+
+    def warunek_kuli(punkt):
+        x = punkt[0]
+        y = punkt[1]
+        z = punkt[2]
+
+        return x ** 2 + y ** 2 + z ** 2 <= r ** 2
+
+    return objetosc_przez_akceptacje(warunek_kuli, zakresy, N)
+
+
+# ============================================================
+# FUNKCJE DO ZADANIA 1
+# ============================================================
+
+def f1(punkt):
+    x = punkt[0]
+    return x ** 2
+
+
+def f2(punkt):
+    x = punkt[0]
+    return 1 / x
+
+
+def f3(punkt):
+    x = punkt[0]
+    y = punkt[1]
+    return math.cos(x) + y + 1
+
+
+# ============================================================
+# TESTY
+# ============================================================
+
+print("-------------------- ZADANIE 1 --------------------")
+
+N = 100000
+
+# a) całka od 0 do 1 z x^2 dx
+zakres_a = [(0.0, 1.0)]
+wynik_a = monte_carlo_nd(f1, zakres_a, N)
+dokladny_a = 1 / 3
+
+print("\na) całka od 0 do 1 z x^2 dx")
+print("Wynik Monte Carlo:", wynik_a)
+print("Wartość dokładna:", dokladny_a)
+print("Błąd bezwzględny:", abs(dokladny_a - wynik_a))
+
+# b) całka od e do e^2 z 1/x dx
+zakres_b = [(math.e, math.e ** 2)]
+wynik_b = monte_carlo_nd(f2, zakres_b, N)
+dokladny_b = 1.0
+
+print("\nb) całka od e do e^2 z 1/x dx")
+print("Wynik Monte Carlo:", wynik_b)
+print("Wartość dokładna:", dokladny_b)
+print("Błąd bezwzględny:", abs(dokladny_b - wynik_b))
+
+# c) całka podwójna po D = [0,2] x [-pi,pi]
+zakres_c = [
+    (0.0, 2.0),
+    (-math.pi, math.pi)
+]
+
+wynik_c = monte_carlo_nd(f3, zakres_c, N)
+dokladny_c = 2 * math.pi * (math.sin(2) + 2)
+
+print("\nc) całka podwójna po D = [0,2] x [-pi,pi]")
+print("Wynik Monte Carlo:", wynik_c)
+print("Wartość dokładna:", dokladny_c)
+print("Błąd bezwzględny:", abs(dokladny_c - wynik_c))
+
+
+print("\nOszacowanie liczby punktów dla dokładności do 2 cyfr po przecinku:")
+
+N_a = oszacuj_N_monte_carlo(f1, zakres_a)
+N_b = oszacuj_N_monte_carlo(f2, zakres_b)
+N_c = oszacuj_N_monte_carlo(f3, zakres_c)
+
+print("a) potrzebne N ≈", N_a)
+print("b) potrzebne N ≈", N_b)
+print("c) potrzebne N ≈", N_c)
+
+
+print("\n-------------------- ZADANIE 2 --------------------")
+
+N = 200000
+
+# a) objętość kuli jednostkowej
+wynik_kula = objetosc_kuli(N, r=1.0)
+dokladna_kula = 4 / 3 * math.pi
+
+print("\na) Objętość kuli jednostkowej")
+print("Wynik Monte Carlo:", wynik_kula)
+print("Wartość dokładna:", dokladna_kula)
+print("Błąd bezwzględny:", abs(dokladna_kula - wynik_kula))
+
+# b) część wspólna sześcianu i kuli, stosunek r : bok = 2 : 3
+wynik_wspolna = objetosc_wspolna_szescianu_i_kuli(N, r=2.0, bok=3.0)
+
+print("\nb) Objętość części wspólnej sześcianu i kuli")
+print("Stosunek promienia kuli do boku sześcianu: 2:3")
+print("Przyjmujemy r = 2 oraz bok = 3")
+print("Wynik Monte Carlo:", wynik_wspolna)
+```
