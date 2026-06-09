@@ -33,7 +33,7 @@ def schemat_Hornera_pochodne(wspolczynniki, z):
 import cmath
 
 def metoda_laguerre_jeden_pierwiastek(wspolczynniki, z0, epsilon=1e-6, max_iteracji=100):
-    z = complex(z0)
+    z = complex(z0) # complex to liczba zespolona
     n = len(wspolczynniki) - 1
 
     for k in range(max_iteracji):

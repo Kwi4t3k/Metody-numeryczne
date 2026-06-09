@@ -6349,3 +6349,96 @@ testuj_calke(
 
 # Lab 12
 ## Zadanie 1
+Napisz program obliczający wartość wielomianu w punkcie z wykorzystaniem schematu Hornera.
+
+```python
+def schemat_Hornera(wspolczynniki, z):
+    p = wspolczynniki[0]
+
+    for i in range(1, len(wspolczynniki)):
+        # print(p) # kroki
+        p = p * z + wspolczynniki[i]
+
+    return p
+```
+
+## Zadanie 2
+Napisz program obliczający wartość pierwszej i drugiej pochodnej wielomianu w punkcie.
+
+```python
+def schemat_Hornera_pochodne(wspolczynniki, z):
+    p = wspolczynniki[0]
+    dp = 0
+    ddp = 0
+
+    for i in range(1, len(wspolczynniki)):
+        ddp = ddp * z + 2 * dp
+        dp = dp * z + p
+        p = p * z + wspolczynniki[i]
+
+    return p, dp, ddp
+```
+
+## Zadanie 3
+Zaimplementuj metodę Laguerre’a służącą do znajdowania pierwiastków wielomianów (również zespolone).
+
+```python
+import cmath
+
+def schemat_Hornera_pochodne(wspolczynniki, z):
+    p = wspolczynniki[0]
+    dp = 0
+    ddp = 0
+
+    for i in range(1, len(wspolczynniki)):
+        ddp = ddp * z + 2 * dp
+        dp = dp * z + p
+        p = p * z + wspolczynniki[i]
+
+    return p, dp, ddp
+
+def metoda_laguerre_jeden_pierwiastek(wspolczynniki, z0, epsilon=1e-6, max_iteracji=100):
+    z = complex(z0) # complex to liczba zespolona
+    n = len(wspolczynniki) - 1
+
+    for k in range(max_iteracji):
+        P, P_prim, P_2prim = schemat_Hornera_pochodne(wspolczynniki, z)
+
+        if abs(P) < epsilon:
+            return z
+        
+        G = P_prim / P
+        H = G**2 - P_2prim / P
+
+        pierwiastek = cmath.sqrt((n - 1) * (n * H - G**2))
+
+        mianownik_plus = G + pierwiastek
+        mianownik_minus = G - pierwiastek
+
+        if abs(mianownik_plus) > abs(mianownik_minus):
+            mianownik = mianownik_plus
+        else:
+            mianownik = mianownik_minus
+
+        if abs(mianownik) == 0:
+            z = z + complex(epsilon, epsilon)
+            continue
+
+        a = n / mianownik
+
+        z_nowe = z - a
+
+        if abs(a) < epsilon:
+            return z_nowe
+        
+        z = z_nowe
+
+    return z
+```
+
+## Zadanie 4
+Zmodyfikuj program z poprzedniego zadania, aby wyznaczał wszystkie pierwiastki wielomianu (również zespolone).
+
+```python
+
+```
