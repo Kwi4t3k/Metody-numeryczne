@@ -83,7 +83,7 @@ def deflacja(wspolczynniki, pierwiastek):
 
     return nowe_wspolczynniki, reszta
 
-def pierwiastki_stopnia_drugiego(wspolczynniki):
+def pierwiastki_stopnia_drugiego(wspolczynniki): # Na końcu algorytmu nie opłaca się już odpalać Laguerre’a, kiedy zostanie wielomian stopnia 2
     a = wspolczynniki[0]
     b = wspolczynniki[1]
     c = wspolczynniki[2]
