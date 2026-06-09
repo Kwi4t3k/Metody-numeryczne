@@ -30471,3 +30471,997 @@ Bo:
 - suma zaczyna się od `0`,
     
 - iloczyn zaczyna się od `1`.
+
+# Gotowe funkcje w python do sprawdzania wyników
+
+Na górze programu wystarczy mieć np.:
+
+```python
+import math
+import cmath
+import random
+import numpy as np
+```
+
+A jeśli masz dostęp do SciPy:
+
+```python
+import scipy.linalg as la
+import scipy.integrate as integrate
+import scipy.optimize as optimize
+import scipy.interpolate as interpolate
+```
+
+---
+
+# 1. `math` — zwykła matematyka rzeczywista
+
+```python
+import math
+```
+
+### Stałe
+
+```python
+math.pi
+math.e
+```
+
+Przykład:
+
+```python
+print(math.pi)
+```
+
+### Pierwiastek
+
+```python
+math.sqrt(9)
+```
+
+### Sinus, cosinus, tangens
+
+```python
+math.sin(math.pi / 2)
+math.cos(0)
+math.tan(math.pi / 4)
+```
+
+### Logarytmy
+
+```python
+math.log(math.e)      # ln(x)
+math.log10(1000)      # log10(x)
+math.log(8, 2)        # logarytm z 8 przy podstawie 2
+```
+
+### Potęga
+
+```python
+math.pow(2, 3)
+```
+
+ale zwykle prościej:
+
+```python
+2 ** 3
+```
+
+### Silnia
+
+```python
+math.factorial(5)
+```
+
+### Zaokrąglenia
+
+```python
+math.floor(3.9)   # w dół
+math.ceil(3.1)    # w górę
+round(3.14159, 2)
+```
+
+---
+
+# 2. `cmath` — liczby zespolone
+
+```python
+import cmath
+```
+
+Używaj, gdy mogą wyjść pierwiastki zespolone.
+
+### Pierwiastek z liczby ujemnej
+
+```python
+cmath.sqrt(-4)
+```
+
+Wynik:
+
+```python
+2j
+```
+
+### Delta dla równania kwadratowego
+
+```python
+a = 1
+b = 0
+c = 4
+
+delta = b**2 - 4*a*c
+
+x1 = (-b + cmath.sqrt(delta)) / (2*a)
+x2 = (-b - cmath.sqrt(delta)) / (2*a)
+
+print(x1, x2)
+```
+
+### Część rzeczywista i urojona
+
+```python
+z = 3 + 4j
+
+print(z.real)
+print(z.imag)
+```
+
+### Moduł liczby zespolonej
+
+```python
+abs(3 + 4j)
+```
+
+---
+
+# 3. `numpy` — macierze, układy równań, wyznaczniki
+
+```python
+import numpy as np
+```
+
+## Tworzenie macierzy
+
+```python
+A = np.array([
+    [2, 1],
+    [1, 3]
+], dtype=float)
+
+b = np.array([5, 7], dtype=float)
+```
+
+---
+
+## Wyznacznik macierzy
+
+```python
+np.linalg.det(A)
+```
+
+Przykład:
+
+```python
+print(np.linalg.det(A))
+```
+
+---
+
+## Macierz odwrotna
+
+```python
+np.linalg.inv(A)
+```
+
+Przykład:
+
+```python
+print(np.linalg.inv(A))
+```
+
+---
+
+## Rozwiązywanie układu równań `Ax = b`
+
+```python
+np.linalg.solve(A, b)
+```
+
+Przykład:
+
+```python
+x = np.linalg.solve(A, b)
+print(x)
+```
+
+To jest najlepsze do szybkiego sprawdzania wyników z Gaussa, LU, Cholesky’ego itd.
+
+---
+
+## Mnożenie macierzy
+
+```python
+A @ A
+```
+
+albo:
+
+```python
+np.matmul(A, A)
+```
+
+Przykład:
+
+```python
+print(A @ A)
+```
+
+---
+
+## Mnożenie macierzy przez wektor
+
+```python
+A @ b
+```
+
+Przykład:
+
+```python
+print(A @ b)
+```
+
+---
+
+## Transpozycja
+
+```python
+A.T
+```
+
+Przykład:
+
+```python
+print(A.T)
+```
+
+---
+
+## Macierz jednostkowa
+
+```python
+np.eye(3)
+```
+
+---
+
+## Macierz zerowa
+
+```python
+np.zeros((3, 4))
+```
+
+---
+
+## Rząd macierzy
+
+```python
+np.linalg.matrix_rank(A)
+```
+
+---
+
+## Normy
+
+```python
+np.linalg.norm([3, 4])
+```
+
+Wynik:
+
+```python
+5.0
+```
+
+Norma macierzy:
+
+```python
+np.linalg.norm(A)
+```
+
+Norma wierszowa, czyli max suma po wierszach:
+
+```python
+np.linalg.norm(A, ord=np.inf)
+```
+
+Norma kolumnowa:
+
+```python
+np.linalg.norm(A, ord=1)
+```
+
+---
+
+# 4. LU, Cholesky, rozkłady
+
+## Cholesky w Numpy
+
+```python
+np.linalg.cholesky(A)
+```
+
+Przykład:
+
+```python
+A = np.array([
+    [4, 2],
+    [2, 3]
+], dtype=float)
+
+L = np.linalg.cholesky(A)
+print(L)
+print(L @ L.T)
+```
+
+---
+
+## LU w SciPy
+
+Numpy nie ma prostego `lu`, ale SciPy ma:
+
+```python
+import scipy.linalg as la
+```
+
+```python
+P, L, U = la.lu(A)
+```
+
+Przykład:
+
+```python
+P, L, U = la.lu(A)
+print(P)
+print(L)
+print(U)
+print(P @ L @ U)
+```
+
+---
+
+# 5. Wartości własne i wektory własne
+
+```python
+np.linalg.eig(A)
+```
+
+Przykład:
+
+```python
+wartosci, wektory = np.linalg.eig(A)
+
+print(wartosci)
+print(wektory)
+```
+
+Same wartości własne:
+
+```python
+np.linalg.eigvals(A)
+```
+
+---
+
+# 6. Wielomiany
+
+W Numpy współczynniki wielomianu zwykle zapisuje się **od najwyższej potęgi**.
+
+Czyli:
+
+$$  
+x^2 - 4  
+$$
+
+to:
+
+```python
+[1, 0, -4]
+```
+
+---
+
+## Wartość wielomianu
+
+```python
+np.polyval([1, 0, -4], 2)
+```
+
+Czyli liczy:
+
+$$  
+2^2 - 4  
+$$
+
+---
+
+## Pierwiastki wielomianu
+
+```python
+np.roots([1, 0, -4])
+```
+
+Przykład:
+
+```python
+print(np.roots([1, 0, -4]))
+```
+
+Wynik:
+
+```python
+[-2.  2.]
+```
+
+Dla zespolonych:
+
+```python
+print(np.roots([1, 0, 4]))
+```
+
+Wynik:
+
+```python
+[0.+2.j 0.-2.j]
+```
+
+---
+
+## Pochodna wielomianu
+
+```python
+np.polyder([1, 0, -4])
+```
+
+Dla:
+
+$$  
+x^2 - 4  
+$$
+
+wynik to:
+
+```python
+[2, 0]
+```
+
+czyli:
+
+$$  
+2x  
+$$
+
+---
+
+## Całka wielomianu
+
+```python
+np.polyint([1, 0, -4])
+```
+
+---
+
+## Dopasowanie wielomianu do punktów
+
+```python
+np.polyfit(x, y, stopien)
+```
+
+Przykład dla aproksymacji liniowej:
+
+```python
+x = np.array([1.1, 1.4, 1.8, 2.5, 2.8, 3.0])
+y = np.array([2.1, 2.3, 2.9, 3.2, 3.6, 4.2])
+
+wsp = np.polyfit(x, y, 1)
+
+print(wsp)
+```
+
+Uwaga: `np.polyfit` zwraca współczynniki od najwyższej potęgi.
+
+Dla prostej:
+
+$$  
+y = ax + b  
+$$
+
+wynik to:
+
+```python
+[a, b]
+```
+
+---
+
+## Aproksymacja wielomianem 2 stopnia
+
+```python
+x = np.array([0, 0.5, 1, 1.5, 2])
+y = np.array([2, 2.48, 2.84, 3, 2.91])
+
+wsp = np.polyfit(x, y, 2)
+
+print(wsp)
+```
+
+Wynik jest w kolejności:
+
+```python
+[a2, a1, a0]
+```
+
+czyli:
+
+$$  
+a_2x^2+a_1x+a_0  
+$$
+
+---
+
+# 7. Interpolacja
+
+## Interpolacja wielomianowa w Numpy
+
+```python
+np.polyfit(x, y, stopien)
+```
+
+Jeśli masz 3 punkty i dasz stopień 2, dostajesz wielomian interpolacyjny.
+
+Przykład:
+
+```python
+x = np.array([1, 2, 3])
+y = np.array([4, 10, 20])
+
+wsp = np.polyfit(x, y, 2)
+
+print(wsp)
+print(np.polyval(wsp, 2.5))
+```
+
+---
+
+## Interpolacja liniowa
+
+```python
+np.interp(x_szukane, x_wezly, y_wezly)
+```
+
+Przykład:
+
+```python
+x = [1, 2, 3]
+y = [4, 10, 20]
+
+print(np.interp(2.5, x, y))
+```
+
+---
+
+## Interpolacja w SciPy
+
+```python
+from scipy.interpolate import lagrange
+```
+
+```python
+wielomian = lagrange(x, y)
+print(wielomian)
+print(wielomian(2.5))
+```
+
+Przykład:
+
+```python
+from scipy.interpolate import lagrange
+
+x = np.array([1, 2, 3])
+y = np.array([4, 10, 20])
+
+p = lagrange(x, y)
+
+print(p)
+print(p(2.5))
+```
+
+---
+
+# 8. Różniczkowanie numeryczne
+
+Numpy nie ma jednej idealnej funkcji do pochodnej zwykłej funkcji, ale możesz szybko sprawdzić przez wzór centralny:
+
+```python
+(f(x + h) - f(x - h)) / (2*h)
+```
+
+Przykład:
+
+```python
+f = lambda x: x**2
+x = 2
+h = 1e-5
+
+print((f(x + h) - f(x - h)) / (2*h))
+```
+
+Wynik powinien być około:
+
+```python
+4
+```
+
+---
+
+## Pochodna z wielomianu przez Numpy
+
+```python
+p = np.poly1d([1, 0, -4])
+dp = np.polyder(p)
+
+print(dp)
+print(dp(2))
+```
+
+Dla:
+
+$$  
+x^2-4  
+$$
+
+pochodna to:
+
+$$  
+2x  
+$$
+
+więc dla `x=2` wyjdzie `4`.
+
+---
+
+# 9. Całkowanie numeryczne
+
+## SciPy — dokładne szybkie sprawdzanie całki
+
+```python
+import scipy.integrate as integrate
+```
+
+```python
+integrate.quad(f, a, b)
+```
+
+Przykład:
+
+```python
+f = lambda x: x**2
+
+wynik, blad = integrate.quad(f, 0, 1)
+
+print(wynik)
+print(blad)
+```
+
+Wynik:
+
+```python
+0.3333333333333333
+```
+
+---
+
+## Całka z cos(x)
+
+```python
+wynik, blad = integrate.quad(lambda x: math.cos(x), 0, math.pi / 2)
+print(wynik)
+```
+
+---
+
+## Całka z 1/x od e do e^2
+
+```python
+wynik, blad = integrate.quad(lambda x: 1/x, math.e, math.e**2)
+print(wynik)
+```
+
+---
+
+## Całka podwójna
+
+```python
+integrate.dblquad(f, ax, bx, gy, hy)
+```
+
+Uwaga: w SciPy funkcja dla `dblquad` ma argumenty w kolejności:
+
+```python
+f(y, x)
+```
+
+Przykład:
+
+```python
+wynik, blad = integrate.dblquad(
+    lambda y, x: math.cos(x) + y + 1,
+    0,
+    2,
+    lambda x: -math.pi,
+    lambda x: math.pi
+)
+
+print(wynik)
+```
+
+---
+
+# 10. Równania nieliniowe
+
+## SciPy — bisekcja
+
+```python
+import scipy.optimize as optimize
+```
+
+```python
+optimize.bisect(f, a, b)
+```
+
+Przykład:
+
+```python
+f = lambda x: x**2 - 4
+
+print(optimize.bisect(f, 0, 2.2))
+```
+
+---
+
+## Newton
+
+```python
+optimize.newton(f, x0, fprime=df)
+```
+
+Przykład:
+
+```python
+f = lambda x: x**2 - 4
+df = lambda x: 2*x
+
+print(optimize.newton(f, 2.2, fprime=df))
+```
+
+---
+
+## Sieczne
+
+Jeśli nie podasz pochodnej, `newton` działa jak metoda siecznych:
+
+```python
+print(optimize.newton(lambda x: x**2 - 4, 2.2))
+```
+
+Możesz też podać dwa starty:
+
+```python
+print(optimize.newton(lambda x: x**2 - 4, x0=1, x1=2.2))
+```
+
+---
+
+## Dowolne równanie z przedziału
+
+```python
+optimize.root_scalar(f, bracket=[a, b], method="bisect")
+```
+
+Przykład:
+
+```python
+wynik = optimize.root_scalar(lambda x: x**2 - 4, bracket=[0, 2.2], method="bisect")
+print(wynik.root)
+```
+
+Metody:
+
+```python
+"bisect"
+"brentq"
+"secant"
+"newton"
+```
+
+---
+
+# 11. Losowanie i Monte Carlo
+
+## `random`
+
+```python
+import random
+```
+
+### Losowa liczba z `[0, 1)`
+
+```python
+random.random()
+```
+
+### Losowa liczba z przedziału `[a, b]`
+
+```python
+random.uniform(0, 1)
+```
+
+### Losowa liczba całkowita
+
+```python
+random.randint(1, 10)
+```
+
+---
+
+## Numpy random
+
+```python
+np.random.random()
+```
+
+Losowe liczby:
+
+```python
+np.random.uniform(0, 1, size=10)
+```
+
+Losowa macierz:
+
+```python
+np.random.uniform(0, 1, size=(3, 3))
+```
+
+---
+
+## Monte Carlo na szybko
+
+Całka:
+
+$$  
+\int_0^1 x^2 dx  
+$$
+
+```python
+N = 100000
+x = np.random.uniform(0, 1, N)
+wynik = (1 - 0) * np.mean(x**2)
+
+print(wynik)
+```
+
+---
+
+## Monte Carlo dla `1/x` od `e` do `e^2`
+
+```python
+N = 100000
+x = np.random.uniform(math.e, math.e**2, N)
+wynik = (math.e**2 - math.e) * np.mean(1/x)
+
+print(wynik)
+```
+
+---
+
+## Monte Carlo 2D
+
+```python
+N = 100000
+
+x = np.random.uniform(0, 2, N)
+y = np.random.uniform(-math.pi, math.pi, N)
+
+wartosci = np.cos(x) + y + 1
+
+pole = (2 - 0) * (math.pi - (-math.pi))
+
+wynik = pole * np.mean(wartosci)
+
+print(wynik)
+```
+
+---
+
+# 12. Akceptacja i odrzucenie
+
+## Objętość kuli jednostkowej
+
+```python
+N = 200000
+
+x = np.random.uniform(-1, 1, N)
+y = np.random.uniform(-1, 1, N)
+z = np.random.uniform(-1, 1, N)
+
+trafione = x**2 + y**2 + z**2 <= 1
+
+objetosc = 8 * np.mean(trafione)
+
+print(objetosc)
+```
+
+---
+
+## Część wspólna sześcianu i kuli, `r = 2`, `bok = 3`
+
+```python
+N = 200000
+
+r = 2
+bok = 3
+p = bok / 2
+
+x = np.random.uniform(-p, p, N)
+y = np.random.uniform(-p, p, N)
+z = np.random.uniform(-p, p, N)
+
+trafione = x**2 + y**2 + z**2 <= r**2
+
+objetosc = bok**3 * np.mean(trafione)
+
+print(objetosc)
+```
+
+---
+
+# 13. Szybka ściąga — co do czego
+
+|Chcesz sprawdzić|Gotowa funkcja|
+|---|---|
+|wyznacznik|`np.linalg.det(A)`|
+|macierz odwrotna|`np.linalg.inv(A)`|
+|układ równań|`np.linalg.solve(A, b)`|
+|rząd macierzy|`np.linalg.matrix_rank(A)`|
+|norma|`np.linalg.norm(A)`|
+|Cholesky|`np.linalg.cholesky(A)`|
+|LU|`scipy.linalg.lu(A)`|
+|pierwiastki wielomianu|`np.roots(wsp)`|
+|wartość wielomianu|`np.polyval(wsp, x)`|
+|pochodna wielomianu|`np.polyder(wsp)`|
+|aproksymacja wielomianowa|`np.polyfit(x, y, stopien)`|
+|interpolacja liniowa|`np.interp(x, xp, yp)`|
+|interpolacja Lagrange’a|`scipy.interpolate.lagrange(x, y)`|
+|całka 1D|`scipy.integrate.quad(f, a, b)`|
+|całka 2D|`scipy.integrate.dblquad(...)`|
+|bisekcja|`scipy.optimize.bisect(f, a, b)`|
+|Newton|`scipy.optimize.newton(f, x0, fprime=df)`|
+|sieczne|`scipy.optimize.newton(f, x0, x1=x1)`|
+|liczby zespolone|`cmath.sqrt(...)`|
+|losowanie|`random.uniform(a, b)` albo `np.random.uniform(a, b, N)`|
+
+---
+
+Najważniejsze importy na kolos:
+
+```python
+import math
+import cmath
+import random
+import numpy as np
+
+import scipy.linalg as la
+import scipy.integrate as integrate
+import scipy.optimize as optimize
+import scipy.interpolate as interpolate
+```
